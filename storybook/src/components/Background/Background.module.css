@@ -1,0 +1,29 @@
+.bgWrapper {
+  position: relative;
+}
+
+.blob1,
+.blob2 {
+  position: absolute;
+  border-radius: var(--radius-full);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.blob1 {
+  width: 520px;
+  height: 520px;
+  background: var(--color-blob-1);
+  filter: blur(120px);
+  top: -140px;
+  right: -120px;
+}
+
+.blob2 {
+  width: 400px;
+  height: 400px;
+  background: var(--color-blob-2);
+  filter: blur(100px);
+  bottom: -100px;
+  left: -80px;
+}

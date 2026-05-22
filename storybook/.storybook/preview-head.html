@@ -1,0 +1,62 @@
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  /* ── Base background ───────────────────────────────── */
+  html, body {
+    background-color: var(--color-bg-default) !important;
+    min-height: 100vh;
+  }
+
+  /* ── Blob layer — dark (default) ───────────────────── */
+  body::before,
+  body::after {
+    content: '';
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::before {
+    width: 700px;
+    height: 700px;
+    top: -200px;
+    left: -180px;
+    background: radial-gradient(circle, var(--color-blob-1), transparent 68%);
+    filter: blur(20px);
+  }
+
+  body::after {
+    width: 480px;
+    height: 480px;
+    bottom: -120px;
+    right: -80px;
+    background: radial-gradient(circle, var(--color-blob-2), transparent 68%);
+    filter: blur(16px);
+  }
+
+  /* ── Story root above blobs ────────────────────────── */
+  #storybook-root {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    background: transparent;
+  }
+
+  /* ── Remove all Storybook wrapper backgrounds ──────── */
+  .sb-show-main,
+  .sb-main-padded,
+  .sb-main-centered,
+  .sb-main-fullscreen,
+  .innerZoomElementWrapper,
+  .innerZoomElementWrapper > div,
+  [class*="sbdocs"],
+  [class*="sb-story"],
+  [class*="story-wrapper"],
+  [class*="docs-story"] {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+</style>

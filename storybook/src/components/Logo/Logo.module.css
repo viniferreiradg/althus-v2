@@ -1,0 +1,45 @@
+.logo {
+  color: var(--color-text-primary);
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ── HTML standalone — mask-image ─────────────── */
+.logoDefault,
+.logoSymbol {
+  display: inline-block;
+  background-color: currentColor;
+  color: var(--color-text-primary);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center left;
+  mask-position: center left;
+  -webkit-mask-mode: alpha;
+  mask-mode: alpha;
+}
+
+.logoDefault {
+  -webkit-mask-image: url('./logo-default.svg');
+  mask-image: url('./logo-default.svg');
+  aspect-ratio: 1075.75 / 257.83;
+}
+
+.logoSymbol {
+  -webkit-mask-image: url('./logo-symbol.svg');
+  mask-image: url('./logo-symbol.svg');
+  aspect-ratio: 1 / 1;
+}
+
+/* Tamanhos — logoDefault */
+.logoDefault.logoSm { width: 80px; }
+.logoDefault.logoMd { width: 160px; }
+.logoDefault.logoLg { width: 240px; }
+.logoDefault.logoXl { width: 360px; }
+
+/* Tamanhos — logoSymbol */
+.logoSymbol.logoSm { width: 24px; height: 24px; }
+.logoSymbol.logoMd { width: 32px; height: 32px; }
+.logoSymbol.logoLg { width: 48px; height: 48px; }
+.logoSymbol.logoXl { width: 64px; height: 64px; }

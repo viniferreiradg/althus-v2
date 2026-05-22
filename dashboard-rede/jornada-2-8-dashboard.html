@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/MetricCard/MetricCard.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/LineChart/LineChart.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/DonutChart/DonutChart.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background: var(--color-bg-default);
+      color: var(--color-text-primary);
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Main ── */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    /* ── Page header ── */
+    .pageHeader {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: calc(var(--spacing-lg) + var(--spacing-xs)) var(--spacing-xl) 0;
+      flex-shrink: 0;
+    }
+    .pageTitle {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: var(--font-size-xl);
+      font-weight: var(--font-weight-semibold);
+      color: var(--color-text-primary);
+      line-height: var(--line-height-tight);
+    }
+    .pageSubtitle {
+      margin: var(--spacing-xs) 0 0;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-tertiary);
+    }
+
+    /* ── Period filter ── */
+    .periodSelect { position: relative; z-index: 200; }
+    .periodTrigger {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-muted);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: border-color var(--transition-fast);
+    }
+    .periodTrigger:hover { border-color: var(--color-border-default); }
+    .periodSelect.open .periodTrigger { border-color: var(--color-border-focus); }
+    .periodMenu {
+      position: absolute;
+      top: calc(100% + var(--spacing-xs));
+      right: 0;
+      min-width: var(--spacing-7xl);
+      background: var(--color-bg-surface);
+      border: 1px solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      box-shadow: var(--shadow-md);
+      z-index: 100;
+      display: none;
+    }
+    .periodSelect.open .periodMenu { display: block; }
+    .periodOption {
+      padding: var(--spacing-sm) var(--spacing-md);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      transition: background var(--transition-fast);
+    }
+    .periodOption:hover { background: var(--color-bg-subtle); }
+    .periodOption.selected {
+      background: var(--color-bg-brand);
+      color: var(--color-text-brand);
+      font-weight: var(--font-weight-medium);
+    }
+
+    /* ── Scrollable content ── */
+    .pageContent {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-lg);
+    }
+    .pageContent::-webkit-scrollbar { width: var(--spacing-xs); }
+    .pageContent::-webkit-scrollbar-track { background: transparent; }
+    .pageContent::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-xs); }
+
+    /* ── KPI grid ── */
+    .metricsGrid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--spacing-md);
+    }
+
+    /* MetricCard needs flex (overrides .root from last linked chart CSS) */
+    .metricsGrid .root {
+      display: flex;
+      flex-direction: column;
+      gap: var(--spacing-xs);
+    }
+
+    /* ── Charts row ── */
+    .chartsRow {
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: var(--spacing-md);
+    }
+    .chartsRow .root {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Sidebar closed: hide labels ── */
+    .closed .navLabel,
+    .closed .navLabelLogout,
+    .closed .userInfo { display: none; }
+    .closed .toggleIcon-left  { display: none; }
+    .closed .toggleIcon-right { display: inline-flex; }
+
+    .toggleIcon-right { display: none; }
+
+    .pageContent { position: relative; z-index: 1; }
+
+    /* ── Logo ── */
+    .logo-img { display: block; filter: brightness(0) invert(1); }
+    [data-theme="light"] .logo-img { filter: none; }
+    .logo-symbol { display: none; }
+    .closed .logo-full   { display: none; }
+    .closed .logo-symbol { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ── Sidebar ── -->
+<aside class="sidebar open" id="sidebar">
+  <button class="toggleBtn" id="toggle-btn" aria-label="Recolher menu">
+    <i data-lucide="chevron-left" class="toggleIcon-left" width="14" height="14"></i>
+    <i data-lucide="chevron-right" class="toggleIcon-right" width="14" height="14"></i>
+  </button>
+
+  <div class="logoRow">
+    <div class="logoWrap">
+      <img class="logo-img logo-full"
+           src="../storybook/src/components/Logo/logo-default.svg"
+           width="120" alt="Althus" />
+      <img class="logo-img logo-symbol"
+           src="../storybook/src/components/Logo/logo-symbol.svg"
+           width="28" alt="Althus" />
+    </div>
+  </div>
+
+  <div class="body">
+    <nav class="navList">
+      <button class="navItem navItemActive">
+        <span class="navIcon"><i data-lucide="layout-dashboard" width="18" height="18"></i></span>
+        <span class="navLabel">Dashboard</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="map-pin" width="18" height="18"></i></span>
+        <span class="navLabel">Locais</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="zap" width="18" height="18"></i></span>
+        <span class="navLabel">Carregadores</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="receipt" width="18" height="18"></i></span>
+        <span class="navLabel">Tarifas</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="tag" width="18" height="18"></i></span>
+        <span class="navLabel">Cupons</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="file-text" width="18" height="18"></i></span>
+        <span class="navLabel">Extrato</span>
+      </button>
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="triangle-alert" width="18" height="18"></i></span>
+        <span class="navLabel">Logs de Erros</span>
+      </button>
+    </nav>
+
+    <div class="spacer"></div>
+
+    <div class="bottomList">
+      <div class="separator"></div>
+      <div class="userRow">
+        <div class="avatar md">
+          <span class="avatarInitials">AR</span>
+        </div>
+        <div class="userInfo">
+          <div class="userName">Admin Rede</div>
+          <div class="userEmail">admin@rededemo.com.br</div>
+        </div>
+      </div>
+      <button class="navItem" id="theme-btn" title="Modo claro">
+        <span class="navIcon" id="theme-icon">
+          <i data-lucide="sun" width="18" height="18"></i>
+        </span>
+        <span class="navLabel" id="theme-label">Modo claro</span>
+      </button>
+
+      <button class="navItem">
+        <span class="navIcon"><i data-lucide="log-out" width="18" height="18"></i></span>
+        <span class="navLabelLogout">Sair</span>
+      </button>
+    </div>
+  </div>
+</aside>
+
+<!-- ── Main ── -->
+<main class="main bgWrapper">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+  <div class="pageHeader">
+    <div>
+      <h1 class="pageTitle">Dashboard</h1>
+      <p class="pageSubtitle">Visão geral da rede credenciada</p>
+    </div>
+
+    <div class="periodSelect" id="period-select">
+      <button class="periodTrigger" id="period-trigger">
+        <i data-lucide="calendar" width="14" height="14"></i>
+        <span id="period-label">Últimos 30 dias</span>
+        <i data-lucide="chevron-down" width="14" height="14"></i>
+      </button>
+      <div class="periodMenu">
+        <div class="periodOption" data-value="7">Últimos 7 dias</div>
+        <div class="periodOption selected" data-value="30">Últimos 30 dias</div>
+        <div class="periodOption" data-value="90">Últimos 3 meses</div>
+        <div class="periodOption" data-value="365">Último ano</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pageContent">
+    <!-- KPI Cards -->
+    <div class="metricsGrid">
+      <div class="root">
+        <div class="iconWrap">
+          <i data-lucide="zap" width="18" height="18"></i>
+        </div>
+        <div class="label">Total de carregadores habilitados</div>
+        <div class="value">142</div>
+        <div class="trend up">
+          <i data-lucide="trending-up" width="13" height="13"></i>
+          <span>+8 vs. período anterior</span>
+        </div>
+      </div>
+
+      <div class="root">
+        <div class="iconWrap">
+          <i data-lucide="rotate-ccw" width="18" height="18"></i>
+        </div>
+        <div class="label">Recargas no período</div>
+        <div class="value">1.847</div>
+        <div class="trend up">
+          <i data-lucide="trending-up" width="13" height="13"></i>
+          <span>+12% vs. período anterior</span>
+        </div>
+      </div>
+
+      <div class="root">
+        <div class="iconWrap">
+          <i data-lucide="circle-dollar-sign" width="18" height="18"></i>
+        </div>
+        <div class="label">Faturamento total (período)</div>
+        <div class="value">R$ 28.430</div>
+        <div class="trend down">
+          <i data-lucide="trending-down" width="13" height="13"></i>
+          <span>-3% vs. período anterior</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts -->
+    <div class="chartsRow">
+      <div class="root">
+        <div class="title">Recargas e Faturamento no período</div>
+        <div id="chart-line"></div>
+      </div>
+      <div class="root">
+        <div class="title">Status dos carregadores</div>
+        <div id="chart-donut"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+  lucide.createIcons();
+
+  /* ── Theme toggle ── */
+  const htmlEl     = document.documentElement;
+  const themeBtn   = document.getElementById('theme-btn');
+  const themeIcon  = document.getElementById('theme-icon');
+  const themeLabel = document.getElementById('theme-label');
+
+  function applyTheme(theme) {
+    htmlEl.setAttribute('data-theme', theme);
+    const isDark = theme === 'dark';
+    themeIcon.innerHTML = `<i data-lucide="${isDark ? 'sun' : 'moon'}" width="18" height="18"></i>`;
+    themeLabel.textContent = isDark ? 'Modo claro' : 'Modo escuro';
+    themeBtn.title = isDark ? 'Modo claro' : 'Modo escuro';
+    lucide.createIcons();
+    localStorage.setItem('althus-theme', theme);
+  }
+
+  /* Aplica tema salvo (ou dark por padrão) */
+  applyTheme(localStorage.getItem('althus-theme') || 'dark');
+
+  themeBtn.addEventListener('click', () => {
+    applyTheme(htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  /* ── Sidebar toggle ── */
+  const sidebar   = document.getElementById('sidebar');
+  const toggleBtn = document.getElementById('toggle-btn');
+  let open = true;
+
+  toggleBtn.addEventListener('click', () => {
+    open = !open;
+    sidebar.className = 'sidebar ' + (open ? 'open' : 'closed');
+    toggleBtn.setAttribute('aria-label', open ? 'Recolher menu' : 'Expandir menu');
+  });
+
+  /* ── Period filter ── */
+  const periodSelect  = document.getElementById('period-select');
+  const periodTrigger = document.getElementById('period-trigger');
+  const periodLabel   = document.getElementById('period-label');
+
+  periodTrigger.addEventListener('click', (e) => {
+    e.stopPropagation();
+    periodSelect.classList.toggle('open');
+  });
+  document.addEventListener('click', () => periodSelect.classList.remove('open'));
+  document.querySelectorAll('.periodOption').forEach(opt => {
+    opt.addEventListener('click', () => {
+      document.querySelectorAll('.periodOption').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      periodLabel.textContent = opt.textContent;
+      periodSelect.classList.remove('open');
+    });
+  });
+
+  /* ── Token helper ── */
+  const css = (token) => getComputedStyle(document.documentElement).getPropertyValue(token).trim();
+
+  /* ── Charts base config ── */
+  const mode = htmlEl.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+  const base = {
+    chart: {
+      background: 'transparent',
+      fontFamily: css('--font-body') + ', system-ui, sans-serif',
+      toolbar: { show: false },
+      animations: { enabled: true, speed: 400 },
+    },
+    theme: { mode },
+    tooltip: { theme: mode },
+  };
+
+  /* Line chart */
+  new ApexCharts(document.getElementById('chart-line'), {
+    ...base,
+    chart: { ...base.chart, type: 'line', height: 264 },
+    stroke: { curve: 'smooth', width: [2, 2] },
+    colors: [css('--color-text-brand'), css('--color-text-link')],
+    series: [
+      { name: 'Recargas',        data: [42, 58, 45, 73, 61, 88, 94, 77] },
+      { name: 'Faturamento (R$)', data: [820, 1140, 880, 1430, 1200, 1720, 1840, 1510] },
+    ],
+    xaxis: {
+      categories: ['01/05','05/05','09/05','13/05','17/05','21/05','25/05','29/05'],
+      axisBorder: { show: false },
+      axisTicks:  { show: false },
+      labels: { style: { colors: css('--color-text-tertiary'), fontSize: '11px' } },
+    },
+    yaxis: [
+      {
+        title: { text: 'Recargas', style: { color: css('--color-text-brand'), fontSize: '11px' } },
+        labels: { style: { colors: css('--color-text-tertiary'), fontSize: '11px' } },
+      },
+      {
+        opposite: true,
+        title: { text: 'Faturamento (R$)', style: { color: css('--color-text-link'), fontSize: '11px' } },
+        labels: {
+          style: { colors: css('--color-text-tertiary'), fontSize: '11px' },
+          formatter: v => 'R$ ' + v.toLocaleString('pt-BR'),
+        },
+      },
+    ],
+    grid: { borderColor: css('--color-border-subtle'), strokeDashArray: 4 },
+    legend: { labels: { colors: css('--color-text-tertiary') }, fontSize: '12px' },
+    markers: { size: 0 },
+    tooltip: {
+      theme: mode,
+      y: [
+        { formatter: v => v + ' recargas' },
+        { formatter: v => 'R$ ' + v.toLocaleString('pt-BR') },
+      ],
+    },
+  }).render();
+
+  /* Donut chart */
+  new ApexCharts(document.getElementById('chart-donut'), {
+    ...base,
+    chart: { ...base.chart, type: 'donut', height: 264 },
+    colors: [
+      css('--color-status-success-fg'),
+      css('--color-status-disabled-fg'),
+      css('--color-status-warning-fg'),
+      css('--color-status-info-fg'),
+    ],
+    series: [98, 24, 12, 8],
+    labels: ['Ativo', 'Inativo', 'Em manutenção', 'Instalando'],
+    dataLabels: { enabled: false },
+    legend: { position: 'bottom', labels: { colors: css('--color-text-tertiary') }, fontSize: '12px' },
+    plotOptions: {
+      pie: {
+        donut: {
+          size: '68%',
+          labels: {
+            show: true,
+            total: {
+              show: true,
+              label: 'Total',
+              color: css('--color-text-tertiary'),
+              fontSize: '12px',
+              fontWeight: 500,
+              formatter: w => w.globals.seriesTotals.reduce((a, b) => a + b, 0),
+            },
+            value: { color: css('--color-text-primary'), fontSize: '22px', fontWeight: 600 },
+          },
+        },
+      },
+    },
+    stroke: { width: 0 },
+  }).render();
+</script>
+
+</body>
+</html>

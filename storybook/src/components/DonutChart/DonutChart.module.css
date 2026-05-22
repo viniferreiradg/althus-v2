@@ -1,0 +1,15 @@
+.root {
+  background: var(--color-glass-surface);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-lg);
+}
+
+.title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-md);
+}

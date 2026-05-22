@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system — fonte única de verdade -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Logo/Logo.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/AuthCard/AuthCard.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Feedback/Feedback.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      color: var(--color-text-primary);
+      background-color: var(--color-bg-default);
+      -webkit-font-smoothing: antialiased;
+    }
+    .forgot-link {
+      display: block;
+      text-align: right;
+      font-size: var(--font-size-sm);
+      color: var(--color-text-brand);
+      text-decoration: none;
+      margin-top: calc(var(--spacing-xs) * -1);
+    }
+    .forgot-link:hover { text-decoration: underline; }
+    .hidden { display: none !important; }
+    .logo-img { display: block; filter: brightness(0) invert(1); }
+  </style>
+</head>
+<body>
+
+<div class="page">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <div class="card">
+
+    <!-- Logo -->
+    <div class="logoWrap">
+      <img class="logo-img" src="../storybook/src/components/Logo/logo-default.svg" width="160" alt="Althus" />
+    </div>
+
+    <!-- Header -->
+    <div class="header">
+      <h1 class="title">Bem-vindo de volta</h1>
+      <p class="description">Acesse o painel da sua rede de eletropostos.</p>
+    </div>
+
+    <!-- Form -->
+    <form class="body" id="form-login" novalidate>
+
+      <!-- Feedback de erro global -->
+      <div class="alert error hidden" id="feedback-error" role="alert">
+        <i data-lucide="circle-alert" class="icon" width="16" height="16"></i>
+        <span class="message">E-mail ou senha incorretos. Tente novamente.</span>
+      </div>
+
+      <!-- E-mail -->
+      <div class="wrapper hasLeft" id="wrap-email">
+        <label class="label" for="email">E-mail</label>
+        <div class="inputWrap">
+          <span class="iconLeft">
+            <i data-lucide="mail" width="16" height="16"></i>
+          </span>
+          <input class="input" id="email" type="email" placeholder="seu@email.com" autocomplete="email" />
+        </div>
+        <span class="errorText hidden" id="error-email">
+          <i data-lucide="circle-x" class="msgIcon" width="14" height="14"></i>
+          Informe um e-mail válido.
+        </span>
+      </div>
+
+      <!-- Senha -->
+      <div class="wrapper" id="wrap-senha">
+        <label class="label" for="senha">Senha</label>
+        <div class="inputWrap hasRight">
+          <input class="input" type="password" id="senha" placeholder="••••••••" autocomplete="current-password" />
+          <button type="button" class="iconRightBtn" id="toggle-senha" aria-label="Mostrar senha">
+            <i data-lucide="eye" width="16" height="16"></i>
+            <i data-lucide="eye-off" width="16" height="16" class="hidden"></i>
+          </button>
+        </div>
+        <span class="errorText hidden" id="error-senha">
+          <i data-lucide="circle-x" class="msgIcon" width="14" height="14"></i>
+          Informe sua senha.
+        </span>
+      </div>
+
+      <!-- Esqueci minha senha -->
+      <a href="#" class="forgot-link" id="link-esqueci">Esqueci minha senha</a>
+
+      <!-- Submit -->
+      <button type="submit" class="btn primary" id="btn-submit" style="width: 100%;">
+        Entrar
+      </button>
+
+    </form>
+  </div>
+</div>
+
+<script>
+  lucide.createIcons();
+
+  /* Toggle mostrar/ocultar senha */
+  const senhaInput = document.getElementById('senha');
+  const toggleBtn  = document.getElementById('toggle-senha');
+  toggleBtn.addEventListener('click', () => {
+    const showing = senhaInput.type === 'text';
+    senhaInput.type = showing ? 'password' : 'text';
+    const [iconEye, iconEyeOff] = toggleBtn.querySelectorAll('svg');
+    iconEye.classList.toggle('hidden', !showing);
+    iconEyeOff.classList.toggle('hidden', showing);
+    toggleBtn.setAttribute('aria-label', showing ? 'Mostrar senha' : 'Ocultar senha');
+  });
+
+  /* Validação e submit */
+  document.getElementById('form-login').addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const email   = document.getElementById('email').value.trim();
+    const senha   = document.getElementById('senha').value;
+    const errEmail  = document.getElementById('error-email');
+    const errSenha  = document.getElementById('error-senha');
+    const feedback  = document.getElementById('feedback-error');
+    const wrapEmail = document.getElementById('wrap-email');
+
+    errEmail.classList.add('hidden');
+    errSenha.classList.add('hidden');
+    feedback.classList.add('hidden');
+    wrapEmail.classList.remove('error');
+
+    let valid = true;
+
+    const emailValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    if (!emailValido) {
+      errEmail.classList.remove('hidden');
+      wrapEmail.classList.add('error');
+      valid = false;
+    }
+    if (!senha) {
+      errSenha.classList.remove('hidden');
+      valid = false;
+    }
+
+    if (valid) {
+      const btn = document.getElementById('btn-submit');
+      btn.disabled = true;
+      btn.textContent = 'Entrando…';
+      /* Simula autenticação — redireciona para dashboard */
+      setTimeout(() => { window.location.href = 'dashboard.html'; }, 1200);
+    }
+  });
+</script>
+
+</body>
+</html>
