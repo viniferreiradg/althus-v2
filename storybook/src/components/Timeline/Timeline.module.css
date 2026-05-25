@@ -1,0 +1,86 @@
+/* ── Timeline — linha do tempo vertical com estados ───────────────────────────
+ *
+ * Estados de cada item: .tlDone · .tlActive · .tlPending
+ *
+ * Estrutura HTML:
+ *
+ *   <div class="timeline">
+ *     <div class="tlItem tlDone">
+ *       <div class="tlVis">
+ *         <div class="tlDot"></div>
+ *         <div class="tlConnector"></div>
+ *       </div>
+ *       <div class="tlContent">
+ *         <div class="tlLabel">Reserva confirmada</div>
+ *         <div class="tlTime">25/05/2026 às 09:30</div>
+ *       </div>
+ *     </div>
+ *     <!-- mais itens... -->
+ *   </div>
+ *
+ * Nota: o conector do último item é ocultado automaticamente via
+ *   .tlItem:last-child .tlConnector { display: none }
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Container ───────────────────────────────────────────────────────────────── */
+.timeline { display: flex; flex-direction: column; }
+.tlItem   { display: flex; gap: var(--spacing-md); }
+
+/* ── Coluna visual (ponto + conector) ────────────────────────────────────────── */
+.tlVis {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: 14px;
+}
+.tlDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: var(--spacing-2xs);
+}
+.tlConnector {
+  width: var(--border-width-medium);
+  flex: 1;
+  min-height: 18px;
+  margin: var(--spacing-xs) 0;
+}
+.tlItem:last-child .tlConnector { display: none; }
+
+/* ── Estado: concluído ───────────────────────────────────────────────────────── */
+.tlDone .tlDot       { background: var(--color-status-success-fg); }
+.tlDone .tlConnector { background: var(--color-status-success-fg); opacity: var(--opacity-25); }
+
+/* ── Estado: em andamento ────────────────────────────────────────────────────── */
+.tlActive .tlDot {
+  background: var(--color-status-warning-fg);
+  box-shadow: 0 0 0 3px var(--color-status-warning-bg);
+}
+.tlActive .tlConnector { background: var(--color-border-subtle); }
+
+/* ── Estado: pendente ────────────────────────────────────────────────────────── */
+.tlPending .tlDot {
+  background: var(--color-border-muted);
+  border: var(--border-width-medium) solid var(--color-border-subtle);
+  box-sizing: border-box;
+}
+.tlPending .tlConnector { background: var(--color-border-subtle); opacity: 0.4; }
+
+/* ── Conteúdo textual ────────────────────────────────────────────────────────── */
+.tlContent { flex: 1; padding-bottom: var(--spacing-md); }
+.tlItem:last-child .tlContent { padding-bottom: 0; }
+
+.tlLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+.tlPending .tlLabel { color: var(--color-text-tertiary); }
+
+.tlTime {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-2xs);
+}

@@ -206,6 +206,28 @@
     }
     .screen-btn.active .screen-file { color: rgba(255, 255, 255, 0.45); }
 
+    .sidebar-toolbar {
+      padding: 8px 10px;
+      border-bottom: 1px solid #1a1a1a;
+      flex-shrink: 0;
+    }
+    .expand-all-btn {
+      width: 100%;
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: #555;
+      background: none;
+      border: 1px solid #222;
+      border-radius: 4px;
+      padding: 5px 8px;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: center;
+      transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+    }
+    .expand-all-btn:hover { color: #aaa; border-color: #333; background: #161616; }
+
     .sidebar-footer {
       padding: 12px 16px;
       border-top: 1px solid #1a1a1a;
@@ -291,6 +313,10 @@
       </button>
     </div>
 
+    <div class="sidebar-toolbar">
+      <button class="expand-all-btn" id="expand-all-btn">Expandir todos</button>
+    </div>
+
     <nav class="sidebar-list" id="screen-list"></nav>
 
     <div class="sidebar-footer">Navegação de protótipo</div>
@@ -350,7 +376,9 @@
       {
         label: 'RF204 — Gestão de Tarifas',
         screens: [
-          { label: 'Tarifas – Jornada 2.2',             file: 'jornada-2-2-tarifas.html' },
+          { label: 'Opções de Tarifas – Jornada 2.2.1',             file: 'jornada-2-2-1-opcoes-de-tarifas.html' },
+          { label: 'Tarifas Personalizadas – Jornada 2.2.2',        file: 'jornada-2-2-2-tarifas-personalizadas.html' },
+          { label: 'Nova Tarifa Personalizada – Jornada 2.3',        file: 'jornada-2-3-nova-tarifa-personalizada.html' },
         ],
       },
       {
@@ -375,23 +403,69 @@
           { label: 'Logs de Erros – Jornada 2.5.1',              file: 'jornada-2-5-1-logs-de-erros.html' },
         ],
       },
+      {
+        label: 'RF208 — Gestão de Usuários',
+        screens: [
+          { label: 'Lista de Usuários – Jornada 2.6.1',      file: 'jornada-2-6-1-lista-usuarios.html' },
+          { label: 'Novo Usuário – Jornada 2.6.2',           file: 'jornada-2-6-2-novo-usuario.html' },
+          { label: 'Alterar Usuário – Jornada 2.6.3',        file: 'jornada-2-6-3-alterar-usuario.html' },
+          { label: 'Gestão de Perfis – Jornada 2.6.4',       file: 'jornada-2-6-4-gestao-de-perfis.html' },
+          { label: 'Novo Perfil – Jornada 2.6.5',            file: 'jornada-2-6-5-novo-perfil.html' },
+          { label: 'Perfil – Jornada 2.6.6',                 file: 'jornada-2-6-6-perfil.html' },
+          { label: 'Permissões – Jornada 2.6.7',             file: 'jornada-2-6-7-permissoes.html' },
+        ],
+      },
+      {
+        label: 'RF209 — Gestão de Reservas',
+        screens: [
+          { label: 'Lista de Reservas – Jornada 2.9.1',      file: 'jornada-2-9-1-lista-reservas.html' },
+          { label: 'Detalhe de Reserva – Jornada 2.9.2',     file: 'jornada-2-9-2-detalhe-reserva.html' },
+        ],
+      },
+      {
+        label: 'RF210 — Configurações',
+        screens: [
+          { label: 'Minha Conta – Jornada 2.10.1',           file: 'jornada-2-10-1-minha-conta.html' },
+          { label: 'Perfil da Empresa – Jornada 2.10.2',     file: 'jornada-2-10-2-perfil-empresa.html' },
+          { label: 'Notificações – Jornada 2.10.3',          file: 'jornada-2-10-3-notificacoes.html' },
+          { label: 'Termos de Uso – Jornada 2.10.4',         file: 'jornada-2-10-4-termos.html' },
+          { label: 'Sobre a Althus – Jornada 2.10.5',        file: 'jornada-2-10-5-sobre.html' },
+          { label: 'Ajuda / Suporte – Jornada 2.10.6',       file: 'jornada-2-10-6-ajuda.html' },
+        ],
+      },
     ];
 
-    const sidebar     = document.getElementById('sidebar');
-    const collapseBtn = document.getElementById('collapse-btn');
-    const floatBtn    = document.getElementById('float-btn');
-    const previewArea = document.getElementById('preview-area');
-    const frame       = document.getElementById('preview-frame');
-    const urlBar      = document.getElementById('preview-url');
-    const list        = document.getElementById('screen-list');
+    const sidebar       = document.getElementById('sidebar');
+    const collapseBtn   = document.getElementById('collapse-btn');
+    const floatBtn      = document.getElementById('float-btn');
+    const previewArea   = document.getElementById('preview-area');
+    const frame         = document.getElementById('preview-frame');
+    const urlBar        = document.getElementById('preview-url');
+    const list          = document.getElementById('screen-list');
+    const expandAllBtn  = document.getElementById('expand-all-btn');
 
     let activeBtn = null;
     let hideTimer = null;
 
+    /* ── Expand-all button state ── */
+    function syncExpandAllBtn() {
+      const anyCollapsed = [...list.querySelectorAll('.flow-screens')].some(w => w.classList.contains('collapsed'));
+      expandAllBtn.textContent = anyCollapsed ? 'Expandir todos' : 'Recolher todos';
+    }
+
+    expandAllBtn.addEventListener('click', () => {
+      const wraps  = list.querySelectorAll('.flow-screens');
+      const labels = list.querySelectorAll('.flow-label');
+      const anyCollapsed = [...wraps].some(w => w.classList.contains('collapsed'));
+      wraps.forEach(w  => w.classList.toggle('collapsed', !anyCollapsed));
+      labels.forEach(l => l.classList.toggle('collapsed', !anyCollapsed));
+      syncExpandAllBtn();
+    });
+
     /* ── Build screen list ── */
     FLOWS.forEach(flow => {
       const label = document.createElement('div');
-      label.className = 'flow-label';
+      label.className = 'flow-label collapsed'; /* começa colapsado */
       label.innerHTML = `
         <span>${flow.label}</span>
         <span class="flow-chevron">
@@ -400,13 +474,14 @@
       `;
 
       const screensWrap = document.createElement('div');
-      screensWrap.className = 'flow-screens';
+      screensWrap.className = 'flow-screens collapsed'; /* começa colapsado */
       const screensInner = document.createElement('div');
       screensInner.className = 'flow-screens-inner';
 
       label.addEventListener('click', () => {
         const isCollapsed = screensWrap.classList.toggle('collapsed');
         label.classList.toggle('collapsed', isCollapsed);
+        syncExpandAllBtn();
       });
 
       flow.screens.forEach(screen => {

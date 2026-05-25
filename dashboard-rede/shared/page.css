@@ -1,0 +1,693 @@
+/**
+ * shared/page.css — Estilos base compartilhados por todas as páginas internas
+ *
+ * Uso em cada página (logo após tokens.css, antes dos CSS de componentes):
+ *   <link rel="stylesheet" href="shared/page.css" />
+ *
+ * O que está aqui:
+ *   - Reset box-sizing
+ *   - Body / layout flex principal
+ *   - .main (coluna de conteúdo)
+ *   - .pageContent + scrollbar
+ *   - .pageHeader (variante lista — flex row com botão à direita)
+ *   - .pageTitle / .pageSubtitle
+ *   - .tabNav
+ *   - .feedbackWrap
+ *   - Padrões de formulário: .formSection, .sectionTitle, .sectionSubtitle
+ *   - Grids: .formGrid, .grid2, .grid3
+ *   - .formFooter
+ *   - Estados da sidebar colapsada (collapsed classes + logo visibility)
+ *
+ * O que NÃO está aqui (fica no <style> de cada página):
+ *   - .toolbar, .searchWrap, .filterWrap, .tdFirst, .thFirst
+ *   - Campos específicos (textarea, chip, metaGrid, etc.)
+ *   - Overrides de .pageHeader para páginas de formulário (block em vez de flex)
+ *   - Qualquer CSS exclusivo de uma única tela
+ */
+
+/* ── Reset ─────────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+/* ── Body ───────────────────────────────────────────────────────────────────── */
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  background: var(--color-bg-default);
+  color: var(--color-text-primary);
+  display: flex;
+  height: 100vh;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Coluna principal ────────────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* ── Área de conteúdo com scroll ─────────────────────────────────────────────── */
+.pageContent {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl);
+  position: relative;
+  z-index: 1;
+}
+.pageContent::-webkit-scrollbar { width: var(--spacing-xs); }
+.pageContent::-webkit-scrollbar-track { background: transparent; }
+.pageContent::-webkit-scrollbar-thumb {
+  background: var(--color-border-subtle);
+  border-radius: var(--radius-xs);
+}
+
+/* ── Page header ─────────────────────────────────────────────────────────────── */
+/* Base: block. Páginas de lista adicionam display:flex via style="" no elemento */
+.pageHeader {
+  padding: calc(var(--spacing-lg) + var(--spacing-xs)) var(--spacing-xl) 0;
+  flex-shrink: 0;
+}
+
+/* ── Títulos ─────────────────────────────────────────────────────────────────── */
+.pageTitle {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+}
+/* Páginas de formulário: título vem depois do breadcrumb (nav), precisa de espaço */
+.pageHeader > nav + .pageTitle { margin-top: var(--spacing-sm); }
+/* Detalhe com badge: wrap .titleRow depois do breadcrumb (nav) */
+.titleRow { display: flex; align-items: center; gap: var(--spacing-sm); }
+.pageHeader > nav + .titleRow  { margin-top: var(--spacing-sm); }
+.pageSubtitle {
+  margin: var(--spacing-xs) 0 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-regular);
+}
+
+/* ── Barra de abas ───────────────────────────────────────────────────────────── */
+.tabNav {
+  padding: var(--spacing-md) var(--spacing-xl) 0;
+  flex-shrink: 0;
+}
+
+/* ── Toolbar (busca + filtros das páginas de lista) ─────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl) 0;
+  flex-shrink: 0;
+}
+.searchWrap   { width: 280px; }
+.filterWrap   { width: 180px; }
+.filterWrapSm { width: 160px; }
+.periodWrap   { width: 172px; }
+
+/* ── Tabela — primeira coluna ────────────────────────────────────────────────── */
+.thFirst { padding-left: var(--spacing-md) !important; }
+.tdFirst {
+  padding-left: var(--spacing-md) !important;
+  font-weight: var(--font-weight-medium) !important;
+  position: sticky;
+  left: 0;
+  background: var(--color-table-bg);
+  z-index: 1;
+}
+.tr:hover .tdFirst { background: var(--color-table-row-hover); }
+
+/* ── Tabela — colunas de módulo (permissões) ─────────────────────────────────── */
+.thModule { text-align: center !important; }
+.tdModule { text-align: center; vertical-align: middle; }
+
+/* ── Checkbox centralizado em célula de tabela ───────────────────────────────── */
+.cbCell { display: flex; justify-content: center; align-items: center; }
+
+/* ── Rodapé de card/tabela ───────────────────────────────────────────────────── */
+.tableFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-md);
+  border-top: var(--border-width-thin) solid var(--color-table-border);
+}
+
+/* ── Célula com avatar + nome ────────────────────────────────────────────────── */
+.cellUser {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* ── Feedback ────────────────────────────────────────────────────────────────── */
+.feedbackWrap { margin-bottom: var(--spacing-md); display: none; }
+.feedbackWrap.visible { display: block; }
+
+/* ── Seções de formulário ────────────────────────────────────────────────────── */
+.formSection { padding: var(--spacing-xl); }
+.sectionTitle {
+  margin: 0 0 var(--spacing-xs);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+/* Título de seção direto abaixo do pageContent (logo após a tab) — mais respiro */
+.pageContent > .sectionTitle { margin-bottom: var(--spacing-md); }
+.sectionSubtitle {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  font-weight: var(--font-weight-regular);
+}
+
+/* ── Grids de formulário ─────────────────────────────────────────────────────── */
+.formGrid { display: grid; gap: var(--spacing-md); }
+.grid2 { grid-template-columns: 1fr 1fr; }
+.grid3 { grid-template-columns: 1fr 1fr 1fr; }
+.grid4 { grid-template-columns: 1fr 1fr 1fr 1fr; }
+
+/* ── Tarifas: linha de cabeçalho de seção (título + toggle) ─────────────────── */
+.sectionHeaderRow {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+}
+
+/* ── Tarifas: rótulo de subseção (uppercase + cor terciária) ─────────────────── */
+.subsectionLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-tertiary);
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
+}
+.subsectionLabel span {
+  font-weight: var(--font-weight-regular);
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+/* ── Tarifas: campos condicionais (toggle liga/desliga) ──────────────────────── */
+.sectionFields.hidden { display: none; }
+
+/* ── Tabela: célula em fonte mono (código de carregador) ─────────────────────── */
+.tdMono { font-family: var(--font-mono); font-size: var(--font-size-xs); }
+
+/* ── Tarifas personalizadas: cabeçalho da seção (título + botão Nova tarifa) ── */
+.customTarifHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: var(--spacing-lg) 0 var(--spacing-sm);
+}
+
+/* ── Grids específicos: Localidade (cadastrar + editar) ──────────────────────── */
+.grid3a-localidade { grid-template-columns: 3fr 1fr; }      /* logradouro + número */
+.grid3b-localidade { grid-template-columns: 2fr 1fr 1fr; }  /* cidade + estado + CEP */
+
+/* ── Textarea ────────────────────────────────────────────────────────────────── */
+.textareaWrap { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.fieldLabel {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+}
+.textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  resize: vertical;
+  outline: none;
+  transition: border-color var(--transition-fast);
+}
+.textarea::placeholder { color: var(--color-text-disabled); }
+.textarea:focus { border-color: var(--color-border-focus); }
+
+/* ── Campos de metadados somente leitura (criado em, último acesso…) ────────── */
+.metaGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: var(--spacing-md);
+}
+.metaField { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.metaLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.metaValue {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+.metaValueMono {
+  font-size: var(--font-size-sm);
+  font-family: var(--font-mono, monospace);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Rodapé de formulário ────────────────────────────────────────────────────── */
+.formFooter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg) var(--spacing-xl);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+/* ── Toolbar: separador vertical entre grupos de filtros ─────────────────────── */
+.toolbarSep {
+  width: 1px;
+  height: 36px;
+  background: var(--color-border-subtle);
+  flex-shrink: 0;
+}
+
+/* ── Tabela: célula esmaecida / célula em destaque ───────────────────────────── */
+.tdMuted  { color: var(--color-text-tertiary) !important; }
+.tdStrong { font-weight: var(--font-weight-medium); color: var(--color-text-primary); }
+
+/* ── Extrato: barra de resumo (5 métricas no topo do card) ──────────────────── */
+.summaryBar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+}
+.summaryItem {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-right: var(--border-width-thin) solid var(--color-border-subtle);
+}
+.summaryItem:last-child { border-right: none; }
+.summaryLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: var(--spacing-xs);
+}
+.summaryValue {
+  font-family: var(--font-display);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+.summaryValue.highlight { color: var(--color-text-brand); }
+.summaryValue.dim       { color: var(--color-text-secondary); }
+
+/* ── Extrato: DatePicker de intervalo ────────────────────────────────────────── */
+.dpWrap { position: relative; display: inline-block; }
+
+.dpTrigger {
+  display: inline-flex; align-items: center; gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md); height: 36px;
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-full); cursor: pointer;
+  color: var(--color-text-primary); font-family: var(--font-body);
+  font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  white-space: nowrap; user-select: none;
+}
+.dpTrigger:hover        { border-color: var(--color-border-muted); background: var(--color-bg-elevated); }
+.dpTrigger.open         { border-color: var(--color-border-focus); }
+.dpTriggerIcon          { display: flex; align-items: center; color: var(--color-text-tertiary); flex-shrink: 0; }
+.dpTriggerText          { color: var(--color-text-primary); }
+.dpTriggerPlaceholder   { color: var(--color-text-tertiary); }
+.dpTriggerClear {
+  display: flex; align-items: center; justify-content: center;
+  width: 18px; height: 18px; border-radius: var(--radius-full);
+  color: var(--color-text-tertiary); background: none; border: none;
+  cursor: pointer; padding: 0; flex-shrink: 0;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.dpTriggerClear:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); }
+
+.dpPopover {
+  position: absolute; top: calc(100% + var(--spacing-xs)); left: 0;
+  background: var(--color-glass-surface);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-xl);
+  backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass));
+  display: flex; flex-direction: row; z-index: 200; overflow: hidden;
+}
+.dpPopover[hidden] { display: none; }
+
+.dpCalPanel   { padding: var(--spacing-md); min-width: 272px; }
+.dpCalHeader  { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-sm); }
+.dpMonthLabel { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+.dpNavBtn {
+  display: flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; background: none; border: none; cursor: pointer;
+  border-radius: var(--radius-xs); color: var(--color-text-tertiary); padding: 0;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.dpNavBtn:hover { background: var(--color-bg-surface); color: var(--color-text-primary); }
+
+.dpGrid   { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.dpDayName {
+  display: flex; align-items: center; justify-content: center; height: 32px;
+  font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); color: var(--color-text-tertiary);
+}
+.dpDay {
+  display: flex; align-items: center; justify-content: center; height: 32px;
+  font-size: var(--font-size-xs); font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary); cursor: pointer;
+  border-radius: var(--radius-xs); background: none; border: none; padding: 0;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.dpDay:hover:not(.dpDayOutside):not(.dpDayStart):not(.dpDayEnd) { background: var(--color-bg-surface); }
+.dpDayOutside { color: var(--color-text-disabled); cursor: default; }
+.dpDayToday   { font-weight: var(--font-weight-semibold); color: var(--color-text-brand); }
+.dpDayInRange { background: var(--color-bg-brand); border-radius: 0; }
+[data-theme="light"] .dpDayInRange { background: var(--color-gray-200); opacity: var(--opacity-50); }
+.dpDayStart   { background: var(--color-bg-brand-strong); color: var(--color-gray-white); border-radius: var(--radius-xs); font-weight: var(--font-weight-semibold); }
+.dpDayEnd     { background: transparent; color: var(--color-text-brand); border: var(--border-width-medium) solid var(--color-border-focus); border-radius: var(--radius-xs); font-weight: var(--font-weight-semibold); }
+.dpDayEnd:hover { background: var(--color-bg-brand); }
+
+.dpPanelDivider { width: var(--border-width-thin); background: var(--color-border-default); align-self: stretch; flex-shrink: 0; }
+
+.dpCtrlPanel  { display: flex; flex-direction: column; padding: var(--spacing-md); min-width: 172px; gap: var(--spacing-sm); }
+.dpFieldLabel { font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); color: var(--color-text-tertiary); margin-bottom: var(--spacing-2xs); }
+.dpDateInput {
+  width: 100%; background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-xs); padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-body); font-size: var(--font-size-sm);
+  color: var(--color-text-primary); outline: none; box-sizing: border-box;
+  transition: border-color var(--transition-fast);
+}
+.dpDateInput:focus { border-color: var(--color-border-focus); }
+.dpSpacer { flex: 1; }
+.dpApply {
+  width: 100%; display: flex; align-items: center; justify-content: center; gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-sm); background: var(--color-bg-brand-strong);
+  color: var(--color-gray-white); border: none; border-radius: var(--radius-xs);
+  font-family: var(--font-body); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
+  cursor: pointer; transition: opacity var(--transition-fast); white-space: nowrap;
+}
+.dpApply:hover { opacity: var(--opacity-90); }
+.dpTzSelect {
+  width: 100%; background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-xs); padding: var(--spacing-xs) var(--spacing-sm);
+  font-family: var(--font-body); font-size: var(--font-size-xs); color: var(--color-text-tertiary);
+  cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; box-sizing: border-box;
+}
+
+
+/* ── Grid de MetricCards — 5 colunas (logs de erros) ────────────────────────── */
+.metricsGrid5 {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-xl) 0;
+  flex-shrink: 0;
+}
+
+/* ── Grid de MetricCards — 3 colunas (dashboard KPI) ────────────────────────── */
+.metricsGrid3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+}
+/* MetricCard usa display:flex via CSS do componente, mas quando linkado junto
+   com DonutChart/LineChart o .root pode ser sobrescrito — garantimos aqui */
+.metricsGrid3 .root {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* ── Dashboard: linha de gráficos (linha + donut) ────────────────────────────── */
+.chartsRow {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--spacing-md);
+}
+.chartsRow .root {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Dashboard: seletor de período (mini-dropdown no page header) ─────────────── */
+.periodSelect { position: relative; z-index: 200; }
+.periodTrigger {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-muted);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color var(--transition-fast);
+}
+.periodTrigger:hover              { border-color: var(--color-border-default); }
+.periodSelect.open .periodTrigger { border-color: var(--color-border-focus); }
+.periodMenu {
+  position: absolute;
+  top: calc(100% + var(--spacing-xs));
+  right: 0;
+  min-width: var(--spacing-7xl);
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  z-index: 100;
+  display: none;
+}
+.periodSelect.open .periodMenu { display: block; }
+.periodOption {
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+.periodOption:hover    { background: var(--color-bg-subtle); }
+.periodOption.selected { background: var(--color-bg-brand); color: var(--color-text-brand); font-weight: var(--font-weight-medium); }
+
+/* ── Tabela: célula de data + hora em duas linhas ────────────────────────────── */
+.cellDateTime { display: flex; flex-direction: column; gap: var(--spacing-2xs); }
+.cellDate { font-size: var(--font-size-sm); color: var(--color-text-primary); font-weight: var(--font-weight-medium); }
+.cellTime { font-size: var(--font-size-xs); color: var(--color-text-tertiary); }
+
+/* ── Tabela: célula de localidade + carregador em duas linhas ────────────────── */
+.cellLocation { display: flex; flex-direction: column; gap: var(--spacing-2xs); }
+.cellLocationName {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+.cellCharger { font-size: var(--font-size-xs); color: var(--color-text-tertiary); }
+
+/* ── Tabela: célula de descrição curta (xs + cor secundária + max-width) ─────── */
+.tdDesc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  max-width: 260px;
+}
+
+/* ── Cupom: barra de progresso de utilização ─────────────────────────────────── */
+.usoBarWrap  { display: flex; align-items: center; gap: var(--spacing-sm); margin-top: var(--spacing-xs); }
+.usoBar      { flex: 1; height: 6px; border-radius: var(--radius-full); background: var(--color-border-subtle); overflow: hidden; }
+.usoBarFill  { height: 100%; border-radius: var(--radius-full); background: var(--gradient-brand); }
+.usoBarLabel { font-size: var(--font-size-xs); color: var(--color-text-tertiary); white-space: nowrap; font-family: var(--font-mono); }
+
+/* ── Dispositivo: lista de chips de conectores ───────────────────────────────── */
+.connectorList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+  margin-top: var(--spacing-xs);
+}
+
+/* ── Cupom: campo condicional oculto via JS ──────────────────────────────────── */
+.fieldHidden { display: none; }
+
+/* ── Cupom: seletor de condição em chip (ex: "Somente primeira recarga") ─────── */
+.chipGroup { display: flex; flex-wrap: wrap; gap: var(--spacing-sm); margin-top: var(--spacing-xs); }
+.chip {
+  display: inline-flex; align-items: center; gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border: var(--border-width-thin) solid var(--color-border-muted);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-sm); color: var(--color-text-secondary);
+  cursor: pointer; user-select: none;
+  transition: border-color var(--transition-fast), color var(--transition-fast), background var(--transition-fast);
+}
+.chip input[type="checkbox"] { display: none; }
+.chip:has(input:checked) {
+  border-color: var(--color-action-primary);
+  color: var(--color-text-brand);
+  background: var(--color-bg-brand);
+}
+
+/* ── Sidebar colapsada — ocultar labels e ajustar logo ──────────────────────── */
+.closed .navLabel,
+.closed .navLabelLogout,
+.closed .userInfo { display: none; }
+.closed .toggleIcon-left  { display: none; }
+.closed .toggleIcon-right { display: inline-flex; }
+.toggleIcon-right { display: none; }
+
+/* ── Logo — visibilidade por tema e estado ───────────────────────────────────── */
+.logo-img { display: block; filter: brightness(0) invert(1); }
+[data-theme="light"] .logo-img { filter: none; }
+.logo-symbol { display: none; }
+.closed .logo-full   { display: none; }
+.closed .logo-symbol { display: block; }
+
+/* ── Perfil: seção de avatar grande + nome + papel ───────────────────────────── */
+.avatarSection {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+/* Extensão de tamanho xl (Avatar só tem sm/md no storybook) */
+.avatarXl { width: 72px; height: 72px; }
+.avatarXl .avatarInitials { font-size: var(--font-size-xl); }
+.avatarMeta { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+.avatarName { font-size: var(--font-size-md); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+.avatarRole { font-size: var(--font-size-sm); color: var(--color-text-tertiary); }
+
+/* ── Detalhe com sidebar direita (1fr + coluna fixa) ────────────────────────── */
+.detailWithSidebar {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  gap: var(--spacing-md);
+  align-items: start;
+}
+.rightCol { display: flex; flex-direction: column; gap: var(--spacing-md); }
+
+/* ── Card de usuário (avatar + nome + subtítulo) ─────────────────────────────── */
+.userCardRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+.userCardName {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.userCardSub {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-2xs);
+}
+
+/* ── Lista de itens financeiros (taxa, total) ───────────────────────────────── */
+.financeList { display: flex; flex-direction: column; }
+.financeRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spacing-sm) 0;
+}
+.financeRow + .financeRow { border-top: var(--border-width-thin) solid var(--color-border-subtle); }
+.financeLabel  { font-size: var(--font-size-sm); color: var(--color-text-tertiary); }
+.financeAmount { font-size: var(--font-size-sm); color: var(--color-text-secondary); font-weight: var(--font-weight-medium); }
+.financeTotal .financeLabel  { font-size: var(--font-size-sm);  font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+.financeTotal .financeAmount { font-size: var(--font-size-md);  font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+
+/* ── Rodapé de ações da página (botão Voltar, etc.) ─────────────────────────── */
+.pageFooterActions {
+  display: flex;
+  align-items: center;
+  margin-top: var(--spacing-md);
+}
+
+/* ── Sobre a Althus: hero centrado (logo + tagline) ────────────────────────── */
+.aboutHero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-md);
+}
+.aboutTagline { font-size: var(--font-size-sm); color: var(--color-text-tertiary); margin: 0; }
+
+/* ── Coluna vertical de botões (recursos, links) ────────────────────────────── */
+.btnStack { display: flex; flex-direction: column; gap: var(--spacing-xs); }
+/* Respiro entre btnStack e texto que vem logo abaixo (ex: nota de copyright) */
+.btnStack + .proseText { margin-top: var(--spacing-lg); }
+
+/* ── Ajuda / Suporte: linha de canal de contato ─────────────────────────────── */
+.helpRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+  flex-shrink: 0;
+}
+.helpRow + .helpRow { border-top: var(--border-width-thin) solid var(--color-border-subtle); }
+.helpInfo { display: flex; align-items: center; gap: var(--spacing-md); }
+.helpIcon {
+  width: 40px; height: 40px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-brand);
+  color: var(--color-text-brand);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.helpText { display: flex; flex-direction: column; gap: var(--spacing-2xs); }
+.helpLabel { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-text-primary); }
+.helpDesc  { font-size: var(--font-size-xs); color: var(--color-text-tertiary); }
+
+/* ── Texto corrido de páginas estáticas (termos, sobre, ajuda) ─────────────── */
+.proseText {
+  margin: 0 0 var(--spacing-md);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+.proseText:last-child { margin-bottom: 0; }
+
+/* ── Notificações: linha de preferência (label + canais) ────────────────────── */
+.notifRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md) 0;
+}
+.notifRow + .notifRow { border-top: var(--border-width-thin) solid var(--color-border-subtle); }
+/* Remove margem-top do chipGroup quando dentro de uma notifRow */
+.notifRow .chipGroup { margin-top: 0; flex-shrink: 0; }
+.notifInfo { display: flex; flex-direction: column; gap: var(--spacing-2xs); min-width: 0; }
+.notifLabel { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-text-primary); }
+.notifDesc  { font-size: var(--font-size-xs); color: var(--color-text-tertiary); line-height: var(--line-height-normal); }

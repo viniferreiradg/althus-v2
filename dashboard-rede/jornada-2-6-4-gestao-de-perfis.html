@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestão de Perfis — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Pagination/Pagination.module.css" />
+
+</head>
+<body data-page="usuarios">
+
+<!-- ── Sidebar ── -->
+<aside id="sidebar-root"></aside>
+
+<!-- ── Main ── -->
+<main class="main bgWrapper" id="main">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <!-- Page header -->
+  <div class="pageHeader" style="display:flex;align-items:center;justify-content:space-between;">
+    <div>
+      <h1 class="pageTitle">Gestão de Perfis</h1>
+      <p class="pageSubtitle">Configure perfis de acesso e permissões dos usuários</p>
+    </div>
+    <div style="display:flex;gap:var(--spacing-sm);">
+      <button class="btn secondary" onclick="location.href='jornada-2-6-1-lista-usuarios.html'">Usuários</button>
+      <button class="btn primary hasLeft" onclick="location.href='jornada-2-6-5-novo-perfil.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Novo perfil
+      </button>
+    </div>
+  </div>
+
+  <!-- Tab nav -->
+  <div class="tabNav">
+    <div class="tabList" role="tablist">
+      <button class="tabBtn tabBtnActive tabLeft" role="tab" aria-selected="true">Lista de Perfis</button>
+      <button class="tabBtn tabRight" role="tab" aria-selected="false" onclick="location.href='jornada-2-6-7-permissoes.html'">Permissões</button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="pageContent">
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst sortable" style="width: 22%;">
+                <span class="thInner">Nome do perfil <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
+              </th>
+              <th class="th" style="width: 42%;">Descrição</th>
+              <th class="th" style="width: 16%;">Usuários</th>
+              <th class="th" style="width: 12%;">Status</th>
+              <th class="th" style="width: 8%;">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tr">
+              <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Administrador</td>
+              <td class="td">Acesso completo a todas as funcionalidades do painel</td>
+              <td class="td">2 usuários</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Editar perfil" onclick="location.href='jornada-2-6-6-perfil.html'"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Financeiro</td>
+              <td class="td">Acesso ao extrato de transações, tarifas e cupons</td>
+              <td class="td">2 usuários</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Editar perfil" onclick="location.href='jornada-2-6-6-perfil.html'"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Operacional</td>
+              <td class="td">Acesso a locais, carregadores e logs de erros</td>
+              <td class="td">2 usuários</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Editar perfil" onclick="location.href='jornada-2-6-6-perfil.html'"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Visualizador</td>
+              <td class="td">Acesso somente leitura a todas as seções do painel</td>
+              <td class="td">0 usuários</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Inativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Editar perfil" onclick="location.href='jornada-2-6-6-perfil.html'"><i data-lucide="pencil" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="pagination">
+        <span class="info">Exibindo 1–4 de 4 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" disabled aria-label="Página anterior">
+            <i data-lucide="chevron-left" width="14" height="14"></i>
+          </button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn" disabled aria-label="Próxima página">
+            <i data-lucide="chevron-right" width="14" height="14"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script src="shared/sidebar.js"></script>
+<script>
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

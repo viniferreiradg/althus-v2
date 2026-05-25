@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalhe da Reserva — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Timeline/Timeline.module.css" />
+
+</head>
+<body data-page="reservas">
+
+<!-- ── Sidebar ── -->
+<aside id="sidebar-root"></aside>
+
+<!-- ── Main ── -->
+<main class="main bgWrapper" id="main">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <!-- Page header -->
+  <div class="pageHeader">
+    <nav aria-label="Breadcrumb" class="nav">
+      <ol class="list">
+        <li class="item">
+          <a href="jornada-2-9-1-lista-reservas.html" class="link">
+            Reservas
+            <span class="sep" aria-hidden="true"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+          </a>
+        </li>
+        <li class="item">
+          <span class="current" aria-current="page">Detalhe da Reserva</span>
+        </li>
+      </ol>
+    </nav>
+    <div class="titleRow">
+      <h1 class="pageTitle">Reserva #RSV-2026-0847</h1>
+      <span class="badge" data-status="warning"><span class="badgeDot"></span>Ativa</span>
+    </div>
+    <p class="pageSubtitle">João Silva · 25/05/2026 às 16:45</p>
+  </div>
+
+  <!-- Content -->
+  <div class="pageContent">
+    <div class="detailWithSidebar">
+
+      <!-- ── Left column ── -->
+      <div class="leftCol">
+        <div class="card">
+
+          <!-- Informações da reserva -->
+          <div class="formSection">
+            <h2 class="sectionTitle">Informações da reserva</h2>
+            <p class="sectionSubtitle">Dados registrados no momento da confirmação</p>
+            <div class="metaGrid grid4">
+              <div class="metaField">
+                <span class="metaLabel">ID da reserva</span>
+                <span class="metaValueMono">#RSV-2026-0847</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Data</span>
+                <span class="metaValue">25/05/2026</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Início da janela</span>
+                <span class="metaValue">16:45</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Término previsto</span>
+                <span class="metaValue">17:00</span>
+              </div>
+            </div>
+            <div class="metaGrid grid4" style="margin-top: var(--spacing-md);">
+              <div class="metaField">
+                <span class="metaLabel">Duração</span>
+                <span class="metaValue">15 min</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Confirmada em</span>
+                <span class="metaValue">25/05/2026 às 09:30</span>
+              </div>
+              <div class="metaField" style="grid-column: span 2;">
+                <span class="metaLabel">Status</span>
+                <span class="metaValue" style="display:flex; align-items:center; gap: var(--spacing-xs);">
+                  <span class="badge" data-status="warning"><span class="badgeDot"></span>Ativa — janela em andamento</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- Local e equipamento -->
+          <div class="formSection">
+            <h2 class="sectionTitle">Local e equipamento</h2>
+            <div class="metaGrid grid2">
+              <div class="metaField">
+                <span class="metaLabel">Localidade</span>
+                <span class="metaValue">Shopping Iguatemi</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Endereço</span>
+                <span class="metaValue">Av. Brigadeiro Faria Lima, 2232 — São Paulo / SP</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Carregador</span>
+                <span class="metaValue">Carregador 02</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Conector</span>
+                <span class="metaValue">A — Tipo 2 (22 kW AC)</span>
+              </div>
+            </div>
+          </div>
+
+          <hr class="divider" />
+
+          <!-- Linha do tempo -->
+          <div class="formSection">
+            <h2 class="sectionTitle">Linha do tempo</h2>
+            <div class="timeline" style="margin-top: var(--spacing-md);">
+
+              <div class="tlItem tlDone">
+                <div class="tlVis">
+                  <div class="tlDot"></div>
+                  <div class="tlConnector"></div>
+                </div>
+                <div class="tlContent">
+                  <div class="tlLabel">Reserva confirmada pelo usuário</div>
+                  <div class="tlTime">25/05/2026 às 09:30</div>
+                </div>
+              </div>
+
+              <div class="tlItem tlDone">
+                <div class="tlVis">
+                  <div class="tlDot"></div>
+                  <div class="tlConnector"></div>
+                </div>
+                <div class="tlContent">
+                  <div class="tlLabel">Notificação enviada (1 hora antes)</div>
+                  <div class="tlTime">25/05/2026 às 15:45</div>
+                </div>
+              </div>
+
+              <div class="tlItem tlActive">
+                <div class="tlVis">
+                  <div class="tlDot"></div>
+                  <div class="tlConnector"></div>
+                </div>
+                <div class="tlContent">
+                  <div class="tlLabel">Janela de reserva iniciada</div>
+                  <div class="tlTime">25/05/2026 às 16:45</div>
+                </div>
+              </div>
+
+              <div class="tlItem tlPending">
+                <div class="tlVis">
+                  <div class="tlDot"></div>
+                  <div class="tlConnector"></div>
+                </div>
+                <div class="tlContent">
+                  <div class="tlLabel">Expiração da janela</div>
+                  <div class="tlTime">Previsto para 25/05/2026 às 17:00</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- ── Right column ── -->
+      <div class="rightCol">
+
+        <!-- Usuário -->
+        <div class="card">
+          <div class="formSection">
+            <h2 class="sectionTitle">Usuário</h2>
+            <div class="userCardRow">
+              <div class="avatar lg"><span class="avatarInitials">JS</span></div>
+              <div>
+                <div class="userCardName">João Silva</div>
+                <div class="userCardSub">Usuário do app · #USR-0042</div>
+              </div>
+            </div>
+            <div class="metaGrid grid2">
+              <div class="metaField">
+                <span class="metaLabel">Plataforma</span>
+                <span class="metaValue">iOS — App v2.4.1</span>
+              </div>
+              <div class="metaField">
+                <span class="metaLabel">Membro desde</span>
+                <span class="metaValue">Jan/2025</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Financeiro -->
+        <div class="card">
+          <div class="formSection">
+            <h2 class="sectionTitle">Financeiro</h2>
+            <p class="sectionSubtitle">Valores debitados da carteira do usuário</p>
+            <div class="financeList">
+              <div class="financeRow">
+                <span class="financeLabel">Taxa de reserva</span>
+                <span class="financeAmount">R$ 5,00</span>
+              </div>
+              <div class="financeRow">
+                <span class="financeLabel">Taxa de cancelamento</span>
+                <span class="financeAmount" style="color: var(--color-text-tertiary);">—</span>
+              </div>
+              <div class="financeRow financeTotal">
+                <span class="financeLabel">Total debitado</span>
+                <span class="financeAmount">R$ 5,00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- ── end right column ── -->
+
+    </div>
+
+    <!-- Back button -->
+    <div class="pageFooterActions">
+      <button class="btn ghost hasLeft" onclick="location.href='jornada-2-9-1-lista-reservas.html'">
+        <span class="icon"><i data-lucide="arrow-left" width="16" height="16"></i></span>
+        Voltar para Reservas
+      </button>
+    </div>
+  </div>
+</main>
+
+<script src="shared/sidebar.js"></script>
+<script>
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

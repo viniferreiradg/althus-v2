@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações — Notificações — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Feedback/Feedback.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Card/Card.module.css" />
+</head>
+<body data-page="configuracoes">
+
+  <!-- Sidebar -->
+  <aside id="sidebar-root"></aside>
+
+  <!-- Main -->
+  <main class="main bgWrapper" id="main">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <!-- Page header -->
+    <div class="pageHeader">
+      <div>
+        <h1 class="pageTitle">Configurações</h1>
+        <p class="pageSubtitle">Gerencie sua conta e as preferências da rede</p>
+      </div>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="tabNav">
+      <div class="tabList" role="tablist">
+        <button class="tabBtn tabLeft"  role="tab" aria-selected="false" onclick="location.href='jornada-2-10-1-minha-conta.html'">Minha conta</button>
+        <button class="tabBtn tabMiddle" role="tab" aria-selected="false" onclick="location.href='jornada-2-10-2-perfil-empresa.html'">Perfil da empresa</button>
+        <button class="tabBtn tabMiddle tabBtnActive" role="tab" aria-selected="true">Notificações</button>
+        <button class="tabBtn tabMiddle" role="tab" aria-selected="false" onclick="location.href='jornada-2-10-4-termos.html'">Termos de uso</button>
+        <button class="tabBtn tabMiddle" role="tab" aria-selected="false" onclick="location.href='jornada-2-10-5-sobre.html'">Sobre a Althus</button>
+        <button class="tabBtn tabRight"  role="tab" aria-selected="false" onclick="location.href='jornada-2-10-6-ajuda.html'">Ajuda / Suporte</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="pageContent">
+      <h2 class="sectionTitle">Preferências de notificação</h2>
+
+      <!-- Feedback de sucesso -->
+      <div class="feedbackWrap" id="feedback-wrap">
+        <div class="alert success" role="alert">
+          <span style="flex-shrink:0; margin-top:1px;"><i data-lucide="circle-check" width="18" height="18"></i></span>
+          <div class="body">
+            <div class="title">Preferências salvas!</div>
+            <div class="message">Suas configurações de notificação foram atualizadas.</div>
+          </div>
+          <button class="dismiss" aria-label="Fechar" onclick="document.getElementById('feedback-wrap').classList.remove('visible')">
+            <i data-lucide="x" width="14" height="14"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="card">
+
+        <!-- ── Reservas ── -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Reservas</h2>
+          <p class="sectionSubtitle">Notificações relacionadas a reservas e sessões de recarga na rede</p>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Confirmação de reserva</span>
+              <span class="notifDesc">Receba uma notificação quando uma reserva for confirmada na rede</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Cancelamento de reserva</span>
+              <span class="notifDesc">Alertas quando uma reserva for cancelada pelo usuário ou pelo sistema</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Início de janela de recarga</span>
+              <span class="notifDesc">Aviso quando a janela de uma reserva se iniciar e o carregador estiver disponível</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ── Carregadores ── -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Carregadores</h2>
+          <p class="sectionSubtitle">Alertas sobre o estado e disponibilidade dos carregadores da rede</p>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Carregador offline</span>
+              <span class="notifDesc">Alertas quando um carregador da sua rede ficar indisponível ou perder conexão</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Falha ou erro de sessão</span>
+              <span class="notifDesc">Notificações de erros críticos durante uma sessão de recarga em andamento</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ── Financeiro ── -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Financeiro</h2>
+          <p class="sectionSubtitle">Informações sobre pagamentos e relatórios financeiros da rede</p>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Novo pagamento recebido</span>
+              <span class="notifDesc">Confirmação de transações concluídas com sucesso pelos usuários da rede</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Relatório mensal disponível</span>
+              <span class="notifDesc">Aviso quando o relatório financeiro do mês estiver pronto para visualização</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ── Sistema ── -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Sistema</h2>
+          <p class="sectionSubtitle">Comunicações sobre a plataforma Althus e segurança da conta</p>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Atualizações da plataforma</span>
+              <span class="notifDesc">Informações sobre novas funcionalidades e melhorias disponíveis no painel</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+
+          <div class="notifRow">
+            <div class="notifInfo">
+              <span class="notifLabel">Alertas de segurança</span>
+              <span class="notifDesc">Avisos importantes sobre a segurança e novos acessos à sua conta</span>
+            </div>
+            <div class="chipGroup">
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="mail" width="14" height="14"></i>E-mail</label>
+              <label class="chip"><input type="checkbox" checked /><i data-lucide="bell" width="14" height="14"></i>Sistema</label>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- Footer -->
+        <div class="formFooter">
+          <button class="btn ghost">Cancelar</button>
+          <button class="btn primary" id="save-btn">Salvar preferências</button>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="shared/sidebar.js"></script>
+  <script>
+    document.getElementById('save-btn').addEventListener('click', () => {
+      const wrap = document.getElementById('feedback-wrap');
+      wrap.classList.add('visible');
+      document.querySelector('.pageContent').scrollTop = 0;
+      lucide.createIcons();
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

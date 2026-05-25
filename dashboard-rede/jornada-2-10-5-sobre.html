@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações — Sobre a Althus — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Card/Card.module.css" />
+</head>
+<body data-page="configuracoes">
+
+  <!-- Sidebar -->
+  <aside id="sidebar-root"></aside>
+
+  <!-- Main -->
+  <main class="main bgWrapper" id="main">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <!-- Page header -->
+    <div class="pageHeader">
+      <div>
+        <h1 class="pageTitle">Configurações</h1>
+        <p class="pageSubtitle">Gerencie sua conta e as preferências da rede</p>
+      </div>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="tabNav">
+      <div class="tabList" role="tablist">
+        <button class="tabBtn tabLeft"               role="tab" aria-selected="false" onclick="location.href='jornada-2-10-1-minha-conta.html'">Minha conta</button>
+        <button class="tabBtn tabMiddle"              role="tab" aria-selected="false" onclick="location.href='jornada-2-10-2-perfil-empresa.html'">Perfil da empresa</button>
+        <button class="tabBtn tabMiddle"              role="tab" aria-selected="false" onclick="location.href='jornada-2-10-3-notificacoes.html'">Notificações</button>
+        <button class="tabBtn tabMiddle"              role="tab" aria-selected="false" onclick="location.href='jornada-2-10-4-termos.html'">Termos de uso</button>
+        <button class="tabBtn tabMiddle tabBtnActive" role="tab" aria-selected="true">Sobre a Althus</button>
+        <button class="tabBtn tabRight"               role="tab" aria-selected="false" onclick="location.href='jornada-2-10-6-ajuda.html'">Ajuda / Suporte</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="pageContent">
+      <h2 class="sectionTitle">Sobre a Althus</h2>
+
+      <div class="card">
+
+        <!-- ── Hero: logo + descrição ── -->
+        <div class="formSection">
+          <div class="aboutHero">
+            <img class="logo-img" src="../storybook/src/components/Logo/logo-default.svg" width="160" alt="Althus" />
+            <p class="aboutTagline">Plataforma de gestão de redes de eletropostos</p>
+          </div>
+          <p class="proseText">A Althus é uma plataforma completa para operadores de redes de eletropostos. Reúne em um único painel as ferramentas necessárias para gerenciar localidades, carregadores, tarifas, usuários, reservas e transações — com dados em tempo real e relatórios detalhados para apoiar a tomada de decisão.</p>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ── Versão e ambiente ── -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Versão e ambiente</h2>
+          <div class="metaGrid">
+            <div class="metaField">
+              <span class="metaLabel">Versão</span>
+              <span class="metaValue">1.0.0</span>
+            </div>
+            <div class="metaField">
+              <span class="metaLabel">Ambiente</span>
+              <span class="metaValue">Produção</span>
+            </div>
+            <div class="metaField">
+              <span class="metaLabel">Atualizado em</span>
+              <span class="metaValue">Maio de 2026</span>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ── Recursos ── -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Recursos</h2>
+          <p class="sectionSubtitle">Documentação, suporte e informações sobre a plataforma</p>
+          <div class="btnStack">
+            <a href="#" class="btn ghost hasLeft" rel="noopener">
+              <span class="icon"><i data-lucide="globe" width="16" height="16"></i></span>
+              Site oficial — althus.com.br
+            </a>
+            <a href="#" class="btn ghost hasLeft" rel="noopener">
+              <span class="icon"><i data-lucide="book-open" width="16" height="16"></i></span>
+              Documentação — docs.althus.com.br
+            </a>
+            <a href="#" class="btn ghost hasLeft" rel="noopener">
+              <span class="icon"><i data-lucide="mail" width="16" height="16"></i></span>
+              Contato e suporte — suporte@althus.com.br
+            </a>
+          </div>
+          <p class="proseText">© 2026 Althus. Todos os direitos reservados.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="shared/sidebar.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

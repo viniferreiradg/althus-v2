@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações — Termos de Uso — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Card/Card.module.css" />
+</head>
+<body data-page="configuracoes">
+
+  <!-- Sidebar -->
+  <aside id="sidebar-root"></aside>
+
+  <!-- Main -->
+  <main class="main bgWrapper" id="main">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <!-- Page header -->
+    <div class="pageHeader">
+      <div>
+        <h1 class="pageTitle">Configurações</h1>
+        <p class="pageSubtitle">Gerencie sua conta e as preferências da rede</p>
+      </div>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="tabNav">
+      <div class="tabList" role="tablist">
+        <button class="tabBtn tabLeft"          role="tab" aria-selected="false" onclick="location.href='jornada-2-10-1-minha-conta.html'">Minha conta</button>
+        <button class="tabBtn tabMiddle"         role="tab" aria-selected="false" onclick="location.href='jornada-2-10-2-perfil-empresa.html'">Perfil da empresa</button>
+        <button class="tabBtn tabMiddle"         role="tab" aria-selected="false" onclick="location.href='jornada-2-10-3-notificacoes.html'">Notificações</button>
+        <button class="tabBtn tabMiddle tabBtnActive" role="tab" aria-selected="true">Termos de uso</button>
+        <button class="tabBtn tabMiddle"         role="tab" aria-selected="false" onclick="location.href='jornada-2-10-5-sobre.html'">Sobre a Althus</button>
+        <button class="tabBtn tabRight"          role="tab" aria-selected="false" onclick="location.href='jornada-2-10-6-ajuda.html'">Ajuda / Suporte</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="pageContent">
+      <h2 class="sectionTitle">Termos de uso</h2>
+
+      <div class="card">
+
+        <!-- Introdução -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Termos de Uso da Plataforma Althus</h2>
+          <p class="sectionSubtitle">Leia com atenção os termos abaixo antes de utilizar a plataforma. O acesso implica a aceitação integral destas condições.</p>
+          <p class="proseText">Última atualização: 1º de maio de 2026 &nbsp;·&nbsp; Versão 1.0</p>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- 1. Uso da Plataforma -->
+        <div class="formSection">
+          <h2 class="sectionTitle">1. Uso da Plataforma</h2>
+          <p class="proseText">O acesso ao painel Althus é restrito a operadores de redes de eletropostos devidamente cadastrados e autorizados. O usuário se compromete a utilizar a plataforma exclusivamente para fins legítimos de gestão da sua rede, em conformidade com todas as leis e regulamentos aplicáveis.</p>
+          <p class="proseText">São expressamente vedados: o compartilhamento de credenciais de acesso com terceiros não autorizados; o uso da plataforma para fins ilícitos ou que prejudiquem outros usuários ou a infraestrutura da Althus; tentativas de engenharia reversa, acesso não autorizado a sistemas ou qualquer ação que comprometa a segurança da plataforma.</p>
+          <p class="proseText">A Althus reserva-se o direito de suspender ou encerrar o acesso de qualquer usuário que viole estas condições, sem prejuízo de outras medidas cabíveis.</p>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- 2. Responsabilidades -->
+        <div class="formSection">
+          <h2 class="sectionTitle">2. Responsabilidades</h2>
+          <p class="proseText">A Althus se compromete a manter a plataforma disponível e funcional, realizando manutenções programadas com comunicação prévia sempre que possível. Nos casos de indisponibilidade não planejada, a equipe envidará esforços para restabelecimento no menor prazo possível.</p>
+          <p class="proseText">O operador é responsável pela veracidade das informações cadastradas na plataforma, pela configuração adequada dos carregadores, tarifas e políticas de uso da rede, e pela conformidade de todas as operações realizadas por meio do painel com a legislação vigente.</p>
+          <p class="proseText">A Althus não se responsabiliza por indisponibilidades decorrentes de fatores externos, como falhas de conectividade de terceiros, interrupções de energia, desastres naturais ou outros casos de força maior.</p>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- 3. Privacidade e Dados -->
+        <div class="formSection">
+          <h2 class="sectionTitle">3. Privacidade e Dados</h2>
+          <p class="proseText">O tratamento de dados pessoais realizado pela Althus está em conformidade com a Lei Geral de Proteção de Dados Pessoais (LGPD — Lei nº 13.709/2018). Os dados coletados são utilizados exclusivamente para a prestação dos serviços contratados, melhoria contínua da plataforma e comunicações relacionadas à conta do operador.</p>
+          <p class="proseText">A Althus adota medidas técnicas e organizacionais adequadas para proteger os dados contra acesso não autorizado, perda ou destruição. Os dados não são vendidos ou compartilhados com terceiros para fins comerciais.</p>
+          <p class="proseText">O operador pode, a qualquer momento, solicitar acesso, correção, portabilidade ou exclusão dos dados vinculados à sua conta por meio do canal de suporte da Althus, nos termos previstos pela LGPD.</p>
+        </div>
+
+        <hr class="divider" />
+
+        <!-- 4. Vigência e Rescisão -->
+        <div class="formSection">
+          <h2 class="sectionTitle">4. Vigência e Rescisão</h2>
+          <p class="proseText">Estes termos entram em vigor no momento do primeiro acesso à plataforma e permanecem válidos durante toda a relação contratual entre o operador e a Althus. A Althus reserva-se o direito de atualizar estes termos periodicamente, comunicando os usuários com antecedência mínima de 15 dias antes da entrada em vigor das alterações.</p>
+          <p class="proseText">O uso continuado da plataforma após a notificação de alteração dos termos implica a aceitação das novas condições. Caso o operador não concorde com as alterações, poderá solicitar a rescisão contratual pelo canal de suporte antes da data de vigência.</p>
+          <p class="proseText">A rescisão do contrato acarretará a desativação do acesso ao painel e a retenção dos dados pelo prazo exigido pela legislação vigente, após o qual serão eliminados de forma segura.</p>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="shared/sidebar.js"></script>
+  <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -19,25 +19,13 @@
   <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
 
   <style>
+    /* Auth layout — incompatível com page.css (body sem flex/overflow do dashboard) */
     *, *::before, *::after { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      color: var(--color-text-primary);
-      background-color: var(--color-bg-default);
-      -webkit-font-smoothing: antialiased;
-    }
-    .forgot-link {
-      display: block;
-      text-align: right;
-      font-size: var(--font-size-sm);
-      color: var(--color-text-brand);
-      text-decoration: none;
-      margin-top: calc(var(--spacing-xs) * -1);
-    }
+    body { margin: 0; font-family: var(--font-body); color: var(--color-text-primary); background-color: var(--color-bg-default); -webkit-font-smoothing: antialiased; }
+    .logo-img { display: block; filter: brightness(0) invert(1); }
+    .forgot-link { display: block; text-align: right; font-size: var(--font-size-sm); color: var(--color-text-brand); text-decoration: none; margin-top: calc(var(--spacing-xs) * -1); }
     .forgot-link:hover { text-decoration: underline; }
     .hidden { display: none !important; }
-    .logo-img { display: block; filter: brightness(0) invert(1); }
   </style>
 </head>
 <body>

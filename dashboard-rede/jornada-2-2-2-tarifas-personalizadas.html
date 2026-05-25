@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tarifas Personalizadas — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Feedback/Feedback.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Pagination/Pagination.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Tab/Tab.module.css" />
+
+</head>
+<body data-page="tarifas">
+
+<aside id="sidebar-root"></aside>
+
+<!-- ── Main ── -->
+<main class="main bgWrapper" id="main">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <!-- Page header -->
+  <div class="pageHeader">
+    <div>
+      <h1 class="pageTitle">Tarifas</h1>
+      <p class="pageSubtitle">Configure valores de recarga, ociosidade e reserva</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="pageContent">
+
+    <!-- Tab navigation — Aba 2 ativa -->
+    <nav class="tabNav" aria-label="Seções de tarifas">
+      <div class="tabList" role="tablist">
+        <button class="tabBtn" id="tab-opcoes" role="tab" aria-selected="false" aria-controls="panel-opcoes">Opções de tarifas</button>
+        <button class="tabBtn tabBtnActive" id="tab-personalizadas" role="tab" aria-selected="true" aria-controls="panel-personalizadas">Tarifas personalizadas</button>
+      </div>
+    </nav>
+
+    <!-- Panel 1: Opções de tarifas (oculto) -->
+    <div class="tabPanel" id="panel-opcoes" role="tabpanel" aria-labelledby="tab-opcoes" hidden>
+
+    <div class="card">
+      <div class="formSection">
+        <h2 class="sectionTitle">Tarifa de Recarga</h2>
+        <p class="sectionSubtitle">Configurada individualmente por carregador</p>
+        <div class="formGrid grid2" style="margin-top: var(--spacing-lg);">
+          <div class="wrapper">
+            <label class="label" for="valor-padrao">Valor padrão (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="valor-padrao" type="number" step="0.01" min="0" value="2.50" placeholder="0,00" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </div><!-- /panel-opcoes -->
+
+    <!-- Panel 2: Tarifas personalizadas (visível) -->
+    <div class="tabPanel" id="panel-personalizadas" role="tabpanel" aria-labelledby="tab-personalizadas">
+
+    <div class="customTarifHeader">
+      <div>
+        <h2 class="sectionTitle">Tarifas Personalizadas</h2>
+        <p class="sectionSubtitle">Regras de cobrança específicas por carregador, sobrepostas à tarifa padrão</p>
+      </div>
+      <button class="btn primary hasLeft" onclick="location.href='jornada-2-3-nova-tarifa-personalizada.html'">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Nova tarifa
+      </button>
+    </div>
+
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst" style="width:22%;">Nome</th>
+              <th class="th" style="width:20%;">Carregador</th>
+              <th class="th" style="width:22%;">Localidade</th>
+              <th class="th" style="width:14%;">Valor padrão</th>
+              <th class="th" style="width:10%;">Status</th>
+              <th class="th" style="width:12%;">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Pico Iguatemi</td>
+              <td class="td tdMono">ALT-001</td>
+              <td class="td" style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">Shopping Iguatemi SP</td>
+              <td class="td">R$ 3,20/kWh</td>
+              <td class="td"><span class="badge" data-status="success">Ativa</span></td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhes"><i data-lucide="eye" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Excluir"><i data-lucide="trash-2" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Noturna Shell</td>
+              <td class="td tdMono">ALT-002</td>
+              <td class="td" style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">Posto Shell Anhanguera</td>
+              <td class="td">R$ 1,90/kWh</td>
+              <td class="td"><span class="badge" data-status="success">Ativa</span></td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhes"><i data-lucide="eye" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Excluir"><i data-lucide="trash-2" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Weekend Morumbi</td>
+              <td class="td tdMono">ALT-004</td>
+              <td class="td" style="font-size: var(--font-size-xs); color: var(--color-text-secondary);">Shopping Morumbi</td>
+              <td class="td">R$ 2,75/kWh</td>
+              <td class="td"><span class="badge" data-status="disabled">Inativa</span></td>
+              <td class="td">
+                <div class="cellActions">
+                  <button class="actionBtn" aria-label="Ver detalhes"><i data-lucide="eye" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" aria-label="Excluir"><i data-lucide="trash-2" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination">
+        <span class="info">3 tarifas personalizadas</span>
+      </div>
+    </div>
+
+    </div><!-- /panel-personalizadas -->
+
+  </div>
+</main>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  /* ── Tab switching ── */
+  const tabBtns   = document.querySelectorAll('.tabBtn');
+  const tabPanels = document.querySelectorAll('.tabPanel');
+  tabBtns.forEach((btn, idx) => {
+    btn.addEventListener('click', () => {
+      tabBtns.forEach(b => { b.classList.remove('tabBtnActive'); b.setAttribute('aria-selected', 'false'); });
+      tabPanels.forEach(p => { p.hidden = true; });
+      btn.classList.add('tabBtnActive');
+      btn.setAttribute('aria-selected', 'true');
+      tabPanels[idx].hidden = false;
+    });
+  });
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

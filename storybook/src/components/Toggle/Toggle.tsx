@@ -12,17 +12,17 @@ export function Toggle({ label, checked = false, disabled = false, size = 'md', 
   return (
     <label
       className={[
-        styles.wrapper,
-        styles[size],
-        checked ? styles.checked : '',
-        disabled ? styles.disabled : '',
+        styles.toggleWrapper,
+        size === 'sm' ? styles.toggleSm : '',
+        checked ? styles.toggleChecked : '',
+        disabled ? styles.toggleDisabled : '',
       ].filter(Boolean).join(' ')}
       htmlFor={toggleId}
     >
       <input
         type="checkbox"
         id={toggleId}
-        className={styles.input}
+        className={styles.toggleInput}
         checked={checked}
         disabled={disabled}
         onChange={onChange}
@@ -30,8 +30,8 @@ export function Toggle({ label, checked = false, disabled = false, size = 'md', 
         aria-checked={checked}
         {...props}
       />
-      <span className={styles.track}><span className={styles.thumb} /></span>
-      {label && <span className={styles.label}>{label}</span>}
+      <span className={styles.toggleTrack}><span className={styles.toggleThumb} /></span>
+      {label && <span className={styles.toggleLabel}>{label}</span>}
     </label>
   );
 }

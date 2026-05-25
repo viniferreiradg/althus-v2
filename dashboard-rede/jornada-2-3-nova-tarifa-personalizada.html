@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nova Tarifa Personalizada — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Breadcrumb/Breadcrumb.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Toggle/Toggle.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Table/Table.module.css" />
+
+</head>
+<body data-page="tarifas">
+
+<aside id="sidebar-root"></aside>
+
+<!-- ── Main ── -->
+<main class="main bgWrapper" id="main">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <!-- Page header -->
+  <div class="pageHeader">
+    <div>
+      <nav class="breadcrumb" aria-label="Navegação">
+        <ol class="list">
+          <li class="item">
+            <a class="link" href="jornada-2-2-tarifas.html">Tarifas</a>
+          </li>
+          <li class="item">
+            <span class="separator"><i data-lucide="chevron-right" width="12" height="12"></i></span>
+            <span class="current">Nova tarifa personalizada</span>
+          </li>
+        </ol>
+      </nav>
+      <h1 class="pageTitle" style="margin-top: var(--spacing-xs);">Nova Tarifa Personalizada</h1>
+      <p class="pageSubtitle">Defina uma regra de cobrança específica para um carregador</p>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="pageContent">
+    <div class="card">
+
+      <!-- ── Seção 1: Identificação ── -->
+      <div class="formSection">
+        <div class="sectionHeaderRow">
+          <div>
+            <h2 class="sectionTitle">Identificação</h2>
+            <p class="sectionSubtitle">Nome e estado inicial da tarifa</p>
+          </div>
+          <label class="toggleWrapper" for="status-toggle" style="margin-top: var(--spacing-xs);">
+            <input type="checkbox" class="toggleInput" id="status-toggle" checked />
+            <span class="toggleTrack"><span class="toggleThumb"></span></span>
+            <span class="toggleLabel" id="status-label">Ativa</span>
+          </label>
+        </div>
+
+        <div class="formGrid grid2">
+          <div class="wrapper">
+            <label class="label" for="nome-tarifa">Nome da tarifa</label>
+            <div class="inputWrap">
+              <input class="input" id="nome-tarifa" type="text" placeholder="Ex: Pico Iguatemi, Noturna Shell…" />
+            </div>
+            <span class="helperText">Identificador interno — não é exibido ao usuário final</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- ── Seção 2: Aplicação ── -->
+      <div class="formSection">
+        <h2 class="sectionTitle">Aplicação</h2>
+        <p class="sectionSubtitle" style="margin-bottom: var(--spacing-lg);">A qual carregador e localidade esta tarifa se aplica</p>
+
+        <div class="formGrid grid2">
+          <!-- Carregador -->
+          <div class="wrapper" id="carregador-dropdown">
+            <label class="label" for="carregador-trigger">Carregador</label>
+            <div class="trigger" id="carregador-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+              <span id="carregador-value" style="color: var(--color-text-tertiary);">Selecione um carregador</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu" role="listbox">
+              <div class="option" data-value="alt-001" role="option">ALT-001 — ABB Terra 54 · Shopping Iguatemi SP</div>
+              <div class="option" data-value="alt-002" role="option">ALT-002 — WEG EVCS-W22 · Posto Shell Anhanguera</div>
+              <div class="option" data-value="alt-003" role="option">ALT-003 — Schneider EVlink · Estac. Vila Olímpia</div>
+              <div class="option" data-value="alt-004" role="option">ALT-004 — ABB Terra 54 · Shopping Morumbi</div>
+              <div class="option" data-value="alt-005" role="option">ALT-005 — Siemens VersiCharge · Aeroporto de Congonhas</div>
+            </div>
+          </div>
+
+          <!-- Localidade -->
+          <div class="wrapper" id="localidade-dropdown">
+            <label class="label" for="localidade-trigger">Localidade</label>
+            <div class="trigger" id="localidade-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+              <span id="localidade-value" style="color: var(--color-text-tertiary);">Selecione uma localidade</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu" role="listbox">
+              <div class="option" data-value="iguatemi" role="option">Shopping Iguatemi SP</div>
+              <div class="option" data-value="shell" role="option">Posto Shell Anhanguera</div>
+              <div class="option" data-value="vila-olimpia" role="option">Estac. Vila Olímpia</div>
+              <div class="option" data-value="morumbi" role="option">Shopping Morumbi</div>
+              <div class="option" data-value="congonhas" role="option">Aeroporto de Congonhas</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- ── Seção 3: Valores ── -->
+      <div class="formSection">
+        <h2 class="sectionTitle">Valores de Cobrança</h2>
+        <p class="sectionSubtitle">Defina o valor base e as tarifas por turno (opcional)</p>
+
+        <!-- Valor padrão -->
+        <p class="subsectionLabel">Valor base <span>— aplicado 24h nos turnos não configurados</span></p>
+        <div class="formGrid grid2">
+          <div class="wrapper">
+            <label class="label" for="valor-padrao">Valor padrão (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="valor-padrao" type="number" step="0.01" min="0" placeholder="0,00" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Turnos -->
+        <p class="subsectionLabel">Tarifas por turno <span>— opcional</span></p>
+        <div class="formGrid grid3">
+          <div class="wrapper">
+            <label class="label" for="turno-dia">Turno Dia (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="turno-dia" type="number" step="0.01" min="0" placeholder="0,00" />
+            </div>
+            <span class="helperText">06h – 18h</span>
+          </div>
+          <div class="wrapper">
+            <label class="label" for="turno-noite">Turno Noite (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="turno-noite" type="number" step="0.01" min="0" placeholder="0,00" />
+            </div>
+            <span class="helperText">18h – 00h</span>
+          </div>
+          <div class="wrapper">
+            <label class="label" for="turno-madrugada">Madrugada (R$/kWh)</label>
+            <div class="inputWrap">
+              <input class="input" id="turno-madrugada" type="number" step="0.01" min="0" placeholder="0,00" />
+            </div>
+            <span class="helperText">00h – 06h</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form footer -->
+      <div class="formFooter">
+        <a href="jornada-2-2-tarifas.html" class="btn secondary">Cancelar</a>
+        <button class="btn primary hasLeft">
+          <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+          Criar tarifa
+        </button>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script>
+  /* ── Status toggle label ── */
+  document.getElementById('status-toggle').addEventListener('change', function () {
+    document.getElementById('status-label').textContent = this.checked ? 'Ativa' : 'Inativa';
+  });
+
+  /* ── Dropdown logic ── */
+  document.querySelectorAll('[id$="-dropdown"]').forEach(dropdown => {
+    const trigger = dropdown.querySelector('.trigger');
+    const options = dropdown.querySelectorAll('.option');
+    const valueEl = dropdown.querySelector('[id$="-value"]');
+
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = dropdown.classList.contains('open');
+      document.querySelectorAll('[id$="-dropdown"].open').forEach(d => d.classList.remove('open'));
+      dropdown.classList.toggle('open', !isOpen);
+    });
+
+    trigger.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
+    });
+
+    options.forEach(opt => {
+      opt.addEventListener('click', () => {
+        options.forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        if (valueEl) {
+          valueEl.textContent = opt.textContent.trim();
+          valueEl.style.color = '';
+        }
+        dropdown.classList.remove('open');
+      });
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('[id$="-dropdown"].open').forEach(d => d.classList.remove('open'));
+  });
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

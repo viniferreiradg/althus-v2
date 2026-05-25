@@ -21,24 +21,12 @@
   <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
 
   <style>
-    /* Page-level — não são componentes do design system */
+    /* Auth layout — incompatível com page.css (body sem flex/overflow do dashboard) */
     *, *::before, *::after { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      color: var(--color-text-primary);
-      background-color: var(--color-bg-default);
-      -webkit-font-smoothing: antialiased;
-    }
-    .helper-text {
-      margin: 0;
-      font-size: var(--font-size-xs);
-      color: var(--color-text-tertiary);
-      line-height: var(--line-height-normal);
-      text-align: center;
-    }
-    .hidden { display: none !important; }
+    body { margin: 0; font-family: var(--font-body); color: var(--color-text-primary); background-color: var(--color-bg-default); -webkit-font-smoothing: antialiased; }
     .logo-img { display: block; filter: brightness(0) invert(1); }
+    .helper-text { margin: 0; font-size: var(--font-size-xs); color: var(--color-text-tertiary); line-height: var(--line-height-normal); text-align: center; }
+    .hidden { display: none !important; }
   </style>
 </head>
 <body>

@@ -1,26 +1,19 @@
-.wrapper {
+.toggleWrapper {
   display: inline-flex;
   align-items: center;
   gap: var(--spacing-sm);
   cursor: pointer;
   user-select: none;
 }
-.wrapper.disabled { cursor: not-allowed; pointer-events: none; }
-.disabled .track {
-  background: var(--color-status-disabled-bg);
-}
-.disabled.checked .track {
-  background: var(--color-status-disabled-bg);
-}
-.disabled .thumb {
-  background: var(--color-status-disabled-fg);
-}
-.disabled .label { color: var(--color-text-disabled); }
+.toggleWrapper.toggleDisabled { cursor: not-allowed; pointer-events: none; }
+.toggleDisabled .toggleTrack { background: var(--color-status-disabled-bg); }
+.toggleDisabled.toggleChecked .toggleTrack { background: var(--color-status-disabled-bg); }
+.toggleDisabled .toggleThumb { background: var(--color-status-disabled-fg); }
+.toggleDisabled .toggleLabel { color: var(--color-text-disabled); }
 
-.input { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.toggleInput { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
 
-/* md (default) */
-.track {
+.toggleTrack {
   position: relative;
   width: 44px; height: 24px;
   background: var(--color-glass-surface);
@@ -31,13 +24,15 @@
   transition: background var(--transition-fast), box-shadow var(--transition-fast), border-color var(--transition-fast);
   flex-shrink: 0;
 }
-.checked .track {
+/* React: classe .toggleChecked no wrapper | HTML: :has(input:checked) */
+.toggleChecked .toggleTrack,
+.toggleWrapper:has(input:checked) .toggleTrack {
   background: var(--gradient-brand);
   border-color: transparent;
   box-shadow: var(--shadow-highlight), var(--shadow-glow-sm);
 }
 
-.thumb {
+.toggleThumb {
   position: absolute;
   top: 3px; left: 3px;
   width: 16px; height: 16px;
@@ -46,28 +41,24 @@
   box-shadow: var(--shadow-xs);
   transition: transform var(--transition-fast);
 }
-.checked .thumb { transform: translateX(20px); }
+.toggleChecked .toggleThumb,
+.toggleWrapper:has(input:checked) .toggleThumb { transform: translateX(20px); }
 
 /* sm */
-.sm .track {
-  width: 32px; height: 18px;
-}
-.sm .thumb {
-  top: 3px; left: 3px;
-  width: 10px; height: 10px;
-}
-.sm.checked .thumb { transform: translateX(14px); }
+.toggleSm .toggleTrack { width: 32px; height: 18px; }
+.toggleSm .toggleThumb { top: 3px; left: 3px; width: 10px; height: 10px; }
+.toggleSm.toggleChecked .toggleThumb,
+.toggleSm:has(input:checked) .toggleThumb { transform: translateX(14px); }
 
-.label {
+.toggleLabel {
   font-family: var(--font-body);
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   font-weight: var(--font-weight-regular);
   line-height: 1.4;
-  letter-spacing: 0.01em;
-  color: var(--color-text-primary);
+  color: var(--color-text-secondary);
 }
 
-.wrapper:has(input:focus-visible) .track {
+.toggleWrapper:has(input:focus-visible) .toggleTrack {
   outline: var(--border-width-medium) solid var(--color-border-focus);
   outline-offset: 2px;
 }

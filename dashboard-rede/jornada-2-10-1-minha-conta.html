@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Feedback/Feedback.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Card/Card.module.css" />
+
+</head>
+<body data-page="configuracoes">
+
+<!-- ── Sidebar ── -->
+<aside id="sidebar-root"></aside>
+
+<!-- ── Main ── -->
+<main class="main bgWrapper" id="main">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <!-- Page header -->
+  <div class="pageHeader">
+    <div>
+      <h1 class="pageTitle">Configurações</h1>
+      <p class="pageSubtitle">Gerencie sua conta e as preferências da rede</p>
+    </div>
+  </div>
+
+  <!-- Tab nav -->
+  <div class="tabNav">
+    <div class="tabList" role="tablist">
+      <button class="tabBtn tabBtnActive tabLeft"  role="tab" aria-selected="true">Minha conta</button>
+      <button class="tabBtn tabMiddle" role="tab" aria-selected="false" onclick="location.href='jornada-2-10-2-perfil-empresa.html'">Perfil da empresa</button>
+      <button class="tabBtn tabMiddle" role="tab" aria-selected="false" onclick="location.href='jornada-2-10-3-notificacoes.html'">Notificações</button>
+      <button class="tabBtn tabMiddle" role="tab" aria-selected="false" onclick="location.href='jornada-2-10-4-termos.html'">Termos de uso</button>
+      <button class="tabBtn tabMiddle" role="tab" aria-selected="false" onclick="location.href='jornada-2-10-5-sobre.html'">Sobre a Althus</button>
+      <button class="tabBtn tabRight"  role="tab" aria-selected="false" onclick="location.href='jornada-2-10-6-ajuda.html'">Ajuda / Suporte</button>
+    </div>
+  </div>
+
+  <!-- Content -->
+  <div class="pageContent"><h2 class="sectionTitle">Minha conta</h2>
+
+    <div class="feedbackWrap" id="feedback-wrap">
+      <div class="alert success" role="alert">
+        <span style="flex-shrink:0; margin-top:1px;"><i data-lucide="circle-check" width="18" height="18"></i></span>
+        <div class="body">
+          <div class="title">Conta atualizada com sucesso!</div>
+          <div class="message">Suas informações foram salvas.</div>
+        </div>
+        <button class="dismiss" aria-label="Fechar" onclick="document.getElementById('feedback-wrap').classList.remove('visible')">
+          <i data-lucide="x" width="14" height="14"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="card">
+
+      <!-- ── Foto de perfil ── -->
+      <div class="formSection">
+        <h2 class="sectionTitle">Foto de perfil</h2>
+        <p class="sectionSubtitle">Visível para outros usuários com acesso ao painel</p>
+        <div class="avatarSection">
+          <div class="avatar avatarXl"><span class="avatarInitials">AR</span></div>
+          <div class="avatarMeta">
+            <span class="avatarName">Admin Rede</span>
+            <span class="avatarRole">Administrador · admin@rededemo.com.br</span>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- ── Informações pessoais ── -->
+      <div class="formSection">
+        <h2 class="sectionTitle">Informações pessoais</h2>
+        <p class="sectionSubtitle">Dados da sua conta de acesso ao painel</p>
+
+        <div class="formGrid grid2">
+          <div class="wrapper">
+            <label class="label" for="nome">Nome completo</label>
+            <div class="inputWrap">
+              <input class="input" id="nome" type="text" value="Admin Rede" />
+            </div>
+          </div>
+
+          <div class="wrapper">
+            <label class="label" for="email">E-mail</label>
+            <div class="inputWrap">
+              <input class="input" id="email" type="email" value="admin@rededemo.com.br" disabled />
+            </div>
+            <span class="helperText">O e-mail não pode ser alterado diretamente. Entre em contato com o suporte.</span>
+          </div>
+
+          <div class="wrapper">
+            <label class="label" for="cargo">Cargo / Função</label>
+            <div class="inputWrap">
+              <input class="input" id="cargo" type="text" value="Administrador de Rede" />
+            </div>
+          </div>
+
+          <div class="wrapper">
+            <label class="label" for="telefone">Telefone</label>
+            <div class="inputWrap">
+              <input class="input" id="telefone" type="tel" placeholder="(11) 90000-0000" value="(11) 98765-4321" />
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="divider" />
+
+      <!-- ── Alterar senha ── -->
+      <div class="formSection">
+        <h2 class="sectionTitle">Alterar senha</h2>
+        <p class="sectionSubtitle">Deixe em branco para manter a senha atual</p>
+
+        <div class="formGrid grid2">
+          <div class="wrapper hasRight">
+            <label class="label" for="senha-atual">Senha atual</label>
+            <div class="inputWrap">
+              <input class="input" id="senha-atual" type="password" placeholder="••••••••" />
+              <button class="iconRightBtn" type="button" aria-label="Mostrar senha" onclick="togglePassword('senha-atual', this)">
+                <i data-lucide="eye" width="16" height="16"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- spacer na grid -->
+          <div></div>
+
+          <div class="wrapper hasRight">
+            <label class="label" for="nova-senha">Nova senha</label>
+            <div class="inputWrap">
+              <input class="input" id="nova-senha" type="password" placeholder="••••••••" />
+              <button class="iconRightBtn" type="button" aria-label="Mostrar senha" onclick="togglePassword('nova-senha', this)">
+                <i data-lucide="eye" width="16" height="16"></i>
+              </button>
+            </div>
+            <span class="helperText">Mínimo de 8 caracteres, incluindo letras e números</span>
+          </div>
+
+          <div class="wrapper hasRight">
+            <label class="label" for="confirmar-senha">Confirmar nova senha</label>
+            <div class="inputWrap">
+              <input class="input" id="confirmar-senha" type="password" placeholder="••••••••" />
+              <button class="iconRightBtn" type="button" aria-label="Mostrar senha" onclick="togglePassword('confirmar-senha', this)">
+                <i data-lucide="eye" width="16" height="16"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── Footer ── -->
+      <div class="formFooter">
+        <button class="btn ghost">Cancelar</button>
+        <button class="btn primary" id="save-btn">Salvar alterações</button>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<script src="shared/sidebar.js"></script>
+<script>
+
+  /* Password show/hide */
+  function togglePassword(inputId, btn) {
+    const input = document.getElementById(inputId);
+    const isHidden = input.type === 'password';
+    input.type = isHidden ? 'text' : 'password';
+    btn.innerHTML = isHidden
+      ? '<i data-lucide="eye-off" width="16" height="16"></i>'
+      : '<i data-lucide="eye" width="16" height="16"></i>';
+    btn.setAttribute('aria-label', isHidden ? 'Ocultar senha' : 'Mostrar senha');
+    lucide.createIcons();
+  }
+
+  /* Save feedback */
+  document.getElementById('save-btn').addEventListener('click', () => {
+    const wrap = document.getElementById('feedback-wrap');
+    wrap.classList.add('visible');
+    document.querySelector('.pageContent').scrollTop = 0;
+    lucide.createIcons();
+  });
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

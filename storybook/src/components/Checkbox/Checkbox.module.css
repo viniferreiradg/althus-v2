@@ -35,7 +35,8 @@
   outline-offset: 2px;
 }
 
-.mark { color: white; font-size: 11px; line-height: 1; font-weight: bold; }
+.mark { color: white; font-size: 11px; line-height: 1; font-weight: bold; display: none; }
+.checked .mark, .indeterminate .mark { display: block; }
 
 .label {
   font-family: var(--font-body);

@@ -15,8 +15,8 @@
   font-family: var(--font-body);
 }
 
-.open   { width: 246px; }
-.closed { width: 78px;  }
+.sidebar.open   { width: 246px; }
+.sidebar.closed { width: 78px;  }
 
 .logoRow {
   position: relative;

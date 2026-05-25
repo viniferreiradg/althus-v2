@@ -107,6 +107,8 @@ Os tokens semânticos (ex: `--color-text-primary`, `--color-bg-default`) se adap
 
 **Nota:** Usa `Logo` e `LogoSymbol` internamente.
 
+**Aviso CSS (HTML standalone):** Os seletores de largura em `Sidebar.module.css` são **`.sidebar.open`** e **`.sidebar.closed`** (compostos com `.sidebar`) — não são seletores nus `.open`/`.closed`. Isso evita conflito com o Accordion, que também usa a classe `.open` em seus itens. Nunca reverter para seletores nus.
+
 ```tsx
 const [open, setOpen] = useState(true);
 const [active, setActive] = useState('dashboard');
@@ -332,6 +334,42 @@ const [val, setVal] = useState('');
 <Accordion items={[{ title: 'Pergunta', content: 'Resposta...' }]} allowMultiple />
 ```
 
+**CSS classes (para HTML standalone):**
+
+| Classe | Descrição |
+|--------|-----------|
+| `.accordion` | Container flex coluna |
+| `.item` | Um item do accordion (sem `.open` = fechado) |
+| `.item.open` | Item aberto — revela `.panel` e gira `.chevron` |
+| `.trigger` | Botão do cabeçalho (width: 100%) |
+| `.chevron` | Ícone rotacionado quando aberto |
+| `.panel` | Área colapsável (`max-height: 0` → `1000px`) |
+| `.content` | Padding interno do conteúdo |
+
+**Nota:** A classe `.open` é adicionada ao `.item` via JS. Não conflita com o Sidebar porque `Sidebar.module.css` usa `.sidebar.open` (seletor composto).
+
+```html
+<link rel="stylesheet" href="../storybook/src/components/Accordion/Accordion.module.css" />
+
+<div class="accordion">
+  <div class="item">
+    <button class="trigger" type="button">
+      Pergunta
+      <span class="chevron"><i data-lucide="chevron-down" width="16" height="16"></i></span>
+    </button>
+    <div class="panel">
+      <div class="content">Resposta detalhada aqui.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.accordion .trigger').forEach(btn => {
+    btn.addEventListener('click', () => btn.closest('.item').classList.toggle('open'));
+  });
+</script>
+```
+
 ---
 
 ### Checkbox
@@ -364,16 +402,42 @@ const [val, setVal] = useState('');
 
 ### Tab
 **Import:** `import { Tab } from '../components/Tab/Tab'`
+**CSS:** `../storybook/src/components/Tab/Tab.module.css`
 
 | Prop | Tipo | Descrição |
 |------|------|-----------|
 | `tabs` | `{ label: string; content: ReactNode }[]` | Abas |
 | `defaultIndex` | `number` | Aba ativa inicial |
 
+**CSS classes (para HTML standalone):**
+
+| Classe | Descrição |
+|--------|-----------|
+| `.tabWrapper` | Container raiz |
+| `.tabList` | Linha de botões (flex, border-bottom, scroll horizontal oculto) |
+| `.tabBtn` | Botão de aba inativo |
+| `.tabBtnActive` | Botão de aba ativo (cor brand + underline) |
+| `.tabPanel` | Área de conteúdo da aba ativa |
+
+**Nota:** Classes prefixadas com `tab` para evitar conflito com `.wrapper` do Dropdown/Input e `.list`/`.panel` de outros componentes. Pode ser linkado diretamente sem conflito.
+
+```html
+<link rel="stylesheet" href="../storybook/src/components/Tab/Tab.module.css" />
+
+<div class="tabWrapper">
+  <div class="tabList" role="tablist">
+    <button class="tabBtn tabBtnActive" role="tab" aria-selected="true">Aba 1</button>
+    <button class="tabBtn" role="tab" aria-selected="false">Aba 2</button>
+  </div>
+  <div class="tabPanel" role="tabpanel">Conteúdo da aba ativa</div>
+</div>
+```
+
 ---
 
 ### Toggle
 **Import:** `import { Toggle } from '../components/Toggle/Toggle'`
+**CSS:** `../storybook/src/components/Toggle/Toggle.module.css`
 
 | Prop | Tipo | Padrão | Descrição |
 |------|------|--------|-----------|
@@ -382,6 +446,31 @@ const [val, setVal] = useState('');
 | `label` | `string` | — | Label ao lado |
 | `size` | `'md' \| 'sm'` | `'md'` | Tamanho |
 | `disabled` | `boolean` | — | Desabilita |
+
+**CSS classes (para HTML standalone):**
+
+| Classe | Descrição |
+|--------|-----------|
+| `.toggleWrapper` | `<label>` container raiz |
+| `.toggleInput` | `<input type="checkbox">` visualmente oculto |
+| `.toggleTrack` | Trilho do toggle |
+| `.toggleThumb` | Bolinha deslizante |
+| `.toggleLabel` | Texto ao lado |
+| `.toggleChecked` | Estado ativo (adicionar no wrapper via JS) |
+| `.toggleSm` | Tamanho pequeno |
+| `.toggleDisabled` | Estado desabilitado |
+
+**Nota:** Estado ativo funciona de dois modos: classe `.toggleChecked` no wrapper (React) OU CSS `:has(input:checked)` automático (HTML standalone — sem JS extra).
+
+```html
+<link rel="stylesheet" href="../storybook/src/components/Toggle/Toggle.module.css" />
+
+<label class="toggleWrapper" for="meu-toggle" style="margin-top: var(--spacing-xs);">
+  <input type="checkbox" class="toggleInput" id="meu-toggle" checked />
+  <span class="toggleTrack"><span class="toggleThumb"></span></span>
+  <span class="toggleLabel" id="meu-toggle-label">Ativa</span>
+</label>
+```
 
 ---
 
@@ -545,6 +634,136 @@ Container com efeito glass — semi-transparente nos dois temas, deixa os blobs 
 ```
 
 **Atenção:** `Table.module.css` também usa `.card` para seu container — não linkar os dois na mesma página.
+
+---
+
+### Timeline
+**Import:** `import { Timeline } from '../components/Timeline/Timeline'`
+**CSS:** `../storybook/src/components/Timeline/Timeline.module.css`
+
+Linha do tempo vertical com estados visuais. Usado em telas de detalhe para mostrar progressão de eventos (reservas, pedidos, instalações, etc.).
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `items` | `TimelineItem[]` | Lista de eventos em ordem cronológica |
+
+**`TimelineItem`:**
+
+| Campo | Tipo | Descrição |
+|-------|------|-----------|
+| `label` | `string` | Descrição do evento |
+| `time` | `string` (opcional) | Timestamp ou texto de data/hora |
+| `status` | `'done' \| 'active' \| 'pending'` | Estado visual do item |
+
+**CSS classes (para HTML standalone):**
+
+| Classe | Descrição |
+|--------|-----------|
+| `.timeline` | Container flex coluna |
+| `.tlItem` | Um evento da linha do tempo |
+| `.tlDone` | Estado concluído (ponto verde + conector verde desbotado) |
+| `.tlActive` | Estado em andamento (ponto amarelo com glow) |
+| `.tlPending` | Estado pendente (ponto outline, conector esmaecido) |
+| `.tlVis` | Coluna visual: ponto + conector |
+| `.tlDot` | Círculo de estado (12×12 px) |
+| `.tlConnector` | Linha vertical entre eventos |
+| `.tlContent` | Coluna de texto |
+| `.tlLabel` | Texto do evento |
+| `.tlTime` | Timestamp abaixo do label (opcional) |
+
+```tsx
+<Timeline items={[
+  { status: 'done',    label: 'Reserva confirmada',  time: '25/05/2026 às 09:30' },
+  { status: 'active',  label: 'Janela iniciada',      time: '25/05/2026 às 16:45' },
+  { status: 'pending', label: 'Expiração da janela',  time: 'Previsto 25/05/2026 às 17:00' },
+]} />
+```
+
+```html
+<!-- HTML standalone -->
+<link rel="stylesheet" href="../storybook/src/components/Timeline/Timeline.module.css" />
+
+<div class="timeline">
+  <div class="tlItem tlDone">
+    <div class="tlVis"><div class="tlDot"></div><div class="tlConnector"></div></div>
+    <div class="tlContent">
+      <div class="tlLabel">Reserva confirmada</div>
+      <div class="tlTime">25/05/2026 às 09:30</div>
+    </div>
+  </div>
+  <div class="tlItem tlActive">
+    <div class="tlVis"><div class="tlDot"></div><div class="tlConnector"></div></div>
+    <div class="tlContent"><div class="tlLabel">Janela iniciada</div></div>
+  </div>
+  <div class="tlItem tlPending">
+    <div class="tlVis"><div class="tlDot"></div><div class="tlConnector"></div></div>
+    <div class="tlContent"><div class="tlLabel">Expiração</div></div>
+  </div>
+</div>
+```
+
+**Nota:** O conector do último item some automaticamente via CSS — não precisa de JS.
+
+---
+
+### DetailCard
+**Import:** `import { DetailGrid, DetailCard, TitleRow } from '../components/DetailCard/DetailCard'`
+**CSS:** `../storybook/src/components/DetailCard/DetailCard.module.css`
+
+Layout padrão de telas de detalhe (visualizar entidade). Grid de 2 colunas com cards glass que contêm pares chave–valor. Sempre usar em conjunto com `Card.module.css` (glass surface).
+
+| Classe | Descrição |
+|--------|-----------|
+| `.titleRow` | Linha de cabeçalho: `h1` + badge de status lado a lado |
+| `.detailGrid` | Grid externo 2 colunas (`1fr 1fr`) |
+| `.detailCard` | Card que ocupa 1 coluna (só padding — glass vem do `.card`) |
+| `.detailCardFull` | Card que ocupa as 2 colunas |
+| `.cardTitle` | Título interno do card (display, sm, semibold) |
+| `.infoGrid` | Grid `auto 1fr` para os pares chave–valor |
+| `.infoLabel` | Label (xs, uppercase, terciário) |
+| `.infoValue` | Valor padrão (sm, primário) |
+| `.infoValueMono` | Valor em fonte mono (código, serial) |
+| `.infoValueDim` | Valor esmaecido (campo vazio / N/A) |
+| `.infoValueStrong` | Valor em destaque (total, valor financeiro) — md, semibold, brand |
+| `.cardDivider` | Divisor horizontal dentro do infoGrid (ocupa as 2 colunas) |
+
+```html
+<link rel="stylesheet" href="../storybook/src/components/Card/Card.module.css" />
+<link rel="stylesheet" href="../storybook/src/components/DetailCard/DetailCard.module.css" />
+
+<!-- Cabeçalho da página -->
+<div class="titleRow">
+  <h1 class="pageTitle">ALT-001</h1>
+  <span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span>
+</div>
+
+<!-- Grid de cards -->
+<div class="detailGrid">
+  <div class="card detailCard">
+    <h2 class="cardTitle">Informações</h2>
+    <div class="infoGrid">
+      <span class="infoLabel">Serial</span>
+      <span class="infoValueMono">ALT-001</span>
+
+      <span class="infoLabel">Status</span>
+      <span class="infoValue">Ativo</span>
+    </div>
+  </div>
+
+  <div class="card detailCardFull">
+    <h2 class="cardTitle">Resumo financeiro</h2>
+    <div class="infoGrid">
+      <span class="infoLabel">Total</span>
+      <span class="infoValueStrong">R$ 1.280,00</span>
+
+      <span class="infoLabel">Observação</span>
+      <span class="infoValueDim">—</span>
+    </div>
+  </div>
+</div>
+```
+
+**Nota:** `.titleRow` não tem `h1` embutido — usar o `h1.pageTitle` da página normalmente.
 
 ---
 

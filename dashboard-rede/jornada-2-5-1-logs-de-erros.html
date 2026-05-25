@@ -11,6 +11,7 @@
 
   <!-- Design system -->
   <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
   <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
@@ -20,268 +21,12 @@
   <link rel="stylesheet" href="../storybook/src/components/Pagination/Pagination.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/MetricCard/MetricCard.module.css" />
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      background: var(--color-bg-default);
-      color: var(--color-text-primary);
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
 
-    /* ── Main ── */
-    .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; min-width: 0; }
-
-    /* ── Page header ── */
-    .pageHeader {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: calc(var(--spacing-lg) + var(--spacing-xs)) var(--spacing-xl) 0;
-      flex-shrink: 0;
-    }
-    .pageTitle {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-semibold);
-      color: var(--color-text-primary);
-      line-height: var(--line-height-tight);
-    }
-    .pageSubtitle {
-      margin: var(--spacing-xs) 0 0;
-      font-size: var(--font-size-sm);
-      color: var(--color-text-tertiary);
-    }
-
-    /* ── Toolbar ── */
-    .toolbar {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      padding: var(--spacing-md) var(--spacing-xl) 0;
-      flex-shrink: 0;
-    }
-    .filterWrap { width: 160px; }
-    .toolbarSep {
-      width: 1px;
-      height: 36px;
-      background: var(--color-border-subtle);
-      flex-shrink: 0;
-    }
-
-    /* ── DatePicker (page-level, evita conflito com .trigger do Dropdown) ── */
-    .dpWrap { position: relative; display: inline-block; }
-
-    .dpTrigger {
-      display: inline-flex; align-items: center; gap: var(--spacing-sm);
-      padding: var(--spacing-xs) var(--spacing-md); height: 36px;
-      background: var(--color-bg-surface);
-      border: var(--border-width-thin) solid var(--color-border-default);
-      border-radius: var(--radius-full); cursor: pointer;
-      color: var(--color-text-primary); font-family: var(--font-body);
-      font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
-      transition: border-color var(--transition-fast), background var(--transition-fast);
-      white-space: nowrap; user-select: none;
-    }
-    .dpTrigger:hover { border-color: var(--color-border-muted); background: var(--color-bg-elevated); }
-    .dpTrigger.open  { border-color: var(--color-border-focus); }
-    .dpTriggerIcon   { display: flex; align-items: center; color: var(--color-text-tertiary); flex-shrink: 0; }
-    .dpTriggerText   { color: var(--color-text-primary); }
-    .dpTriggerPlaceholder { color: var(--color-text-tertiary); }
-    .dpTriggerClear {
-      display: flex; align-items: center; justify-content: center;
-      width: 18px; height: 18px; border-radius: var(--radius-full);
-      color: var(--color-text-tertiary); background: none; border: none;
-      cursor: pointer; padding: 0; flex-shrink: 0;
-      transition: background var(--transition-fast), color var(--transition-fast);
-    }
-    .dpTriggerClear:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); }
-
-    .dpPopover {
-      position: absolute; top: calc(100% + var(--spacing-xs)); left: 0;
-      background: var(--color-glass-surface);
-      border: var(--border-width-thin) solid var(--color-glass-border);
-      border-radius: var(--radius-sm); box-shadow: var(--shadow-xl);
-      backdrop-filter: blur(var(--blur-glass)); -webkit-backdrop-filter: blur(var(--blur-glass));
-      display: flex; flex-direction: row; z-index: 200; overflow: hidden;
-    }
-    .dpPopover[hidden] { display: none; }
-
-    .dpCalPanel { padding: var(--spacing-md); min-width: 272px; }
-    .dpCalHeader { display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--spacing-sm); }
-    .dpMonthLabel { font-size: var(--font-size-sm); font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
-    .dpNavBtn {
-      display: flex; align-items: center; justify-content: center;
-      width: 28px; height: 28px; background: none; border: none; cursor: pointer;
-      border-radius: var(--radius-xs); color: var(--color-text-tertiary); padding: 0;
-      transition: background var(--transition-fast), color var(--transition-fast);
-    }
-    .dpNavBtn:hover { background: var(--color-bg-surface); color: var(--color-text-primary); }
-
-    .dpGrid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-    .dpDayName { display: flex; align-items: center; justify-content: center; height: 32px; font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); color: var(--color-text-tertiary); }
-    .dpDay {
-      display: flex; align-items: center; justify-content: center; height: 32px;
-      font-size: var(--font-size-xs); font-weight: var(--font-weight-regular);
-      color: var(--color-text-primary); cursor: pointer;
-      border-radius: var(--radius-xs); background: none; border: none; padding: 0;
-      transition: background var(--transition-fast), color var(--transition-fast);
-    }
-    .dpDay:hover:not(.dpDayOutside):not(.dpDayStart):not(.dpDayEnd) { background: var(--color-bg-surface); }
-    .dpDayOutside { color: var(--color-text-disabled); cursor: default; }
-    .dpDayToday   { font-weight: var(--font-weight-semibold); color: var(--color-text-brand); }
-    .dpDayInRange { background: var(--color-bg-brand); border-radius: 0; }
-    [data-theme="light"] .dpDayInRange { background: var(--color-gray-200); opacity: var(--opacity-50); }
-    .dpDayStart   { background: var(--color-bg-brand-strong); color: var(--color-gray-white); border-radius: var(--radius-xs); font-weight: var(--font-weight-semibold); }
-    .dpDayEnd     { background: transparent; color: var(--color-text-brand); border: var(--border-width-medium) solid var(--color-border-focus); border-radius: var(--radius-xs); font-weight: var(--font-weight-semibold); }
-    .dpDayEnd:hover { background: var(--color-bg-brand); }
-
-    .dpPanelDivider { width: var(--border-width-thin); background: var(--color-border-default); align-self: stretch; flex-shrink: 0; }
-
-    .dpCtrlPanel { display: flex; flex-direction: column; padding: var(--spacing-md); min-width: 172px; gap: var(--spacing-sm); }
-    .dpFieldLabel { font-size: var(--font-size-xs); font-weight: var(--font-weight-medium); color: var(--color-text-tertiary); margin-bottom: var(--spacing-2xs); }
-    .dpDateInput {
-      width: 100%; background: var(--color-bg-surface);
-      border: var(--border-width-thin) solid var(--color-border-default);
-      border-radius: var(--radius-xs); padding: var(--spacing-xs) var(--spacing-sm);
-      font-family: var(--font-body); font-size: var(--font-size-sm);
-      color: var(--color-text-primary); outline: none; box-sizing: border-box;
-      transition: border-color var(--transition-fast);
-    }
-    .dpDateInput:focus { border-color: var(--color-border-focus); }
-    .dpSpacer { flex: 1; }
-    .dpApply {
-      width: 100%; display: flex; align-items: center; justify-content: center; gap: var(--spacing-xs);
-      padding: var(--spacing-xs) var(--spacing-sm); background: var(--color-bg-brand-strong);
-      color: var(--color-gray-white); border: none; border-radius: var(--radius-xs);
-      font-family: var(--font-body); font-size: var(--font-size-sm); font-weight: var(--font-weight-medium);
-      cursor: pointer; transition: opacity var(--transition-fast); white-space: nowrap;
-    }
-    .dpApply:hover { opacity: var(--opacity-90); }
-    .dpTzSelect {
-      width: 100%; background: var(--color-bg-surface);
-      border: var(--border-width-thin) solid var(--color-border-default);
-      border-radius: var(--radius-xs); padding: var(--spacing-xs) var(--spacing-sm);
-      font-family: var(--font-body); font-size: var(--font-size-xs); color: var(--color-text-tertiary);
-      cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; box-sizing: border-box;
-    }
-
-    /* ── Scrollable content ── */
-    .pageContent {
-      flex: 1;
-      overflow-y: auto;
-      padding: var(--spacing-md) var(--spacing-xl) var(--spacing-xl);
-      position: relative;
-      z-index: 1;
-    }
-    .pageContent::-webkit-scrollbar { width: var(--spacing-xs); }
-    .pageContent::-webkit-scrollbar-track { background: transparent; }
-    .pageContent::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-xs); }
-
-    /* ── MetricCards grid ── */
-    .metricsGrid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: var(--spacing-sm);
-      padding: var(--spacing-md) var(--spacing-xl) 0;
-      flex-shrink: 0;
-    }
-
-    /* ── Table tweaks ── */
-    .tdFirst  { padding-left: var(--spacing-md) !important; }
-    .thFirst  { padding-left: var(--spacing-md) !important; }
-    .tdMono   { font-family: var(--font-mono); font-size: var(--font-size-xs); }
-    .tdDesc   { font-size: var(--font-size-xs); color: var(--color-text-secondary); max-width: 260px; }
-
-    /* ── Sidebar collapsed ── */
-    .closed .navLabel, .closed .navLabelLogout, .closed .userInfo { display: none; }
-    .closed .toggleIcon-left  { display: none; }
-    .closed .toggleIcon-right { display: inline-flex; }
-    .toggleIcon-right { display: none; }
-
-    /* ── Logo ── */
-    .logo-img { display: block; filter: brightness(0) invert(1); }
-    [data-theme="light"] .logo-img { filter: none; }
-    .logo-symbol { display: none; }
-    .closed .logo-full   { display: none; }
-    .closed .logo-symbol { display: block; }
-  </style>
 </head>
-<body>
+<body data-page="logs">
 
 <!-- ── Sidebar ── -->
-<aside class="sidebar open" id="sidebar">
-  <button class="toggleBtn" id="toggle-btn" aria-label="Recolher menu">
-    <i data-lucide="chevron-left" class="toggleIcon-left" width="14" height="14"></i>
-    <i data-lucide="chevron-right" class="toggleIcon-right" width="14" height="14"></i>
-  </button>
-
-  <div class="logoRow">
-    <div class="logoWrap">
-      <img class="logo-img logo-full" src="../storybook/src/components/Logo/logo-default.svg" width="120" alt="Althus" />
-      <img class="logo-img logo-symbol" src="../storybook/src/components/Logo/logo-symbol.svg" width="28" alt="Althus" />
-    </div>
-  </div>
-
-  <div class="body">
-    <nav class="navList">
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="layout-dashboard" width="18" height="18"></i></span>
-        <span class="navLabel">Dashboard</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="map-pin" width="18" height="18"></i></span>
-        <span class="navLabel">Locais</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="zap" width="18" height="18"></i></span>
-        <span class="navLabel">Carregadores</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="receipt" width="18" height="18"></i></span>
-        <span class="navLabel">Tarifas</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="tag" width="18" height="18"></i></span>
-        <span class="navLabel">Cupons</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="file-text" width="18" height="18"></i></span>
-        <span class="navLabel">Extrato</span>
-      </button>
-      <button class="navItem navItemActive">
-        <span class="navIcon"><i data-lucide="triangle-alert" width="18" height="18"></i></span>
-        <span class="navLabel">Logs de Erros</span>
-      </button>
-    </nav>
-
-    <div class="spacer"></div>
-
-    <div class="bottomList">
-      <div class="separator"></div>
-      <div class="userRow">
-        <div class="avatar md"><span class="avatarInitials">AR</span></div>
-        <div class="userInfo">
-          <div class="userName">Admin Rede</div>
-          <div class="userEmail">admin@rededemo.com.br</div>
-        </div>
-      </div>
-      <button class="navItem" id="theme-btn" title="Modo claro">
-        <span class="navIcon" id="theme-icon"><i data-lucide="sun" width="18" height="18"></i></span>
-        <span class="navLabel" id="theme-label">Modo claro</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="log-out" width="18" height="18"></i></span>
-        <span class="navLabelLogout">Sair</span>
-      </button>
-    </div>
-  </div>
-</aside>
+<aside id="sidebar-root"></aside>
 
 <!-- ── Main ── -->
 <main class="main bgWrapper" id="main">
@@ -289,7 +34,7 @@
   <div class="blob2"></div>
 
   <!-- Page header -->
-  <div class="pageHeader">
+  <div class="pageHeader" style="display:flex;align-items:center;justify-content:space-between;">
     <div>
       <h1 class="pageTitle">Logs de Erros</h1>
       <p class="pageSubtitle">Alertas e falhas dos carregadores da sua rede</p>
@@ -401,7 +146,7 @@
   </div>
 
   <!-- MetricCards -->
-  <div class="metricsGrid">
+  <div class="metricsGrid5">
     <div class="root">
       <div class="label">Total de erros</div>
       <div class="value" style="color: var(--color-text-secondary);">47</div>
@@ -541,32 +286,8 @@
   </div>
 </main>
 
+<script src="shared/sidebar.js"></script>
 <script>
-  /* ── Sidebar toggle ── */
-  const sidebar   = document.getElementById('sidebar');
-  const toggleBtn = document.getElementById('toggle-btn');
-  toggleBtn.addEventListener('click', () => {
-    const isOpen = sidebar.classList.contains('open');
-    sidebar.classList.toggle('open', !isOpen);
-    sidebar.classList.toggle('closed', isOpen);
-    toggleBtn.setAttribute('aria-label', isOpen ? 'Expandir menu' : 'Recolher menu');
-  });
-
-  /* ── Theme toggle ── */
-  const htmlEl     = document.documentElement;
-  const themeBtn   = document.getElementById('theme-btn');
-  const themeIcon  = document.getElementById('theme-icon');
-  const themeLabel = document.getElementById('theme-label');
-  themeBtn.addEventListener('click', () => {
-    const isDark = htmlEl.getAttribute('data-theme') !== 'light';
-    htmlEl.setAttribute('data-theme', isDark ? 'light' : 'dark');
-    themeIcon.innerHTML = isDark
-      ? '<i data-lucide="moon" width="18" height="18"></i>'
-      : '<i data-lucide="sun" width="18" height="18"></i>';
-    themeLabel.textContent = isDark ? 'Modo escuro' : 'Modo claro';
-    lucide.createIcons();
-  });
-
   /* ── Dropdown factory ── */
   function initDropdown(wrapperId, triggerId, valueId, placeholder) {
     const wrapper = document.getElementById(wrapperId);

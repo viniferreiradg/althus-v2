@@ -1,0 +1,110 @@
+/* ── DetailCard — layout de tela de detalhe (visualizar entidade) ─────────────
+ *
+ * Padrão: grid de 2 colunas com cards glass. Cada card tem título + grid
+ * chave–valor. Cards de largura total usam .detailCardFull.
+ *
+ * Estrutura HTML típica:
+ *
+ *   <div class="detailGrid">
+ *     <div class="card detailCard">
+ *       <h2 class="cardTitle">Identificação</h2>
+ *       <div class="infoGrid">
+ *         <span class="infoLabel">Código</span>
+ *         <span class="infoValueMono">PLT-001</span>
+ *       </div>
+ *     </div>
+ *     <div class="card detailCardFull">
+ *       <h2 class="cardTitle">Utilização</h2>
+ *       <div class="infoGrid">...</div>
+ *     </div>
+ *   </div>
+ *
+ * Nota: .card vem de Card.module.css (glass surface). Linkar os dois.
+ * ─────────────────────────────────────────────────────────────────────────── */
+
+/* ── Cabeçalho da página de detalhe: título + badge de status ──────────────── */
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-top: var(--spacing-xs);
+}
+
+/* ── Grid externo: 2 colunas de largura igual ───────────────────────────────── */
+.detailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+
+/* ── Card normal (ocupa 1 coluna) ────────────────────────────────────────────── */
+.detailCard {
+  padding: var(--spacing-lg);
+}
+
+/* ── Card de largura total (ocupa as 2 colunas) ──────────────────────────────── */
+.detailCardFull {
+  grid-column: 1 / -1;
+  padding: var(--spacing-lg);
+}
+
+/* ── Título interno do card ──────────────────────────────────────────────────── */
+.cardTitle {
+  margin: 0 0 var(--spacing-md);
+  font-family: var(--font-display);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* ── Grid de pares chave–valor ───────────────────────────────────────────────── */
+.infoGrid {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-sm) var(--spacing-xl);
+  align-items: baseline;
+}
+
+/* ── Label (coluna esquerda) ─────────────────────────────────────────────────── */
+.infoLabel {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Valor padrão (coluna direita) ───────────────────────────────────────────── */
+.infoValue {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+/* ── Valor em fonte mono (código, serial, ID) ────────────────────────────────── */
+.infoValueMono {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+}
+
+/* ── Valor esmaecido (campo vazio ou não aplicável) ──────────────────────────── */
+.infoValueDim {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* ── Valor em destaque (totais, valores financeiros) ─────────────────────────── */
+.infoValueStrong {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-brand);
+}
+
+/* ── Divisor horizontal dentro do infoGrid ───────────────────────────────────── */
+.cardDivider {
+  grid-column: 1 / -1;
+  height: var(--border-width-thin);
+  background: var(--color-border-glass);
+  margin: var(--spacing-xs) 0;
+}

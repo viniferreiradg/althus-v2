@@ -1,24 +1,53 @@
-.wrapper { font-family: var(--font-body); width: 100%; }
+.tabWrapper { font-family: var(--font-body); width: 100%; }
 
-.list {
-  display: flex; border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
-  gap: 0; overflow-x: auto;
+.tabList {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+.tabList::-webkit-scrollbar { display: none; }
+
+/* Preenche o espaço após os tabs e completa o border-bottom até a borda direita */
+.tabList::after {
+  content: '';
+  flex: 1;
+  min-width: var(--spacing-md);
+  border-bottom: var(--border-width-thin) solid var(--color-border-default);
 }
 
-.tab {
-  padding: var(--spacing-sm) var(--spacing-md);
-  background: none; border: none; border-bottom: 2px solid transparent;
-  font-size: var(--font-size-base); font-weight: var(--font-weight-medium);
+.tabBtn {
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: none;
+  border-bottom: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-medium);
   color: var(--color-text-secondary);
-  cursor: pointer; white-space: nowrap;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
-  margin-bottom: -1px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  background: linear-gradient(to bottom, var(--color-bg-default), var(--color-bg-elevated));
 }
-.tab:hover { color: var(--color-text-primary); }
-.tab:focus-visible { outline: var(--border-width-medium) solid var(--color-border-focus); outline-offset: -2px; }
-.active {
-  color: var(--color-action-primary);
-  border-bottom-color: var(--color-action-primary);
+.tabBtn:hover { color: var(--color-text-primary); }
+.tabBtn:focus-visible {
+  outline: var(--border-width-medium) solid var(--color-border-focus);
+  outline-offset: -2px;
 }
 
-.panel { padding: var(--spacing-md) 0; color: var(--color-text-secondary); line-height: var(--line-height-normal); }
+.tabBtnActive {
+  color: var(--color-text-primary);
+  background: linear-gradient(to bottom, var(--color-bg-elevated), var(--color-bg-default));
+  border-top: var(--border-width-thin) solid var(--color-border-default);
+  border-left: var(--border-width-thin) solid var(--color-border-default);
+  border-right: var(--border-width-thin) solid var(--color-border-default);
+  border-bottom: none;
+}
+
+/* Variantes de posição */
+.tabLeft   { border-top-left-radius: var(--radius-md); }
+.tabMiddle { border-radius: 0; }
+.tabRight  { border-top-right-radius: var(--radius-md); }
+
+.tabPanel { padding: var(--spacing-md) 0; color: var(--color-text-secondary); line-height: var(--line-height-normal); }

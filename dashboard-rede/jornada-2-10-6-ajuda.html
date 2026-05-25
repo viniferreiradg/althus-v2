@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações — Ajuda / Suporte — Althus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Design system -->
+  <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Divider/Divider.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Feedback/Feedback.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Card/Card.module.css" />
+  <link rel="stylesheet" href="../storybook/src/components/Accordion/Accordion.module.css" />
+</head>
+<body data-page="configuracoes">
+
+  <!-- Sidebar -->
+  <aside id="sidebar-root"></aside>
+
+  <!-- Main -->
+  <main class="main bgWrapper" id="main">
+    <div class="blob1"></div>
+    <div class="blob2"></div>
+
+    <!-- Page header -->
+    <div class="pageHeader">
+      <div>
+        <h1 class="pageTitle">Configurações</h1>
+        <p class="pageSubtitle">Gerencie sua conta e as preferências da rede</p>
+      </div>
+    </div>
+
+    <!-- Tab navigation -->
+    <div class="tabNav">
+      <div class="tabList" role="tablist">
+        <button class="tabBtn tabLeft"              role="tab" aria-selected="false" onclick="location.href='jornada-2-10-1-minha-conta.html'">Minha conta</button>
+        <button class="tabBtn tabMiddle"             role="tab" aria-selected="false" onclick="location.href='jornada-2-10-2-perfil-empresa.html'">Perfil da empresa</button>
+        <button class="tabBtn tabMiddle"             role="tab" aria-selected="false" onclick="location.href='jornada-2-10-3-notificacoes.html'">Notificações</button>
+        <button class="tabBtn tabMiddle"             role="tab" aria-selected="false" onclick="location.href='jornada-2-10-4-termos.html'">Termos de uso</button>
+        <button class="tabBtn tabMiddle"             role="tab" aria-selected="false" onclick="location.href='jornada-2-10-5-sobre.html'">Sobre a Althus</button>
+        <button class="tabBtn tabRight tabBtnActive" role="tab" aria-selected="true">Ajuda / Suporte</button>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="pageContent">
+      <h2 class="sectionTitle">Ajuda / Suporte</h2>
+
+      <div class="card">
+
+        <!-- ── Canais de suporte ── -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Canais de suporte</h2>
+          <p class="sectionSubtitle">Escolha como prefere entrar em contato com a equipe Althus</p>
+
+          <div class="helpRow">
+            <div class="helpInfo">
+              <div class="helpIcon"><i data-lucide="mail" width="18" height="18"></i></div>
+              <div class="helpText">
+                <span class="helpLabel">Suporte por e-mail</span>
+                <span class="helpDesc">Resposta em até 24 horas úteis · suporte@althus.com.br</span>
+              </div>
+            </div>
+            <button class="btn ghost">Enviar e-mail</button>
+          </div>
+
+          <div class="helpRow">
+            <div class="helpInfo">
+              <div class="helpIcon"><i data-lucide="book-open" width="18" height="18"></i></div>
+              <div class="helpText">
+                <span class="helpLabel">Central de ajuda</span>
+                <span class="helpDesc">Tutoriais, guias e documentação completa da plataforma</span>
+              </div>
+            </div>
+            <button class="btn ghost">Acessar documentação</button>
+          </div>
+
+          <div class="helpRow">
+            <div class="helpInfo">
+              <div class="helpIcon"><i data-lucide="message-circle" width="18" height="18"></i></div>
+              <div class="helpText">
+                <span class="helpLabel">WhatsApp</span>
+                <span class="helpDesc">Atendimento de segunda a sexta, das 9h às 18h</span>
+              </div>
+            </div>
+            <button class="btn ghost">Abrir conversa</button>
+          </div>
+
+        </div>
+
+        <hr class="divider" />
+
+        <!-- ── Perguntas frequentes ── -->
+        <div class="formSection">
+          <h2 class="sectionTitle">Perguntas frequentes</h2>
+          <p class="sectionSubtitle">Respostas rápidas para as dúvidas mais comuns</p>
+
+          <div class="accordion">
+
+            <div class="item">
+              <button class="trigger" type="button">
+                Como adicionar um novo carregador à rede?
+                <span class="chevron"><i data-lucide="chevron-down" width="16" height="16"></i></span>
+              </button>
+              <div class="panel">
+                <div class="content">Acesse o menu <strong>Carregadores</strong> na barra lateral e clique em "Cadastrar dispositivo". Preencha os dados do equipamento, selecione a localidade correspondente e configure as portas e conectores disponíveis. O carregador será listado assim que o cadastro for concluído.</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <button class="trigger" type="button">
+                Por que meu carregador aparece como offline?
+                <span class="chevron"><i data-lucide="chevron-down" width="16" height="16"></i></span>
+              </button>
+              <div class="panel">
+                <div class="content">Um carregador fica offline quando perde a conexão com a plataforma. Verifique a conexão de rede do equipamento e confirme se o serviço OCPP está ativo. Reinicie o dispositivo se necessário. Caso o problema persista por mais de 30 minutos, entre em contato com o suporte técnico.</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <button class="trigger" type="button">
+                Como configurar uma tarifa personalizada?
+                <span class="chevron"><i data-lucide="chevron-down" width="16" height="16"></i></span>
+              </button>
+              <div class="panel">
+                <div class="content">Acesse <strong>Tarifas</strong> no menu lateral e selecione a aba "Tarifas Personalizadas". Clique em "Nova tarifa personalizada" e defina o valor por kWh, o período de vigência e os carregadores aos quais a tarifa será aplicada. A nova tarifa entra em vigor imediatamente após salvar.</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <button class="trigger" type="button">
+                Como gerar um relatório de transações?
+                <span class="chevron"><i data-lucide="chevron-down" width="16" height="16"></i></span>
+              </button>
+              <div class="panel">
+                <div class="content">No menu <strong>Extrato</strong>, utilize o seletor de período para definir o intervalo desejado. Os dados são exibidos na tabela com detalhes de cada transação. Use o botão de exportação para baixar o relatório em formato CSV.</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <button class="trigger" type="button">
+                Como convidar um novo usuário para o painel?
+                <span class="chevron"><i data-lucide="chevron-down" width="16" height="16"></i></span>
+              </button>
+              <div class="panel">
+                <div class="content">Em <strong>Usuários</strong>, clique em "Novo usuário" e informe o nome completo, e-mail e perfil de acesso. O usuário receberá automaticamente um e-mail com instruções para criar sua senha e acessar o painel.</div>
+              </div>
+            </div>
+
+            <div class="item">
+              <button class="trigger" type="button">
+                Como cancelar uma reserva ativa?
+                <span class="chevron"><i data-lucide="chevron-down" width="16" height="16"></i></span>
+              </button>
+              <div class="panel">
+                <div class="content">Em <strong>Reservas</strong>, localize a reserva desejada na lista e abra o detalhe. O botão "Cancelar reserva" estará disponível para reservas com status <em>Confirmada</em> ou <em>Janela iniciada</em>. Reservas já encerradas ou expiradas não podem ser canceladas retroativamente.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="shared/sidebar.js"></script>
+  <script>
+    /* Accordion toggle */
+    document.querySelectorAll('.accordion .trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        btn.closest('.item').classList.toggle('open');
+      });
+    });
+
+    lucide.createIcons();
+  </script>
+</body>
+</html>

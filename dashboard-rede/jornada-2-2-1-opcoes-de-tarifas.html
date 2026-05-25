@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tarifas — Althus</title>
+  <title>Opções de Tarifas — Althus</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -62,15 +62,15 @@
       </div>
     </div>
 
-    <!-- Tab navigation -->
+    <!-- Tab navigation — Aba 1 ativa -->
     <nav class="tabNav" aria-label="Seções de tarifas">
       <div class="tabList" role="tablist">
-        <button class="tabBtn tabBtnActive" id="tab-opcoes" role="tab" aria-selected="true" aria-controls="panel-opcoes">Opções de tarifas</button>
-        <button class="tabBtn" id="tab-personalizadas" role="tab" aria-selected="false" aria-controls="panel-personalizadas">Tarifas personalizadas</button>
+        <button class="tabBtn tabBtnActive tabLeft" id="tab-opcoes" role="tab" aria-selected="true" aria-controls="panel-opcoes">Opções de tarifas</button>
+        <button class="tabBtn tabRight" id="tab-personalizadas" role="tab" aria-selected="false" aria-controls="panel-personalizadas">Tarifas personalizadas</button>
       </div>
     </nav>
 
-    <!-- Panel 1: Opções de tarifas -->
+    <!-- Panel 1: Opções de tarifas (visível) -->
     <div class="tabPanel" id="panel-opcoes" role="tabpanel" aria-labelledby="tab-opcoes">
 
     <!-- Form card -->
@@ -195,16 +195,6 @@
               </div>
               <span class="helperText">% sobre o valor da reserva; 0 = sem taxa</span>
             </div>
-            <div class="wrapper" id="reserva-localidade-dropdown" style="display:none;">
-              <div class="menu" role="listbox">
-                <div class="option selected" data-value="" role="option">Toda a rede (padrão)</div>
-                <div class="option" data-value="iguatemi" role="option">Shopping Iguatemi SP</div>
-                <div class="option" data-value="shell" role="option">Posto Shell Anhanguera</div>
-                <div class="option" data-value="vila-olimpia" role="option">Estac. Vila Olímpia</div>
-                <div class="option" data-value="morumbi" role="option">Shopping Morumbi</div>
-                <div class="option" data-value="congonhas" role="option">Aeroporto de Congonhas</div>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -222,16 +212,15 @@
 
     </div><!-- /panel-opcoes -->
 
-    <!-- Panel 2: Tarifas personalizadas -->
+    <!-- Panel 2: Tarifas personalizadas (oculto) -->
     <div class="tabPanel" id="panel-personalizadas" role="tabpanel" aria-labelledby="tab-personalizadas" hidden>
 
-    <!-- ── Tarifas Personalizadas ── -->
-    <div class="customTarifHeader">
+    <div style="display:flex; align-items:center; justify-content:space-between; margin: var(--spacing-lg) 0 var(--spacing-sm);">
       <div>
         <h2 class="sectionTitle">Tarifas Personalizadas</h2>
         <p class="sectionSubtitle">Regras de cobrança específicas por carregador, sobrepostas à tarifa padrão</p>
       </div>
-      <button class="btn primary hasLeft">
+      <button class="btn primary hasLeft" onclick="location.href='jornada-2-3-nova-tarifa-personalizada.html'">
         <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
         Nova tarifa
       </button>
@@ -251,7 +240,6 @@
             </tr>
           </thead>
           <tbody>
-
             <tr class="tr">
               <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Pico Iguatemi</td>
               <td class="td tdMono">ALT-001</td>
@@ -266,7 +254,6 @@
                 </div>
               </td>
             </tr>
-
             <tr class="tr">
               <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Noturna Shell</td>
               <td class="td tdMono">ALT-002</td>
@@ -281,7 +268,6 @@
                 </div>
               </td>
             </tr>
-
             <tr class="tr">
               <td class="td tdFirst" style="font-weight: var(--font-weight-medium);">Weekend Morumbi</td>
               <td class="td tdMono">ALT-004</td>
@@ -296,11 +282,9 @@
                 </div>
               </td>
             </tr>
-
           </tbody>
         </table>
       </div>
-
       <div class="pagination">
         <span class="info">3 tarifas personalizadas</span>
       </div>
@@ -328,50 +312,13 @@
 
   /* ── Toggle section fields ── */
   function toggleSection(name) {
-    const toggle  = document.getElementById(name + '-toggle');
-    const fields  = document.getElementById(name + '-fields');
+    const toggle   = document.getElementById(name + '-toggle');
+    const fields   = document.getElementById(name + '-fields');
     const statusEl = document.getElementById(name + '-status');
     const isActive = toggle.checked;
     fields.classList.toggle('hidden', !isActive);
     if (statusEl) statusEl.textContent = isActive ? 'Ativa' : 'Inativa';
   }
-
-  /* ── Dropdown logic ── */
-  document.querySelectorAll('[id$="-dropdown"]').forEach(dropdown => {
-    const trigger = dropdown.querySelector('.trigger');
-    const menu    = dropdown.querySelector('.menu');
-    const options = dropdown.querySelectorAll('.option');
-    const valueEl = dropdown.querySelector('[id$="-value"]');
-
-    trigger.addEventListener('click', e => {
-      e.stopPropagation();
-      const isOpen = dropdown.classList.contains('open');
-      document.querySelectorAll('[id$="-dropdown"].open').forEach(d => d.classList.remove('open'));
-      dropdown.classList.toggle('open', !isOpen);
-    });
-
-    trigger.addEventListener('keydown', e => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); trigger.click(); }
-    });
-
-    options.forEach(opt => {
-      opt.addEventListener('click', () => {
-        options.forEach(o => o.classList.remove('selected'));
-        opt.classList.add('selected');
-        if (valueEl) {
-          const text = opt.textContent.trim();
-          valueEl.textContent = text;
-          const isPlaceholder = opt.dataset.value === '';
-          valueEl.style.color = isPlaceholder ? 'var(--color-text-tertiary)' : '';
-        }
-        dropdown.classList.remove('open');
-      });
-    });
-  });
-
-  document.addEventListener('click', () => {
-    document.querySelectorAll('[id$="-dropdown"].open').forEach(d => d.classList.remove('open'));
-  });
 
   lucide.createIcons();
 </script>

@@ -174,6 +174,37 @@ Margin: `0 var(--spacing-xl)` (inset horizontal)
 
 ---
 
+### Timeline
+```html
+<link rel="stylesheet" href="../storybook/src/components/Timeline/Timeline.module.css" />
+```
+Classes: `.timeline`, `.tlItem`, `.tlVis`, `.tlDot`, `.tlConnector`, `.tlContent`, `.tlLabel`, `.tlTime`  
+Modificadores de estado (no `.tlItem`): `.tlDone` · `.tlActive` · `.tlPending`
+
+```html
+<div class="timeline">
+  <div class="tlItem tlDone">
+    <div class="tlVis">
+      <div class="tlDot"></div>
+      <div class="tlConnector"></div>
+    </div>
+    <div class="tlContent">
+      <div class="tlLabel">Reserva confirmada</div>
+      <div class="tlTime">25/05/2026 às 09:30</div>
+    </div>
+  </div>
+  <div class="tlItem tlActive"><!-- ... --></div>
+  <div class="tlItem tlPending"><!-- ... --></div>
+</div>
+```
+
+**Regras:**
+- `.tlTime` é opcional (omitir quando não há timestamp)
+- O conector do último item some automaticamente via CSS (`.tlItem:last-child .tlConnector`)
+- Usar dentro de `.formSection` ou `.card` — não standalone
+
+---
+
 ### Feedback
 ```html
 <link rel="stylesheet" href="../storybook/src/components/Feedback/Feedback.module.css" />

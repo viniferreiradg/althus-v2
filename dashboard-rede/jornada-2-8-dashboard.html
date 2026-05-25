@@ -12,6 +12,7 @@
 
   <!-- Design system -->
   <link rel="stylesheet" href="../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="shared/page.css" />
   <link rel="stylesheet" href="../storybook/src/components/Sidebar/Sidebar.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Avatar/Avatar.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/MetricCard/MetricCard.module.css" />
@@ -20,238 +21,17 @@
   <link rel="stylesheet" href="../storybook/src/components/Button/Button.module.css" />
   <link rel="stylesheet" href="../storybook/src/components/Background/Background.module.css" />
 
-  <style>
-    *, *::before, *::after { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: var(--font-body);
-      background: var(--color-bg-default);
-      color: var(--color-text-primary);
-      display: flex;
-      height: 100vh;
-      overflow: hidden;
-      -webkit-font-smoothing: antialiased;
-    }
 
-    /* ── Main ── */
-    .main {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      min-width: 0;
-    }
-
-    /* ── Page header ── */
-    .pageHeader {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: calc(var(--spacing-lg) + var(--spacing-xs)) var(--spacing-xl) 0;
-      flex-shrink: 0;
-    }
-    .pageTitle {
-      margin: 0;
-      font-family: var(--font-display);
-      font-size: var(--font-size-xl);
-      font-weight: var(--font-weight-semibold);
-      color: var(--color-text-primary);
-      line-height: var(--line-height-tight);
-    }
-    .pageSubtitle {
-      margin: var(--spacing-xs) 0 0;
-      font-size: var(--font-size-sm);
-      color: var(--color-text-tertiary);
-    }
-
-    /* ── Period filter ── */
-    .periodSelect { position: relative; z-index: 200; }
-    .periodTrigger {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-      padding: var(--spacing-sm) var(--spacing-md);
-      background: var(--color-bg-surface);
-      border: 1px solid var(--color-border-muted);
-      border-radius: var(--radius-sm);
-      font-family: var(--font-body);
-      font-size: var(--font-size-sm);
-      color: var(--color-text-primary);
-      cursor: pointer;
-      white-space: nowrap;
-      transition: border-color var(--transition-fast);
-    }
-    .periodTrigger:hover { border-color: var(--color-border-default); }
-    .periodSelect.open .periodTrigger { border-color: var(--color-border-focus); }
-    .periodMenu {
-      position: absolute;
-      top: calc(100% + var(--spacing-xs));
-      right: 0;
-      min-width: var(--spacing-7xl);
-      background: var(--color-bg-surface);
-      border: 1px solid var(--color-border-subtle);
-      border-radius: var(--radius-sm);
-      box-shadow: var(--shadow-md);
-      z-index: 100;
-      display: none;
-    }
-    .periodSelect.open .periodMenu { display: block; }
-    .periodOption {
-      padding: var(--spacing-sm) var(--spacing-md);
-      font-size: var(--font-size-sm);
-      color: var(--color-text-primary);
-      cursor: pointer;
-      transition: background var(--transition-fast);
-    }
-    .periodOption:hover { background: var(--color-bg-subtle); }
-    .periodOption.selected {
-      background: var(--color-bg-brand);
-      color: var(--color-text-brand);
-      font-weight: var(--font-weight-medium);
-    }
-
-    /* ── Scrollable content ── */
-    .pageContent {
-      flex: 1;
-      overflow-y: auto;
-      padding: var(--spacing-lg) var(--spacing-xl) var(--spacing-xl);
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-lg);
-    }
-    .pageContent::-webkit-scrollbar { width: var(--spacing-xs); }
-    .pageContent::-webkit-scrollbar-track { background: transparent; }
-    .pageContent::-webkit-scrollbar-thumb { background: var(--color-border-subtle); border-radius: var(--radius-xs); }
-
-    /* ── KPI grid ── */
-    .metricsGrid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--spacing-md);
-    }
-
-    /* MetricCard needs flex (overrides .root from last linked chart CSS) */
-    .metricsGrid .root {
-      display: flex;
-      flex-direction: column;
-      gap: var(--spacing-xs);
-    }
-
-    /* ── Charts row ── */
-    .chartsRow {
-      display: grid;
-      grid-template-columns: 1fr 340px;
-      gap: var(--spacing-md);
-    }
-    .chartsRow .root {
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* ── Sidebar closed: hide labels ── */
-    .closed .navLabel,
-    .closed .navLabelLogout,
-    .closed .userInfo { display: none; }
-    .closed .toggleIcon-left  { display: none; }
-    .closed .toggleIcon-right { display: inline-flex; }
-
-    .toggleIcon-right { display: none; }
-
-    .pageContent { position: relative; z-index: 1; }
-
-    /* ── Logo ── */
-    .logo-img { display: block; filter: brightness(0) invert(1); }
-    [data-theme="light"] .logo-img { filter: none; }
-    .logo-symbol { display: none; }
-    .closed .logo-full   { display: none; }
-    .closed .logo-symbol { display: block; }
-  </style>
 </head>
-<body>
+<body data-page="dashboard">
 
-<!-- ── Sidebar ── -->
-<aside class="sidebar open" id="sidebar">
-  <button class="toggleBtn" id="toggle-btn" aria-label="Recolher menu">
-    <i data-lucide="chevron-left" class="toggleIcon-left" width="14" height="14"></i>
-    <i data-lucide="chevron-right" class="toggleIcon-right" width="14" height="14"></i>
-  </button>
-
-  <div class="logoRow">
-    <div class="logoWrap">
-      <img class="logo-img logo-full"
-           src="../storybook/src/components/Logo/logo-default.svg"
-           width="120" alt="Althus" />
-      <img class="logo-img logo-symbol"
-           src="../storybook/src/components/Logo/logo-symbol.svg"
-           width="28" alt="Althus" />
-    </div>
-  </div>
-
-  <div class="body">
-    <nav class="navList">
-      <button class="navItem navItemActive">
-        <span class="navIcon"><i data-lucide="layout-dashboard" width="18" height="18"></i></span>
-        <span class="navLabel">Dashboard</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="map-pin" width="18" height="18"></i></span>
-        <span class="navLabel">Locais</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="zap" width="18" height="18"></i></span>
-        <span class="navLabel">Carregadores</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="receipt" width="18" height="18"></i></span>
-        <span class="navLabel">Tarifas</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="tag" width="18" height="18"></i></span>
-        <span class="navLabel">Cupons</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="file-text" width="18" height="18"></i></span>
-        <span class="navLabel">Extrato</span>
-      </button>
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="triangle-alert" width="18" height="18"></i></span>
-        <span class="navLabel">Logs de Erros</span>
-      </button>
-    </nav>
-
-    <div class="spacer"></div>
-
-    <div class="bottomList">
-      <div class="separator"></div>
-      <div class="userRow">
-        <div class="avatar md">
-          <span class="avatarInitials">AR</span>
-        </div>
-        <div class="userInfo">
-          <div class="userName">Admin Rede</div>
-          <div class="userEmail">admin@rededemo.com.br</div>
-        </div>
-      </div>
-      <button class="navItem" id="theme-btn" title="Modo claro">
-        <span class="navIcon" id="theme-icon">
-          <i data-lucide="sun" width="18" height="18"></i>
-        </span>
-        <span class="navLabel" id="theme-label">Modo claro</span>
-      </button>
-
-      <button class="navItem">
-        <span class="navIcon"><i data-lucide="log-out" width="18" height="18"></i></span>
-        <span class="navLabelLogout">Sair</span>
-      </button>
-    </div>
-  </div>
-</aside>
+<aside id="sidebar-root"></aside>
 
 <!-- ── Main ── -->
 <main class="main bgWrapper">
   <div class="blob1"></div>
   <div class="blob2"></div>
-  <div class="pageHeader">
+  <div class="pageHeader" style="display:flex;align-items:center;justify-content:space-between;">
     <div>
       <h1 class="pageTitle">Dashboard</h1>
       <p class="pageSubtitle">Visão geral da rede credenciada</p>
@@ -272,9 +52,9 @@
     </div>
   </div>
 
-  <div class="pageContent">
+  <div class="pageContent" style="display:flex;flex-direction:column;gap:var(--spacing-lg);padding-top:var(--spacing-lg);">
     <!-- KPI Cards -->
-    <div class="metricsGrid">
+    <div class="metricsGrid3">
       <div class="root">
         <div class="iconWrap">
           <i data-lucide="zap" width="18" height="18"></i>
@@ -326,42 +106,9 @@
   </div>
 </main>
 
+<script src="shared/sidebar.js"></script>
 <script>
   lucide.createIcons();
-
-  /* ── Theme toggle ── */
-  const htmlEl     = document.documentElement;
-  const themeBtn   = document.getElementById('theme-btn');
-  const themeIcon  = document.getElementById('theme-icon');
-  const themeLabel = document.getElementById('theme-label');
-
-  function applyTheme(theme) {
-    htmlEl.setAttribute('data-theme', theme);
-    const isDark = theme === 'dark';
-    themeIcon.innerHTML = `<i data-lucide="${isDark ? 'sun' : 'moon'}" width="18" height="18"></i>`;
-    themeLabel.textContent = isDark ? 'Modo claro' : 'Modo escuro';
-    themeBtn.title = isDark ? 'Modo claro' : 'Modo escuro';
-    lucide.createIcons();
-    localStorage.setItem('althus-theme', theme);
-  }
-
-  /* Aplica tema salvo (ou dark por padrão) */
-  applyTheme(localStorage.getItem('althus-theme') || 'dark');
-
-  themeBtn.addEventListener('click', () => {
-    applyTheme(htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  });
-
-  /* ── Sidebar toggle ── */
-  const sidebar   = document.getElementById('sidebar');
-  const toggleBtn = document.getElementById('toggle-btn');
-  let open = true;
-
-  toggleBtn.addEventListener('click', () => {
-    open = !open;
-    sidebar.className = 'sidebar ' + (open ? 'open' : 'closed');
-    toggleBtn.setAttribute('aria-label', open ? 'Recolher menu' : 'Expandir menu');
-  });
 
   /* ── Period filter ── */
   const periodSelect  = document.getElementById('period-select');
