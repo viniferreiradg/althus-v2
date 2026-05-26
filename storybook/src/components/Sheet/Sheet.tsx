@@ -41,22 +41,22 @@ export function Sheet({
 
   return (
     <div
-      className={[styles.overlay, open ? styles.overlayOpen : ''].join(' ')}
+      className={[styles.sheetOverlay, open ? styles.sheetOpen : ''].join(' ')}
       onClick={onClose}
       aria-hidden={!open}
     >
       <aside
-        className={[styles.panel, open ? styles.panelOpen : ''].join(' ')}
+        className={styles.sheetPanel}
         style={{ width }}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label={title}
       >
-        <div className={styles.header}>
-          <span className={styles.title}>{title}</span>
+        <div className={styles.sheetHeader}>
+          <span className={styles.sheetTitle}>{title}</span>
           <button
-            className={styles.closeBtn}
+            className={styles.sheetClose}
             onClick={onClose}
             aria-label="Fechar"
             type="button"
@@ -65,12 +65,12 @@ export function Sheet({
           </button>
         </div>
 
-        <div className={styles.body}>
+        <div className={styles.sheetBody}>
           {children}
         </div>
 
         {footer && (
-          <div className={styles.footer}>
+          <div className={styles.sheetFooter}>
             {footer}
           </div>
         )}
