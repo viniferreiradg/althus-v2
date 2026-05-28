@@ -6,9 +6,9 @@
 
 /* ─── Map background (prototype placeholder) ─────────── */
 .map-bg-dark {
-  background-image: url('../links/mapa-dark.png');
+  background-image: url('../links/mapa-dark-2.png');
   background-size: cover;
-  background-position: center;
+  background-position: -49px center;
   background-repeat: no-repeat;
 }
 
@@ -187,6 +187,20 @@ body.login-screen {
   z-index: 20;
 }
 
+/* Iframe de fundo que embute a home-map em telas de sheet/detalhe.
+   inert no HTML bloqueia toda interação.
+   translateY(-22%) "pan" o mapa para cima: o pin central (top:50% no iframe)
+   aparece em ~28% da tela, visível acima do sheet que cobre 62% do fundo. */
+.map-bg-frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  pointer-events: none;
+  transform: translateY(-22%) translateX(-46px);
+}
+
 /* ─── Map FABs ───────────────────────────────────────── */
 
 /* Row of FABs sitting just above the BottomNav */
@@ -225,22 +239,13 @@ body.login-screen {
   pointer-events: none;
 }
 
-/* Marcador de localização do usuário — círculo brand + ícone user */
+/* Posicionamento do UserPin no mapa — visual definido em UserPin.module.css */
 .map-user-pin {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: calc(var(--spacing-xl) + var(--spacing-sm));    /* 40px */
-  height: calc(var(--spacing-xl) + var(--spacing-sm));   /* 40px */
-  border-radius: var(--radius-full);
-  background: var(--color-action-primary);
-  color: var(--color-text-inverse);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   pointer-events: none;
-  box-shadow: var(--shadow-lg);
   z-index: 2;
 }
 
@@ -319,6 +324,7 @@ body.login-screen {
   align-items: center;
   justify-content: center;
   pointer-events: auto;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* Second Althus pin — overrides top/left of .map-pin-center */

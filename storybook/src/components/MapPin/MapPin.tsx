@@ -8,20 +8,29 @@ export interface MapPinProps {
   size?:      MapPinSize;
   variant?:   MapPinVariant;
   pinColor?:  string;
+  selected?:  boolean;
+  pressed?:   boolean;
   className?: string;
   'aria-label'?: string;
 }
 
 export function MapPin({
-  size    = 'md',
-  variant = 'brand',
+  size     = 'md',
+  variant  = 'brand',
   pinColor,
+  selected,
+  pressed,
   className,
   'aria-label': ariaLabel,
 }: MapPinProps) {
-  const classes = [styles.mapPin, styles[size], styles[variant], className]
-    .filter(Boolean)
-    .join(' ');
+  const classes = [
+    styles.mapPin,
+    styles[size],
+    styles[variant],
+    selected && styles.selected,
+    pressed  && styles.pressed,
+    className,
+  ].filter(Boolean).join(' ');
 
   return (
     <svg

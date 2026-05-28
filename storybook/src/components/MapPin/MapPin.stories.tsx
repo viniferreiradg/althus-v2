@@ -10,6 +10,7 @@ const meta: Meta<typeof MapPin> = {
     size:     { control: 'select', options: ['sm', 'md', 'lg'] },
     variant:  { control: 'select', options: ['brand', 'muted', 'distributor'] },
     pinColor: { control: 'color' },
+    selected: { control: 'boolean' },
   },
 };
 export default meta;
@@ -44,6 +45,36 @@ export const Variants: Story = {
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
         <MapPin size="lg" variant="distributor" pinColor="#E63946" aria-label="TUPI" />
         <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>distributor</span>
+      </div>
+    </div>
+  ),
+};
+
+export const Pressed: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 48, alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+        <MapPin size="lg" variant="brand" aria-label="normal" />
+        <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>normal</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+        <MapPin size="lg" variant="brand" pressed aria-label="pressed" />
+        <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>pressed</span>
+      </div>
+    </div>
+  ),
+};
+
+export const Selected: Story = {
+  render: () => (
+    <div style={{ display: 'flex', gap: 48, alignItems: 'center' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+        <MapPin size="lg" variant="brand" aria-label="Althus — normal" />
+        <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>normal</span>
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
+        <MapPin size="lg" variant="brand" selected aria-label="Althus — selecionado" />
+        <span style={{ fontSize: 12, color: 'var(--color-text-secondary)' }}>selected</span>
       </div>
     </div>
   ),

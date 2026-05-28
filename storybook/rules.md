@@ -68,23 +68,51 @@ Regras:
 
 ---
 
+### UserPin _(Mobile)_
+```html
+<link rel="stylesheet" href="../../storybook/src/components/UserPin/UserPin.module.css" />
+```
+Classe: `.userPin` — círculo brand com ícone `user` do Lucide. Visual 100% no componente; posicionamento no mapa via `.map-user-pin` em `page-mobile.css`.  
+Futuramente suportará prop `pulse` com animação em loop (placeholder comentado no CSS).
+
+```html
+<!-- posicionamento (.map-user-pin) + visual (.userPin) no mesmo elemento -->
+<div class="map-user-pin userPin" role="img" aria-label="Sua localização">
+  <i data-lucide="user" width="18" height="18"></i>
+</div>
+```
+
+---
+
 ### MapPin _(Mobile)_
 ```html
 <link rel="stylesheet" href="../storybook/src/components/MapPin/MapPin.module.css" />
 ```
-Classes: `.mapPin`, `.sm`, `.md`, `.lg` (tamanho), `.brand`, `.muted` (variante)  
+Classes: `.mapPin`, `.sm`, `.md`, `.lg` (tamanho), `.brand`, `.muted`, `.distributor` (variante), `.selected` (estado selecionado)  
 Paths internos: `.pinBody` (forma do pin), `.pinDot` (círculo interno)
 
+Variantes: `brand` (teal preenchido + dot branco) · `muted` (cinza, indisponível) · `distributor` (outline, cor via `--pin-color`)  
+Estados: `pressed` — escala 0.88× (feedback de toque, aplicar via JS em touchstart/touchend) · `selected` — escala 1.2× + drop-shadow na cor do pin (aplicar quando a sheet de detalhe está aberta)
+
 ```html
-<!-- carregador disponível -->
-<svg class="mapPin lg brand" viewBox="0 0 24 24" fill="none" aria-label="Carregador disponível">
-  <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-  <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+<!-- pin distribuidor normal -->
+<div class="map-pin-pos-1 pin-tupi">
+  <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
+    <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+
+<!-- pin Althus selecionado (sheet aberta) — cor brand via .pin-brand em page-mobile.css -->
+<div class="map-pin-center pin-brand">
+  <svg class="mapPin md distributor selected" viewBox="0 0 24 24" fill="none" aria-label="Auto Shopping Eixo">
+    <path class="pinBody" d="..." stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pinDot"  d="..." stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
 ```
 
-Tamanhos: `sm`=32px · `md`=48px · `lg`=64px  
-Variantes: `brand` (vermelho brand + dot branco) · `muted` (cinza, indisponível)
+Cores dos distribuidores (via `page-mobile.css`): `.pin-tupi` · `.pin-dcc` · `.pin-brand` (Althus, usa `--color-action-primary`)
 
 ---
 

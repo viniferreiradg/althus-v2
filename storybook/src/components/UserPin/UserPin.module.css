@@ -1,0 +1,21 @@
+/* ── UserPin — marcador de localização do usuário no mapa ─ */
+.userPin {
+  width: calc(var(--spacing-xl) + var(--spacing-sm));
+  height: calc(var(--spacing-xl) + var(--spacing-sm));
+  border-radius: var(--radius-full);
+  border: var(--border-width-medium) solid var(--color-action-primary);
+  color: var(--color-action-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Pulse animation (a ser ativado futuramente) ─────────── */
+/* @keyframes userPinPulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--color-action-primary) 40%, transparent); }
+  50%       { box-shadow: 0 0 0 10px transparent; }
+}
+.userPin.pulse {
+  animation: userPinPulse 2s ease-in-out infinite;
+} */

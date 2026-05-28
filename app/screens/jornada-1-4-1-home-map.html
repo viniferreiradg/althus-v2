@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
   <link rel="stylesheet" href="../../storybook/src/components/FAB/FAB.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/MapPin/MapPin.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/UserPin/UserPin.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/BottomNav/BottomNav.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
@@ -17,7 +18,7 @@
   <div class="map-pins-layer" id="map-pins-layer">
 
     <!-- Marcador de posição do usuário -->
-    <div class="map-user-pin" role="img" aria-label="Sua localização">
+    <div class="map-user-pin userPin" role="img" aria-label="Sua localização">
       <i data-lucide="user" width="18" height="18"></i>
     </div>
 
@@ -50,7 +51,7 @@
         </svg>
       </button>
     </div>
-    <div class="map-pin-center map-pin-center-2">
+    <div class="map-pin-center map-pin-center-2 pin-brand">
       <svg class="mapPin md brand" viewBox="0 0 24 24" fill="none" aria-label="Carregador">
         <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -97,6 +98,14 @@
 
     // Esconde o nav quando rodando dentro do iframe do prototipo.html
     if (window.parent !== window) document.getElementById('screen-bottom-nav').hidden = true;
+
+    // Pressed state nos pins clicáveis
+    document.querySelectorAll('.map-pin-btn').forEach(function(btn) {
+      var svg = btn.querySelector('.mapPin');
+      btn.addEventListener('touchstart', function() { svg.classList.add('pressed'); }, { passive: true });
+      btn.addEventListener('touchend',   function() { svg.classList.remove('pressed'); });
+      btn.addEventListener('touchcancel',function() { svg.classList.remove('pressed'); });
+    });
   </script>
   <script>lucide.createIcons();</script>
 
