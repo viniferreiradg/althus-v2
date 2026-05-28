@@ -18,21 +18,30 @@ const router = (() => {
   /* ── Constants ─────────────────────────────────────── */
 
   const ONBOARDING = new Set([
-    'splash', 'login', 'cadastro-step1', 'cadastro-step2', 'cadastro-step3',
-    'cadastro-step4', 'cadastro-step5', 'recuperar-canal', 'recuperar-otp', 'recuperar-senha',
+    'jornada-1-2-0-splash', 'jornada-1-2-1-login',
+    'jornada-1-2-2-cadastro-step1', 'jornada-1-2-3-cadastro-step2',
+    'jornada-1-2-4-cadastro-step3', 'jornada-1-2-5-cadastro-step4',
+    'jornada-1-2-6-cadastro-step5',
+    'jornada-1-3-1-recuperar-canal', 'jornada-1-3-2-recuperar-otp',
+    'jornada-1-3-3-recuperar-senha',
   ]);
 
   const TAB_MAP = {
-    'home-map': 'mapa', 'map-sheet': 'mapa', 'map-device': 'mapa', 'map-filters': 'mapa',
-    'recarga-metodo': 'mapa', 'recarga-pagamento': 'mapa', 'recarga-andamento': 'mapa',
-    'recarga-avaliacao': 'mapa', 'reserva-confirmar': 'mapa', 'reserva-confirmada': 'mapa',
-    'historico-lista': 'historico', 'historico-detalhe': 'historico',
-    'reservas-lista': 'historico', 'reservas-detalhe': 'historico', 'reserva-cancelar': 'historico',
-    'carteira': 'carteira', 'carteira-pix': 'carteira', 'carteira-cartao': 'carteira',
-    'extrato': 'carteira', 'cupons': 'carteira', 'cartoes': 'carteira',
-    'perfil': 'perfil', 'perfil-dados': 'perfil', 'perfil-senha': 'perfil',
-    'veiculos-lista': 'perfil', 'veiculos-form': 'perfil', 'notificacoes': 'perfil',
-    'notificacao-detalhe': 'perfil', 'termos': 'perfil',
+    'jornada-1-4-1-home-map': 'mapa', 'jornada-1-4-2-map-sheet': 'mapa',
+    'jornada-1-4-3-map-device': 'mapa', 'jornada-1-4-4-map-filters': 'mapa',
+    'jornada-1-4-5-recarga-metodo': 'mapa', 'jornada-1-4-6-recarga-pagamento': 'mapa',
+    'jornada-1-4-7-recarga-andamento': 'mapa', 'jornada-1-4-8-recarga-avaliacao': 'mapa',
+    'jornada-1-4-9-reserva-confirmar': 'mapa', 'jornada-1-4-10-reserva-confirmada': 'mapa',
+    'jornada-1-5-1-historico-lista': 'historico', 'jornada-1-5-2-historico-detalhe': 'historico',
+    'jornada-1-5-3-reservas-lista': 'historico', 'jornada-1-5-4-reservas-detalhe': 'historico',
+    'jornada-1-5-5-reserva-cancelar': 'historico',
+    'jornada-1-6-1-carteira': 'carteira', 'jornada-1-6-2-carteira-pix': 'carteira',
+    'jornada-1-6-3-carteira-cartao': 'carteira', 'jornada-1-6-4-extrato': 'carteira',
+    'jornada-1-6-5-cupons': 'carteira', 'jornada-1-6-6-cartoes': 'carteira',
+    'jornada-1-7-1-perfil': 'perfil', 'jornada-1-7-2-perfil-dados': 'perfil',
+    'jornada-1-7-3-perfil-senha': 'perfil', 'jornada-1-7-4-veiculos-lista': 'perfil',
+    'jornada-1-7-5-veiculos-form': 'perfil', 'jornada-1-7-6-notificacoes': 'perfil',
+    'jornada-1-7-7-notificacao-detalhe': 'perfil', 'jornada-1-7-8-termos': 'perfil',
   };
 
   const DURATION = 300;
