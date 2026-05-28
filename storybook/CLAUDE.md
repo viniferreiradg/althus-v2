@@ -38,6 +38,37 @@ Os tokens semânticos (ex: `--color-text-primary`, `--color-bg-default`) se adap
 
 ## Componentes disponíveis
 
+### MapPin _(Mobile)_
+**Import:** `import { MapPin } from '../components/MapPin/MapPin'`  
+**Story:** `Mobile/MapPin`
+
+| Prop | Tipo | Padrão | Descrição |
+|------|------|--------|-----------|
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | sm=32px · md=48px · lg=64px |
+| `variant` | `'brand' \| 'muted' \| 'distributor'` | `'brand'` | brand=Althus (teal preenchido) · muted=indisponível (cinza) · distributor=rede terceira (outline) |
+| `pinColor` | `string` | — | Hex do distribuidor — só usado com `variant="distributor"` |
+| `aria-label` | `string` | — | Descrição para acessibilidade |
+
+```tsx
+<MapPin size="lg" variant="brand" aria-label="Carregador Althus disponível" />
+<MapPin size="lg" variant="muted" aria-label="Carregador indisponível" />
+<MapPin size="sm" variant="distributor" pinColor="#E63946" aria-label="TUPI" />
+<MapPin size="sm" variant="distributor" pinColor="#2196F3" aria-label="DCC" />
+```
+
+**Em telas HTML:** usar as classes `.mapPin`, `.sm`, `.distributor` no `<svg>`. A cor do distribuidor é definida via classe no container (`.pin-tupi`, `.pin-dcc`) declarada em `page-mobile.css`, que injeta `--pin-color`.
+
+```html
+<div class="map-pin-pos-1 pin-tupi">
+  <svg class="mapPin sm distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
+    <path class="pinBody" d="M12.601 21.799...Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="pinDot"  d="M12 13C13.6569...Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</div>
+```
+
+---
+
 ### AppBar _(Mobile)_
 **Import:** `import { AppBar } from '../components/AppBar/AppBar'`  
 **Story:** `Mobile/AppBar`
@@ -253,7 +284,7 @@ const [active, setActive] = useState('dashboard');
 | `'actions'` | Botões de ação — requer `actionItems` |
 | `'link'` | Link clicável — aceita `getHref` ou `onLinkClick` |
 
-**StatusBadge — status disponíveis:** `success | error | warning | info | orange | indigo | violet | pink`
+**StatusBadge — status disponíveis:** `success | error | warning | info`
 
 ```tsx
 const statusMap = {

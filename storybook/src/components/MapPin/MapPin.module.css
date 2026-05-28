@@ -1,0 +1,28 @@
+/* ── Base ─────────────────────────────────────────────── */
+.mapPin {
+  display: block;
+  flex-shrink: 0;
+}
+
+/* ── Sizes ────────────────────────────────────────────── */
+.sm { width: var(--spacing-xl);                              height: var(--spacing-xl);                              }
+.md { width: var(--spacing-2xl);                             height: var(--spacing-2xl);                             }
+.lg { width: calc(var(--spacing-2xl) + var(--spacing-md));  height: calc(var(--spacing-2xl) + var(--spacing-md));   }
+
+/* ── Brand variant (carregador disponível) ────────────── */
+/* Seletor composto para não conflitar com FAB.module.css que também define .brand */
+.mapPin.brand { background: none; border: none; box-shadow: none; }
+.mapPin.brand .pinBody { fill: var(--color-action-primary); stroke: var(--color-action-primary); }
+.mapPin.brand .pinDot  { fill: var(--color-gray-white);     stroke: var(--color-gray-white);     }
+
+/* ── Muted variant (indisponível / inativo) ───────────── */
+.mapPin.muted { background: none; border: none; box-shadow: none; }
+.mapPin.muted .pinBody { fill: var(--color-bg-disabled);   stroke: var(--color-bg-disabled);   }
+.mapPin.muted .pinDot  { fill: var(--color-text-disabled); stroke: var(--color-text-disabled); }
+
+/* ── Distributor variant (rede terceira — cor definida pelo admin) ─────── */
+/* A cor vem de --pin-color definida no elemento pai ou no próprio SVG.    */
+/* Em React: prop pinColor. Em HTML: classe .pin-{nome} no container.      */
+.mapPin.distributor { background: none; border: none; box-shadow: none; }
+.mapPin.distributor .pinBody { fill: transparent; stroke: var(--pin-color, var(--color-text-secondary)); }
+.mapPin.distributor .pinDot  { fill: var(--pin-color, var(--color-text-secondary)); stroke: var(--pin-color, var(--color-text-secondary)); }

@@ -165,17 +165,17 @@
 
     .screen-btn {
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      align-items: stretch;
       width: calc(100% - 16px);
-      margin: 2px 8px;
-      padding: 9px 10px;
+      margin: 4px 8px;
+      padding: 8px;
       background: none;
       border: 1px solid #1e1e1e;
-      border-radius: 7px;
+      border-radius: 8px;
       cursor: pointer;
       text-align: left;
-      color: #666;
+      color: #888;
       font-family: inherit;
       transition: background 120ms ease, color 120ms ease, border-color 120ms ease;
     }
@@ -186,17 +186,41 @@
       border-color: rgba(255,255,255,0.35);
     }
 
-    .screen-status {
-      font-size: 12px;
+    /* Thumbnail */
+    .screen-thumb {
+      width: 100%;
+      height: 130px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #0d0d0d;
+      border: 1px solid #222;
       flex-shrink: 0;
-      line-height: 1;
     }
+    .screen-btn.active .screen-thumb { border-color: rgba(255,255,255,0.3); }
+    .screen-thumb-placeholder {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      color: #2a2a2a;
+    }
+
+    /* 393px screen scaled to fit ~228px card inner width: 228/393 ≈ 0.58 */
+    .thumb-frame {
+      width: 393px;
+      height: 852px;
+      border: none;
+      transform: scale(0.58);
+      transform-origin: top left;
+      pointer-events: none;
+      display: block;
+    }
+
     .screen-info {
-      flex: 1;
-      min-width: 0;
       display: flex;
       flex-direction: column;
       gap: 2px;
+      padding: 7px 2px 0;
     }
     .screen-label {
       font-size: 12px;
@@ -267,8 +291,8 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      background: radial-gradient(ellipse 60% 50% at 70% 20%, rgba(185,55,55,0.18) 0%, transparent 70%),
-                  radial-gradient(ellipse 50% 40% at 30% 80%, rgba(185,55,55,0.10) 0%, transparent 70%),
+      background: radial-gradient(ellipse 60% 50% at 70% 20%, rgba(0,194,168,0.12) 0%, transparent 70%),
+                  radial-gradient(ellipse 50% 40% at 30% 80%, rgba(0,194,168,0.07) 0%, transparent 70%),
                   #0a0a0b;
     }
 
@@ -318,17 +342,19 @@
 
     .statusBar {
       position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 59px;
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      padding: 0 32px 8px;
-      z-index: 50;
-      pointer-events: none;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--color-text-primary);
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 59px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 32px 0px;
+    z-index: 50;
+    pointer-events: none;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-primary);
     }
     .statusBarTime { font-size: 15px; font-weight: 600; }
     .statusBarIcons { display: flex; align-items: center; gap: 6px; }
@@ -684,12 +710,19 @@
         const btn = document.createElement('button');
         btn.className = 'screen-btn' + (screen.built ? '' : ' not-built');
         btn.dataset.screenId = screen.id;
-        btn.innerHTML = `
-          <span class="screen-status">${screen.built ? '✅' : '⬜'}</span>
-          <div class="screen-info">
-            <span class="screen-label">${screen.label}</span>
-            <span class="screen-id">${screen.id}</span>
-          </div>`;
+        btn.innerHTML = screen.built
+          ? `<div class="screen-thumb">
+               <iframe class="thumb-frame" src="screens/${screen.id}.html" tabindex="-1" aria-hidden="true"></iframe>
+             </div>
+             <div class="screen-info">
+               <span class="screen-label">${screen.label}</span>
+               <span class="screen-id">${screen.id}</span>
+             </div>`
+          : `<div class="screen-thumb screen-thumb-placeholder">⬜</div>
+             <div class="screen-info">
+               <span class="screen-label">${screen.label}</span>
+               <span class="screen-id">${screen.id}</span>
+             </div>`;
 
         btn.addEventListener('click', () => {
           closeMobileDrawer();

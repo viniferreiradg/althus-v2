@@ -1,0 +1,1382 @@
+Especificação de Requisitos
+Althus Eletropostos
+Versão
+3.3
+Data
+Maio 2026
+Classificação
+Confidencial — Uso Interno
+Cliente
+Althus Eletropostos
+Empresa
+Plathanus Software & Design
+Este documento é de uso exclusivo da Plathanus Software & Design e do cliente indicado. Qualquer reprodução ou distribuição não autorizada é proibida.
+Sumário
+1. Arquitetura Básica do Sistema
+2. Jornadas do Sistema
+3. Jornada: Consumidor Final (APP)
+RF001 – Cadastro de Usuário
+RF002 – Login
+RF003 – Recuperação de Senha
+RF004 – Tela Inicial – Mapa de Postos
+RF005 – Localizar Posto de Recarga
+RF006 – Iniciar Abastecimento (Recarga)
+RF007 – Fazer Reserva
+RF008 – Cancelar Reserva
+RF009 – Histórico de Abastecimento
+RF010 – Histórico de Reservas
+RF011 – Carteira Digital (Saldo)
+RF012 – Gerenciar Cartões de Pagamento
+RF013 – Gerenciar Veículos
+RF014 – Gerenciar Dados Pessoais
+RF015 – Cupons de Desconto (App)
+RF016 – Notificações (App)
+RF017 – Avaliação de Posto
+RF 018 - Ver Termos e Políticas de Uso
+4. Jornada: Administrador Althus (Painel Web)
+RF101 - Login
+RF102 – Dashboard Geral
+RF103 – Gestão de Credenciados
+RF104 – Gestão de Distribuidores (Roaming / OCPI)
+RF105 – Gestão de Veículos (Pré-cadastro)
+RF106 – Logs de Erros dos Carregadores
+RF107 – Extrato de Transações (Admin Althus)
+RF108 – Gestão de Usuários APP
+RF109 – Gestão de Usuários (Admin Althus)
+RF110 – Gestão de Perfis de Usuários (Admin Althus)
+5. Jornada: Administrador Rede/Credenciado (Painel Web)
+RF201 - Login
+RF202 – Dashboard do Credenciado
+RF203 – Gestão de Locais
+RF204 – Gestão de Carregadores
+RF205 – Gestão de Tarifas
+RF206 – Gestão de Cupons
+RF207 — Extrato de Transações (Credenciado)
+RF208 – Gestão de Perfis de Usuário (Credenciado)
+RF209 – Gestão de Usuários da Empresa (Credenciado)
+RF210 – Gestão de Reservas (Credenciado)
+6. Requisitos Não Funcionais
+7. Diagrama de Classes
+8. Termo de Aceite
+1. Arquitetura Básica do Sistema
+A solução Althus Eletropostos é composta por quatro camadas principais que se comunicam por APIs REST e WebSocket.
+1.1 Visão Geral dos Componentes
+Componente
+Obrig.
+Tecnologia
+Responsabilidade
+Aplicativo Mobile (iOS/Android)
+✓
+React Native
+App do Consumidor Final — mapa, recarga, histórico, carteira
+Painel Web – Admin Althus
+✓
+Web (React)
+Gestão global: credenciados, distribuidores, tarifas, cupons, relatórios
+Painel Web – Admin Credenciado
+✓
+Web (React)
+Gestão da rede própria: locais, carregadores, tarifas, cupons, relatórios
+Back-end / API
+✓
+Node.js / REST
+Núcleo de negócio; integra OCPP, gateway de pagamento (Stripe), NF-e (Sped)
+Banco de Dados
+✓
+PostgreSQL
+Dados transacionais, cadastrais, financeiros e de telemetria
+Gateway de Pagamento
+✓
+Stripe
+Pré-autorização de cartão, cobrança pós-recarga, Pix via gateway
+Protocolo OCPP
+✓
+OCPP 1.6 / 2.0
+Comunicação com carregadores físicos (start/stop, telemetria, erros)
+Protocolo OCPI (Roaming)
+Futuro
+OCPI 2.2
+Integração com redes distribuidoras parceiras (ex.: Tupi, DCC)
+Integração NF-e
+✓
+API (Sped)
+Emissão automática de nota fiscal; URL retornada para download no app
+Serviço de Notificações (Push)
+✓
+FCM / APNs
+Notificações de carregamento, saldo, reserva, erros
+Mapas / Geolocalização
+✓
+Google Maps API
+Exibição de mapa, pinos de postos, filtro por raio (API paga por request)
+2. Jornadas do Sistema
+O sistema é organizado em três perfis de usuário, cada um com jornadas independentes:
+Consumidor Final (APP Mobile)
+Administrador Althus (Painel Web)
+Administrador Rede/Credenciado (Painel Web)
+3. Jornada: Consumidor Final (APP)
+RF001 — Cadastro de Usuário
+Permitir que o usuário (pessoa física) realize seu cadastro no aplicativo, fornecendo dados pessoais, validando contatos e, opcionalmente, cadastrando veículo e cartão de pagamento.
+🖥 Telas Relacionadas
+•  Signup – Jornada 1.2
+•  Tela de Dados Pessoais
+•  Confirmação por código OTG
+•  Tela de dados financeiros para crédito na carteira
+•  Tela de criação de senha
+•  Tela de Termos e Políticas de Uso
+•  Tela de cadastro de veículo – Jornadas 1.14, 1.15 e 1.16
+🗺 Jornadas Relacionadas
+•  1.2 – Quero fazer meu cadastro
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa o app e seleciona 'Criar conta'. (Opcional por esse fluxo)
+FLU002
+Usuário preenche dados pessoais (Step 1).
+FLU003
+Sistema envia código de verificação para e-mail ou celular (a escolher pelo usuário).
+FLU004
+Usuário confirma o código de verificação (Step 2).
+FLU005
+Usuário, opcionalmente, cadastra veículo (Step 3) –
+RF012
+FLU006
+Usuário, opcionalmente, cadastra cartão de pagamento (Step 4) – RF013
+FLU007
+Usuário define senha (Step 5).
+FLU008
+Usuário aceita Termos de Uso e Política de Privacidade (Step 6).
+FLU009
+Sistema cria a conta e redireciona para a tela inicial (mapa) com indicadores de saldo e valor utilizado no mês.
+🗂 Campos
+Step 1 – Dados Pessoais
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Nome completo
+Sim
+Texto
+Mínimo 2 palavras
+CPF
+Sim
+Texto c/ máscara
+CPF válido; não editável após cadastro
+Data de nascimento
+Sim
+Data
+Formato DD/MM/AAAA
+E-mail
+Sim
+E-mail
+Formato válido; usado como login
+Telefone celular
+Sim
+Texto c/ máscara
+Formato (XX) XXXXX-XXXX
+Cidade
+Sim
+Texto
+Cidade de residência
+Estado
+Sim
+Select (UF)
+Lista de estados brasileiros
+Step 2 – Verificação de Contato (e-mail ou SMS)
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Código e-mail
+Sim
+Numérico (6 dígitos)
+Expira em 5 min; reenvio disponível após 1 min
+Código celular (SMS)
+Sim
+Numérico (6 dígitos)
+Expira em 5 min; reenvio disponível após 1 min
+Step 3 – Formas de pagamento (Cartão ou PIX)
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Dados do cartão
+Não
+SDK Stripe (token)
+Armazenado no gateway; não persiste no banco da aplicação
+Step 4 – Senha e Aceite
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Senha
+Sim
+Senha
+Mín. 8 chars; 1 maiúscula, 1 minúscula, 1 número, 1 especial
+Confirmar senha
+Sim
+Senha
+Idêntica à senha
+Aceite de Termos de Uso
+Sim
+Checkbox
+Não avança sem aceite
+Aceite de Política de Privacidade
+Sim
+Checkbox
+Não avança sem aceite; autoriza uso de dados por rede de parceiros (LGPD)
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+CPF não pode ser alterado após cadastro.
+RGN002
+E-mail é o identificador de login e pode ser alterado na edição do cadastro.
+RGN003
+A validação por código (e-mail ou SMS) é obrigatória antes de prosseguir para o step seguinte.
+RGN004
+O cadastro de veículo e cartão são opcionais no fluxo de cadastro.
+RGN005
+O aceite dos Termos de Uso e da Política de Privacidade é obrigatório (compliance LGPD).
+RGN006
+O sistema deve suportar login social (Google/Apple) integrado ao fluxo de e-mail.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+O sistema deve impedir o cadastro com CPF já existente na base de dados.
+CTA002
+O sistema deve validar o código de e-mail ou SMS antes de permitir avanço ao próximo step.
+CTA003
+Dados sensíveis devem ser exibidos anonimizados após o cadastro (ex.: a***@***.com).
+CTA004
+O usuário deve ser logado automaticamente após a conclusão do cadastro.
+CTA005
+Uma notificação push deve ser enviada após o cadastro sugerindo o cadastro de veículo.
+RF002 — Login
+Permitir que o usuário autentique no aplicativo via e-mail/senha ou biometria (após primeiro login bem-sucedido).
+🖥 Telas Relacionadas
+•  Splash Screen
+•  Login – Jornada 1.1
+🗺 Jornadas Relacionadas
+•  1.1 – Quero fazer meu login
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário informa e-mail e senha na tela de login.
+FLU002
+Sistema valida as credenciais informadas.
+FLU003
+Em caso de sucesso: sistema redireciona para tela inicial (mapa).
+FLU004
+Em caso de erro: sistema exibe mensagem genérica (segurança — não informa qual campo está incorreto).
+FLU005
+Após o primeiro login bem-sucedido, o sistema oferece ativação de biometria facial/digital.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+E-mail
+Sim
+E-mail
+Identificador do usuário
+Senha
+Sim
+Senha (mascarada)
+Opção de mostrar/ocultar
+Biometria (após ativação)
+Não
+FaceID / TouchID
+Substitui senha após habilitada pelo usuário
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+Biometria disponível apenas após o primeiro login bem-sucedido com e-mail e senha.
+RGN002
+Credenciais de login armazenadas criptografadas — nunca em texto claro.
+RGN003
+Mensagem de erro de login deve ser genérica para não revelar qual campo está incorreto.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Login bem-sucedido deve redirecionar o usuário para a tela do mapa.
+CTA002
+Biometria deve ser habilitável e desabilitável nas configurações do perfil.
+CTA003
+Após falha de login, o sistema não deve indicar se é o e-mail ou a senha que está incorreto.
+RF003 — Recuperação de Senha
+Permitir que o usuário redefina sua senha via código numérico enviado por e-mail ou SMS.
+🖥 Telas Relacionadas
+•  Tela de esqueci minha senha – Jornada 1.3
+•  Confirmação por código OTG (reutilizada)
+•  Tela de criação de senha (reutilizada)
+🗺 Jornadas Relacionadas
+•  1.3 – Quero recuperar minha senha
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa 'Esqueci minha senha' na tela de login.
+FLU002
+Usuário escolhe o canal de recuperação: e-mail ou celular.
+FLU003
+Sistema envia código numérico de 6 dígitos para o canal selecionado.
+FLU004
+Usuário informa o código recebido.
+FLU005
+Usuário define nova senha obedecendo as regras de política de senha.
+FLU006
+Sistema invalida o código utilizado e atualiza a senha criptografada.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Canal de recuperação
+Sim
+Radio (e-mail | SMS)
+Usuário escolhe o canal
+Código de verificação
+Sim
+Numérico (6 dígitos)
+Expira em 5 min; reenvio após 1 min
+Nova senha
+Sim
+Senha
+Mesmas regras do cadastro
+Confirmar nova senha
+Sim
+Senha
+Idêntica à nova senha
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+O código de verificação possui validade de 5 minutos; após esse prazo, deve ser solicitado novo envio.
+RGN002
+O código utilizado com sucesso deve ser invalidado imediatamente, impedindo reutilização.
+RGN003
+O botão de reenvio de código só deve ser liberado após 1 minuto do envio anterior.
+RGN004
+A nova senha deve atender a mesma política de senha definida no cadastro (mín. 8 chars, 1 maiúscula, 1 minúscula, 1 número, 1 especial).
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Código expirado deve bloquear a redefinição de senha e exibir mensagem orientando novo envio.
+CTA002
+Código já utilizado não pode ser aceito pelo sistema.
+CTA003
+Botão de reenvio deve ser liberado somente após 1 minuto do envio anterior.
+CTA004
+Após redefinição, o usuário deve conseguir autenticar com a nova senha.
+RF004 — Tela Inicial – Mapa de Postos
+Exibir na tela inicial o mapa com os postos de recarga disponíveis, o saldo da carteira e opção de recarga rápida. Os pontos (coordenadas) devem ser previamente cadastrados pelo administrador da Althus.
+🖥 Telas Relacionadas
+•  HOME – Tela do mapa – Jornada 1.4
+•  Sub-tela do detalhe da Localidade
+🗺 Jornadas Relacionadas
+•  1.4 – Quero localizar um ponto de abastecimento
+📋 Fluxo
+Código
+Descrição
+FLU001
+Após login ou se o cliente não fizer login, sistema solicita permissão de localização ao dispositivo.
+FLU002
+Mapa é exibido centralizado na localização atual do usuário.
+FLU003
+Pinos de postos são plotados no mapa com diferenciação visual por tipo (Althus vs. roaming/distribuidor).
+FLU004
+Saldo da carteira é exibido em card sobreposto ao mapa, com opção de ocultar/exibir o valor.
+FLU005
+Usuário pode navegar e dar zoom no mapa.
+FLU006
+Ao clicar em um pino, abre painel inferior (action sheet) com resumo do local. Possibilidade de um botão com ação de fazer reserva.
+🗂  Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Saldo da carteira
+Sim
+Valor monetário
+Exibido com opção de ocultar; atalho para recarga de saldo
+Pino Althus (cor primária)
+Sim
+Marcador de mapa
+Postos que usam o software Althus; badge com nº de dispositivos
+Pino Distribuidor (cor secundária)
+Sim
+Marcador de mapa
+Postos de roaming (OCPI); cor diferenciada por distribuidor
+Status do dispositivo
+Sim
+Indicador visual
+Verde = disponível; Laranja = reservado; Vermelho = manutenção; Cinza = instalando
+Botão 'Iniciar Recarga'
+Sim
+Ação rápida
+Leitura de QR Code sem precisar navegar pelo mapa
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+Todos os distribuidores/parceiros devem ser exibidos por padrão, sem filtro de ocultação por rede.
+RGN002
+Cada distribuidor tem cor de pino configurada no cadastro administrativo da Althus.
+RGN003
+Postos com status 'instalando' são exibidos no mapa para criar expectativa de uso futuro.
+RGN004
+Consulta de geolocalização utiliza Google Maps API (serviço pago por request).
+RGN005
+As coordenadas dos postos devem ser previamente cadastradas pelo administrador da Althus.
+✅  Critérios de Aceite
+Código
+Descrição
+CTA001
+O mapa deve carregar os postos no raio da localização atual do usuário em até 3 segundos.
+CTA002
+O saldo deve ser atualizado em tempo real sempre que o usuário abre o app.
+CTA003
+Pinos de diferentes distribuidores devem ser visualmente distinguíveis por cor.
+CTA004
+O botão de QR Code deve iniciar o leitor de câmera ao ser acionado.
+RF005 — Localizar Posto de Recarga
+Permitir ao usuário pesquisar e visualizar detalhes de um posto de recarga, incluindo informações dos dispositivos disponíveis e opções de ação.
+🖥 Telas Relacionadas
+•  HOME – Tela do mapa – Jornada 1.4 (reutilizada)
+•  Sub-tela do detalhe da Localidade
+🗺 Jornadas Relacionadas
+•  1.4 – Quero localizar um ponto de abastecimento
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário visualiza o mapa e pode aplicar filtros (tipo de conector, range de potência em kW).
+FLU002
+Usuário clica no pino de um posto no mapa.
+FLU003
+Painel inferior (action sheet) exibe carrossel dos dispositivos daquele local.
+FLU004
+Usuário clica em um dispositivo específico para ver seus detalhes completos.
+FLU005
+A partir do detalhe, o usuário pode traçar rota, iniciar recarga ou fazer reserva.
+🗂 Campos
+Detalhe do Dispositivo
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Nome/endereço do posto
+Sim
+Texto
+Nome da rede + endereço completo
+Status do conector
+Sim
+Badge colorido
+Disponível / Ocupado / Reservado / Manutenção
+Tipo de conector
+Sim
+Texto
+Ex.: CCS2, CHAdeMO, Tipo 2
+Potência (kW)
+Sim
+Número
+Potência declarada do carregador
+Valor por kWh (R$)
+Sim
+Moeda
+Tarifa vigente; pode variar por turno (dia/noite/madrugada)
+Taxa de ociosidade
+Cond.
+Moeda/min
+Exibida apenas se o credenciado ativou essa cobrança
+Reserva (valor e tempo)
+Cond.
+Moeda + minutos
+Exibida apenas se o credenciado habilitou reserva
+Fotos do local
+Não
+Galeria
+Enviadas pelo credenciado no painel administrativo
+Avaliação em estrelas
+Não
+1–5 estrelas
+Média pública de avaliações; comentários ficam internos
+Botão 'Traçar Rota'
+Sim
+Ação
+Redireciona para app de mapas do sistema operacional
+Botão 'Iniciar Recarga'
+Sim
+Ação
+Inicia fluxo RF006
+Botão 'Reservar'
+Cond.
+Ação
+Visível apenas se reserva está habilitada pelo credenciado
+Filtros de Busca (Botão)
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Range de potência (kW)
+Não
+Slider (min–max)
+Pré-preenchido com potência máx. do veículo cadastrado (filtro inteligente)
+Tipo de conector
+Não
+Multi-select
+Filtro por CCS2, CHAdeMO, Tipo 2, etc.
+Localizar o veículo
+Não
+Multi-select
+Filtro por montadora + modelo
+Cadastrar Veículo
+Não
+Ação
+Submete para o cadastro de veículo (RF...)
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+O filtro de potência deve ser pré-preenchido com a potência máxima do veículo principal cadastrado.
+RGN002
+A exibição de taxa de ociosidade e reserva são condicionais à configuração do credenciado.
+RGN003
+A avaliação em estrelas deve ser visível publicamente; comentários ficam restritos ao painel administrativo.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+O filtro inteligente deve pré-preencher a potência máxima com base no veículo principal cadastrado.
+CTA002
+Taxa de ociosidade e botão de reserva devem aparecer somente quando habilitados pelo credenciado.
+CTA003
+A avaliação em estrelas deve ser exibida no detalhe do posto.
+CTA004
+O botão 'Traçar Rota' deve abrir o app de mapas padrão do dispositivo.
+RF006 — Iniciar Abastecimento (Recarga)
+Permitir ao usuário iniciar uma sessão de recarga elétrica via QR Code, código da estação ou seleção pelo mapa. O pagamento é debitado da carteira ao término da recarga ou pré pago via Cartão.
+🖥 Telas Relacionadas
+•  Tela de Início do Abastecimento – Jornada 1.6
+•  Tela de Histórico de Abastecimento – Jornada 1.5
+🗺 Jornadas Relacionadas
+•  1.6 – Quero iniciar um abastecimento
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário inicia recarga por um dos três métodos: (a) QR Code, (b) código da estação, (c) botão no detalhe do posto.
+FLU002
+Sistema identifica o dispositivo e exibe suas informações (tarifa, tipo, status).
+FLU003
+Verificar se o dispositivo possui alguma reserva. Se tiver reserva, informar ao cliente quanto tempo aproximado estará liberado (precisa ser validado com o OCPP).
+FLU004
+Sistema verifica método de pagamento selecionado (carteira/PIX ou cartão de crédito).
+FLU005
+Se pagamento for por cartão: Stripe realiza pré-autorização pelo valor padrão configurado.
+FLU006
+Sistema envia comando de start ao carregador via protocolo OCPP.
+FLU007
+Recarga iniciada — app exibe tela de acompanhamento em tempo real (kWh e duração).
+FLU008
+Ao término (automático ou manual): sistema debita valor consumido da carteira ou captura no cartão.
+FLU009
+Notificação push de término de recarga é enviada ao usuário.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Método de identificação
+Sim
+QR Code | Código | Mapa
+Ao menos um método deve ser utilizado
+Seleção de conector
+Cond.
+Radio (Conector 1 | 2)
+Apenas quando carregador tiver 2 conectores
+Método de pagamento
+Sim
+Select
+Saldo da carteira / PIX | Cartão de crédito
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+O pagamento de abastecimento é sempre debitado da carteira ao término da sessão.
+RGN002
+Cartão de crédito e Pix funcionam como formas de carregar saldo antes da recarga — não como pagamento direto.
+RGN003
+A pré-autorização via cartão usa valor padrão configurado pelo Admin Althus (ex.: R$ 200).
+RGN004
+Se o saldo atingir 80% de consumo durante a recarga, o sistema envia notificação push ao usuário.
+RGN005
+Se o saldo zerar durante a recarga, o sistema pausa a sessão e inicia período de carência.
+RGN006
+Durante a carência, o usuário pode adicionar saldo para continuar ou desconectar sem incorrer em taxa de ociosidade.
+RGN007
+Caso acontece de sobrar saldo, no pagamento via cartão, stripe tem que estornar o valor para o cliente.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Sistema deve impedir início de recarga se o dispositivo estiver ocupado, reservado ou em manutenção.
+CTA002
+Notificação de 80% de saldo consumido deve ser disparada durante a recarga.
+CTA003
+Notificação de término de recarga deve ser enviada ao usuário após encerramento da sessão.
+CTA004
+O valor cobrado deve ser exatamente o kWh consumido multiplicado pela tarifa vigente no período.
+CTA005
+A tela de acompanhamento deve atualizar kWh e duração em tempo real durante a sessão.
+RF007 — Fazer Reserva
+Permitir ao usuário reservar um conector em um posto que tenha esta funcionalidade habilitada pelo credenciado. A taxa de reserva é debitada do saldo da carteira no momento da confirmação. O usuário poderá renovar a reserva, caso esteja habilitado pela rede credenciada essa funcionalidade.
+🖥 Telas Relacionadas
+•  Tela de fazer reserva – Jornada 1.7
+•  Tela de confirmação da reserva
+🗺 Jornadas Relacionadas
+•  1.7 – Quero fazer uma reserva
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa o detalhe de um dispositivo com reserva habilitada.
+FLU002
+Usuário toca no botão 'Reservar'.
+FLU003
+App exibe modal de confirmação com valor da taxa, tempo de reserva e botão de confirmar.
+FLU004
+Ao confirmar, taxa é debitada do saldo da carteira.
+FLU005
+Sistema reserva o conector — status muda para 'Laranja / Reservado' no mapa.
+FLU006
+Sistema envia notificação push 1 hora antes do início da janela de reserva.
+FLU007
+Sistema envia notificação push no início da janela de reserva.
+FLU008
+Expirado o tempo de reserva, sistema libera o conector automaticamente.
+FLUX009
+Possibilidade de renovar a reserva
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Confirmação de reserva
+Sim
+Modal
+Exibe taxa e tempo de reserva antes de confirmar
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+Reserva somente disponível se o credenciado habilitou essa função no painel administrativo.
+RGN002
+Taxa de reserva debitada da carteira no ato da confirmação (não permite pagamento por cartão).
+RGN003
+O tempo de reserva padrão é 15 minutos; o credenciado pode configurar valor diferente por localidade.
+RGN004
+Somente o usuário que fez a reserva pode iniciar a recarga naquele conector durante a janela reservada.
+RGN005
+Arquivo de calendário (.ics) deve ser disponibilizado ao usuário após a confirmação.
+RGN006
+Cancelamento de reserva pode incorrer em taxa configurável pelo credenciado (percentual sobre o valor da reserva).
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Reserva deve bloquear o conector para outros usuários imediatamente após confirmação.
+CTA002
+Saldo insuficiente na carteira deve impedir a reserva e exibir mensagem orientando o usuário.
+CTA003
+Notificação de 1h antes e notificação no início da janela devem ser disparadas pelo sistema.
+CTA004
+Ao expirar a janela de reserva, o conector deve ser liberado automaticamente e o status atualizado no mapa.
+RF008 — Cancelar Reserva
+Permitir ao usuário cancelar uma reserva ativa antes do início da janela. A taxa de cancelamento, se configurada pelo credenciado, é debitada do saldo.
+🖥 Telas Relacionadas
+•  Tela para listar reservas – Jornadas 1.8 e 1.9
+🗺 Jornadas Relacionadas
+•  1.9 – Quero cancelar uma reserva
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa o histórico de reservas ou notificação de reserva ativa.
+FLU002
+Usuário seleciona a opção 'Cancelar reserva'.
+FLU003
+App exibe modal informando taxa de cancelamento (se configurada pelo credenciado).
+FLU004
+Usuário confirma o cancelamento.
+FLU005
+Sistema libera o conector e debita a taxa de cancelamento (se configurada).
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Confirmação de cancelamento
+Sim
+Modal
+Exibe taxa de cancelamento antes de confirmar
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+Se a reserva não for cancelada e o usuário não comparecer, o valor da taxa de reserva não é reembolsado.
+RGN002
+A taxa de cancelamento é configurável pelo credenciado em percentual sobre o valor da reserva.
+RGN003
+Taxa zero (0%) significa que não há cobrança por cancelamento.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Cancelamento deve liberar o conector instantaneamente e atualizar o status no mapa.
+CTA002
+Taxa de cancelamento deve ser informada ao usuário antes da confirmação.
+CTA003
+Saldo deve ser debitado da taxa de cancelamento logo após a confirmação pelo usuário.
+RF009 — Histórico de Abastecimento
+Exibir ao usuário o histórico de recargas realizadas, com opção de visualizar detalhes e baixar nota fiscal.
+🖥 Telas Relacionadas
+•  Tela de Histórico de Abastecimento – Jornada 1.5
+🗺 Jornadas Relacionadas
+•  1.5 – Quero ver meu histórico de abastecimentos
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa 'Histórico' no menu do aplicativo.
+FLU002
+Lista paginada (scroll infinito) é exibida com as transações mais recentes.
+FLU003
+Usuário pode filtrar transações por período.
+FLU004
+Usuário toca em uma transação para ver detalhes completos.
+FLU005
+Usuário pode tocar em 'Baixar NF-e' para acessar a nota fiscal via URL da integradora.
+🗂 Campos
+Visão Resumida
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Data e horário
+Sim
+Data/hora
+Formato DD/MM/AAAA HH:mm
+Rede credenciada
+Sim
+Texto
+Nome da rede + endereço
+Valor cobrado (R$)
+Sim
+Moeda
+Valor real debitado
+Visão Detalhada
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Duração da recarga
+Sim
+Tempo (hh:mm:ss)
+—
+kWh consumido
+Sim
+Número
+—
+Método de pagamento
+Sim
+Texto
+Saldo / Cartão / Pix
+Download NF-e
+Cond.
+Botão / Link
+Disponível apenas para transações financeiras
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+NF-e gerada apenas para transações financeiras (recarga de saldo via cartão ou Pix).
+RGN002
+URL da NF-e é fornecida pela integradora Sped e armazenada junto à transação.
+RGN003
+O app exibe indicadores mensais de total de kWh e valor total gasto no mês corrente.
+RGN004
+A lista é carregada por paginação infinita — 10 registros por request.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Lista deve carregar por paginação infinita, com 10 registros por request.
+CTA002
+Download de NF-e deve abrir a URL retornada pela integradora em browser externo.
+CTA003
+Filtro de período deve aplicar imediatamente ao ser selecionado.
+RF010 — Histórico de Reservas
+Exibir ao usuário a lista de reservas realizadas com todos os status possíveis.
+🖥 Telas Relacionadas
+•  Tela para listar reservas – Jornadas 1.8 e 1.9
+🗺 Jornadas Relacionadas
+•  1.8 – Quero ver meu histórico de reserva
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa 'Histórico de Reservas' no menu do aplicativo.
+FLU002
+Lista paginada é exibida com as reservas mais recentes.
+FLU003
+Usuário pode tocar em uma reserva para ver detalhes.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Data e horário da reserva
+Sim
+Data/hora
+—
+Local / rede
+Sim
+Texto
+—
+Status
+Sim
+Badge
+Ativa | Concluída | Cancelada | Não compareceu
+Valor pago
+Sim
+Moeda
+Taxa de reserva debitada
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+Reservas em todos os status devem ser listadas (ativas, concluídas, canceladas, não compareceu).
+RGN002
+Lista carregada por paginação — 10 registros por request.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Todos os status de reserva devem ser exibidos com badge visual diferenciado.
+CTA002
+Lista deve ser paginada, com 10 registros por request.
+RF011 — Carteira Digital (Saldo)
+Gerenciar o saldo da carteira do usuário: visualizar, carregar via Pix ou cartão, e consultar extrato de entradas/saídas.
+🖥 Telas Relacionadas
+•  Tela da carteira digital – Jornada 1.10
+•  Tela para colocar crédito por cartão – Jornada 1.10
+•  Tela para colocar crédito por PIX – Jornada 1.10
+•  Tela de Extrato de Créditos – Jornada 1.11
+🗺 Jornadas Relacionadas
+•  1.10 – Quero botar crédito na minha carteira por PIX
+•  1.11 – Quero ver meu extrato de créditos
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa 'Carteira' no menu do app.
+FLU002
+Usuário seleciona 'Adicionar saldo' e informa o valor desejado (campo aberto).
+FLU003
+Usuário seleciona o método: Pix ou cartão cadastrado.
+FLU004
+Se Pix: sistema gera QR Code/Copia e Cola. Após pagamento externo, sistema recebe confirmação do gateway e credita saldo.
+FLU005
+Se Cartão: sistema processa cobrança via Stripe e credita saldo.
+FLU006
+NF-e é emitida automaticamente após confirmação do pagamento (integração NFe).
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Valor do depósito
+Sim
+Moeda (campo aberto)
+Sem valores pré-fixados; qualquer valor positivo
+Método de pagamento
+Sim
+Select
+Pix | Cartão cadastrado | Novo cartão
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+O saldo deve ser atualizado imediatamente após confirmação do pagamento pelo gateway.
+RGN002
+NF-e deve ser emitida somente para transações financeiras de recarga de saldo (Pix ou cartão).
+RGN003
+O campo de valor é aberto — sem valores pré-fixados.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Saldo deve ser atualizado imediatamente após confirmação do pagamento.
+CTA002
+NF-e deve ser emitida e URL disponibilizada para o usuário após recarga de saldo.
+CTA003
+Extrato de entradas deve exibir data, valor e método de cada depósito realizado.
+RF012 — Gerenciar Cartões de Pagamento
+Permitir ao usuário cadastrar, visualizar e remover cartões de crédito para uso na pré-autorização de recargas.
+🖥 Telas Relacionadas
+•  Tela de dados financeiros para crédito na carteira (reutilizada)
+🗺 Jornadas Relacionadas
+•  1.10 – Quero botar crédito na minha carteira por PIX
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa 'Cartões' nas configurações do app.
+FLU002
+Usuário toca em 'Adicionar cartão' e insere os dados via SDK do Stripe.
+FLU003
+Sistema armazena token e últimos 4 dígitos; dados completos ficam no Stripe.
+FLU004
+Usuário pode visualizar cartões cadastrados e remover qualquer um.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Dados do cartão
+Sim
+SDK Stripe (tokenizado)
+Armazenado exclusivamente no gateway; app guarda token + últimos 4 dígitos
+Apelido do cartão
+Não
+Texto
+Ex.: 'Nubank', 'Visa pessoal'
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+A aplicação nunca armazena o número completo do cartão.
+RGN002
+Múltiplos cartões podem ser cadastrados; o usuário seleciona qual usar no momento da recarga.
+RGN003
+Troca de gateway de pagamento implica novo cadastro de cartões pelos usuários (comunicado prévio obrigatório).
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Dados completos de cartão não devem ser armazenados na base da aplicação.
+CTA002
+Usuário deve poder adicionar, visualizar e remover cartões cadastrados.
+CTA003
+Apelido do cartão deve ser exibido na lista de cartões quando informado.
+RF013 — Gerenciar Veículos
+Permitir ao usuário cadastrar, editar e remover veículos da sua conta para uso no filtro inteligente de postos. Pode ser cadastrado mais de um veículo por usuário.
+🖥 Telas Relacionadas
+•  Tela para listar veículos – Jornadas 1.15 e 1.16
+•  Tela de cadastro de veículo – Jornadas 1.14, 1.15 e 1.16
+🗺 Jornadas Relacionadas
+•  1.14 – Quero cadastrar meu veículo
+•  1.15 – Quero remover meu veículo
+•  1.16 – Quero alterar meu veículo
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa 'Veículos' nas configurações do app.
+FLU002
+Usuário toca em 'Adicionar veículo' e seleciona marca, modelo, versão e ano.
+FLU003
+Sistema sugere potência máxima de carregamento com base na versão selecionada (catálogo Admin Althus).
+FLU004
+Usuário confirma ou ajusta os dados e salva o veículo.
+FLU005
+Usuário pode definir um veículo como 'principal'; este pré-preenche o filtro de potência no mapa.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Marca
+Sim
+Select c/ opção 'Outro'
+Lista pré-cadastrada pelo Admin Althus; permite cadastro manual se não listada
+Modelo
+Sim
+Select c/ opção 'Outro'
+Dependente da marca selecionada
+Versão
+Sim
+Select c/ opção 'Outro'
+Cada versão pode ter bateria diferente; dependente do modelo
+Ano/modelo de fabricação
+Não
+Número (4 dígitos)
+—
+Potência máxima de carregamento (kW)
+Sim
+Número
+Usada no filtro inteligente do mapa
+Placa
+Não
+Texto c/ máscara
+Opcional; útil para futuras integrações
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+Usuário pode ter mais de um veículo cadastrado.
+RGN002
+Não é obrigatório ter veículo cadastrado para utilizar o app.
+RGN003
+O veículo marcado como 'principal' pré-preenche o filtro de potência no mapa.
+RGN004
+Imagem de veículo não está prevista nesta versão.
+RGN005
+Notificação push é enviada a cada 30 dias após o cadastro se nenhum veículo estiver cadastrado.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Usuário deve poder cadastrar, editar e remover veículos.
+CTA002
+Veículo principal deve pré-preencher o filtro de potência no mapa automaticamente.
+CTA003
+Opção 'Outro' para marca/modelo/versão deve permitir entrada de texto livre.
+RF014 — Gerenciar Dados Pessoais
+Permitir ao usuário editar seus dados pessoais, endereço e configurações de conta.
+🖥 Telas Relacionadas
+•  Tela para gerenciar dados pessoais – Jornada 1.12
+•  Tela para alterar senha – Jornada 1.13
+🗺 Jornadas Relacionadas
+•  1.12 – Quero gerenciar meus dados pessoais
+•  1.13 – Quero alterar minha senha
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa 'Meu Perfil' ou 'Configurações' no app.
+FLU002
+Usuário visualiza seus dados com campos editáveis e somente leitura claramente distintos.
+FLU003
+Usuário altera os campos permitidos e salva as alterações.
+FLU004
+Se alterar telefone celular, sistema exige revalidação por SMS.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Nome completo
+Sim
+Texto
+Editável
+Telefone celular
+Sim
+Texto c/ máscara
+Editável; requer revalidação por SMS ao alterar
+Data de nascimento
+Sim
+Data
+Editável
+Endereço (CEP)
+Não
+Texto
+Via ViaCEP; preenchimento automático; múltiplos endereços (Casa, Trabalho, etc.)
+CPF
+—
+Somente leitura
+Não editável após cadastro
+E-mail
+—
+Somente leitura
+Editável; novo e-mail requer revalidação por código
+Habilitar biometria
+Não
+Toggle
+Habilita/desabilita FaceID ou TouchID
+Habilitar notificações
+Não
+Toggle por categoria
+Controla categorias de notificações push
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+CPF não pode ser alterado após o cadastro.
+RGN002
+Alteração de telefone celular requer revalidação por SMS.
+RGN003
+Alteração de e-mail requer revalidação por código enviado ao novo e-mail.
+RGN004
+Endereço utiliza ViaCEP para preenchimento automático de logradouro, bairro e cidade.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+CPF deve ser exibido como somente leitura, sem opção de edição.
+CTA002
+Alteração de telefone deve exigir revalidação por SMS antes de salvar.
+CTA003
+Alteração de e-mail deve exigir revalidação por código antes de salvar.
+CTA004
+CEP deve preencher automaticamente os campos de endereço via ViaCEP.
+RF015 — Cupons de Desconto (App)
+Exibir e aplicar cupons de desconto durante a recarga. Cupons podem ser automáticos ou por código digitado.
+🖥 Telas Relacionadas
+•  Sub-tela do detalhe da Localidade (reutilizada)
+•  Tela de Início do Abastecimento – Jornada 1.6 (reutilizada)
+🗺 Jornadas Relacionadas
+•  1.6 – Quero iniciar um abastecimento (cupom aplicado no fluxo)
+📋 Fluxo
+Código
+Descrição
+FLU001
+Cupons automáticos (baseados em regras do credenciado) aparecem automaticamente na lista do usuário.
+FLU002
+Cupons por código: usuário acessa 'Meus Cupons' e digita o código da campanha.
+FLU003
+No momento da recarga, o sistema aplica desconto disponível ou exibe lista de cupons para seleção.
+FLU004
+Desconto é aplicado diretamente no valor da recarga — não como crédito em carteira.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Código do cupom
+Cond.
+Texto
+Somente para cupons por código de campanha
+Lista de cupons disponíveis
+Não
+Select / Lista
+Cupons automáticos listados para seleção durante a recarga
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+Cupom percentual: desconto aplicado sobre o valor da recarga; sempre limitado por teto máximo em R$.
+RGN002
+Cupom de valor fixo: desconto em R$ sobre o valor da recarga.
+RGN003
+Se o valor da recarga for menor que o cupom de valor fixo, o usuário paga R$ 0,00 (não gera crédito).
+RGN004
+Limite de uso por CPF e limite total de usos são configurados pelo credenciado.
+RGN005
+Cupons possuem data de início e data de validade obrigatórias.
+✅  Critérios de Aceite
+Código
+Descrição
+CTA001
+Cupons automáticos devem aparecer sem necessidade de o usuário digitar código.
+CTA002
+Código de cupom inválido, expirado ou esgotado deve exibir mensagem de erro descritiva.
+CTA003
+Desconto deve ser exibido no resumo da recarga antes da confirmação.
+CTA004
+Cupom com valor maior que o da recarga deve resultar em cobrança de R$ 0,00.
+RF016 — Notificações (App)
+Central de notificações push e in-app com histórico de mensagens recebidas e badge contador.
+🖥 Telas Relacionadas
+•  Tela para ver lista de notificações – Jornada 1.18
+•  Tela do detalhe de notificação – Jornada 1.18
+🗺 Jornadas Relacionadas
+•  1.18 – Quero ver minhas notificações
+📋 Fluxo
+Código
+Descrição
+FLU001
+Sistema dispara notificações push baseadas em eventos das sessões de recarga, reservas e saldo.
+FLU002
+Usuário recebe notificação no dispositivo (mesmo com app em segundo plano).
+FLU003
+Usuário acessa 'Notificações' no app para ver histórico de mensagens.
+FLU004
+Ao abrir a tela, todas as notificações listadas são marcadas como lidas e o badge contador é zerado.
+🗂 Campos
+Tipos de Notificação
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Dispositivo de carga rápida atingiu 80%
+Sim
+Push
+Disparada durante recarga em carregador rápido
+Término de carregamento
+Sim
+Push
+Ao fim da sessão de recarga
+Saldo da carteira em 80% de consumo
+Sim
+Push
+Durante recarga, quando 80% do saldo foi consumido
+Saldo zerado — recarga pausada
+Sim
+Push
+Com instrução de adicionar saldo ou desconectar
+1 hora antes de uma reserva iniciar
+Sim
+Push
+Lembrete de reserva agendada
+Início da janela de reserva
+Sim
+Push
+Reserva ativa — tempo correndo
+Expiração do tempo de reserva (5 min)
+Sim
+Push
+Aviso 5 minutos antes do fim da reserva
+Responsabilidade ambiental
+Sim
+Push
+Ao fim do carregamento: kgCO₂ economizados
+Erro genérico no carregador
+Sim
+Push
+Quando o OCPP reportar erro durante sessão
+Lembrete de cadastro de veículo
+Sim
+Push
+A cada 30 dias, se nenhum veículo cadastrado
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+Ao abrir a tela de notificações, todas as mensagens listadas são marcadas como lidas automaticamente.
+RGN002
+Badge de notificações (contador) é zerado ao abrir a tela.
+RGN003
+Usuário pode configurar categorias de notificação nas configurações do perfil.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+Badge deve ser zerado automaticamente ao abrir a central de notificações.
+CTA002
+Notificações devem ser entregues mesmo com o app em segundo plano.
+CTA003
+Cada tipo de notificação listado na tabela deve ser disparado no evento correspondente.
+RF017 — Avaliação de Posto
+Permitir ao usuário avaliar um posto com nota de 1 a 5 estrelas e comentário opcional após uma recarga concluída.
+🖥 Telas Relacionadas
+•  Tela de Histórico de Abastecimento – Jornada 1.5 (reutilizada)
+•  Sub-tela do detalhe da Localidade (reutilizada)
+🗺 Jornadas Relacionadas
+•  1.5 – Quero ver meu histórico de abastecimentos (avaliação pós-recarga)
+📋 Fluxo
+Código
+Descrição
+FLU001
+Após encerramento de uma sessão de recarga, o app exibe convite para avaliação.
+FLU002
+Usuário seleciona nota de 1 a 5 estrelas (obrigatório).
+FLU003
+Usuário pode adicionar comentário opcional (texto livre).
+FLU004
+Usuário envia a avaliação.
+FLU005
+Sistema registra avaliação e atualiza a média de estrelas do posto.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Nota (estrelas)
+Sim
+1–5 estrelas
+Obrigatório para enviar avaliação
+Comentário
+Não
+Texto livre
+Visível apenas internamente no painel Admin Althus; não público
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+A média de estrelas é exibida publicamente no detalhe do posto no mapa.
+RGN002
+Comentários ficam restritos ao painel administrativo (gestão de qualidade).
+RGN003
+Uma avaliação por recarga concluída; não é possível reavaliar a mesma sessão.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+A média de estrelas deve ser atualizada e exibida no detalhe do posto após nova avaliação.
+CTA002
+Comentário não deve ser exibido publicamente no app.
+CTA003
+Sistema deve permitir apenas uma avaliação por sessão de recarga concluída.
+RF018 — Ver Termos e Políticas de Uso
+Permitir ao usuário consultar a qualquer momento os Termos de Uso e a Política de Privacidade vigentes, diretamente pelo aplicativo, sem necessidade de novo cadastro ou login.
+🖥 Telas Relacionadas
+•  Tela para ver termos e políticas – reutilizada do fluxo de signup (Jornada 1.17) – RF018
+🗺 Jornadas Relacionadas
+•  1.17 – Quero ver os Termos e Políticas de Uso
+📋 Fluxo
+Código
+Descrição
+FLU001
+Usuário acessa 'Configurações' ou 'Perfil' no app e seleciona 'Termos de Uso e Política de Privacidade'.
+FLU002
+App exibe a tela de Termos e Políticas com o conteúdo vigente carregado via URL ou conteúdo interno.
+FLU003
+Usuário navega pelo conteúdo (scroll).
+FLU004
+Usuário pode fechar a tela e retornar à tela anterior.
+🗂 Campos
+Campo
+Obrig.
+Tipo
+Regras / Observações
+Conteúdo dos Termos de Uso
+Sim
+Texto longo / HTML
+Versão vigente; carregado da base ou URL configurada pelo Admin Althus
+Conteúdo da Política de Privacidade
+Sim
+Texto longo / HTML
+Versão vigente; carregado da base ou URL configurada pelo Admin Althus
+Data de vigência
+Sim
+Data
+Exibida no cabeçalho do documento: 'Versão vigente desde DD/MM/AAAA'
+Botão 'Fechar' / Voltar
+Sim
+Ação de navegação
+Retorna o usuário à tela de origem
+⚖ Regras de Negócio
+Código
+Descrição
+RGN001
+O conteúdo exibido deve ser sempre a versão vigente dos termos, versionada no sistema pelo Admin Althus.
+RGN002
+A tela de Termos reutiliza o mesmo componente de exibição usado no fluxo de cadastro (RF001 Step 4), sem duplicação de código.
+RGN003
+O usuário pode acessar a tela a qualquer momento sem necessidade de estar autenticado.
+RGN004
+Quando os Termos forem atualizados pelo Admin Althus, o sistema deve registrar a nova versão com data de vigência e exibir a mais recente.
+RGN005
+O aceite dos Termos é registrado no momento do cadastro (RF001); esta tela é apenas de consulta, não requer novo aceite.
+✅ Critérios de Aceite
+Código
+Descrição
+CTA001
+A tela deve exibir o conteúdo completo dos Termos de Uso e da Política de Privacidade vigentes sem necessidade de navegação externa.
+CTA002
+A data de vigência da versão atual deve estar visível no topo do documento.
+CTA003
+O conteúdo deve ser navegável via scroll; botão de retorno deve funcionar corretamente.
+CTA004
+A tela deve ser acessível tanto para usuários logados quanto para usuários não autenticados.
+CTA005
+Quando houver atualização de versão, a nova versão deve ser exibida imediatamente após publicação pelo Admin Althus.

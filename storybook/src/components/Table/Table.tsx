@@ -5,9 +5,7 @@ import { Toggle } from '../Toggle/Toggle';
 
 /* ── Types ─────────────────────────────────────────────────────────────── */
 
-export type StatusType =
-  | 'success' | 'error' | 'warning' | 'info'
-  | 'orange' | 'indigo' | 'violet' | 'pink';
+export type StatusType = 'success' | 'error' | 'warning' | 'info';
 
 export type ActionItem<T> = {
   icon: ReactNode;

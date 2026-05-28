@@ -41,85 +41,85 @@
   --letter-spacing-wide:   0.5px;
   --letter-spacing-wider:  1px;
 
-  /* ─── Colors — Brand (Red) ─────────────────────────── */
-  --color-brand-50:  #FCEAEA;
-  --color-brand-100: #F5C6C6;
-  --color-brand-200: #ECA0A0;
-  --color-brand-300: #DF7070;
-  --color-brand-400: #CC5050;
-  --color-brand-500: #B93737;
-  --color-brand-600: #9C2C2C;
-  --color-brand-700: #7F2121;
-  --color-brand-800: #621818;
-  --color-brand-900: #420F0F;
-  --color-brand-950: #2A0808;
+  /* ─── Colors — Brand (Electric Teal) ──────────────── */
+  --color-brand-50:  #E6FAF7;
+  --color-brand-100: #C2F2EA;
+  --color-brand-200: #8DE4D4;
+  --color-brand-300: #4DD4BF;
+  --color-brand-400: #1ECBB5;
+  --color-brand-500: #00C2A8;
+  --color-brand-600: #00A890;
+  --color-brand-700: #008270;
+  --color-brand-800: #006152;
+  --color-brand-900: #004338;
+  --color-brand-950: #002922;
 
-  /* ─── Colors — Gray (Neutral) ──────────────────────── */
+  /* ─── Colors — Gray (Neutral, cool undertone) ──────── */
   --color-gray-white: #ffffff;
-  --color-gray-50:    #F4F5F7;
-  --color-gray-100:   #E8EAED;
-  --color-gray-200:   #CDD0D6;
-  --color-gray-300:   #ADB2BC;
-  --color-gray-400:   #8C93A0;
-  --color-gray-500:   #6B7280;
-  --color-gray-600:   #505666;
-  --color-gray-700:   #3B404F;
-  --color-gray-800:   #272B38;
-  --color-gray-900:   #181B24;
-  --color-gray-950:   #0D0E11;
-  --color-gray-black: #070809;
+  --color-gray-50:    #F7F8F8;
+  --color-gray-100:   #EAECEC;
+  --color-gray-200:   #D4D8D8;
+  --color-gray-300:   #B5BCBC;
+  --color-gray-400:   #8F9898;
+  --color-gray-500:   #6B7575;
+  --color-gray-600:   #4F5A5A;
+  --color-gray-700:   #374040;
+  --color-gray-800:   #242B2B;
+  --color-gray-900:   #151A1A;
+  --color-gray-950:   #0C1010;
+  --color-gray-black: #060A0A;
 
   /* ─── Colors — Red ─────────────────────────────────── */
-  --color-red-50:   #ffeaf0;
-  --color-red-100:  #ffc1ca;
-  --color-red-200:  #ff9eac;
-  --color-red-300:  #e95c71;
-  --color-red-400:  #cf2a43;
-  --color-red-500:  #b50721;
-  --color-red-600:  #9e0017;
-  --color-red-700:  #7f0013;
-  --color-red-800:  #66000f;
-  --color-red-900:  #4c000c;
-  --color-red-950:  #320708;
+  --color-red-50:   #FEF2F2;
+  --color-red-100:  #FEE2E2;
+  --color-red-200:  #FECACA;
+  --color-red-300:  #FCA5A5;
+  --color-red-400:  #F87171;
+  --color-red-500:  #EF4444;
+  --color-red-600:  #DC2626;
+  --color-red-700:  #B91C1C;
+  --color-red-800:  #991B1B;
+  --color-red-900:  #7F1D1D;
+  --color-red-950:  #4C0A0A;
 
   /* ─── Colors — Green ───────────────────────────────── */
-  --color-green-50:   #d1ffe7;
-  --color-green-100:  #affccf;
-  --color-green-200:  #8eefb7;
-  --color-green-300:  #55d78d;
-  --color-green-400:  #2bbf6d;
-  --color-green-500:  #0fa356;
-  --color-green-600:  #008e4c;
-  --color-green-700:  #077546;
-  --color-green-800:  #005b3d;
-  --color-green-900:  #004232;
-  --color-green-950:  #002822;
+  --color-green-50:   #ECFDF5;
+  --color-green-100:  #D1FAE5;
+  --color-green-200:  #A7F3D0;
+  --color-green-300:  #6EE7B7;
+  --color-green-400:  #34D399;
+  --color-green-500:  #10B981;
+  --color-green-600:  #059669;
+  --color-green-700:  #047857;
+  --color-green-800:  #065F46;
+  --color-green-900:  #064E3B;
+  --color-green-950:  #022C22;
 
   /* ─── Colors — Blue ────────────────────────────────── */
-  --color-blue-50:   #e5ffff;
-  --color-blue-100:  #c6f8ff;
-  --color-blue-200:  #a8e2ff;
-  --color-blue-300:  #6eb2e7;
-  --color-blue-400:  #4389d0;
-  --color-blue-500:  #2666ba;
-  --color-blue-600:  #1148a0;
-  --color-blue-700:  #043184;
-  --color-blue-800:  #072370;
-  --color-blue-900:  #001a56;
-  --color-blue-950:  #00113d;
+  --color-blue-50:   #EFF6FF;
+  --color-blue-100:  #DBEAFE;
+  --color-blue-200:  #BFDBFE;
+  --color-blue-300:  #93C5FD;
+  --color-blue-400:  #60A5FA;
+  --color-blue-500:  #3B82F6;
+  --color-blue-600:  #2563EB;
+  --color-blue-700:  #1D4ED8;
+  --color-blue-800:  #1E40AF;
+  --color-blue-900:  #1E3A8A;
+  --color-blue-950:  #172554;
 
   /* ─── Colors — Yellow ──────────────────────────────── */
-  --color-yellow-50:   #ffffc6;
-  --color-yellow-100:  #ffeaa8;
-  --color-yellow-200:  #ffd389;
-  --color-yellow-300:  #f5a856;
-  --color-yellow-400:  #dd8130;
-  --color-yellow-500:  #c25f13;
-  --color-yellow-600:  #ad4800;
-  --color-yellow-700:  #933b00;
-  --color-yellow-800:  #7a2c00;
-  --color-yellow-900:  #602300;
-  --color-yellow-950:  #4c1c00;
+  --color-yellow-50:   #FEFCE8;
+  --color-yellow-100:  #FEF9C3;
+  --color-yellow-200:  #FEF08A;
+  --color-yellow-300:  #FDE047;
+  --color-yellow-400:  #FACC15;
+  --color-yellow-500:  #EAB308;
+  --color-yellow-600:  #CA8A04;
+  --color-yellow-700:  #A16207;
+  --color-yellow-800:  #854D0E;
+  --color-yellow-900:  #713F12;
+  --color-yellow-950:  #422006;
 
   /* ─── Colors — Cyan ────────────────────────────────── */
   --color-cyan-50:   #eafcff;
@@ -215,7 +215,7 @@
   --color-text-brand:      var(--color-brand-300);
   --color-text-link:       var(--color-blue-300);
   --color-text-link-hover: var(--color-blue-200);
-  --color-text-error:      var(--color-red-300);
+  --color-text-error:      var(--color-red-500);
   --color-text-success:    var(--color-green-300);
   --color-text-warning:    var(--color-yellow-300);
 
@@ -247,9 +247,9 @@
   --color-action-secondary-pressed: var(--color-blue-300);
 
   /* ─── Semantic — Action/Destructive ───────────────── */
-  --color-action-error:         var(--color-red-400);
-  --color-action-error-hover:   var(--color-red-300);
-  --color-action-error-pressed: var(--color-red-200);
+  --color-action-error:         var(--color-red-500);
+  --color-action-error-hover:   var(--color-red-400);
+  --color-action-error-pressed: var(--color-red-300);
 
   /* ─── Semantic — Action/Warning ───────────────────── */
   --color-action-warning:         var(--color-yellow-400);
@@ -280,8 +280,8 @@
   /* ─── Glass surfaces ───────────────────────────────── */
   --color-glass-surface:  rgba(255, 255, 255, 0.08);
   --color-glass-border:   rgba(255, 255, 255, 0.14);
-  --color-blob-1:         rgba(185, 55, 55, 0.32);
-  --color-blob-2:         rgba(185, 55, 55, 0.20);
+  --color-blob-1:         rgba(0, 194, 168, 0.32);
+  --color-blob-2:         rgba(0, 194, 168, 0.20);
   --blur-glass:           12px;
   --color-sidebar-bg:     rgba(0, 0, 0, 0.28);
   --color-nav-idle:       rgba(255, 255, 255, 0.36);
@@ -296,9 +296,9 @@
   /* ─── Brand effect ──────────────────────────────────── */
   --gradient-brand:    linear-gradient(135deg, var(--color-brand-400) 0%, var(--color-brand-600) 100%);
   --shadow-highlight:  inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  --shadow-glow-sm:    0 2px 6px  rgba(185, 55, 55, 0.30);
-  --shadow-glow-md:    0 4px 14px rgba(185, 55, 55, 0.32);
-  --shadow-glow-lg:    0 6px 20px rgba(185, 55, 55, 0.42);
+  --shadow-glow-sm:    0 2px 6px  rgba(0, 194, 168, 0.30);
+  --shadow-glow-md:    0 4px 14px rgba(0, 194, 168, 0.32);
+  --shadow-glow-lg:    0 6px 20px rgba(0, 194, 168, 0.42);
 }
 
 /* ─── Light mode overrides ───────────────────────────── */
@@ -306,8 +306,8 @@
   /* Glass surfaces */
   --color-glass-surface:  rgba(0, 0, 0, 0.05);
   --color-glass-border:   rgba(0, 0, 0, 0.10);
-  --color-blob-1:         rgba(185, 55, 55, 0.15);
-  --color-blob-2:         rgba(185, 55, 55, 0.15);
+  --color-blob-1:         rgba(0, 194, 168, 0.15);
+  --color-blob-2:         rgba(0, 194, 168, 0.15);
   --color-sidebar-bg:     rgba(255, 255, 255, 0.72);
   --color-nav-idle:       rgba(15, 12, 20, 0.38);
   --color-nav-active-bg:  rgba(15, 12, 20, 0.06);
@@ -319,9 +319,9 @@
   --color-table-row-hover: rgba(0, 0, 0, 0.015);
 
   /* Brand effect (glow menos intenso no light) */
-  --shadow-glow-sm:    0 2px 6px  rgba(185, 55, 55, 0.20);
-  --shadow-glow-md:    0 4px 14px rgba(185, 55, 55, 0.22);
-  --shadow-glow-lg:    0 6px 20px rgba(185, 55, 55, 0.30);
+  --shadow-glow-sm:    0 2px 6px  rgba(0, 194, 168, 0.20);
+  --shadow-glow-md:    0 4px 14px rgba(0, 194, 168, 0.22);
+  --shadow-glow-lg:    0 6px 20px rgba(0, 194, 168, 0.30);
 
   /* Shadows (light-optimized) */
   --shadow-xs:    0 1px 4px rgba(35, 35, 35, 0.05);

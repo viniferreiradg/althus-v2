@@ -155,10 +155,6 @@
 .badge[data-status="error"]   { background: var(--color-status-error-bg);   color: var(--color-status-error-fg);   }
 .badge[data-status="warning"] { background: var(--color-status-warning-bg); color: var(--color-status-warning-fg); }
 .badge[data-status="info"]    { background: var(--color-status-info-bg);    color: var(--color-status-info-fg);    }
-.badge[data-status="orange"]  { background: var(--color-status-orange-bg);  color: var(--color-status-orange-fg);  }
-.badge[data-status="indigo"]  { background: var(--color-status-indigo-bg);  color: var(--color-status-indigo-fg);  }
-.badge[data-status="violet"]  { background: var(--color-status-violet-bg);  color: var(--color-status-violet-fg);  }
-.badge[data-status="pink"]    { background: var(--color-status-pink-bg);    color: var(--color-status-pink-fg);    }
 
 .badgeDot {
   width: 8px;

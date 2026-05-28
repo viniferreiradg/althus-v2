@@ -64,7 +64,7 @@ const router = (() => {
     const iframe = screen && screen.querySelector('iframe');
     if (iframe) {
       const screenId = screen.dataset.screenId;
-      iframe.src = `${_base}screens/${screenId}.html`;
+      iframe.src = `${_base}screens/${screenId}.html?t=${Date.now()}`;
     }
     return screen;
   }

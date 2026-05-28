@@ -9,10 +9,6 @@ const palettes = [
   { name: 'Green',  prefix: '--color-green',  steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Blue',   prefix: '--color-blue',   steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Yellow', prefix: '--color-yellow', steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
-  { name: 'Orange', prefix: '--color-orange', steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
-  { name: 'Indigo', prefix: '--color-indigo', steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
-  { name: 'Violet', prefix: '--color-violet', steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
-  { name: 'Pink',   prefix: '--color-pink',   steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
 ];
 
 function Swatch({ varName }: { varName: string }) {
@@ -131,14 +127,6 @@ const aliasGroups: TokenGroup[] = [
       { name: 'status-info-fg',     token: '--color-status-info-fg',     light: 'Blue/700',   dark: 'Blue/400',    description: 'Texto/ícone informação' },
       { name: 'status-disabled-bg', token: '--color-status-disabled-bg', light: 'Gray/300',   dark: 'Gray/300',    description: 'Fundo desativado' },
       { name: 'status-disabled-fg', token: '--color-status-disabled-fg', light: 'Gray/400',   dark: 'Gray/400',    description: 'Texto/ícone desativado' },
-      { name: 'status-orange-bg',   token: '--color-status-orange-bg',   light: 'Orange/50',  dark: 'Orange/950',  description: 'Fundo laranja' },
-      { name: 'status-orange-fg',   token: '--color-status-orange-fg',   light: 'Orange/700', dark: 'Orange/400',  description: 'Texto/ícone laranja' },
-      { name: 'status-indigo-bg',   token: '--color-status-indigo-bg',   light: 'Indigo/50',  dark: 'Indigo/950',  description: 'Fundo índigo' },
-      { name: 'status-indigo-fg',   token: '--color-status-indigo-fg',   light: 'Indigo/700', dark: 'Indigo/400',  description: 'Texto/ícone índigo' },
-      { name: 'status-violet-bg',   token: '--color-status-violet-bg',   light: 'Violet/50',  dark: 'Violet/950',  description: 'Fundo violeta' },
-      { name: 'status-violet-fg',   token: '--color-status-violet-fg',   light: 'Violet/700', dark: 'Violet/400',  description: 'Texto/ícone violeta' },
-      { name: 'status-pink-bg',     token: '--color-status-pink-bg',     light: 'Pink/50',    dark: 'Pink/950',    description: 'Fundo rosa' },
-      { name: 'status-pink-fg',     token: '--color-status-pink-fg',     light: 'Pink/700',   dark: 'Pink/400',    description: 'Texto/ícone rosa' },
     ],
   },
 ];

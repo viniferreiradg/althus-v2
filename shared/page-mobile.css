@@ -12,12 +12,23 @@
   background-repeat: no-repeat;
 }
 
+/* Impede propagação do background do body + centraliza a tela no viewport */
+html {
+  background: #000;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ─── Reset ──────────────────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
+
+[hidden] { display: none !important; }
 
 /* ─── Base body ──────────────────────────────────────── */
 body {
@@ -26,14 +37,16 @@ body {
   background: var(--color-bg-default);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  width: 393px;
+  height: 852px;
 }
 
 /* ─── Layout: tela mobile padrão ─────────────────────── */
 body.layout-screen {
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  position: relative;
 }
 
 /* Telas com scroll vertical — nunca mostra a barra */
@@ -47,9 +60,10 @@ body.layout-screen.scrollable::-webkit-scrollbar {
 
 /* ─── Layout: mapa ou mídia full-bleed ───────────────── */
 body.layout-fullbleed {
-  width: 100vw;
-  height: 100vh;
+  width: 393px;
+  height: 852px;
   overflow: hidden;
+  position: relative;
 }
 
 /* ─── Splash ─────────────────────────────────────────── */
@@ -149,6 +163,15 @@ body.login-screen {
   line-height: 1.6;
 }
 
+/* BottomNav fixo no rodapé de telas standalone (escondido dentro do iframe) */
+.screen-nav {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+}
+
 /* ─── Map FABs ───────────────────────────────────────── */
 
 /* Row of FABs sitting just above the BottomNav */
@@ -161,11 +184,38 @@ body.login-screen {
   justify-content: space-between;
   padding: 0 var(--spacing-md);
   pointer-events: none;
+  top: 60px;
 }
 
 .map-fabs > * {
   pointer-events: auto;
 }
+
+/* Pin fixo no centro do mapa (marcador de posição atual) */
+.map-pin-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+/* ─── Distributor pin positions (demo) ──────────────── */
+.map-pin-pos-1,
+.map-pin-pos-2,
+.map-pin-pos-3 {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.map-pin-pos-1 { top: 30%; left: 22%; }
+.map-pin-pos-2 { top: 68%; left: 64%; }
+.map-pin-pos-3 { top: 44%; left: 66%; }
+
+/* ─── Distributor pin colors (prototype demo) ────────── */
+/* Em produção, --pin-color será injetado dinamicamente pelo admin. */
+.pin-tupi { --pin-color: #E63946; }
+.pin-dcc  { --pin-color: #2196F3; }
 
 /* ─── OTP resend row ─────────────────────────────────── */
 .otp-resend {

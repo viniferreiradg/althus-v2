@@ -80,7 +80,7 @@
 
 .navItemActive {
   background: var(--color-nav-active-bg);
-  border-left-color: rgba(185, 55, 55, 0.80);
+  border-left-color: var(--color-action-primary);
   color: var(--color-nav-active-text);
 }
 
