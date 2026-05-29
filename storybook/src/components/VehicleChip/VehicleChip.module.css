@@ -1,0 +1,53 @@
+/* ── VehicleChip — seletor de veículo ativo no mapa ── */
+.vehicleChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  height: calc(var(--spacing-2xl) + var(--spacing-xs));
+  padding: 0 var(--spacing-sm) 0 var(--spacing-xs);
+  border-radius: var(--radius-full);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  background: var(--color-glass-surface);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  box-shadow: var(--shadow-lg), var(--shadow-highlight);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: box-shadow var(--transition-fast);
+}
+
+.vehicleChip:hover  { box-shadow: var(--shadow-xl), var(--shadow-highlight); }
+.vehicleChip:active { opacity: 0.8; }
+
+.vehicleChip:focus-visible {
+  outline: var(--border-width-medium) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+/* ── Ícone do carro (circle com ring teal) ── */
+.iconWrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  border-radius: var(--radius-full);
+  border: var(--border-width-medium) solid var(--color-action-primary);
+  color: var(--color-action-primary);
+  flex-shrink: 0;
+}
+
+.name {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  max-width: 140px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chevron {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}

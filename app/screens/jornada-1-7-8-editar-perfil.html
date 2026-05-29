@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Editar Perfil — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Editar Perfil</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <!-- Avatar editável -->
+  <div class="profile-header" style="padding-bottom: var(--spacing-md);">
+    <div style="position: relative; display: inline-flex;">
+      <div class="avatar md profile-avatar-lg" aria-hidden="true">
+        <span class="avatarInitials">JB</span>
+      </div>
+      <button class="profile-avatar-edit" type="button" aria-label="Alterar foto">
+        <i data-lucide="camera" width="14" height="14"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="cadastro-body">
+    <div class="wrapper">
+      <label class="label" for="edit-nome">Nome completo</label>
+      <div class="inputWrapper">
+        <input class="input" id="edit-nome" type="text" value="João Batista" />
+      </div>
+    </div>
+    <div class="wrapper">
+      <label class="label" for="edit-email">E-mail</label>
+      <div class="inputWrapper">
+        <input class="input" id="edit-email" type="email" value="joao@email.com" />
+      </div>
+    </div>
+    <div class="wrapper">
+      <label class="label" for="edit-telefone">Telefone</label>
+      <div class="inputWrapper">
+        <input class="input" id="edit-telefone" type="tel" value="(11) 99999-0000" />
+      </div>
+    </div>
+    <div class="wrapper">
+      <label class="label" for="edit-cpf">CPF</label>
+      <div class="inputWrapper">
+        <input class="input" id="edit-cpf" type="text" value="000.000.000-00" disabled />
+      </div>
+      <span class="helperText">O CPF não pode ser alterado.</span>
+    </div>
+  </div>
+
+  <div class="cadastro-footer">
+    <button class="btn primary full-width" type="button" onclick="router.pop()">
+      Salvar alterações
+    </button>
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

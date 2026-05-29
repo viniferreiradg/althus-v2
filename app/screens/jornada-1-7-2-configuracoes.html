@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Configurações</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <div class="screen-content" style="padding-top: var(--spacing-md); overflow-y: auto; scrollbar-width: none;">
+
+    <div class="settings-group">
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-3-notificacoes')"
+              aria-label="Notificações">
+        <span class="settings-item-icon">
+          <i data-lucide="bell" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Notificações</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-4-tema')"
+              aria-label="Tema">
+        <span class="settings-item-icon">
+          <i data-lucide="sun-moon" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Tema</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-5-termos')"
+              aria-label="Termos de uso">
+        <span class="settings-item-icon">
+          <i data-lucide="file-text" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Termos de uso</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-5-1-historico-lista')"
+              aria-label="Histórico">
+        <span class="settings-item-icon">
+          <i data-lucide="clock" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Histórico</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-7-sobre')"
+              aria-label="Sobre o App">
+        <span class="settings-item-icon">
+          <i data-lucide="info" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Sobre o App</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

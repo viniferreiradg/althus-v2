@@ -1,0 +1,100 @@
+/* ── RangeSlider — filtro de potência (kW) ── */
+.rangeSlider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  width: 100%;
+}
+
+.rangeHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.rangeLabel {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.rangeValue {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-brand);
+}
+
+/* Track wrapper — stacks track + two inputs on top of each other */
+.rangeTrackWrap {
+  position: relative;
+  height: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+}
+
+/* Visual track background */
+.rangeTrack {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: var(--spacing-xs);
+  border-radius: var(--radius-full);
+  background: var(--color-border-default);
+}
+
+/* Filled segment between min and max thumbs */
+.rangeFill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+}
+
+/* Both range inputs overlay the track */
+.rangeInput {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  pointer-events: none;
+  margin: 0;
+  padding: 0;
+}
+
+.rangeInput::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  border: var(--border-width-medium) solid var(--color-bg-default);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  pointer-events: auto;
+  transition: box-shadow var(--transition-fast);
+}
+
+.rangeInput::-moz-range-thumb {
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  border: var(--border-width-medium) solid var(--color-bg-default);
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  pointer-events: auto;
+}
+
+.rangeInput:focus-visible::-webkit-slider-thumb {
+  box-shadow: var(--shadow-md), 0 0 0 3px var(--color-border-focus);
+}

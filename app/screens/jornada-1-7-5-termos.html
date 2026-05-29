@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Termos de Uso — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Termos de Uso</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <div class="terms-box" style="margin: 0 var(--spacing-md) var(--spacing-md); flex: 1; min-height: 0;">
+    <h3>1. Aceitação dos Termos</h3>
+    <p>Ao utilizar o aplicativo Althus, você concorda com estes Termos de Uso. Caso não concorde com alguma das condições, não utilize o serviço.</p>
+
+    <h3>2. Descrição do Serviço</h3>
+    <p>A Althus oferece uma plataforma para localização e utilização de estações de recarga de veículos elétricos. O serviço inclui funcionalidades de mapa, reserva, pagamento e histórico de recargas.</p>
+
+    <h3>3. Cadastro e Conta</h3>
+    <p>Para utilizar o serviço, é necessário criar uma conta com informações verdadeiras e atualizadas. Você é responsável pela confidencialidade de suas credenciais de acesso.</p>
+
+    <h3>4. Pagamentos</h3>
+    <p>Os valores cobrados pelas recargas são definidos por cada operador de estação. A Althus atua como intermediária no processo de pagamento. Reembolsos estão sujeitos à política de cada operador.</p>
+
+    <h3>5. Uso Adequado</h3>
+    <p>É proibido utilizar o aplicativo para fins ilegais, fraudulentos ou que violem direitos de terceiros. A Althus reserva-se o direito de suspender contas que violem estas regras.</p>
+
+    <h3>6. Privacidade</h3>
+    <p>O tratamento dos seus dados pessoais é realizado conforme nossa Política de Privacidade, em conformidade com a Lei Geral de Proteção de Dados (LGPD).</p>
+
+    <h3>7. Limitação de Responsabilidade</h3>
+    <p>A Althus não se responsabiliza por falhas nas estações de recarga de terceiros, interrupções de serviço fora de seu controle ou danos indiretos decorrentes do uso do aplicativo.</p>
+
+    <h3>8. Alterações nos Termos</h3>
+    <p>Estes termos podem ser atualizados periodicamente. Notificaremos os usuários sobre mudanças relevantes por meio do próprio aplicativo. O uso continuado do serviço após a notificação implica aceitação dos novos termos.</p>
+
+    <h3>9. Contato</h3>
+    <p>Dúvidas sobre estes termos podem ser enviadas para suporte@althus.com.br.</p>
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

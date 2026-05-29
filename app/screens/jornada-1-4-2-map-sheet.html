@@ -10,8 +10,11 @@
   <link rel="stylesheet" href="../../storybook/src/components/MapPin/MapPin.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/UserPin/UserPin.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/BottomNav/BottomNav.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/NotificationBadge/NotificationBadge.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/Table/Table.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/SearchBar/SearchBar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/VehicleChip/VehicleChip.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body class="layout-fullbleed map-bg-dark" style="background-position: -45px -137px;">
@@ -61,14 +64,33 @@
 
   </div>
 
-  <!-- ── Floating action buttons ──────────────────────────── -->
-  <div class="map-fabs">
-    <button class="fab lg" aria-label="Selecionar veículo"
-            onclick="router.push('jornada-1-7-4-veiculos-lista')">
-      <i data-lucide="car" width="24" height="24"></i>
+  <!-- ── Top overlay: busca + chips ───────────────── -->
+  <div class="map-top-overlay">
+    <button class="searchBar" type="button" aria-label="Buscar estação de recarga">
+      <i data-lucide="search" width="18" height="18" class="icon"></i>
+      <span class="placeholder">Buscar estação de recarga</span>
+    </button>
+    <div class="map-chips-row">
+      <button class="vehicleChip" type="button" aria-label="Veículo selecionado: Tesla Model Y. Toque para trocar."
+              onclick="router.push('jornada-1-14-1-veiculos-lista')">
+        <span class="iconWrap"><i data-lucide="car" width="16" height="16"></i></span>
+        <span class="name">Tesla Model Y</span>
+        <i data-lucide="chevron-down" width="14" height="14" class="chevron"></i>
+      </button>
+      <button class="fab md" type="button" aria-label="Filtros de busca"
+              onclick="router.push('jornada-1-4-3-filtros-mapa')">
+        <i data-lucide="sliders-horizontal" width="16" height="16"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── FABs direita: localizar + QR ──────────────── -->
+  <div class="map-fabs-right">
+    <button class="fab sm" aria-label="Centralizar minha localização" type="button">
+      <i data-lucide="locate" width="16" height="16"></i>
     </button>
     <button class="fab lg" aria-label="Escanear QR Code"
-            onclick="router.push('jornada-1-4-5-recarga-metodo')">
+            onclick="router.push('jornada-1-6-1-recarga-metodo')">
       <i data-lucide="qr-code" width="24" height="24"></i>
     </button>
   </div>
@@ -81,8 +103,13 @@
     <button class="navItem" data-tab="postos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Postos">
       <span class="navIcon"><i data-lucide="zap" width="22" height="22"></i></span>
     </button>
-    <button class="navItem" data-tab="historico" onclick="router.tab('jornada-1-5-1-historico-lista')" aria-label="Histórico">
-      <span class="navIcon"><i data-lucide="clock" width="22" height="22"></i></span>
+    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
+      <span class="navIcon">
+        <span class="wrap">
+          <i data-lucide="bell" width="22" height="22"></i>
+          <span class="badge">3</span>
+        </span>
+      </span>
     </button>
     <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
       <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>

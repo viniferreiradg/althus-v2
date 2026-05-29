@@ -198,7 +198,7 @@ body.login-screen {
   height: 100%;
   border: none;
   pointer-events: none;
-  transform: translateY(-22%) translateX(-46px);
+  //transform: translateY(-22%) translateX(-46px);
 }
 
 /* ─── Map FABs ───────────────────────────────────────── */
@@ -220,6 +220,48 @@ body.login-screen {
   pointer-events: auto;
 }
 
+/* ─── Map top overlay (search + chips) ──────────────── */
+.map-top-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  padding: calc(var(--status-bar-height) + var(--spacing-sm)) var(--spacing-md) var(--spacing-sm);
+  pointer-events: none;
+}
+
+.map-top-overlay > * {
+  pointer-events: auto;
+}
+
+/* Row containing VehicleChip + filter button */
+.map-chips-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* ─── Map right FABs column (locate + QR) ───────────── */
+.map-fabs-right {
+  position: absolute;
+  bottom: calc(var(--nav-height) + var(--spacing-sm));
+  right: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  align-items: end;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.map-fabs-right > * {
+  pointer-events: auto;
+}
+
 /* Camada de pins — preenche o mapa; mover este div desloca todos os pins juntos */
 .map-pins-layer {
   position: absolute;
@@ -228,6 +270,11 @@ body.login-screen {
   width: 100%;
   height: 100%;
   pointer-events: none;
+}
+
+/* Variante com offset: empurra a camada de pins para baixo do painel de filtros */
+.map-pins-layer--offset {
+  top: 80px;
 }
 
 /* Pin Althus próximo ao centro (deslocado para liberar espaço ao marcador do usuário) */
@@ -758,6 +805,221 @@ body.login-screen {
 /* Chip.module.css oculta checkbox; esta regra estende o mesmo
    comportamento para <input type="radio"> dentro de .chip       */
 .chip input[type="radio"] { display: none; }
+
+/* ─── Filtros do mapa — painel que desce do topo ────── */
+
+/* Card ancorado no topo, logo abaixo do overlay de busca */
+.map-filter-card {
+  position: absolute;
+  top: calc(var(--status-bar-height) + 112px);
+  left: 0;
+  right: 0;
+  top: 0;
+  background: var(--color-bg-elevated);
+  border-top: var(--border-width-thin) solid var(--color-border-default);
+  box-shadow: var(--shadow-xl);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  padding-top: 40px;
+}
+
+/* Cabeçalho do painel: título + botão fechar */
+.map-filter-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+  flex-shrink: 0;
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+/* Título do card */
+.map-filter-title {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Botão fechar */
+.map-filter-close {
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-subtle);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.map-filter-close:hover { background: var(--color-bg-surface); }
+
+/* Área scrollável com os filtros */
+.map-filter-body {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-md);
+}
+
+.map-filter-body::-webkit-scrollbar { display: none; }
+
+/* Label de seção dentro dos filtros */
+.map-filter-section-label {
+  font-family: var(--font-body);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--spacing-xs);
+}
+
+/* Rodapé com botões Limpar / Aplicar */
+.map-filter-footer {
+  flex-shrink: 0;
+  display: flex;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-sm) var(--spacing-md) calc(var(--spacing-md) + env(safe-area-inset-bottom));
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+}
+
+.map-filter-footer .btn { flex: 1; justify-content: center; }
+
+/* ─── Perfil / Configurações ─────────────────────────── */
+
+/* Bloco do usuário no topo da tela de perfil */
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md);
+}
+
+/* Avatar maior para a tela de perfil */
+.profile-avatar-lg {
+  width: 72px;
+  height: 72px;
+  font-size: var(--font-size-lg);
+}
+
+.profile-name {
+  font-family: var(--font-body);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.profile-email {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* Botão de editar foto sobreposto ao avatar */
+.profile-avatar-edit {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  border-radius: var(--radius-full);
+  background: var(--color-action-primary);
+  border: var(--border-width-medium) solid var(--color-bg-default);
+  color: var(--color-gray-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Badge "Ativo" inline no label do veículo */
+.vehicle-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--spacing-xs);
+  padding: 0 var(--spacing-xs);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-brand);
+  color: var(--color-text-brand);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  line-height: 1.6;
+  vertical-align: middle;
+}
+
+/* Grupo de itens de configurações (card com separadores internos) */
+.settings-group {
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+
+/* Item de lista de configurações */
+.settings-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  border: none;
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background var(--transition-fast);
+}
+
+.settings-item:last-child { border-bottom: none; }
+.settings-item:active { background: var(--color-bg-subtle); }
+
+/* Ícone do item */
+.settings-item-icon {
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  flex-shrink: 0;
+}
+
+/* Label do item */
+.settings-item-label {
+  flex: 1;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* Chevron do item */
+.settings-item-chevron {
+  color: var(--color-text-disabled);
+  flex-shrink: 0;
+}
+
+/* Variante destrutiva (ex: Excluir conta) */
+.settings-item--destructive .settings-item-icon {
+  background: var(--color-status-error-bg);
+  color: var(--color-action-error);
+}
+
+.settings-item--destructive .settings-item-label {
+  color: var(--color-action-error);
+}
 
 /* ─── Cadastro — fluxo multi-etapa ──────────────────── */
 

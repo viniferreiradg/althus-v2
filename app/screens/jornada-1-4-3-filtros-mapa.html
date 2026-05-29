@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Filtros do Mapa — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/FAB/FAB.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/MapPin/MapPin.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/UserPin/UserPin.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/SearchBar/SearchBar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/VehicleChip/VehicleChip.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Chip/Chip.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/RangeSlider/RangeSlider.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-fullbleed map-bg-dark">
+
+  <!-- ── Pins layer (offset para ficar abaixo do painel) ── -->
+  <div class="map-pins-layer map-pins-layer--offset" id="map-pins-layer">
+
+    <!-- Marcador de posição do usuário -->
+    <div class="map-user-pin userPin pulse" role="img" aria-label="Sua localização">
+      <span class="pingRing" aria-hidden="true"></span>
+      <i data-lucide="user" width="18" height="18"></i>
+    </div>
+
+    <!-- Distributor pins -->
+    <div class="map-pin-pos-1 pin-tupi">
+      <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
+        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="map-pin-pos-2 pin-tupi">
+      <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
+        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="map-pin-pos-3 pin-dcc">
+      <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="DCC">
+        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <!-- Althus pins -->
+    <div class="map-pin-center">
+      <svg class="mapPin md brand" viewBox="0 0 24 24" fill="none" aria-label="Auto Shopping Eixo">
+        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <div class="map-pin-center map-pin-center-2 pin-brand">
+      <svg class="mapPin md brand" viewBox="0 0 24 24" fill="none" aria-label="Carregador">
+        <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path class="pinDot"  d="M12 13C13.6569 13 15 11.6569 15 10C15 8.34315 13.6569 7 12 7C10.3431 7 9 8.34315 9 10C9 11.6569 10.3431 13 12 13Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+  </div>
+
+  <!-- ── Top overlay: busca + chips ───────────────────── -->
+  <div class="map-top-overlay">
+    <button class="searchBar" type="button" aria-label="Buscar estação de recarga">
+      <i data-lucide="search" width="18" height="18" class="icon"></i>
+      <span class="placeholder">Buscar estação de recarga</span>
+    </button>
+    <div class="map-chips-row">
+      <button class="vehicleChip" type="button"
+              aria-label="Veículo selecionado: Tesla Model Y. Toque para trocar."
+              onclick="router.push('jornada-1-14-1-veiculos-lista')">
+        <span class="iconWrap"><i data-lucide="car" width="16" height="16"></i></span>
+        <span class="name">Tesla Model Y</span>
+        <i data-lucide="chevron-down" width="14" height="14" class="chevron"></i>
+      </button>
+      <button class="fab md" type="button" aria-label="Filtros de busca" aria-pressed="true">
+        <i data-lucide="sliders-horizontal" width="16" height="16"></i>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── Filter panel ─────────────────────────────────── -->
+  <div class="map-filter-card" role="dialog" aria-label="Filtros do mapa">
+
+    <div class="map-filter-header">
+      <span class="map-filter-title">Filtros</span>
+      <button class="map-filter-close" type="button" aria-label="Fechar filtros"
+              onclick="router.pop()">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+
+    <div class="map-filter-body">
+
+      <!-- Tipo de conector -->
+      <div>
+        <div class="map-filter-section-label">Tipo de conector</div>
+        <div class="chipGroup">
+          <label class="chip"><input type="checkbox" value="ccs2" checked />CCS2</label>
+          <label class="chip"><input type="checkbox" value="chademo" />CHAdeMO</label>
+          <label class="chip"><input type="checkbox" value="tipo2" />Tipo 2</label>
+          <label class="chip"><input type="checkbox" value="ccs1" />CCS1</label>
+        </div>
+      </div>
+
+      <!-- Potência (range slider) -->
+      <div>
+        <div class="rangeSlider">
+          <div class="rangeHeader">
+            <span class="rangeLabel">Potência</span>
+            <span class="rangeValue" id="range-value-label">50 – 250 kW</span>
+          </div>
+          <div class="rangeTrackWrap">
+            <div class="rangeTrack">
+              <div class="rangeFill" id="range-fill"></div>
+            </div>
+            <input type="range" class="rangeInput" id="range-min"
+                   min="0" max="350" step="10" value="50" aria-label="Potência mínima" />
+            <input type="range" class="rangeInput" id="range-max"
+                   min="0" max="350" step="10" value="250" aria-label="Potência máxima" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Disponibilidade -->
+      <div>
+        <div class="map-filter-section-label">Disponibilidade</div>
+        <div class="chipGroup">
+          <label class="chip">
+            <input type="checkbox" value="disponivel" checked />
+            <i data-lucide="zap" width="14" height="14"></i>
+            Disponível
+          </label>
+          <label class="chip"><input type="checkbox" value="em-uso" />Em uso</label>
+          <label class="chip"><input type="checkbox" value="manutencao" />Manutenção</label>
+        </div>
+      </div>
+
+      <!-- Rede -->
+      <div>
+        <div class="map-filter-section-label">Rede</div>
+        <div class="chipGroup">
+          <label class="chip"><input type="checkbox" value="althus" checked />Althus</label>
+          <label class="chip"><input type="checkbox" value="tupi" />TUPI</label>
+          <label class="chip"><input type="checkbox" value="dcc" />DCC</label>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Ações -->
+    <div class="map-filter-footer">
+      <button class="btn secondary" type="button" onclick="clearFilters()">Limpar</button>
+      <button class="btn primary" type="button" onclick="router.pop()">Aplicar</button>
+    </div>
+
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+
+    /* ── Range slider ── */
+    var rangeMin   = document.getElementById('range-min');
+    var rangeMax   = document.getElementById('range-max');
+    var rangeFill  = document.getElementById('range-fill');
+    var rangeLabel = document.getElementById('range-value-label');
+    var SLIDER_MIN = 0, SLIDER_MAX = 350;
+
+    function updateSlider() {
+      var vMin = parseInt(rangeMin.value, 10);
+      var vMax = parseInt(rangeMax.value, 10);
+      if (vMin >= vMax) {
+        if (event && event.target === rangeMin) rangeMin.value = vMax - 10;
+        else rangeMax.value = vMin + 10;
+        vMin = parseInt(rangeMin.value, 10);
+        vMax = parseInt(rangeMax.value, 10);
+      }
+      var pctMin = ((vMin - SLIDER_MIN) / (SLIDER_MAX - SLIDER_MIN)) * 100;
+      var pctMax = ((vMax - SLIDER_MIN) / (SLIDER_MAX - SLIDER_MIN)) * 100;
+      rangeFill.style.left  = pctMin + '%';
+      rangeFill.style.right = (100 - pctMax) + '%';
+      rangeLabel.textContent = vMin + ' – ' + vMax + ' kW';
+    }
+
+    rangeMin.addEventListener('input', updateSlider);
+    rangeMax.addEventListener('input', updateSlider);
+    updateSlider();
+
+    /* ── Limpar filtros ── */
+    function clearFilters() {
+      document.querySelectorAll('.map-filter-body input[type="checkbox"]').forEach(function(cb) {
+        cb.checked = false;
+      });
+      rangeMin.value = 0;
+      rangeMax.value = 350;
+      updateSlider();
+    }
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

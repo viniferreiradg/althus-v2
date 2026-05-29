@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tema — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Tema</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <div class="screen-content" style="padding-top: var(--spacing-md); overflow-y: auto; scrollbar-width: none;">
+
+    <div class="settings-group">
+      <button class="settings-item" type="button" id="btn-dark"
+              onclick="selectTheme('dark')" aria-pressed="true">
+        <span class="settings-item-icon">
+          <i data-lucide="moon" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Escuro</span>
+        <i data-lucide="check" width="16" height="16" id="check-dark" class="settings-item-chevron"></i>
+      </button>
+      <button class="settings-item" type="button" id="btn-light"
+              onclick="selectTheme('light')" aria-pressed="false">
+        <span class="settings-item-icon">
+          <i data-lucide="sun" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Claro</span>
+        <i data-lucide="check" width="16" height="16" id="check-light" class="settings-item-chevron"
+           style="visibility: hidden;"></i>
+      </button>
+      <button class="settings-item" type="button" id="btn-system"
+              onclick="selectTheme('system')" aria-pressed="false">
+        <span class="settings-item-icon">
+          <i data-lucide="sun-moon" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Sistema</span>
+        <i data-lucide="check" width="16" height="16" id="check-system" class="settings-item-chevron"
+           style="visibility: hidden;"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+
+    var current = 'dark';
+
+    function selectTheme(theme) {
+      current = theme;
+      ['dark', 'light', 'system'].forEach(function(t) {
+        var check = document.getElementById('check-' + t);
+        check.style.visibility = t === theme ? 'visible' : 'hidden';
+        document.getElementById('btn-' + t).setAttribute('aria-pressed', t === theme ? 'true' : 'false');
+      });
+      var html = window.document.documentElement;
+      if (theme === 'dark')   html.setAttribute('data-theme', 'dark');
+      if (theme === 'light')  html.setAttribute('data-theme', 'light');
+      if (theme === 'system') html.removeAttribute('data-theme');
+    }
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

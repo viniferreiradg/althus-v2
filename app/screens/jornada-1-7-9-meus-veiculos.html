@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meus Veículos — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Meus Veículos</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <div class="screen-content" style="padding-top: var(--spacing-md); overflow-y: auto; scrollbar-width: none; align-items: stretch;">
+
+    <div class="settings-group">
+
+      <!-- Veículo ativo -->
+      <div class="settings-item" style="cursor: default;">
+        <span class="settings-item-icon" style="background: var(--color-bg-brand); color: var(--color-action-primary);">
+          <i data-lucide="car" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">
+          Tesla Model Y
+          <span class="vehicle-badge">Ativo</span>
+        </span>
+        <button class="appBarIconBtn" aria-label="Remover Tesla Model Y" type="button">
+          <i data-lucide="trash-2" width="16" height="16" style="color: var(--color-action-error);"></i>
+        </button>
+      </div>
+
+      <!-- Veículo secundário -->
+      <div class="settings-item" style="cursor: default;">
+        <span class="settings-item-icon">
+          <i data-lucide="car" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">BYD Atto 3</span>
+        <button class="appBarIconBtn" aria-label="Remover BYD Atto 3" type="button">
+          <i data-lucide="trash-2" width="16" height="16" style="color: var(--color-action-error);"></i>
+        </button>
+      </div>
+
+    </div>
+
+    <button class="btn secondary full-width" type="button"
+            aria-label="Adicionar veículo">
+      <i data-lucide="plus" width="16" height="16"></i>
+      Adicionar veículo
+    </button>
+
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

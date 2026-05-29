@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sobre o App — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Logo/Logo.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Sobre o App</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <div class="screen-content" style="padding-top: var(--spacing-md); overflow-y: auto; scrollbar-width: none; align-items: stretch;">
+
+    <!-- Logo + versão -->
+    <div class="profile-header" style="padding-bottom: var(--spacing-lg);">
+      <span class="logoDefault logoMd" role="img" aria-label="Althus"></span>
+      <span class="profile-name">Versão 1.0.0</span>
+      <span class="profile-email">© 2026 Althus. Todos os direitos reservados.</span>
+    </div>
+
+    <!-- Links -->
+    <div class="settings-group">
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-5-termos')" aria-label="Termos de uso">
+        <span class="settings-item-icon">
+          <i data-lucide="file-text" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Termos de uso</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+      <button class="settings-item" type="button" aria-label="Política de privacidade">
+        <span class="settings-item-icon">
+          <i data-lucide="shield" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Política de privacidade</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+      <button class="settings-item" type="button" aria-label="Licenças de código aberto">
+        <span class="settings-item-icon">
+          <i data-lucide="code-2" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Licenças de código aberto</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+    </div>
+
+    <!-- Suporte -->
+    <div class="settings-group">
+      <button class="settings-item" type="button" aria-label="Fale conosco">
+        <span class="settings-item-icon">
+          <i data-lucide="mail" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Fale conosco</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+      <button class="settings-item" type="button" aria-label="Avaliar o app">
+        <span class="settings-item-icon">
+          <i data-lucide="star" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Avaliar o app</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+    </div>
+
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

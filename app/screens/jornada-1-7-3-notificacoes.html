@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notificações — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Toggle/Toggle.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Notificações</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <div class="screen-content" style="padding-top: var(--spacing-md); overflow-y: auto; scrollbar-width: none;">
+
+    <!-- Recargas -->
+    <div class="settings-group">
+      <label class="settings-item" for="notif-recarga-inicio">
+        <span class="settings-item-icon">
+          <i data-lucide="zap" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Início de recarga</span>
+        <label class="toggleWrapper" for="notif-recarga-inicio">
+          <input type="checkbox" class="toggleInput" id="notif-recarga-inicio" checked />
+          <span class="toggleTrack"><span class="toggleThumb"></span></span>
+        </label>
+      </label>
+      <label class="settings-item" for="notif-recarga-fim">
+        <span class="settings-item-icon">
+          <i data-lucide="battery-charging" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Recarga concluída</span>
+        <label class="toggleWrapper" for="notif-recarga-fim">
+          <input type="checkbox" class="toggleInput" id="notif-recarga-fim" checked />
+          <span class="toggleTrack"><span class="toggleThumb"></span></span>
+        </label>
+      </label>
+      <label class="settings-item" for="notif-recarga-erro">
+        <span class="settings-item-icon">
+          <i data-lucide="alert-circle" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Erro na recarga</span>
+        <label class="toggleWrapper" for="notif-recarga-erro">
+          <input type="checkbox" class="toggleInput" id="notif-recarga-erro" checked />
+          <span class="toggleTrack"><span class="toggleThumb"></span></span>
+        </label>
+      </label>
+    </div>
+
+    <!-- Reservas -->
+    <div class="settings-group">
+      <label class="settings-item" for="notif-reserva-lembrete">
+        <span class="settings-item-icon">
+          <i data-lucide="calendar-clock" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Lembrete de reserva</span>
+        <label class="toggleWrapper" for="notif-reserva-lembrete">
+          <input type="checkbox" class="toggleInput" id="notif-reserva-lembrete" checked />
+          <span class="toggleTrack"><span class="toggleThumb"></span></span>
+        </label>
+      </label>
+      <label class="settings-item" for="notif-reserva-expirando">
+        <span class="settings-item-icon">
+          <i data-lucide="timer" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Reserva expirando</span>
+        <label class="toggleWrapper" for="notif-reserva-expirando">
+          <input type="checkbox" class="toggleInput" id="notif-reserva-expirando" checked />
+          <span class="toggleTrack"><span class="toggleThumb"></span></span>
+        </label>
+      </label>
+    </div>
+
+    <!-- Promoções -->
+    <div class="settings-group">
+      <label class="settings-item" for="notif-promo">
+        <span class="settings-item-icon">
+          <i data-lucide="tag" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Promoções e ofertas</span>
+        <label class="toggleWrapper" for="notif-promo">
+          <input type="checkbox" class="toggleInput" id="notif-promo" />
+          <span class="toggleTrack"><span class="toggleThumb"></span></span>
+        </label>
+      </label>
+      <label class="settings-item" for="notif-novidades">
+        <span class="settings-item-icon">
+          <i data-lucide="sparkles" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Novidades do app</span>
+        <label class="toggleWrapper" for="notif-novidades">
+          <input type="checkbox" class="toggleInput" id="notif-novidades" />
+          <span class="toggleTrack"><span class="toggleThumb"></span></span>
+        </label>
+      </label>
+    </div>
+
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

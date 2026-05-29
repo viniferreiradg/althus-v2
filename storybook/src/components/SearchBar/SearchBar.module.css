@@ -1,0 +1,41 @@
+/* ── SearchBar — barra de pesquisa do mapa mobile ── */
+.searchBar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  width: 100%;
+  height: calc(var(--spacing-2xl) + var(--spacing-xs));
+  padding: 0 var(--spacing-md);
+  border-radius: var(--radius-full);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  background: var(--color-glass-surface);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  box-shadow: var(--shadow-lg), var(--shadow-highlight);
+  cursor: pointer;
+  text-align: left;
+  transition: box-shadow var(--transition-fast);
+}
+
+.searchBar:hover  { box-shadow: var(--shadow-xl), var(--shadow-highlight); }
+.searchBar:active { opacity: 0.8; }
+
+.searchBar:focus-visible {
+  outline: var(--border-width-medium) solid var(--color-border-focus);
+  outline-offset: 2px;
+}
+
+.icon {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.placeholder {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
