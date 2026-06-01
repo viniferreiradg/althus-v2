@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -146,8 +146,8 @@
     <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
       <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
     </button>
-    <button class="navItem navActive" data-tab="postos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Postos" aria-current="page">
-      <span class="navIcon"><i data-lucide="zap" width="22" height="22"></i></span>
+    <button class="navItem navActive" data-tab="pontos" onclick="router.tab('jornada-1-5-pontos-recarga')" aria-label="Pontos de recarga" aria-current="page">
+      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
     </button>
     <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
       <span class="navIcon">
@@ -170,7 +170,6 @@
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
 
-    if (window.parent !== window) document.getElementById('screen-bottom-nav').hidden = true;
   </script>
   <script>lucide.createIcons();</script>
 

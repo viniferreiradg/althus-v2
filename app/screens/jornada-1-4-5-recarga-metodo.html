@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Escanear QR Code — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-fullbleed">
+
+  <!-- ── Câmera simulada (vídeo em loop) ───────────────── -->
+  <video
+    class="qr-video"
+    src="../../links/WhatsApp Video 2026-06-01 at 11.43.09.mp4"
+    autoplay
+    loop
+    muted
+    playsinline
+  ></video>
+
+  <!-- ── AppBar flutuante ──────────────────────────────── -->
+  <header class="qr-appbar">
+    <button class="qr-back-btn" onclick="router.pop()" aria-label="Voltar">
+      <i data-lucide="chevron-left" width="22" height="22"></i>
+    </button>
+    <span class="qr-appbar-title">Iniciar recarga</span>
+  </header>
+
+  <!-- ── Scanner: máscara + quadrado + cantos ──────────── -->
+  <div class="qr-scanner">
+    <p class="qr-hint">Aponte seu celular para o QR code do carregador</p>
+
+    <div class="qr-scan-box">
+      <span class="qr-corner qr-corner--tl"></span>
+      <span class="qr-corner qr-corner--tr"></span>
+      <span class="qr-corner qr-corner--bl"></span>
+      <span class="qr-corner qr-corner--br"></span>
+    </div>
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

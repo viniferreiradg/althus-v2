@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -76,6 +76,11 @@
         <span class="name">Tesla Model Y</span>
         <i data-lucide="chevron-down" width="14" height="14" class="chevron"></i>
       </button>
+      <button class="stationsChip" type="button" aria-label="Ver lista de estações"
+              onclick="router.push('jornada-1-4-lista-postos')">
+        <i data-lucide="list" width="14" height="14"></i>
+        Estações
+      </button>
       <button class="fab md" type="button" aria-label="Filtros de busca"
               onclick="router.push('jornada-1-4-3-filtros-mapa')">
         <i data-lucide="sliders-horizontal" width="16" height="16"></i>
@@ -99,14 +104,14 @@
     <button class="navItem navActive" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa" aria-current="page">
       <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
     </button>
-    <button class="navItem" data-tab="postos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Postos">
-      <span class="navIcon"><i data-lucide="zap" width="22" height="22"></i></span>
+    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-5-pontos-recarga')" aria-label="Pontos de recarga">
+      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
     </button>
     <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
       <span class="navIcon">
         <span class="wrap">
           <i data-lucide="bell" width="22" height="22"></i>
-          <span class="charger-status">3</span>
+          <span class="badge">3</span>
         </span>
       </span>
     </button>
@@ -220,7 +225,7 @@
 
       <!-- Ações secundárias -->
       <div class="sheet-actions">
-        <button class="btn secondary" id="btn-rota" onclick="openMaps()" type="button">
+        <button class="btn secondary" id="btn-rota" onclick="openMapsSheet()" type="button">
           <i data-lucide="navigation" width="16" height="16"></i>
           Traçar Rota
         </button>
@@ -236,6 +241,27 @@
         Iniciar Recarga
       </button>
 
+    </div>
+  </div>
+
+  <!-- ── Action sheet: Traçar Rota ──────────────────────── -->
+  <div class="action-sheet-overlay" id="maps-overlay" hidden>
+    <button class="action-sheet-overlay__backdrop" onclick="closeMapsSheet()" aria-label="Fechar"></button>
+    <div class="action-sheet">
+      <div class="map-sheet-handle">
+        <div class="map-sheet-handle-bar"></div>
+      </div>
+      <div class="action-sheet__header">
+        <span class="action-sheet__title">Selecione uma ação</span>
+        <button class="map-sheet-close" onclick="closeMapsSheet()" aria-label="Fechar">
+          <i data-lucide="x" width="16" height="16"></i>
+        </button>
+      </div>
+      <div class="action-sheet__list">
+        <button class="action-sheet__item" onclick="closeMapsSheet()" type="button">Abrir com Mapas</button>
+        <button class="action-sheet__item" onclick="closeMapsSheet()" type="button">Abrir com Google Maps</button>
+        <button class="action-sheet__item" onclick="closeMapsSheet()" type="button">Abrir com Waze</button>
+      </div>
     </div>
   </div>
 
@@ -314,8 +340,11 @@
       });
     })();
 
-    function openMaps() {
-      window.open('https://maps.google.com/?q=Auto+Shopping+Eixo,+São+Paulo', '_blank');
+    function openMapsSheet() {
+      document.getElementById('maps-overlay').removeAttribute('hidden');
+    }
+    function closeMapsSheet() {
+      document.getElementById('maps-overlay').setAttribute('hidden', '');
     }
   </script>
   <script>lucide.createIcons();</script>

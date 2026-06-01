@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -9,6 +9,8 @@
   <link rel="stylesheet" href="../../storybook/src/components/MapPin/MapPin.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/Table/Table.module.css" />
   <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/BottomNav/BottomNav.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/NotificationBadge/NotificationBadge.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body class="layout-fullbleed map-bg-dark" style="background-position: center -139px;">
@@ -197,6 +199,30 @@
       document.getElementById('detail-reserve').textContent = c.reserve;
     }
   </script>
+  <!-- ── Bottom navigation ─────────────────────────── -->
+  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
+    <button class="navItem navActive" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa" aria-current="page">
+      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
+    </button>
+    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-5-pontos-recarga')" aria-label="Pontos de recarga">
+      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
+    </button>
+    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
+      <span class="navIcon">
+        <span class="wrap">
+          <i data-lucide="bell" width="22" height="22"></i>
+          <span class="badge">3</span>
+        </span>
+      </span>
+    </button>
+    <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
+      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
+    </button>
+    <button class="navItem" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil">
+      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
+    </button>
+  </nav>
+
   <script>lucide.createIcons();</script>
 
 </body>

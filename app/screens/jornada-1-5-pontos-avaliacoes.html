@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avaliações — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/AppBar/AppBar.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Tab/Tab.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/BottomNav/BottomNav.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/NotificationBadge/NotificationBadge.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen">
+
+  <!-- ── AppBar ─────────────────────────────────────── -->
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft"></div>
+    <span class="appBarTitle">Pontos de recarga</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <!-- ── Tabs ───────────────────────────────────────── -->
+  <div class="tabList" role="tablist" aria-label="Seções">
+    <button class="tabBtn tabLeft" role="tab" aria-selected="false"
+            type="button" onclick="router.tab('jornada-1-5-pontos-recarga')">Reservas</button>
+    <button class="tabBtn tabMiddle" role="tab" aria-selected="false"
+            type="button" onclick="router.tab('jornada-1-5-pontos-recargas')">Recargas</button>
+    <button class="tabBtn tabBtnActive tabRight" role="tab" aria-selected="true"
+            type="button">Avaliações</button>
+  </div>
+
+  <!-- ── Conteúdo ───────────────────────────────────── -->
+  <main class="scroll-area" role="tabpanel">
+
+    <!-- ── Seção: Pendentes ───────────────────────── -->
+    <p class="list-section-title">Pendentes</p>
+    <div class="reservas-list">
+
+      <div class="reserva-item">
+        <span class="reserva-item__icon">
+          <i data-lucide="fuel" width="18" height="18"></i>
+        </span>
+        <span class="reserva-item__body">
+          <span class="reserva-item__name">Posto Althus Asa Norte</span>
+          <span class="reserva-item__meta">Visitado em 20/05/2026</span>
+        </span>
+        <button class="btn secondary" type="button" onclick="router.modal('jornada-1-5-avaliar-posto')">Avaliar</button>
+      </div>
+
+      <div class="reserva-item">
+        <span class="reserva-item__icon">
+          <i data-lucide="fuel" width="18" height="18"></i>
+        </span>
+        <span class="reserva-item__body">
+          <span class="reserva-item__name">Shopping Iguatemi</span>
+          <span class="reserva-item__meta">Visitado em 28/05/2026</span>
+        </span>
+        <button class="btn secondary" type="button" onclick="router.modal('jornada-1-5-avaliar-posto')">Avaliar</button>
+      </div>
+
+    </div>
+
+    <!-- ── Seção: Histórico de avaliações ─────────── -->
+    <p class="list-section-title">Histórico de avaliações</p>
+    <div class="reservas-list">
+
+      <button class="reserva-item" type="button">
+        <span class="reserva-item__icon">
+          <i data-lucide="fuel" width="18" height="18"></i>
+        </span>
+        <span class="reserva-item__body">
+          <span class="reserva-item__name">Auto Shopping Eixo</span>
+          <span class="reserva-item__meta">12/05/2026</span>
+        </span>
+        <span class="reserva-item__right">
+          <span class="star-row" aria-label="5 de 5 estrelas">
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+          </span>
+        </span>
+      </button>
+
+      <button class="reserva-item" type="button">
+        <span class="reserva-item__icon">
+          <i data-lucide="fuel" width="18" height="18"></i>
+        </span>
+        <span class="reserva-item__body">
+          <span class="reserva-item__name">Posto Althus Asa Sul</span>
+          <span class="reserva-item__meta">03/05/2026</span>
+        </span>
+        <span class="reserva-item__right">
+          <span class="star-row" aria-label="4 de 5 estrelas">
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--empty"><i data-lucide="star" width="13" height="13"></i></span>
+          </span>
+        </span>
+      </button>
+
+      <button class="reserva-item" type="button">
+        <span class="reserva-item__icon">
+          <i data-lucide="fuel" width="18" height="18"></i>
+        </span>
+        <span class="reserva-item__body">
+          <span class="reserva-item__name">Shopping Center Norte</span>
+          <span class="reserva-item__meta">25/04/2026</span>
+        </span>
+        <span class="reserva-item__right">
+          <span class="star-row" aria-label="3 de 5 estrelas">
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--filled"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--empty"><i data-lucide="star" width="13" height="13"></i></span>
+            <span class="star-icon star-icon--empty"><i data-lucide="star" width="13" height="13"></i></span>
+          </span>
+        </span>
+      </button>
+
+    </div>
+
+  </main>
+
+  <!-- ── Bottom navigation ─────────────────────────── -->
+  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
+    <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
+      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
+    </button>
+    <button class="navItem navActive" data-tab="pontos" onclick="router.tab('jornada-1-5-pontos-recarga')" aria-label="Pontos de recarga" aria-current="page">
+      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
+    </button>
+    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
+      <span class="navIcon">
+        <span class="notifBadge">2</span>
+        <i data-lucide="bell" width="22" height="22"></i>
+      </span>
+    </button>
+    <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
+      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
+    </button>
+    <button class="navItem" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil">
+      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
+    </button>
+  </nav>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

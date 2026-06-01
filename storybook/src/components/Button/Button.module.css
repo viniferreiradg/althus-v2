@@ -68,8 +68,8 @@
 
 .destructive {
   background: var(--color-glass-surface);
-  color: var(--color-action-primary);
-  border-color: var(--color-action-primary);
+  color: var(--color-action-error);
+  border-color: var(--color-action-error);
   backdrop-filter: blur(var(--blur-glass));
   -webkit-backdrop-filter: blur(var(--blur-glass));
 }

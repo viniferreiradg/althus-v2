@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avaliar posto — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../../storybook/src/components/Button/Button.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen avaliar-modal-body">
+
+  <div class="avaliar-modal" role="dialog" aria-modal="true" aria-labelledby="avaliar-title">
+
+    <!-- Cabeçalho -->
+    <div class="avaliar-modal-header">
+      <p class="avaliar-title" id="avaliar-title">Avaliar posto</p>
+      <button class="avaliar-modal-close" type="button"
+              onclick="router.closeModal()" aria-label="Fechar">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+
+    <!-- Nome do posto -->
+    <p class="avaliar-posto">Posto Althus Asa Norte</p>
+
+    <!-- Seletor de estrelas -->
+    <div>
+      <div class="avaliar-stars" role="group" aria-label="Selecione uma nota de 1 a 5">
+        <button class="avaliar-star" type="button" onclick="setRating(1)" aria-label="1 estrela" aria-pressed="false">
+          <i data-lucide="star" width="36" height="36"></i>
+        </button>
+        <button class="avaliar-star" type="button" onclick="setRating(2)" aria-label="2 estrelas" aria-pressed="false">
+          <i data-lucide="star" width="36" height="36"></i>
+        </button>
+        <button class="avaliar-star" type="button" onclick="setRating(3)" aria-label="3 estrelas" aria-pressed="false">
+          <i data-lucide="star" width="36" height="36"></i>
+        </button>
+        <button class="avaliar-star" type="button" onclick="setRating(4)" aria-label="4 estrelas" aria-pressed="false">
+          <i data-lucide="star" width="36" height="36"></i>
+        </button>
+        <button class="avaliar-star" type="button" onclick="setRating(5)" aria-label="5 estrelas" aria-pressed="false">
+          <i data-lucide="star" width="36" height="36"></i>
+        </button>
+      </div>
+      <p class="avaliar-star-label" id="star-label">Toque para avaliar</p>
+    </div>
+
+    <!-- Comentário -->
+    <div class="wrapper">
+      <label class="label" for="avaliar-comment">Comentário (opcional)</label>
+      <div class="inputWrap">
+        <textarea class="input" id="avaliar-comment"
+                  placeholder="Conte sua experiência..." rows="3"></textarea>
+      </div>
+    </div>
+
+    <!-- Ação -->
+    <button class="btn primary" type="button" id="submit-btn"
+            onclick="submitRating()" disabled>
+      Enviar avaliação
+    </button>
+
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+
+    var labels = ['', 'Péssimo', 'Ruim', 'Regular', 'Bom', 'Excelente'];
+
+    function setRating(value) {
+      document.querySelectorAll('.avaliar-star').forEach(function(btn, i) {
+        btn.classList.toggle('selected', i < value);
+        btn.setAttribute('aria-pressed', i < value ? 'true' : 'false');
+      });
+      document.getElementById('star-label').textContent = labels[value];
+      document.getElementById('submit-btn').disabled = false;
+      lucide.createIcons();
+    }
+
+    function submitRating() {
+      router.closeModal();
+    }
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Traçar Rota — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-action-sheet">
+
+  <!-- Handle bar -->
+  <div class="map-sheet-handle">
+    <div class="map-sheet-handle-bar"></div>
+  </div>
+
+  <!-- Cabeçalho -->
+  <div class="action-sheet__header">
+    <span class="action-sheet__title">Selecione uma ação</span>
+    <button class="map-sheet-close" onclick="router.closeModal()" aria-label="Fechar">
+      <i data-lucide="x" width="16" height="16"></i>
+    </button>
+  </div>
+
+  <!-- Opções de navegação -->
+  <div class="action-sheet__list">
+    <button class="action-sheet__item" onclick="router.closeModal()" type="button">
+      Abrir com Mapas
+    </button>
+    <button class="action-sheet__item" onclick="router.closeModal()" type="button">
+      Abrir com Google Maps
+    </button>
+    <button class="action-sheet__item" onclick="router.closeModal()" type="button">
+      Abrir com Waze
+    </button>
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

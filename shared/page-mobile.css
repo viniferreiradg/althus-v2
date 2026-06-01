@@ -2,6 +2,8 @@
 :root {
   --status-bar-height: 59px;
   --nav-height: 72px; /* pill height ~52px + margin-bottom 16px + spacing-xs 4px */
+  --color-overlay: rgba(0, 0, 0, 0.6);
+  --color-scan-mask: rgba(0, 0, 0, 0.55);
 }
 
 /* ─── Map background (prototype placeholder) ─────────── */
@@ -159,6 +161,20 @@ body.login-screen {
   justify-content: center;
 }
 
+/* ─── Scroll area ────────────────────────────────────────────
+   Container rolável dentro do layout. flex:1 + min-height:0
+   são obrigatórios para que um flex item role corretamente.  */
+.scroll-area {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scroll-area::-webkit-scrollbar { display: none; }
+
 /* ─── Screen content area (below AppBar) ─────────────── */
 .screen-content {
   flex: 1;
@@ -197,7 +213,8 @@ body.login-screen {
 /* Adds clearance to scrollable containers when a bottom nav is present */
 body.layout-screen:has(.screen-nav) .screen-content,
 body.layout-screen:has(.screen-nav) .terms-box,
-body.layout-screen:has(.screen-nav) .cadastro-body {
+body.layout-screen:has(.screen-nav) .cadastro-body,
+body.layout-screen:has(.screen-nav) .scroll-area {
   padding-bottom: calc(var(--nav-height) + env(safe-area-inset-bottom) + var(--spacing-md));
 }
 
@@ -256,11 +273,42 @@ body.layout-screen:has(.screen-nav) .cadastro-footer {
   pointer-events: auto;
 }
 
-/* Row containing VehicleChip + filter button */
+/* Row containing VehicleChip + stations shortcut + filter button */
 .map-chips-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+/* Chip de atalho para a lista de estações */
+.stationsChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  height: calc(var(--spacing-2xl) + var(--spacing-xs));
+  padding: 0 var(--spacing-sm);
+  border-radius: var(--radius-full);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  background: var(--color-glass-surface);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  box-shadow: var(--shadow-lg), var(--shadow-highlight);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  transition: box-shadow var(--transition-fast);
+  padding: 0px 20px;
+}
+
+.stationsChip:hover  { box-shadow: var(--shadow-xl), var(--shadow-highlight); }
+.stationsChip:active { opacity: 0.8; }
+
+.stationsChip:focus-visible {
+  outline: var(--border-width-medium) solid var(--color-border-focus);
+  outline-offset: 2px;
 }
 
 /* ─── Map right FABs column (locate + QR) ───────────── */
@@ -2167,3 +2215,1228 @@ select.input option {
   color: var(--color-text-tertiary);
   flex-shrink: 0;
 }
+
+/* ─── Agendamento — seletor de dia ──────────────────────────── */
+
+.day-picker {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  flex-shrink: 0;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-sm);
+}
+
+.day-picker__nav {
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  transition: color var(--transition-fast), background var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.day-picker__nav:hover { color: var(--color-text-primary); background: var(--color-bg-subtle); }
+.day-picker__nav:disabled { color: var(--color-text-disabled); cursor: default; background: none; }
+
+.day-picker__scroll {
+  flex: 1;
+  display: flex;
+  gap: var(--spacing-xs);
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.day-picker__scroll::-webkit-scrollbar { display: none; }
+
+.day-picker__day {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  border: var(--border-width-thin) solid transparent;
+  background: none;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background var(--transition-fast), border-color var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  min-width: 48px;
+}
+
+.day-picker__day:hover { background: var(--color-bg-subtle); }
+
+.day-picker__day.active {
+  background: var(--color-bg-brand);
+  border-color: var(--color-action-primary);
+}
+
+.day-picker__day-name {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.day-picker__day.active .day-picker__day-name { color: var(--color-text-brand); }
+
+.day-picker__day-date {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.day-picker__day.active .day-picker__day-date { color: var(--color-text-brand); }
+
+/* ─── Agendamento — grade de horários ───────────────────────── */
+
+.time-slot-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+/* ─── Agendamento — seção com label ─────────────────────────── */
+
+.schedule-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.schedule-section__label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ─── Tela de sucesso / confirmação ─────────────────────────── */
+
+/* Área central com ícone + título + subtítulo */
+.success-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-lg);
+  text-align: center;
+}
+
+/* Círculo com ícone de check */
+.success-hero__icon {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-brand);
+  border: var(--border-width-medium) solid var(--color-action-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-action-primary);
+  box-shadow: var(--shadow-glow-md);
+  flex-shrink: 0;
+}
+
+.success-hero__title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+}
+
+.success-hero__desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-normal);
+  max-width: 280px;
+}
+
+/* ─── Cupom — campo de código ───────────────────────────────── */
+
+/* Row: input + botão "Aplicar" lado a lado */
+.coupon-code-row {
+  display: flex;
+  gap: var(--spacing-sm);
+  align-items: flex-end;
+}
+
+/* Wrapper do input (reutiliza .wrapper do Input.module.css) */
+.coupon-code-row .wrapper { flex: 1; }
+
+/* Botão "Aplicar" alinhado à base do input */
+.coupon-code-row .btn {
+  flex-shrink: 0;
+  height: 44px;
+}
+
+/* Mensagem de erro/sucesso do cupom digitado */
+.coupon-code-feedback {
+  font-size: var(--font-size-xs);
+  margin-top: var(--spacing-xs);
+}
+
+.coupon-code-feedback--error   { color: var(--color-text-error); }
+.coupon-code-feedback--success { color: var(--color-text-success); }
+
+/* ─── QR Code Scanner — câmera simulada ─────────────────────── */
+
+/* Vídeo full-bleed como câmera fake */
+.qr-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* AppBar flutuante sobre o vídeo */
+.qr-appbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: calc(var(--status-bar-height) + var(--spacing-xs)) var(--spacing-md) var(--spacing-sm);
+}
+
+/* Botão voltar sobre o vídeo */
+.qr-back-btn {
+  width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
+  border-radius: var(--radius-full);
+  background: var(--color-overlay);
+  border: none;
+  color: var(--color-gray-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Título da AppBar flutuante */
+.qr-appbar-title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-gray-white);
+  text-shadow: 0 1px 4px var(--color-overlay);
+}
+
+/* Container central: centra o scan box + texto na tela */
+.qr-scanner {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-2xl) var(--spacing-xl);
+}
+
+/* Texto de instrução acima do quadrado */
+.qr-hint {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-gray-white);
+  text-align: center;
+  line-height: var(--line-height-snug);
+  text-shadow: 0 1px 6px var(--color-overlay);
+  max-width: 260px;
+}
+
+/* Quadrado de scan — box-shadow cria a máscara ao redor */
+.qr-scan-box {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 2000px var(--color-scan-mask);
+}
+
+/* Cantos decorativos do quadrado de scan */
+.qr-corner {
+  position: absolute;
+  width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
+}
+
+.qr-corner--tl {
+  top: 0; left: 0;
+  border-top: var(--border-width-medium) solid var(--color-gray-white);
+  border-left: var(--border-width-medium) solid var(--color-gray-white);
+  border-radius: var(--radius-sm) 0 0 0;
+}
+
+.qr-corner--tr {
+  top: 0; right: 0;
+  border-top: var(--border-width-medium) solid var(--color-gray-white);
+  border-right: var(--border-width-medium) solid var(--color-gray-white);
+  border-radius: 0 var(--radius-sm) 0 0;
+}
+
+.qr-corner--bl {
+  bottom: 0; left: 0;
+  border-bottom: var(--border-width-medium) solid var(--color-gray-white);
+  border-left: var(--border-width-medium) solid var(--color-gray-white);
+  border-radius: 0 0 0 var(--radius-sm);
+}
+
+.qr-corner--br {
+  bottom: 0; right: 0;
+  border-bottom: var(--border-width-medium) solid var(--color-gray-white);
+  border-right: var(--border-width-medium) solid var(--color-gray-white);
+  border-radius: 0 0 var(--radius-sm) 0;
+}
+
+/* ─── Action sheet — overlay embutido na tela ───────────────── */
+
+/* Cobre toda a tela por cima do conteúdo existente */
+.action-sheet-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Backdrop escuro, clicável para fechar */
+.action-sheet-overlay__backdrop {
+  position: absolute;
+  inset: 0;
+  background: var(--color-overlay);
+  border: none;
+  cursor: pointer;
+  z-index: 0;
+}
+
+/* Sheet ancorado na base, acima do backdrop */
+.action-sheet {
+  position: relative;
+  z-index: 1;
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  border-top: var(--border-width-thin) solid var(--color-glass-border);
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-xl);
+}
+
+/* ─── Action sheet — conteúdo ────────────────────────────────── */
+
+/* Cabeçalho: título + botão fechar */
+.action-sheet__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-md);
+  flex-shrink: 0;
+}
+
+.action-sheet__title {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Lista de opções (card com separadores) */
+.action-sheet__list {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  margin: 0 var(--spacing-md) var(--spacing-md);
+  overflow: hidden;
+}
+
+/* Cada opção da lista */
+.action-sheet__item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-md);
+  border: none;
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  transition: background var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.action-sheet__item:last-child { border-bottom: none; }
+.action-sheet__item:active { background: var(--color-bg-subtle); }
+
+/* ─── Fim das adições de agendamento ────────────────────────── */
+
+/* ─── Resumo de reserva — breakdown de preço ────────────────── */
+
+/* Container de linhas de preço */
+.price-breakdown {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Linha individual */
+.price-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+  gap: var(--spacing-sm);
+}
+
+.price-row:last-child { border-bottom: none; }
+
+.price-row__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+.price-row__value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* Linha de desconto (verde) */
+.price-row--discount .price-row__label,
+.price-row--discount .price-row__value {
+  color: var(--color-text-success);
+}
+
+/* Linha do total (destaque) */
+.price-row--total {
+  background: var(--color-bg-subtle);
+}
+
+.price-row--total .price-row__label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.price-row--total .price-row__value {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-brand);
+}
+
+/* ─── Resumo de reserva — seletor de cupom inline ───────────── */
+
+/* Lista de cupons disponíveis para seleção */
+.coupon-select-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+/* Item de cupom selecionável */
+.coupon-select-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-surface);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  text-align: left;
+}
+
+.coupon-select-item input[type="radio"] { display: none; }
+
+.coupon-select-item:has(input:checked) {
+  border-color: var(--color-action-primary);
+  background: var(--color-bg-brand);
+}
+
+/* Ícone de tag */
+.coupon-select-item__icon {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-brand);
+  color: var(--color-text-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+
+.coupon-select-item:has(input:checked) .coupon-select-item__icon {
+  background: var(--color-action-primary);
+  color: var(--color-gray-white);
+}
+
+/* Bloco de texto */
+.coupon-select-item__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.coupon-select-item__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.coupon-select-item__desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* Valor do desconto */
+.coupon-select-item__discount {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-success);
+  flex-shrink: 0;
+}
+
+.coupon-select-item:has(input:checked) .coupon-select-item__discount {
+  color: var(--color-text-brand);
+}
+
+/* ─── Resumo de reserva — bloco de saldo da carteira ────────── */
+
+.wallet-balance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-bg-surface);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.wallet-balance-row__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.wallet-balance-row__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-subtle);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.wallet-balance-row__label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-2xs);
+}
+
+.wallet-balance-row__amount {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+/* Badge de status: suficiente / insuficiente */
+.wallet-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-2xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  flex-shrink: 0;
+}
+
+.wallet-status-badge--ok {
+  background: var(--color-status-success-bg);
+  color: var(--color-status-success-fg);
+}
+
+.wallet-status-badge--low {
+  background: var(--color-status-error-bg);
+  color: var(--color-status-error-fg);
+}
+
+/* ─── Pontos de Recarga — lista de reservas ─────────── */
+
+.reservas-list {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-sm) 0;
+}
+
+.reserva-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: none;
+  border: none;
+  border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: var(--font-body);
+  transition: background var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.reserva-item:last-child { border-bottom: none; }
+.reserva-item:active     { background: var(--color-bg-subtle); }
+
+.reserva-item__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--spacing-2xl) + var(--spacing-xs));
+  height: calc(var(--spacing-2xl) + var(--spacing-xs));
+  border-radius: var(--radius-full);
+  background: var(--color-bg-brand);
+  color: var(--color-text-brand);
+  flex-shrink: 0;
+}
+
+.reserva-item__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.reserva-item__name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.reserva-item__meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.reserva-item__right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--spacing-2xs);
+  flex-shrink: 0;
+}
+
+.reserva-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--spacing-2xs) var(--spacing-xs);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  white-space: nowrap;
+}
+
+.reserva-badge--ativa    { background: var(--color-status-success-bg);  color: var(--color-status-success-fg);  }
+.reserva-badge--expirada { background: var(--color-status-disabled-bg); color: var(--color-status-disabled-fg); }
+.reserva-badge--cancelada{ background: var(--color-status-error-bg);    color: var(--color-status-error-fg);    }
+
+.reserva-item__chevron {
+  color: var(--color-border-muted);
+  display: flex;
+  align-items: center;
+}
+
+/* Valor e consumo no lado direito dos itens de histórico de recarga */
+.recarga-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+}
+
+.recarga-kwh {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  white-space: nowrap;
+}
+
+/* ─── Pontos de Recarga — empty state (abas futuras) ── */
+
+.pontos-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  text-align: center;
+}
+
+.pontos-empty__icon {
+  color: var(--color-text-tertiary);
+  opacity: 0.4;
+}
+
+.pontos-empty__text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  line-height: var(--line-height-normal);
+}
+
+/* ─── Detalhes da Reserva ────────────────────────── */
+
+.detalhe-section {
+  padding: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.detalhe-station-name {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-snug);
+  margin-top: var(--spacing-xs);
+}
+
+.detalhe-station-address {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-top: var(--spacing-2xs);
+}
+
+.detalhe-card-title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--spacing-md);
+}
+
+.detalhe-info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md) var(--spacing-sm);
+}
+
+.detalhe-info-item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.detalhe-info-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.detalhe-info-value {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+/* Botão de cancelar — ocupa largura total dentro do seu container */
+.detalhe-cancel-area {
+  padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+.detalhe-cancel-area .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─── Sheet de conclusão (recarga encerrada, reserva confirmada, etc.) ── */
+
+/* Versão compacta do .success-hero — padding reduzido para caber num sheet */
+.sheet-complete-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-sm) var(--spacing-md) var(--spacing-2xs);
+  text-align: center;
+}
+
+/* Ícone menor para não dominar o espaço dentro do sheet */
+.sheet-complete-hero .success-hero__icon {
+  width: 52px;
+  height: 52px;
+}
+
+/* Título um pouco menor no contexto do sheet */
+.sheet-complete-hero .success-hero__title {
+  font-size: var(--font-size-md);
+}
+
+/* Estimativa dentro do sheet: menos padding vertical */
+.map-sheet-panel .recarga-estimate-card {
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+/* ─── Avaliar posto — modal centralizado ─────────────── */
+
+/* Body do modal: overlay escuro + centraliza o card */
+body.avaliar-modal-body {
+  background: var(--color-overlay);
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg);
+}
+
+/* Card do modal — todos os cantos arredondados */
+.avaliar-modal {
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-lg);
+  border: var(--border-width-thin) solid var(--color-glass-border);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-lg);
+}
+
+/* Header: título + botão fechar */
+.avaliar-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.avaliar-title {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.avaliar-modal-close {
+  width: var(--spacing-xl);
+  height: var(--spacing-xl);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-subtle);
+  border: var(--border-width-thin) solid var(--color-border-default);
+  color: var(--color-text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background var(--transition-fast);
+}
+
+.avaliar-modal-close:hover { background: var(--color-bg-surface); }
+
+/* Nome do posto */
+.avaliar-posto {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-top: calc(var(--spacing-2xs) * -1);
+}
+
+/* Seletor de estrelas interativo */
+.avaliar-stars {
+  display: flex;
+  justify-content: center;
+  gap: var(--spacing-xs);
+}
+
+.avaliar-star {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-xs);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform var(--transition-fast);
+}
+
+.avaliar-star:active { transform: scale(0.88); }
+
+.avaliar-star .lucide-star {
+  fill: none;
+  color: var(--color-border-muted);
+  transition: fill var(--transition-fast), color var(--transition-fast);
+}
+
+.avaliar-star.selected .lucide-star {
+  fill: var(--color-action-warning);
+  color: var(--color-action-warning);
+}
+
+/* Label textual abaixo das estrelas */
+.avaliar-star-label {
+  text-align: center;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  min-height: 1.5em;
+}
+
+/* Botão enviar — largura total */
+.avaliar-modal .btn {
+  width: 100%;
+  justify-content: center;
+}
+
+/* ─── Seções com título em lista (Pendentes / Histórico) ── */
+
+.list-section-title {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: var(--spacing-md) var(--spacing-md) var(--spacing-xs);
+}
+
+/* ─── Estrelas de avaliação ──────────────────────────────── */
+
+.star-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+}
+
+/* Lucide substitui <i> por <svg class="lucide lucide-star"> */
+.star-icon--filled .lucide-star {
+  fill: var(--color-action-warning);
+  color: var(--color-action-warning);
+}
+
+.star-icon--empty .lucide-star {
+  fill: none;
+  color: var(--color-border-muted);
+}
+
+/* ─── Recarga em andamento — tela de detalhes ────────── */
+
+/* Hero: contador grande centralizado */
+.charging-time-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xl) var(--spacing-md) var(--spacing-md);
+}
+
+/* MM:SS em fonte mono e peso máximo */
+.charging-time-value {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-heavy);
+  color: var(--color-text-brand);
+  font-family: var(--font-mono);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+/* "restantes" abaixo do timer */
+.charging-time-label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* Container da barra de progresso */
+.charging-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  padding: 0 var(--spacing-md) var(--spacing-md);
+}
+
+/* Trilho de fundo */
+.charging-progress-track {
+  height: var(--spacing-xs);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-subtle);
+  overflow: hidden;
+}
+
+/* Preenchimento animado — largura definida via JS */
+.charging-progress-fill {
+  height: 100%;
+  border-radius: var(--radius-full);
+  background: var(--gradient-brand);
+  transition: width 1s linear;
+}
+
+/* Labels de início / fim abaixo da barra */
+.charging-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* Grid de estatísticas 2×2 */
+.charging-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+
+.charging-stat-card {
+  background: var(--color-bg-surface);
+  border-radius: var(--radius-md);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  padding: var(--spacing-sm) var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.charging-stat-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.charging-stat-value {
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.charging-stat-value--brand {
+  color: var(--color-text-brand);
+}
+
+/* Badge "Em recarga" — brand teal */
+.reserva-badge--recarga {
+  background: var(--color-bg-brand);
+  color: var(--color-text-brand);
+}
+
+/* ─── Recarga em andamento — barra de status no mapa ─── */
+
+/* Barra clicável que aparece acima da SearchBar quando há uma recarga ativa.
+   Mostra: ícone pulsando + posto + tempo restante + chevron.              */
+.charging-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm) var(--spacing-xs) var(--spacing-xs);
+  border-radius: var(--radius-lg);
+  border: var(--border-width-thin) solid var(--color-action-primary);
+  background: var(--color-glass-surface);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  box-shadow: var(--shadow-lg), var(--shadow-highlight), var(--shadow-glow-sm);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  font-family: var(--font-body);
+  -webkit-tap-highlight-color: transparent;
+  transition: opacity var(--transition-fast);
+}
+
+.charging-bar:active { opacity: 0.75; }
+
+/* Ícone animado — quadrado com raio pequeno, cor brand */
+.charging-bar__icon {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-brand);
+  color: var(--color-text-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  animation: chargingPulse 1.6s ease-in-out infinite;
+}
+
+@keyframes chargingPulse {
+  0%, 100% { opacity: 1;    transform: scale(1);    }
+  50%       { opacity: 0.55; transform: scale(0.88); }
+}
+
+/* Bloco de texto: título + tempo restante */
+.charging-bar__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.charging-bar__title {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.charging-bar__meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-brand);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Chevron trailing */
+.charging-bar__chevron {
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+/* ─── Recarga — confirmação de pagamento ─────────────── */
+
+/* Scroll com gap entre seções */
+.recarga-confirm-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-md) var(--spacing-md) 0;
+}
+
+/* Rótulo de seção */
+.recarga-section-label {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: var(--spacing-sm);
+}
+
+/* Card do carregador identificado */
+.recarga-charger-card {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+}
+
+.recarga-charger-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-brand);
+  color: var(--color-text-brand);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.recarga-charger-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+
+.recarga-charger-name {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.recarga-charger-meta {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* Estimativa dinâmica — dois valores lado a lado */
+.recarga-estimate-card {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: var(--spacing-lg) var(--spacing-md);
+  gap: var(--spacing-md);
+}
+
+.recarga-estimate-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2xs);
+}
+
+.recarga-estimate-value {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text-brand);
+  line-height: 1;
+}
+
+.recarga-estimate-value--secondary {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  line-height: 1;
+}
+
+.recarga-estimate-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.recarga-estimate-divider {
+  width: var(--border-width-thin);
+  height: 40px;
+  background: var(--color-border-subtle);
+}
+
+/* Footer fixo com botão de ação */
+.recarga-footer {
+  flex-shrink: 0;
+  padding: var(--spacing-sm) var(--spacing-md)
+    calc(var(--nav-height) + env(safe-area-inset-bottom) + var(--spacing-sm));
+  background: linear-gradient(to top, var(--color-bg-default) 85%, transparent);
+}
+
+.recarga-footer .btn {
+  width: 100%;
+  justify-content: center;
+}
+
