@@ -85,7 +85,7 @@
         <div class="separator"></div>
         <div class="userRow">
           <div style="padding:2px;background:linear-gradient(135deg,var(--color-brand-300),var(--color-brand-500));border-radius:var(--radius-full);display:inline-flex;flex-shrink:0;">
-            <div class="avatar md"><img class="avatarImg" src="../links/perfil-admin.png" alt="Admin Althus" /></div>
+            <div class="avatar md"><img class="avatarImg" src="../src/perfil-admin.png" alt="Admin Althus" /></div>
           </div>
           <div class="userInfo">
             <div class="userName">Admin Althus</div>

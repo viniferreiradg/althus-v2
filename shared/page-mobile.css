@@ -8,14 +8,14 @@
 
 /* ─── Map background (prototype placeholder) ─────────── */
 .map-bg-dark {
-  background-image: url('../links/mapa-dark-2.png');
+  background-image: url('../src/mapa-dark-2.png');
   background-size: cover;
   background-position: -49px center;
   background-repeat: no-repeat;
   transition: background-position 450ms var(--easing-entrance);
 }
 [data-theme="light"] .map-bg-dark {
-  background-image: url('../links/mapa-light-2.png');
+  background-image: url('../src/mapa-light-2.png');
 }
 .map-bg-dark.map-focused {
   background-position: -93px -137px;
@@ -1073,11 +1073,11 @@ body.layout-screen:has(.screen-nav) .cadastro-footer {
   width: 100%;
   height: auto;
   display: block;
-  content: url('../links/carro-dark.jpg');
+  content: url('../src/carro-dark.jpg');
 }
 
 [data-theme="light"] .vehicle-hero-img {
-  content: url('../links/carro-light.jpg');
+  content: url('../src/carro-light.jpg');
 }
 
 /* ─── Vehicle hero — placeholder 16:9 para foto do carro ─── */
