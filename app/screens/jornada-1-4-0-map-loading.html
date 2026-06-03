@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carregando — Althus</title>
+  <link rel="stylesheet" href="../../storybook/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-fullbleed map-bg-dark">
+
+  <div class="map-loading-overlay">
+    <span class="spin-icon">
+      <i data-lucide="loader-circle" width="48" height="48"></i>
+    </span>
+    <p class="map-loading-text">Procurando postos de carregamento...</p>
+  </div>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+
+    var isThumbnail = window.frameElement && window.frameElement.classList.contains('thumb-frame');
+    if (!isThumbnail) {
+      setTimeout(function() {
+        router.replace('jornada-1-4-1b-home-map-reveal');
+      }, 3000);
+    }
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

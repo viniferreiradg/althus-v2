@@ -3421,6 +3421,66 @@ body.avaliar-modal-body {
   z-index: 20;
 }
 
+/* ─── Utility: animação de entrada vinda de baixo ───────
+   .anim-enter-bottom — desliza de baixo para cima + fade in.
+   ─────────────────────────────────────────────────────── */
+@keyframes enterFromBottom {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.anim-enter-bottom {
+  animation: enterFromBottom 500ms var(--easing-entrance) both;
+}
+
+/* .anim-fade-in — fade in simples, sem deslocamento. */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.anim-fade-in {
+  animation: fadeIn 500ms var(--easing-entrance) both;
+}
+
+/* Delays de animação — para sequências escalonadas. */
+.anim-delay-200 { animation-delay: 200ms; }
+.anim-delay-400 { animation-delay: 400ms; }
+.anim-delay-600 { animation-delay: 600ms; }
+.anim-delay-800 { animation-delay: 800ms; }
+
+/* ─── Map loading overlay ────────────────────────────────
+   Overlay centralizado sobre o mapa durante carregamento.
+   Combinar com .layout-fullbleed .map-bg-dark no body.    */
+.map-loading-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-md);
+  z-index: 10;
+}
+
+.map-loading-text {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.spin-icon {
+  animation: spin 1.2s linear infinite;
+  color: var(--color-action-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 /* ─── Recarga em andamento — barra de status no mapa ─── */
 
 /* Barra clicável que aparece acima da SearchBar quando há uma recarga ativa.

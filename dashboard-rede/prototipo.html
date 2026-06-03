@@ -228,6 +228,19 @@
     }
     .expand-all-btn:hover { color: #aaa; border-color: #333; background: #161616; }
 
+    /* ── Telas / Jornadas tabs ───────────────────────── */
+    .sidebar-view-tabs { display: flex; gap: 4px; margin-bottom: 6px; }
+    .sidebar-tab {
+      flex: 1; font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
+      color: #555; background: none; border: 1px solid #1e1e1e; border-radius: 4px;
+      padding: 5px 8px; cursor: pointer; font-family: inherit; text-align: center;
+      transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+    }
+    .sidebar-tab:hover  { color: #aaa; border-color: #333; background: #161616; }
+    .sidebar-tab.active { color: #e5e5e5; border-color: #3a3a3a; background: #1e1e1e; }
+    #toolbar-expand.hidden { display: none; }
+    .screen-btn.unbuilt { opacity: 0.4; pointer-events: none; }
+
     .sidebar-footer {
       padding: 12px 16px;
       border-top: 1px solid #1a1a1a;
@@ -314,10 +327,17 @@
     </div>
 
     <div class="sidebar-toolbar">
-      <button class="expand-all-btn" id="expand-all-btn">Expandir todos</button>
+      <div class="sidebar-view-tabs">
+        <button class="sidebar-tab active" id="tab-telas">Telas</button>
+        <button class="sidebar-tab" id="tab-jornadas">Jornadas</button>
+      </div>
+      <div id="toolbar-expand">
+        <button class="expand-all-btn" id="expand-all-btn">Expandir todos</button>
+      </div>
     </div>
 
     <nav class="sidebar-list" id="screen-list"></nav>
+    <nav class="sidebar-list" id="journey-list" hidden></nav>
 
     <div class="sidebar-footer">Navegação de protótipo</div>
   </aside>
@@ -438,6 +458,91 @@
       },
     ];
 
+    const JOURNEYS = [
+      { label: '2.1 — Logar no sistema', screens: [
+        { label: 'Criar senha',       file: 'jornada-3-2-criar-senha.html' },
+        { label: 'Login',             file: 'jornada-3-1-login.html' },
+        { label: 'Dashboard Loading', file: 'jornada-2-8-dashboard-loading.html' },
+        { label: 'Dashboard',         file: 'jornada-2-8-dashboard.html' },
+      ]},
+      { label: '2.1.1 — Listar localidades', screens: [
+        { label: 'Dashboard',          file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar localidades', file: 'jornada-2-1-1-listar-localidades.html' },
+      ]},
+      { label: '2.1.2 — Editar localidade', screens: [
+        { label: 'Dashboard',          file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar localidades', file: 'jornada-2-1-1-listar-localidades.html' },
+        { label: 'Editar localidade',  file: 'jornada-2-1-3-editar-localidade.html' },
+      ]},
+      { label: '2.1.3 — Criar localidade', screens: [
+        { label: 'Dashboard',             file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar localidades',    file: 'jornada-2-1-1-listar-localidades.html' },
+        { label: 'Criar localidade',      file: 'jornada-2-1-2-cadastrar-localidade.html' },
+      ]},
+      { label: '2.2 — Gerir taxas e tarifas', screens: [
+        { label: 'Dashboard',                 file: 'jornada-2-8-dashboard.html' },
+        { label: 'Opções de tarifas',         file: 'jornada-2-2-1-opcoes-de-tarifas.html' },
+        { label: 'Tarifas personalizadas',    file: 'jornada-2-2-2-tarifas-personalizadas.html' },
+        { label: 'Nova tarifa personalizada', file: 'jornada-2-3-nova-tarifa-personalizada.html' },
+      ]},
+      { label: '2.3.1 — Listar abastecimentos', screens: [
+        { label: 'Dashboard', file: 'jornada-2-8-dashboard.html' },
+        { label: 'Extrato',   file: 'jornada-2-3-1-extrato.html' },
+      ]},
+      { label: '2.3.2 — Ver detalhe abastecimento', screens: [
+        { label: 'Dashboard',             file: 'jornada-2-8-dashboard.html' },
+        { label: 'Extrato',               file: 'jornada-2-3-1-extrato.html' },
+        { label: 'Detalhe abastecimento', file: 'jornada-2-3-2-detalhe-abastecimento.html' },
+      ]},
+      { label: '2.4.1 — Listar cupons', screens: [
+        { label: 'Dashboard',     file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar cupons', file: 'jornada-2-4-1-listar-cupons.html' },
+      ]},
+      { label: '2.4.2 — Ver detalhe cupom', screens: [
+        { label: 'Dashboard',     file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar cupons', file: 'jornada-2-4-1-listar-cupons.html' },
+        { label: 'Detalhe cupom', file: 'jornada-2-4-3-visualizar-cupom.html' },
+      ]},
+      { label: '2.4.3 — Cadastrar cupom', screens: [
+        { label: 'Dashboard',       file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar cupons',   file: 'jornada-2-4-1-listar-cupons.html' },
+        { label: 'Cadastrar cupom', file: 'jornada-2-4-2-cadastrar-cupom.html' },
+      ]},
+      { label: '2.4.4 — Editar/inativar cupom', screens: [
+        { label: 'Dashboard',     file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar cupons', file: 'jornada-2-4-1-listar-cupons.html' },
+        { label: 'Editar cupom',  file: 'jornada-2-4-4-editar-cupom.html' },
+      ]},
+      { label: '2.5 — Logs de erro', screens: [
+        { label: 'Dashboard',    file: 'jornada-2-8-dashboard.html' },
+        { label: 'Logs de erro', file: 'jornada-2-5-1-logs-de-erros.html' },
+      ]},
+      { label: '2.6.1 — Perfis de uso', screens: [
+        { label: 'Dashboard',      file: 'jornada-2-8-dashboard.html' },
+        { label: 'Gestão perfis',  file: 'jornada-2-6-4-gestao-de-perfis.html' },
+        { label: 'Perfil',         file: 'jornada-2-6-6-perfil.html' },
+      ]},
+      { label: '2.6.2 — Usuários da empresa', screens: [
+        { label: 'Dashboard',        file: 'jornada-2-8-dashboard.html' },
+        { label: 'Lista usuários',   file: 'jornada-2-6-1-lista-usuarios.html' },
+      ]},
+      { label: '2.7.1 — Listar carregadores', screens: [
+        { label: 'Dashboard',          file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar carregadores', file: 'jornada-2-7-1-listar-carregadores.html' },
+      ]},
+      { label: '2.7.2 — Visualizar/editar carregador', screens: [
+        { label: 'Dashboard',           file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar carregadores', file: 'jornada-2-7-1-listar-carregadores.html' },
+        { label: 'Ver carregador',      file: 'jornada-2-7-2-visualizar-dispositivo.html' },
+        { label: 'Editar carregador',   file: 'jornada-2-7-3-editar-dispositivo.html' },
+      ]},
+      { label: '2.7.3 — Cadastrar carregador', screens: [
+        { label: 'Dashboard',           file: 'jornada-2-8-dashboard.html' },
+        { label: 'Listar carregadores', file: 'jornada-2-7-1-listar-carregadores.html' },
+        { label: 'Cadastrar carregador', file: 'jornada-2-7-4-cadastrar-dispositivo.html' },
+      ]},
+    ]; // será preenchido na próxima etapa
+
     const sidebar       = document.getElementById('sidebar');
     const collapseBtn   = document.getElementById('collapse-btn');
     const floatBtn      = document.getElementById('float-btn');
@@ -445,74 +550,106 @@
     const frame         = document.getElementById('preview-frame');
     const urlBar        = document.getElementById('preview-url');
     const list          = document.getElementById('screen-list');
+    const journeyList   = document.getElementById('journey-list');
     const expandAllBtn  = document.getElementById('expand-all-btn');
+    const toolbarExpand = document.getElementById('toolbar-expand');
+    const tabTelas      = document.getElementById('tab-telas');
+    const tabJornadas   = document.getElementById('tab-jornadas');
 
-    let activeBtn = null;
-    let hideTimer = null;
+    let activeBtn  = null;
+    let activeList = list;
+    let hideTimer  = null;
 
     /* ── Expand-all button state ── */
     function syncExpandAllBtn() {
-      const anyCollapsed = [...list.querySelectorAll('.flow-screens')].some(w => w.classList.contains('collapsed'));
+      const anyCollapsed = [...activeList.querySelectorAll('.flow-screens')].some(w => w.classList.contains('collapsed'));
       expandAllBtn.textContent = anyCollapsed ? 'Expandir todos' : 'Recolher todos';
     }
 
     expandAllBtn.addEventListener('click', () => {
-      const wraps  = list.querySelectorAll('.flow-screens');
-      const labels = list.querySelectorAll('.flow-label');
+      const wraps  = activeList.querySelectorAll('.flow-screens');
+      const labels = activeList.querySelectorAll('.flow-label');
       const anyCollapsed = [...wraps].some(w => w.classList.contains('collapsed'));
       wraps.forEach(w  => w.classList.toggle('collapsed', !anyCollapsed));
       labels.forEach(l => l.classList.toggle('collapsed', !anyCollapsed));
       syncExpandAllBtn();
     });
 
-    /* ── Build screen list ── */
-    FLOWS.forEach(flow => {
-      const label = document.createElement('div');
-      label.className = 'flow-label collapsed'; /* começa colapsado */
-      label.innerHTML = `
-        <span>${flow.label}</span>
-        <span class="flow-chevron">
-          <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
-        </span>
-      `;
-
-      const screensWrap = document.createElement('div');
-      screensWrap.className = 'flow-screens collapsed'; /* começa colapsado */
-      const screensInner = document.createElement('div');
-      screensInner.className = 'flow-screens-inner';
-
-      label.addEventListener('click', () => {
-        const isCollapsed = screensWrap.classList.toggle('collapsed');
-        label.classList.toggle('collapsed', isCollapsed);
-        syncExpandAllBtn();
-      });
-
-      flow.screens.forEach(screen => {
-        const btn = document.createElement('button');
-        btn.className = 'screen-btn';
-        btn.innerHTML = `
-          <div class="screen-thumb">
-            <iframe class="thumb-frame" src="${screen.file}" tabindex="-1" aria-hidden="true"></iframe>
-          </div>
-          <div class="screen-info">
-            <span class="screen-label">${screen.label}</span>
-            <span class="screen-file">${screen.file}</span>
-          </div>
-        `;
-        btn.addEventListener('click', () => {
-          frame.src = screen.file;
-          urlBar.textContent = screen.file;
-          if (activeBtn) activeBtn.classList.remove('active');
-          btn.classList.add('active');
-          activeBtn = btn;
-        });
-        screensInner.appendChild(btn);
-      });
-
-      screensWrap.appendChild(screensInner);
-      list.appendChild(label);
-      list.appendChild(screensWrap);
+    /* ── Tab switching ── */
+    tabTelas.addEventListener('click', () => {
+      tabTelas.classList.add('active');
+      tabJornadas.classList.remove('active');
+      list.hidden = false;
+      journeyList.hidden = true;
+      activeList = list;
+      toolbarExpand.classList.remove('hidden');
+      syncExpandAllBtn();
     });
+
+    tabJornadas.addEventListener('click', () => {
+      tabJornadas.classList.add('active');
+      tabTelas.classList.remove('active');
+      list.hidden = true;
+      journeyList.hidden = false;
+      activeList = journeyList;
+      toolbarExpand.classList.add('hidden');
+    });
+
+    /* ── Build list (shared between FLOWS and JOURNEYS) ── */
+    function buildList(flows, container) {
+      flows.forEach(flow => {
+        const label = document.createElement('div');
+        label.className = 'flow-label collapsed';
+        label.innerHTML = `
+          <span>${flow.label}</span>
+          <span class="flow-chevron">
+            <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+          </span>
+        `;
+
+        const screensWrap = document.createElement('div');
+        screensWrap.className = 'flow-screens collapsed';
+        const screensInner = document.createElement('div');
+        screensInner.className = 'flow-screens-inner';
+
+        label.addEventListener('click', () => {
+          const isCollapsed = screensWrap.classList.toggle('collapsed');
+          label.classList.toggle('collapsed', isCollapsed);
+          syncExpandAllBtn();
+        });
+
+        flow.screens.forEach(screen => {
+          const btn = document.createElement('button');
+          btn.className = 'screen-btn' + (screen.built === false ? ' unbuilt' : '');
+          btn.innerHTML = `
+            <div class="screen-thumb">
+              <iframe class="thumb-frame" src="${screen.file}" tabindex="-1" aria-hidden="true"></iframe>
+            </div>
+            <div class="screen-info">
+              <span class="screen-label">${screen.label}</span>
+              <span class="screen-file">${screen.file}</span>
+            </div>
+          `;
+          if (screen.built !== false) {
+            btn.addEventListener('click', () => {
+              frame.src = screen.file;
+              urlBar.textContent = screen.file;
+              if (activeBtn) activeBtn.classList.remove('active');
+              btn.classList.add('active');
+              activeBtn = btn;
+            });
+          }
+          screensInner.appendChild(btn);
+        });
+
+        screensWrap.appendChild(screensInner);
+        container.appendChild(label);
+        container.appendChild(screensWrap);
+      });
+    }
+
+    buildList(FLOWS, list);
+    buildList(JOURNEYS, journeyList);
 
     /* Load first screen */
     list.querySelector('.screen-btn').click();

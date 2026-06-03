@@ -685,7 +685,9 @@
       {
         label: 'RF004 — Mapa de Postos',
         screens: [
-          { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',     built: true },
+          { label: 'Map Loading',           id: 'jornada-1-4-0-map-loading',          built: true },
+          { label: 'Map Reveal',            id: 'jornada-1-4-1b-home-map-reveal',     built: true },
+          { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',             built: true },
           { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',    built: true },
           { label: 'Filtros do mapa',       id: 'jornada-1-4-3-filtros-mapa', built: true },
           { label: 'Iniciar Recarga — QR',  id: 'jornada-1-4-5-recarga-metodo',      built: true },
@@ -784,15 +786,16 @@
 
     const JOURNEYS = [
       {
-        label: '1.1 — Quero fazer meu login',
+        label: '1.1 — Fazer meu login',
         screens: [
-          { label: 'Splash Screen', id: 'jornada-1-2-0-splash',    built: true },
-          { label: 'Login',         id: 'jornada-1-2-1-login',     built: true },
-          { label: 'Home — Mapa',   id: 'jornada-1-4-1-home-map',  built: true },
+          { label: 'Splash Screen', id: 'jornada-1-2-0-splash',               built: true },
+          { label: 'Login',         id: 'jornada-1-2-1-login',                built: true },
+          { label: 'Map Loading',   id: 'jornada-1-4-0-map-loading',          built: true },
+          { label: 'Map Reveal',    id: 'jornada-1-4-1b-home-map-reveal',     built: true },
         ],
       },
       {
-        label: '1.2 — Quero fazer meu cadastro',
+        label: '1.2 — Fazer meu cadastro',
         screens: [
           { label: 'Login',               id: 'jornada-1-2-1-login',            built: true },
           { label: 'Dados pessoais',      id: 'jornada-1-2-2-cadastro-step1',   built: true },
@@ -805,7 +808,7 @@
         ],
       },
       {
-        label: '1.3 — Quero recuperar minha senha',
+        label: '1.3 — Recuperar minha senha',
         screens: [
           { label: 'Login',                id: 'jornada-1-2-1-login',            built: true },
           { label: 'Canal de recuperação', id: 'jornada-1-3-1-recuperar-canal',  built: true },
@@ -815,7 +818,7 @@
         ],
       },
       {
-        label: '1.4 — Quero localizar um ponto de abastecimento',
+        label: '1.4 — Localizar um ponto de abastecimento',
         screens: [
           { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',      built: true },
           { label: 'Lista de postos',       id: 'jornada-1-4-lista-postos',    built: true },
@@ -823,7 +826,7 @@
         ],
       },
       {
-        label: '1.5 — Quero ver meu histórico de abastecimentos',
+        label: '1.5 — Ver meu histórico de abastecimentos',
         screens: [
           { label: 'Home — Mapa',    id: 'jornada-1-4-1-home-map',        built: true },
           { label: 'Configurações',  id: 'jornada-1-7-2-configuracoes',   built: true },
@@ -831,7 +834,7 @@
         ],
       },
       {
-        label: '1.6 — Quero iniciar um abastecimento',
+        label: '1.6 — Iniciar um abastecimento',
         screens: [
           { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',          built: true },
           { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',         built: true },
@@ -843,7 +846,7 @@
         ],
       },
       {
-        label: '1.7 — Quero fazer uma reserva',
+        label: '1.7 — Fazer uma reserva',
         screens: [
           { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',            built: true },
           { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',           built: true },
@@ -853,7 +856,7 @@
         ],
       },
       {
-        label: '1.8 — Quero ver meu histórico de reserva',
+        label: '1.8 — Ver meu histórico de reserva',
         screens: [
           { label: 'Home — Mapa',      id: 'jornada-1-4-1-home-map',  built: true },
           { label: 'Perfil',           id: 'jornada-1-7-1-perfil',    built: true },
@@ -861,7 +864,7 @@
         ],
       },
       {
-        label: '1.9 — Quero cancelar uma reserva',
+        label: '1.9 — Cancelar uma reserva',
         screens: [
           { label: 'Home — Mapa',        id: 'jornada-1-4-1-home-map',         built: true },
           { label: 'Perfil',             id: 'jornada-1-7-1-perfil',           built: true },
@@ -871,7 +874,7 @@
         ],
       },
       {
-        label: '1.10 — Quero botar crédito na minha carteira por PIX',
+        label: '1.10 — Botar crédito na minha carteira por PIX',
         screens: [
           { label: 'Home — Mapa',          id: 'jornada-1-4-1-home-map',         built: true },
           { label: 'Carteira',             id: 'jornada-1-6-1-carteira',         built: true },
@@ -880,7 +883,7 @@
         ],
       },
       {
-        label: '1.11 — Quero ver meu extrato de créditos',
+        label: '1.11 — Ver meu extrato de créditos',
         screens: [
           { label: 'Home — Mapa', id: 'jornada-1-4-1-home-map',  built: true },
           { label: 'Carteira',    id: 'jornada-1-6-1-carteira',  built: true },
@@ -888,7 +891,7 @@
         ],
       },
       {
-        label: '1.12 — Quero gerenciar meus dados pessoais',
+        label: '1.12 — Gerenciar meus dados pessoais',
         screens: [
           { label: 'Home — Mapa',    id: 'jornada-1-4-1-home-map',       built: true },
           { label: 'Perfil',         id: 'jornada-1-7-1-perfil',         built: true },
@@ -896,7 +899,7 @@
         ],
       },
       {
-        label: '1.13 — Quero alterar minha senha',
+        label: '1.13 — Alterar minha senha',
         screens: [
           { label: 'Home — Mapa',        id: 'jornada-1-4-1-home-map',          built: true },
           { label: 'Perfil',             id: 'jornada-1-7-1-perfil',            built: true },
@@ -905,33 +908,33 @@
           { label: 'Senha alterada',     id: 'jornada-1-13-alterar-senha-ok',   built: true },
         ],
       },
-      { label: '1.14 — Quero cadastrar meu veículo', screens: [
+      { label: '1.14 — Cadastrar meu veículo', screens: [
         { label: 'Home — Mapa',          id: 'jornada-1-4-1-home-map',          built: true },
         { label: 'Perfil',               id: 'jornada-1-7-1-perfil',            built: true },
         { label: 'Meus veículos',        id: 'jornada-1-7-9-meus-veiculos',     built: true },
         { label: 'Novo veículo',         id: 'jornada-1-7-9-2-veiculo-criar',   built: true },
         { label: 'Veículo cadastrado',   id: 'jornada-1-14-veiculo-ok',         built: true },
       ]},
-      { label: '1.15 — Quero remover meu veículo', screens: [
+      { label: '1.15 — Remover meu veículo', screens: [
         { label: 'Home — Mapa',          id: 'jornada-1-4-1-home-map',          built: true },
         { label: 'Perfil',               id: 'jornada-1-7-1-perfil',            built: true },
         { label: 'Meus veículos',        id: 'jornada-1-7-9-meus-veiculos',     built: true },
         { label: 'Remover veículo',      id: 'jornada-1-15-remover-veiculo',    built: true },
         { label: 'Veículo removido',     id: 'jornada-1-15-veiculo-removido',   built: true },
       ]},
-      { label: '1.16 — Quero alterar meu veículo', screens: [
+      { label: '1.16 — Alterar meu veículo', screens: [
         { label: 'Home — Mapa',          id: 'jornada-1-4-1-home-map',          built: true },
         { label: 'Perfil',               id: 'jornada-1-7-1-perfil',            built: true },
         { label: 'Meus veículos',        id: 'jornada-1-7-9-meus-veiculos',     built: true },
         { label: 'Editar veículo',       id: 'jornada-1-7-9-2-veiculo-editar',  built: true },
         { label: 'Veículo editado',      id: 'jornada-1-16-veiculo-editado',    built: true },
       ]},
-      { label: '1.17 — Quero ver os Termos e Políticas de Uso', screens: [
+      { label: '1.17 — Ver os Termos e Políticas de Uso', screens: [
         { label: 'Home — Mapa',          id: 'jornada-1-4-1-home-map',          built: true },
         { label: 'Perfil',               id: 'jornada-1-7-1-perfil',            built: true },
         { label: 'Termos de uso',        id: 'jornada-1-7-5-termos',            built: true },
       ]},
-      { label: '1.18 — Quero ver minhas notificações', screens: [
+      { label: '1.18 — Ver minhas notificações', screens: [
         { label: 'Home — Mapa',          id: 'jornada-1-4-1-home-map',          built: true },
         { label: 'Notificações',         id: 'notificacoes',                    built: true },
       ]},
