@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -8,7 +8,6 @@
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/AppBar/AppBar.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/Input/Input.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/Avatar/Avatar.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/BottomNav/BottomNav.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/NotificationBadge/NotificationBadge.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -21,72 +20,105 @@
     <div class="appBarSide appBarSideRight"></div>
   </header>
 
-  <!-- ── Toolbar: busca + filtro ────────────────────── -->
+  <!-- ── Toolbar: busca ────────────────────────────── -->
   <div class="postos-toolbar">
     <div class="wrapper hasLeft">
       <div class="inputWrap">
         <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
-        <input class="input" type="search" placeholder="Buscar localidade..." />
+        <input class="input" type="search" placeholder="Qual carregador você procura?" />
       </div>
     </div>
-    <button class="postos-filter-btn" aria-label="Filtros" type="button">
-      <i data-lucide="sliders-horizontal" width="18" height="18"></i>
-    </button>
   </div>
 
   <!-- ── Lista de localidades ───────────────────────── -->
   <div class="postos-list">
 
-    <button class="posto-item" type="button">
-      <div class="avatar md"><img class="avatarImg" src="../../src/credenciados/logo-credenciados_03.jpg" alt="Rede Flex" /></div>
+    <button class="posto-item" type="button" onclick="router.push('jornada-1-4-2-map-sheet')">
+      <div class="posto-dist">
+        <span class="posto-dist__value">0,8</span>
+        <span class="posto-dist__unit">km</span>
+      </div>
       <div class="posto-item-info">
         <span class="posto-item-name">Auto Shopping Eixo</span>
-        <div class="posto-item-meta">
-          <span>0,8 km</span><span>·</span><span>6 carregadores</span>
+        <span class="posto-item-address">Av. das Nações Unidas, 14261 — Stª Amaro</span>
+        <span class="posto-item-rate">Valor por kW: <strong>R$ 2,29</strong></span>
+        <div class="posto-kw-badges">
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
         </div>
       </div>
       <div class="posto-item-chevron"><i data-lucide="chevron-right" width="16" height="16"></i></div>
     </button>
 
     <button class="posto-item" type="button">
-      <div class="avatar md"><img class="avatarImg" src="../../src/credenciados/logo-credenciados_05.jpg" alt="AutoCharge" /></div>
+      <div class="posto-dist">
+        <span class="posto-dist__value">1,2</span>
+        <span class="posto-dist__unit">km</span>
+      </div>
       <div class="posto-item-info">
         <span class="posto-item-name">Iguatemi São Paulo</span>
-        <div class="posto-item-meta">
-          <span>1,2 km</span><span>·</span><span>4 carregadores</span>
+        <span class="posto-item-address">Av. Brigadeiro Faria Lima, 2232 — Jd. Paulistano</span>
+        <span class="posto-item-rate">Valor por kW: <strong>R$ 2,49</strong></span>
+        <div class="posto-kw-badges">
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">22 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
         </div>
       </div>
       <div class="posto-item-chevron"><i data-lucide="chevron-right" width="16" height="16"></i></div>
     </button>
 
     <button class="posto-item" type="button">
-      <div class="avatar md"><img class="avatarImg" src="../../src/credenciados/logo-credenciados_07.jpg" alt="Voltamax" /></div>
+      <div class="posto-dist">
+        <span class="posto-dist__value">2,5</span>
+        <span class="posto-dist__unit">km</span>
+      </div>
       <div class="posto-item-info">
         <span class="posto-item-name">Shopping Morumbi</span>
-        <div class="posto-item-meta">
-          <span>2,5 km</span><span>·</span><span>8 carregadores</span>
+        <span class="posto-item-address">Av. Roque Petroni Jr., 1089 — Morumbi</span>
+        <span class="posto-item-rate">Valor por kW: <strong>R$ 1,99</strong></span>
+        <div class="posto-kw-badges">
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">22 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">22 kW</span>
         </div>
       </div>
       <div class="posto-item-chevron"><i data-lucide="chevron-right" width="16" height="16"></i></div>
     </button>
 
     <button class="posto-item" type="button">
-      <div class="avatar md"><span class="avatarInitials">PI</span></div>
+      <div class="posto-dist">
+        <span class="posto-dist__value">3,1</span>
+        <span class="posto-dist__unit">km</span>
+      </div>
       <div class="posto-item-info">
         <span class="posto-item-name">Parque do Ibirapuera</span>
-        <div class="posto-item-meta">
-          <span>3,1 km</span><span>·</span><span>2 carregadores</span>
+        <span class="posto-item-address">Av. Pedro Álvares Cabral, s/n — Vila Mariana</span>
+        <span class="posto-item-rate">Valor por kW: <strong>R$ 2,10</strong></span>
+        <div class="posto-kw-badges">
+          <span class="posto-kw-badge">22 kW</span>
+          <span class="posto-kw-badge">22 kW</span>
         </div>
       </div>
       <div class="posto-item-chevron"><i data-lucide="chevron-right" width="16" height="16"></i></div>
     </button>
 
     <button class="posto-item" type="button">
-      <div class="avatar md"><img class="avatarImg" src="../../src/credenciados/logo-credenciados_09.jpg" alt="EcoCharge" /></div>
+      <div class="posto-dist">
+        <span class="posto-dist__value">4,7</span>
+        <span class="posto-dist__unit">km</span>
+      </div>
       <div class="posto-item-info">
         <span class="posto-item-name">WTorre Nações Unidas</span>
-        <div class="posto-item-meta">
-          <span>4,7 km</span><span>·</span><span>3 carregadores</span>
+        <span class="posto-item-address">Av. das Nações Unidas, 12995 — Brooklin</span>
+        <span class="posto-item-rate">Valor por kW: <strong>R$ 2,29</strong></span>
+        <div class="posto-kw-badges">
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
         </div>
       </div>
       <div class="posto-item-chevron"><i data-lucide="chevron-right" width="16" height="16"></i></div>
@@ -94,11 +126,19 @@
 
     <!-- Desativados — todos os carregadores ocupados -->
     <button class="posto-item posto-item-disabled" type="button" aria-disabled="true">
-      <div class="avatar md"><img class="avatarImg" src="../../src/credenciados/logo-credenciados_16.jpg" alt="GreenPower" /></div>
+      <div class="posto-dist">
+        <span class="posto-dist__value">1,8</span>
+        <span class="posto-dist__unit">km</span>
+      </div>
       <div class="posto-item-info">
         <span class="posto-item-name">Shopping Eldorado</span>
-        <div class="posto-item-meta">
-          <span>1,8 km</span><span>·</span><span>4 carregadores</span>
+        <span class="posto-item-address">Av. Rebouças, 3970 — Pinheiros</span>
+        <span class="posto-item-rate">Valor por kW: <strong>R$ 2,19</strong></span>
+        <div class="posto-kw-badges">
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">22 kW</span>
+          <span class="posto-kw-badge">22 kW</span>
         </div>
         <div class="posto-item-reason">
           <i data-lucide="clock" width="12" height="12"></i>
@@ -109,11 +149,17 @@
     </button>
 
     <button class="posto-item posto-item-disabled" type="button" aria-disabled="true">
-      <div class="avatar md"><span class="avatarInitials">CS</span></div>
+      <div class="posto-dist">
+        <span class="posto-dist__value">5,2</span>
+        <span class="posto-dist__unit">km</span>
+      </div>
       <div class="posto-item-info">
         <span class="posto-item-name">Continental Shopping</span>
-        <div class="posto-item-meta">
-          <span>5,2 km</span><span>·</span><span>2 carregadores</span>
+        <span class="posto-item-address">Av. das Nações, 1570 — Guarulhos</span>
+        <span class="posto-item-rate">Valor por kW: <strong>R$ 2,09</strong></span>
+        <div class="posto-kw-badges">
+          <span class="posto-kw-badge">22 kW</span>
+          <span class="posto-kw-badge">22 kW</span>
         </div>
         <div class="posto-item-reason">
           <i data-lucide="clock" width="12" height="12"></i>
@@ -125,11 +171,18 @@
 
     <!-- Desativado — conector incompatível -->
     <button class="posto-item posto-item-disabled" type="button" aria-disabled="true">
-      <div class="avatar md"><img class="avatarImg" src="../../src/credenciados/logo-credenciados_15.jpg" alt="Turbo Eletro" /></div>
+      <div class="posto-dist">
+        <span class="posto-dist__value">6,0</span>
+        <span class="posto-dist__unit">km</span>
+      </div>
       <div class="posto-item-info">
         <span class="posto-item-name">Posto Ipiranga Bandeirantes</span>
-        <div class="posto-item-meta">
-          <span>6,0 km</span><span>·</span><span>3 carregadores</span>
+        <span class="posto-item-address">Rod. dos Bandeirantes, km 18 — Alphaville</span>
+        <span class="posto-item-rate">Valor por kW: <strong>R$ 1,89</strong></span>
+        <div class="posto-kw-badges">
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
+          <span class="posto-kw-badge">50 kW</span>
         </div>
         <div class="posto-item-reason">
           <i data-lucide="plug" width="12" height="12"></i>
@@ -141,35 +194,10 @@
 
   </div>
 
-  <!-- ── Bottom nav (standalone) ───────────────────── -->
-  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
-    <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
-      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem navActive" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga" aria-current="page">
-      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
-      <span class="navIcon">
-        <span class="wrap">
-          <i data-lucide="bell" width="22" height="22"></i>
-          <span class="badge">3</span>
-        </span>
-      </span>
-    </button>
-    <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
-      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil">
-      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
-    </button>
-  </nav>
-
   <script>
     var router = (window.parent && window.parent.router)
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
-
   </script>
   <script>lucide.createIcons();</script>
 

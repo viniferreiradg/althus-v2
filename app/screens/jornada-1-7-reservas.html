@@ -78,30 +78,6 @@
     </div>
   </main>
 
-  <!-- ── Bottom navigation ─────────────────────────── -->
-  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
-    <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
-      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
-      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
-      <span class="navIcon">
-        <span class="wrap">
-          <i data-lucide="bell" width="22" height="22"></i>
-          <span class="badge">3</span>
-        </span>
-      </span>
-    </button>
-    <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
-      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem navActive" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil" aria-current="page">
-      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
-    </button>
-  </nav>
-
   <script>
     var router = (window.parent && window.parent.router)
       ? window.parent.router

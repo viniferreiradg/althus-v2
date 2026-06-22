@@ -80,56 +80,27 @@
       </span>
     </button>
 
-    <!-- SearchBar -->
-    <button class="searchBar" type="button" aria-label="Buscar estação de recarga">
-      <i data-lucide="search" width="18" height="18" class="icon"></i>
-      <span class="placeholder">Buscar estação de recarga</span>
-    </button>
-
-    <!-- Chips: veículo + estações + filtros -->
-    <div class="map-chips-row">
-      <button class="vehicleChip" type="button" aria-label="Veículo selecionado: Tesla Model Y. Toque para trocar."
-              onclick="router.push('jornada-1-14-1-veiculos-lista')">
-        <span class="iconWrap"><i data-lucide="car" width="16" height="16"></i></span>
-        <span class="name">Tesla Model Y</span>
-        <i data-lucide="chevron-down" width="14" height="14" class="chevron"></i>
-      </button>
-      <button class="fab md" type="button" aria-label="Filtros de busca"
-              onclick="router.push('jornada-1-4-3-filtros-mapa')">
-        <i data-lucide="sliders-horizontal" width="16" height="16"></i>
-      </button>
-    </div>
 
   </div>
 
-  <!-- ── FABs direita: localizar ────────────────────── -->
+  <!-- ── FAB esquerda: QR Code ─────────────────────────── -->
+  <div class="map-fabs-left">
+    <button class="fab lg brand" aria-label="Escanear QR Code" type="button"
+            onclick="router.push('jornada-1-6-1-recarga-metodo')">
+      <i data-lucide="qr-code" width="24" height="24"></i>
+    </button>
+  </div>
+
+  <!-- ── FABs direita: centralizar + filtros ────────────── -->
   <div class="map-fabs-right">
-    <button class="fab sm" aria-label="Centralizar minha localização" type="button">
-      <i data-lucide="locate" width="16" height="16"></i>
+    <button class="fab md" aria-label="Centralizar minha localização" type="button">
+      <i data-lucide="locate" width="20" height="20"></i>
+    </button>
+    <button class="fab md" aria-label="Filtros" type="button"
+            onclick="router.push('jornada-1-4-3-filtros-mapa')">
+      <i data-lucide="sliders-horizontal" width="20" height="20"></i>
     </button>
   </div>
-
-  <!-- ── Bottom navigation ─────────────────────────── -->
-  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
-    <button class="navItem navActive" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa" aria-current="page">
-      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
-      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
-      <span class="navIcon">
-        <span class="notifBadge" aria-hidden="true">2</span>
-        <i data-lucide="bell" width="22" height="22"></i>
-      </span>
-    </button>
-    <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
-      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil">
-      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
-    </button>
-  </nav>
 
   <script>
     var router = (window.parent && window.parent.router)

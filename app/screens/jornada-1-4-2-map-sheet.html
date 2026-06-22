@@ -11,23 +11,20 @@
   <link rel="stylesheet" href="../../storybook-app/src/components/UserPin/UserPin.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/BottomNav/BottomNav.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/NotificationBadge/NotificationBadge.module.css" />
+  <link rel="stylesheet" href="../../storybook-app/src/components/Modal/Modal.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/Button/Button.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/SearchBar/SearchBar.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/VehicleChip/VehicleChip.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="layout-fullbleed map-bg-dark" style="background-position: -45px -137px;">
+<body class="layout-fullbleed map-bg-dark">
 
   <!-- ── Pins layer ────────────────────────────────────────── -->
   <div class="map-pins-layer" id="map-pins-layer" style="left: -45px; top: -137px;">
 
-    <!-- Marcador de posição do usuário -->
     <div class="map-user-pin userPin pulse" role="img" aria-label="Sua localização">
       <span class="pingRing" aria-hidden="true"></span>
       <i data-lucide="user" width="18" height="18"></i>
     </div>
 
-    <!-- Distributor pins -->
     <div class="map-pin-pos-1 pin-tupi">
       <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
         <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -47,7 +44,6 @@
       </svg>
     </div>
 
-    <!-- Althus pins -->
     <div class="map-pin-center">
       <svg class="mapPin md brand selected" viewBox="0 0 24 24" fill="none" aria-label="Auto Shopping Eixo">
         <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -63,182 +59,184 @@
 
   </div>
 
-  <!-- ── Top overlay: busca + chips ───────────────── -->
-  <div class="map-top-overlay">
-    <button class="searchBar" type="button" aria-label="Buscar estação de recarga">
-      <i data-lucide="search" width="18" height="18" class="icon"></i>
-      <span class="placeholder">Buscar estação de recarga</span>
-    </button>
-    <div class="map-chips-row">
-      <button class="vehicleChip" type="button" aria-label="Veículo selecionado: Tesla Model Y. Toque para trocar."
-              onclick="router.push('jornada-1-14-1-veiculos-lista')">
-        <span class="iconWrap"><i data-lucide="car" width="16" height="16"></i></span>
-        <span class="name">Tesla Model Y</span>
-        <i data-lucide="chevron-down" width="14" height="14" class="chevron"></i>
-      </button>
-      <button class="fab md" type="button" aria-label="Filtros de busca"
-              onclick="router.push('jornada-1-4-3-filtros-mapa')">
-        <i data-lucide="sliders-horizontal" width="16" height="16"></i>
-      </button>
-    </div>
-  </div>
+  <!-- ── Top overlay ───────────────────────────────────── -->
+  <div class="map-top-overlay"></div>
 
-  <!-- ── FABs direita: localizar + QR ──────────────── -->
-  <div class="map-fabs-right">
-    <button class="fab sm" aria-label="Centralizar minha localização" type="button">
-      <i data-lucide="locate" width="16" height="16"></i>
-    </button>
-    <button class="fab lg" aria-label="Escanear QR Code"
+  <!-- ── FAB esquerda: QR Code ─────────────────────────── -->
+  <div class="map-fabs-left">
+    <button class="fab lg brand" aria-label="Escanear QR Code" type="button"
             onclick="router.push('jornada-1-6-1-recarga-metodo')">
       <i data-lucide="qr-code" width="24" height="24"></i>
     </button>
   </div>
 
-  <!-- ── Bottom navigation ─────────────────────────────────── -->
-  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
-    <button class="navItem navActive" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa" aria-current="page">
-      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
+  <!-- ── FABs direita: centralizar + filtros ────────────── -->
+  <div class="map-fabs-right">
+    <button class="fab md" aria-label="Centralizar minha localização" type="button">
+      <i data-lucide="locate" width="20" height="20"></i>
     </button>
-    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
-      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
+    <button class="fab md" aria-label="Filtros" type="button"
+            onclick="router.push('jornada-1-4-3-filtros-mapa')">
+      <i data-lucide="sliders-horizontal" width="20" height="20"></i>
     </button>
-    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
-      <span class="navIcon">
-        <span class="wrap">
-          <i data-lucide="bell" width="22" height="22"></i>
-          <span class="badge">3</span>
-        </span>
-      </span>
-    </button>
-    <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
-      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil">
-      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
-    </button>
-  </nav>
+  </div>
 
-  <!-- ── Bottom sheet ───────────────────────────────────────── -->
-  <div class="map-sheet-panel">
+  <!-- ── Modal sobre o mapa ────────────────────────────── -->
+  <div class="map-modal-overlay">
+    <div class="modal">
 
-    <button class="map-sheet-close" onclick="router.closeModal()" aria-label="Fechar">
-      <i data-lucide="x" width="16" height="16"></i>
-    </button>
+      <div class="modalHeader">
+        <div class="modalHeaderStart">
+          <button class="modalNavBtn" onclick="router.pop()" aria-label="Voltar">
+            <i data-lucide="chevron-left" width="20" height="20"></i>
+          </button>
+        </div>
+        <div class="modalHeaderCenter">
+          <h2 class="modalTitle">Auto Shopping Eixo</h2>
+        </div>
+        <div class="modalHeaderEnd">
+          <button class="modalNavBtn" onclick="router.pop()" aria-label="Fechar">
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
+        </div>
+      </div>
 
-    <div class="map-sheet-handle">
-      <div class="map-sheet-handle-bar"></div>
-    </div>
+      <div class="modalBody" style="padding:0;">
 
-    <div class="map-sheet-scroll">
-
-      <!-- Cabeçalho do posto -->
-      <div class="station-header">
-        <span class="station-network">Althus Eletropostos</span>
-        <h2 class="station-name">Auto Shopping Eixo</h2>
-        <p class="station-address">Av. das Nações Unidas, 14261 — Chácara Sto. Antônio, São Paulo</p>
-        <div class="station-meta">
-          <div class="station-rating">
-            <div class="station-stars">
-              <i data-lucide="star" width="13" height="13"></i>
-              <i data-lucide="star" width="13" height="13"></i>
-              <i data-lucide="star" width="13" height="13"></i>
-              <i data-lucide="star" width="13" height="13"></i>
-              <i data-lucide="star" width="13" height="13"></i>
+        <div class="station-header" style="padding:20px;">
+          <span class="station-network">Althus Eletropostos</span>
+          <p class="station-address">Av. das Nações Unidas, 14261 — Chácara Sto. Antônio, São Paulo</p>
+          <div class="station-meta">
+            <div class="station-rating">
+              <div class="station-stars">
+                <i data-lucide="star" width="13" height="13"></i>
+                <i data-lucide="star" width="13" height="13"></i>
+                <i data-lucide="star" width="13" height="13"></i>
+                <i data-lucide="star" width="13" height="13"></i>
+                <i data-lucide="star" width="13" height="13"></i>
+              </div>
+              <span class="station-rating-value">4.8</span>
+              <span class="station-rating-count">(127 avaliações)</span>
             </div>
-            <span class="station-rating-value">4.8</span>
-            <span class="station-rating-count">(127 avaliações)</span>
           </div>
         </div>
-      </div>
 
-      <!-- Carrossel de carregadores -->
-      <div>
-        <p class="sheet-section-label">Carregadores</p>
-        <div class="charger-carousel" id="charger-carousel">
-
-          <div class="charger-card active" onclick="selectCharger(0)" role="button" aria-pressed="true">
-            <span class="charger-card-connector">CCS2</span>
-            <span class="charger-card-power">50</span>
-            <span class="charger-card-kw">kW</span>
-            <span class="charger-status" data-status="success"><span class="charger-status-dot"></span>Disponível</span>
+        <div>
+          
+          <div class="charger-carousel" id="charger-carousel" style="margin-left: 24px;">
+            <div class="charger-card active" onclick="selectCharger(0)" role="button" aria-pressed="true">
+              <div class="charger-card-icon-wrap">
+                <i data-lucide="cable" width="22" height="22"></i>
+              </div>
+              <div class="charger-card-info">
+                <div class="charger-card-top">
+                  <span class="charger-card-name">Carregador 1</span>
+                  <span class="charger-card-dot" data-status="success"></span>
+                </div>
+                <div class="charger-card-power-row">
+                  <span class="charger-card-power">50</span>
+                  <span class="charger-card-kw">kW</span>
+                  <span class="charger-card-connector">CCS2</span>
+                </div>
+                <span class="charger-card-avail" data-status="success">Disponível</span>
+              </div>
+            </div>
+            <div class="charger-card" onclick="selectCharger(1)" role="button" aria-pressed="false">
+              <div class="charger-card-icon-wrap">
+                <i data-lucide="cable" width="22" height="22"></i>
+              </div>
+              <div class="charger-card-info">
+                <div class="charger-card-top">
+                  <span class="charger-card-name">Carregador 2</span>
+                  <span class="charger-card-dot" data-status="error"></span>
+                </div>
+                <div class="charger-card-power-row">
+                  <span class="charger-card-power">50</span>
+                  <span class="charger-card-kw">kW</span>
+                  <span class="charger-card-connector">CCS2</span>
+                </div>
+                <span class="charger-card-avail" data-status="error">Ocupado</span>
+              </div>
+            </div>
+            <div class="charger-card" onclick="selectCharger(2)" role="button" aria-pressed="false">
+              <div class="charger-card-icon-wrap">
+                <i data-lucide="cable" width="22" height="22"></i>
+              </div>
+              <div class="charger-card-info">
+                <div class="charger-card-top">
+                  <span class="charger-card-name">Carregador 3</span>
+                  <span class="charger-card-dot" data-status="success"></span>
+                </div>
+                <div class="charger-card-power-row">
+                  <span class="charger-card-power">22</span>
+                  <span class="charger-card-kw">kW</span>
+                  <span class="charger-card-connector">Tipo 2</span>
+                </div>
+                <span class="charger-card-avail" data-status="success">Disponível</span>
+              </div>
+            </div>
+            <div class="charger-card" onclick="selectCharger(3)" role="button" aria-pressed="false">
+              <div class="charger-card-icon-wrap">
+                <i data-lucide="cable" width="22" height="22"></i>
+              </div>
+              <div class="charger-card-info">
+                <div class="charger-card-top">
+                  <span class="charger-card-name">Carregador 4</span>
+                  <span class="charger-card-dot" data-status="warning"></span>
+                </div>
+                <div class="charger-card-power-row">
+                  <span class="charger-card-power">44</span>
+                  <span class="charger-card-kw">kW</span>
+                  <span class="charger-card-connector">CHAdeMO</span>
+                </div>
+                <span class="charger-card-avail" data-status="warning">Reservado</span>
+              </div>
+            </div>
           </div>
-
-          <div class="charger-card" onclick="selectCharger(1)" role="button" aria-pressed="false">
-            <span class="charger-card-connector">CCS2</span>
-            <span class="charger-card-power">50</span>
-            <span class="charger-card-kw">kW</span>
-            <span class="charger-status" data-status="error"><span class="charger-status-dot"></span>Ocupado</span>
+          <div class="charger-pagination" id="charger-pagination">
+            <span class="charger-pagination-dot active"></span>
+            <span class="charger-pagination-dot"></span>
+            <span class="charger-pagination-dot"></span>
+            <span class="charger-pagination-dot"></span>
           </div>
-
-          <div class="charger-card" onclick="selectCharger(2)" role="button" aria-pressed="false">
-            <span class="charger-card-connector">Tipo 2</span>
-            <span class="charger-card-power">22</span>
-            <span class="charger-card-kw">kW</span>
-            <span class="charger-status" data-status="success"><span class="charger-status-dot"></span>Disponível</span>
-          </div>
-
-          <div class="charger-card" onclick="selectCharger(3)" role="button" aria-pressed="false">
-            <span class="charger-card-connector">CHAdeMO</span>
-            <span class="charger-card-power">44</span>
-            <span class="charger-card-kw">kW</span>
-            <span class="charger-status" data-status="warning"><span class="charger-status-dot"></span>Reservado</span>
-          </div>
-
         </div>
-      </div>
 
-      <!-- Detalhe do carregador selecionado -->
-      <div>
-        <p class="sheet-section-label">Detalhes</p>
-        <div class="detail-rows" id="detail-rows">
+        <div class="detail-rows" style="margin:20px;">
           <div class="detail-row">
-            <span class="detail-label">Status</span>
-            <span class="charger-status" data-status="success" id="detail-status"><span class="charger-status-dot"></span>Disponível</span>
+            <span class="detail-label">Valor por kWh</span>
+            <span class="detail-value-brand" id="detail-price">R$ 1,89</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Conector</span>
-            <span class="detail-value" id="detail-connector">CCS2</span>
+            <span class="detail-label">Taxa de ociosidade (por min)</span>
+            <span class="detail-value" id="detail-idle">R$ 0,50</span>
           </div>
           <div class="detail-row">
-            <span class="detail-label">Potência</span>
-            <span class="detail-value" id="detail-power">50 kW</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Preço</span>
-            <span class="detail-value-brand" id="detail-price">R$ 1,89 / kWh</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Ociosidade</span>
-            <span class="detail-value" id="detail-idle">R$ 0,50 / min (após 5 min)</span>
-          </div>
-          <div class="detail-row">
-            <span class="detail-label">Reserva</span>
-            <span class="detail-value" id="detail-reserve">R$ 2,00 · até 30 min</span>
+            <span class="detail-label">Horário de funcionamento</span>
+            <span class="detail-value" id="detail-hours">24 horas</span>
           </div>
         </div>
-      </div>
 
-    </div><!-- /map-sheet-scroll -->
+      </div><!-- /modalBody -->
 
-    <!-- Botões fixos no rodapé do sheet -->
-    <div class="botoes-sheet">
-      <div class="sheet-actions">
-        <button class="btn secondary" id="btn-rota" onclick="openMapsSheet()" type="button">
-          <i data-lucide="navigation" width="16" height="16"></i>
-          Traçar Rota
+      <div class="botoes-sheet">
+        <div class="sheet-actions">
+          <button class="btn secondary" id="btn-rota" onclick="openMapsSheet()" type="button">
+            <i data-lucide="navigation" width="16" height="16"></i>
+            Traçar Rota
+          </button>
+          <button class="btn ghost" id="btn-reservar" onclick="router.push('jornada-1-4-9-reserva-confirmar')" type="button">
+            <i data-lucide="calendar" width="16" height="16"></i>
+            Reservar
+          </button>
+        </div>
+        <button class="btn primary full-width" id="btn-recarga" onclick="router.push('jornada-1-4-5-recarga-metodo')" type="button">
+          <i data-lucide="zap" width="16" height="16"></i>
+          Iniciar Recarga
         </button>
-        <button class="btn ghost" id="btn-reservar" onclick="router.push('jornada-1-4-9-reserva-confirmar')" type="button">
-          <i data-lucide="calendar" width="16" height="16"></i>
-          Reservar
-        </button>
       </div>
-      <button class="btn primary full-width" id="btn-recarga" onclick="router.push('jornada-1-4-5-recarga-metodo')" type="button">
-        <i data-lucide="zap" width="16" height="16"></i>
-        Iniciar Recarga
-      </button>
-    </div>
 
-  </div><!-- /map-sheet-panel -->
+    </div><!-- /modal -->
+  </div><!-- /map-modal-overlay -->
 
   <!-- ── Action sheet: Traçar Rota ──────────────────────── -->
   <div class="action-sheet-overlay" id="maps-overlay" hidden>
@@ -267,81 +265,56 @@
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
 
     var CHARGERS = [
-      { connector: 'CCS2',    power: '50 kW',  status: 'success', statusLabel: 'Disponível', price: 'R$ 1,89 / kWh', idle: 'R$ 0,50 / min (após 5 min)', reserve: 'R$ 2,00 · até 30 min',  canCharge: true,  canReserve: true  },
-      { connector: 'CCS2',    power: '50 kW',  status: 'error',   statusLabel: 'Ocupado',    price: 'R$ 1,89 / kWh', idle: 'R$ 0,50 / min (após 5 min)', reserve: '—',                      canCharge: false, canReserve: false },
-      { connector: 'Tipo 2',  power: '22 kW',  status: 'success', statusLabel: 'Disponível', price: 'R$ 1,49 / kWh', idle: '—',                          reserve: '—',                      canCharge: true,  canReserve: false },
-      { connector: 'CHAdeMO', power: '44 kW',  status: 'warning', statusLabel: 'Reservado',  price: 'R$ 1,79 / kWh', idle: 'R$ 0,50 / min (após 5 min)', reserve: 'R$ 2,00 · até 30 min',  canCharge: false, canReserve: false },
+      { price: 'R$ 1,89', idle: 'R$ 0,50', hours: '24 horas', canCharge: true,  canReserve: true  },
+      { price: 'R$ 1,89', idle: 'R$ 0,50', hours: '24 horas', canCharge: false, canReserve: false },
+      { price: 'R$ 1,49', idle: '—',        hours: '24 horas', canCharge: true,  canReserve: false },
+      { price: 'R$ 1,79', idle: 'R$ 0,50', hours: '24 horas', canCharge: false, canReserve: false },
     ];
 
     function selectCharger(index) {
-      var cards = document.querySelectorAll('.charger-card');
-      cards.forEach(function(c, i) {
+      document.querySelectorAll('.charger-card').forEach(function(c, i) {
         c.classList.toggle('active', i === index);
         c.setAttribute('aria-pressed', i === index ? 'true' : 'false');
       });
-
+      document.querySelectorAll('.charger-pagination-dot').forEach(function(d, i) {
+        d.classList.toggle('active', i === index);
+      });
       var c = CHARGERS[index];
-      var statusEl = document.getElementById('detail-status');
-      statusEl.dataset.status = c.status;
-      statusEl.querySelector('.charger-status-dot').nextSibling.textContent = c.statusLabel;
-
-      document.getElementById('detail-connector').textContent = c.connector;
-      document.getElementById('detail-power').textContent = c.power;
       document.getElementById('detail-price').textContent = c.price;
       document.getElementById('detail-idle').textContent = c.idle;
-      document.getElementById('detail-reserve').textContent = c.reserve;
-
+      document.getElementById('detail-hours').textContent = c.hours;
       document.getElementById('btn-recarga').disabled = !c.canCharge;
       document.getElementById('btn-reservar').hidden = !c.canReserve;
     }
 
-    /* ── Drag-to-scroll no carrossel (desktop) ── */
     (function() {
       var el = document.getElementById('charger-carousel');
-      var isDown = false, startX, scrollLeft, moved = false;
-
+      var isDown = false, startX, scrollLeft;
       el.style.cursor = 'grab';
-
       el.addEventListener('mousedown', function(e) {
-        isDown = true;
-        moved = false;
-        el.style.cursor = 'grabbing';
-        startX = e.pageX - el.offsetLeft;
-        scrollLeft = el.scrollLeft;
+        isDown = true; el.style.cursor = 'grabbing';
+        startX = e.pageX - el.offsetLeft; scrollLeft = el.scrollLeft;
       });
-
       el.addEventListener('mouseleave', function() { isDown = false; el.style.cursor = 'grab'; });
-
       el.addEventListener('mouseup', function() {
-        isDown = false;
-        el.style.cursor = 'grab';
-        /* Snap suave para o card mais próximo */
+        isDown = false; el.style.cursor = 'grab';
         var cards = el.querySelectorAll('.charger-card');
         var closest = null, minDist = Infinity;
         cards.forEach(function(card) {
           var dist = Math.abs(card.offsetLeft - el.scrollLeft);
           if (dist < minDist) { minDist = dist; closest = card; }
         });
-        if (closest) {
-          el.scrollTo({ left: closest.offsetLeft - 16, behavior: 'smooth' });
-        }
+        if (closest) el.scrollTo({ left: closest.offsetLeft - 16, behavior: 'smooth' });
       });
-
       el.addEventListener('mousemove', function(e) {
         if (!isDown) return;
         e.preventDefault();
-        moved = true;
-        var x = e.pageX - el.offsetLeft;
-        el.scrollLeft = scrollLeft - (x - startX);
+        el.scrollLeft = scrollLeft - (e.pageX - el.offsetLeft - startX);
       });
     })();
 
-    function openMapsSheet() {
-      document.getElementById('maps-overlay').removeAttribute('hidden');
-    }
-    function closeMapsSheet() {
-      document.getElementById('maps-overlay').setAttribute('hidden', '');
-    }
+    function openMapsSheet() { document.getElementById('maps-overlay').removeAttribute('hidden'); }
+    function closeMapsSheet() { document.getElementById('maps-overlay').setAttribute('hidden', ''); }
   </script>
   <script>lucide.createIcons();</script>
 

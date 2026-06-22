@@ -1,57 +1,42 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Perfil — Althus</title>
+  <title>Menu — Althus</title>
   <link rel="stylesheet" href="../../storybook-app/src/tokens/tokens.css" />
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/AppBar/AppBar.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/Avatar/Avatar.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/BottomNav/BottomNav.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/NotificationBadge/NotificationBadge.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/Button/Button.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
-<body class="layout-screen">
+<body class="layout-screen has-bottom-nav menu-screen">
 
-  <header class="appBar">
-    <div class="appBarSide appBarSideLeft"></div>
-    <span class="appBarTitle">Perfil</span>
-    <div class="appBarSide appBarSideRight"></div>
-  </header>
+  <main class="scroll-area">
 
-  <div class="screen-content" style="padding-top: 0; overflow-y: auto; scrollbar-width: none;">
+    <span class="menu-page-title" style="padding-top: 60px;  display: flow;  text-align: center;">Menu</span>
 
-    <!-- Avatar + dados do usuário -->
-    <div class="profile-header">
-      <div class="avatar md profile-avatar-lg" aria-hidden="true">
-        <span class="avatarInitials">JB</span>
-      </div>
-      <span class="profile-name">João Batista</span>
-      <span class="profile-email">joao@email.com</span>
-    </div>
+    <div class="settings-group settings-group--split">
 
-    <!-- Grupo principal -->
-    <div class="settings-group">
       <button class="settings-item" type="button"
-              onclick="router.push('jornada-1-7-2-configuracoes')"
-              aria-label="Configurações">
+              onclick="router.push('jornada-1-7-6-notificacoes')"
+              aria-label="Notificações — 3 novas">
         <span class="settings-item-icon">
-          <i data-lucide="settings" width="16" height="16"></i>
+          <i data-lucide="bell" width="16" height="16"></i>
         </span>
-        <span class="settings-item-label">Configurações</span>
+        <span class="settings-item-label">Notificações</span>
+        <span class="settings-item-badge" aria-hidden="true">3</span>
         <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
       </button>
+
       <button class="settings-item" type="button"
-              onclick="router.push('jornada-1-7-8-editar-perfil')"
-              aria-label="Editar perfil">
+              onclick="router.push('jornada-1-5-1-historico-lista')"
+              aria-label="Histórico">
         <span class="settings-item-icon">
-          <i data-lucide="user-pen" width="16" height="16"></i>
+          <i data-lucide="history" width="16" height="16"></i>
         </span>
-        <span class="settings-item-label">Editar perfil</span>
+        <span class="settings-item-label">Histórico</span>
         <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
       </button>
+
       <button class="settings-item" type="button"
               onclick="router.push('jornada-1-7-9-meus-veiculos')"
               aria-label="Meus veículos">
@@ -61,73 +46,55 @@
         <span class="settings-item-label">Meus veículos</span>
         <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
       </button>
+
       <button class="settings-item" type="button"
-              onclick="router.push('jornada-1-7-reservas')"
-              aria-label="Minhas reservas">
+              onclick="router.push('jornada-1-7-8-editar-perfil')"
+              aria-label="Perfil">
         <span class="settings-item-icon">
-          <i data-lucide="calendar" width="16" height="16"></i>
+          <i data-lucide="user" width="16" height="16"></i>
         </span>
-        <span class="settings-item-label">Minhas reservas</span>
+        <span class="settings-item-label">Perfil</span>
         <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
       </button>
-    </div>
 
-    <!-- Grupo destrutivo -->
-    <div class="settings-group">
-      <button class="settings-item settings-item--destructive" type="button"
-              onclick="router.push('jornada-1-7-10-excluir-conta')"
-              aria-label="Excluir conta">
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-2-configuracoes')"
+              aria-label="Configurações">
         <span class="settings-item-icon">
-          <i data-lucide="trash-2" width="16" height="16"></i>
+          <i data-lucide="settings" width="16" height="16"></i>
         </span>
-        <span class="settings-item-label">Excluir conta</span>
+        <span class="settings-item-label">Configurações</span>
         <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
       </button>
+
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-ajuda')"
+              aria-label="Ajuda">
+        <span class="settings-item-icon">
+          <i data-lucide="help-circle" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Ajuda</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+
+      <button class="settings-item" type="button"
+              onclick="router.push('jornada-1-7-chat')"
+              aria-label="Chat">
+        <span class="settings-item-icon">
+          <i data-lucide="message-circle" width="16" height="16"></i>
+        </span>
+        <span class="settings-item-label">Chat</span>
+        <i data-lucide="chevron-right" width="16" height="16" class="settings-item-chevron"></i>
+      </button>
+
     </div>
 
-    <!-- Alterar senha + Sair -->
-    <button class="btn secondary full-width" type="button"
-            onclick="router.push('jornada-1-13-alterar-senha-1')">
-      <i data-lucide="lock" width="16" height="16"></i>
-      Alterar senha
-    </button>
-    <button class="btn secondary full-width" type="button"
-            onclick="router.replace('jornada-1-2-1-login')">
-      <i data-lucide="log-out" width="16" height="16"></i>
-      Sair
-    </button>
-
-  </div>
-
-  <!-- ── Bottom navigation ─────────────────────────── -->
-  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
-    <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
-      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
-      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
-      <span class="navIcon">
-        <span class="wrap">
-          <i data-lucide="bell" width="22" height="22"></i>
-          <span class="badge">3</span>
-        </span>
-      </span>
-    </button>
-    <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
-      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem navActive" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil" aria-current="page">
-      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
-    </button>
-  </nav>
+  </main>
 
   <script>
     var router = (window.parent && window.parent.router)
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
-
   </script>
   <script>lucide.createIcons();</script>
 

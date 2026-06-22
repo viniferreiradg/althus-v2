@@ -9,27 +9,24 @@
   <link rel="stylesheet" href="../../storybook-app/src/components/FAB/FAB.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/MapPin/MapPin.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/UserPin/UserPin.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/SearchBar/SearchBar.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/VehicleChip/VehicleChip.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/Chip/Chip.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/RangeSlider/RangeSlider.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/Button/Button.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/BottomNav/BottomNav.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/NotificationBadge/NotificationBadge.module.css" />
+  <link rel="stylesheet" href="../../storybook-app/src/components/Modal/Modal.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body class="layout-fullbleed map-bg-dark">
 
-  <!-- ── Pins layer (offset para ficar abaixo do painel) ── -->
-  <div class="map-pins-layer map-pins-layer--offset" id="map-pins-layer">
+  <!-- ── Pins layer ────────────────────────────────────────── -->
+  <div class="map-pins-layer" id="map-pins-layer">
 
-    <!-- Marcador de posição do usuário -->
     <div class="map-user-pin userPin pulse" role="img" aria-label="Sua localização">
       <span class="pingRing" aria-hidden="true"></span>
       <i data-lucide="user" width="18" height="18"></i>
     </div>
 
-    <!-- Distributor pins -->
     <div class="map-pin-pos-1 pin-tupi">
       <svg class="mapPin md distributor" viewBox="0 0 24 24" fill="none" aria-label="TUPI">
         <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -49,7 +46,6 @@
       </svg>
     </div>
 
-    <!-- Althus pins -->
     <div class="map-pin-center">
       <svg class="mapPin md brand" viewBox="0 0 24 24" fill="none" aria-label="Auto Shopping Eixo">
         <path class="pinBody" d="M12.601 21.799C14.461 20.193 20 14.993 20 10C20 7.87827 19.1571 5.84344 17.6569 4.34315C16.1566 2.84285 14.1217 2 12 2C9.87827 2 7.84344 2.84285 6.34315 4.34315C4.84285 5.84344 4 7.87827 4 10C4 14.993 9.539 20.193 11.399 21.799C11.5723 21.9293 11.7832 21.9998 12 21.9998C12.2168 21.9998 12.4277 21.9293 12.601 21.799Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -65,114 +61,102 @@
 
   </div>
 
-  <!-- ── Top overlay: busca + chips ───────────────────── -->
-  <div class="map-top-overlay">
-    <button class="searchBar" type="button" aria-label="Buscar estação de recarga">
-      <i data-lucide="search" width="18" height="18" class="icon"></i>
-      <span class="placeholder">Buscar estação de recarga</span>
-    </button>
-    <div class="map-chips-row">
-      <button class="vehicleChip" type="button"
-              aria-label="Veículo selecionado: Tesla Model Y. Toque para trocar."
-              onclick="router.push('jornada-1-14-1-veiculos-lista')">
-        <span class="iconWrap"><i data-lucide="car" width="16" height="16"></i></span>
-        <span class="name">Tesla Model Y</span>
-        <i data-lucide="chevron-down" width="14" height="14" class="chevron"></i>
-      </button>
-      <button class="stationsChip" type="button" aria-label="Ver lista de estações"
-              onclick="router.push('jornada-1-4-lista-postos')">
-        <i data-lucide="list" width="14" height="14"></i>
-        Estações
-      </button>
-      <button class="fab md" type="button" aria-label="Filtros de busca" aria-pressed="true">
-        <i data-lucide="sliders-horizontal" width="16" height="16"></i>
-      </button>
-    </div>
-  </div>
+  <!-- ── Top overlay ───────────────────────────────────── -->
+  <div class="map-top-overlay"></div>
 
-  <!-- ── Filter panel ─────────────────────────────────── -->
-  <div class="map-filter-card" role="dialog" aria-label="Filtros do mapa">
+  <!-- ── Modal sobre o mapa ────────────────────────────── -->
+  <div class="map-modal-overlay">
+    <div class="modal">
 
-    <div class="map-filter-header">
-      <span class="map-filter-title">Filtros</span>
-      <button class="map-filter-close" type="button" aria-label="Fechar filtros"
-              onclick="router.pop()">
-        <i data-lucide="x" width="16" height="16"></i>
-      </button>
-    </div>
-
-    <div class="map-filter-body">
-
-      <!-- Tipo de conector -->
-      <div>
-        <div class="map-filter-section-label">Tipo de conector</div>
-        <div class="chipGroup">
-          <label class="chip"><input type="checkbox" value="ccs2" checked />CCS2</label>
-          <label class="chip"><input type="checkbox" value="chademo" />CHAdeMO</label>
-          <label class="chip"><input type="checkbox" value="tipo2" />Tipo 2</label>
-          <label class="chip"><input type="checkbox" value="ccs1" />CCS1</label>
+      <div class="modalHeader">
+        <div class="modalHeaderStart">
+          <button class="modalNavBtn" onclick="router.pop()" aria-label="Voltar">
+            <i data-lucide="chevron-left" width="20" height="20"></i>
+          </button>
+        </div>
+        <div class="modalHeaderCenter">
+          <h2 class="modalTitle">Filtros</h2>
+        </div>
+        <div class="modalHeaderEnd">
+          <button class="modalNavBtn" onclick="router.pop()" aria-label="Fechar">
+            <i data-lucide="x" width="18" height="18"></i>
+          </button>
         </div>
       </div>
 
-      <!-- Potência (range slider) -->
-      <div>
-        <div class="rangeSlider">
-          <div class="rangeHeader">
-            <span class="rangeLabel">Potência</span>
-            <span class="rangeValue" id="range-value-label">50 – 250 kW</span>
+      <div class="modalBody">
+
+        <!-- Tipo de conector -->
+        <div>
+          <p class="sheet-section-label">Tipo de conector</p>
+          <div class="chipGroup">
+            <label class="chip"><input type="checkbox" value="ccs2" checked />CCS2</label>
+            <label class="chip"><input type="checkbox" value="chademo" />CHAdeMO</label>
+            <label class="chip"><input type="checkbox" value="tipo2" />Tipo 2</label>
+            <label class="chip"><input type="checkbox" value="ccs1" />CCS1</label>
           </div>
-          <div class="rangeTrackWrap">
-            <div class="rangeTrack">
-              <div class="rangeFill" id="range-fill"></div>
+        </div>
+
+        <!-- Potência -->
+        <div>
+          <div class="rangeSlider">
+            <div class="rangeHeader">
+              <span class="rangeLabel">Potência</span>
+              <span class="rangeValue" id="range-value-label">50 – 250 kW</span>
             </div>
-            <input type="range" class="rangeInput" id="range-min"
-                   min="0" max="350" step="10" value="50" aria-label="Potência mínima" />
-            <input type="range" class="rangeInput" id="range-max"
-                   min="0" max="350" step="10" value="250" aria-label="Potência máxima" />
+            <div class="rangeTrackWrap">
+              <div class="rangeTrack">
+                <div class="rangeFill" id="range-fill"></div>
+              </div>
+              <input type="range" class="rangeInput" id="range-min"
+                     min="0" max="350" step="10" value="50" aria-label="Potência mínima" />
+              <input type="range" class="rangeInput" id="range-max"
+                     min="0" max="350" step="10" value="250" aria-label="Potência máxima" />
+            </div>
           </div>
         </div>
-      </div>
 
-      <!-- Disponibilidade -->
-      <div>
-        <div class="map-filter-section-label">Disponibilidade</div>
-        <div class="chipGroup">
-          <label class="chip">
-            <input type="checkbox" value="disponivel" checked />
-            <i data-lucide="zap" width="14" height="14"></i>
-            Disponível
-          </label>
-          <label class="chip"><input type="checkbox" value="em-uso" />Em uso</label>
-          <label class="chip"><input type="checkbox" value="manutencao" />Manutenção</label>
+        <!-- Disponibilidade -->
+        <div>
+          <p class="sheet-section-label">Disponibilidade</p>
+          <div class="chipGroup">
+            <label class="chip">
+              <input type="checkbox" value="disponivel" checked />
+              <i data-lucide="zap" width="14" height="14"></i>
+              Disponível
+            </label>
+            <label class="chip"><input type="checkbox" value="em-uso" />Em uso</label>
+            <label class="chip"><input type="checkbox" value="manutencao" />Manutenção</label>
+          </div>
+        </div>
+
+        <!-- Rede -->
+        <div>
+          <p class="sheet-section-label">Rede</p>
+          <div class="chipGroup">
+            <label class="chip"><input type="checkbox" value="althus" checked />Althus</label>
+            <label class="chip"><input type="checkbox" value="tupi" />TUPI</label>
+            <label class="chip"><input type="checkbox" value="dcc" />DCC</label>
+          </div>
+        </div>
+
+      </div><!-- /modalBody -->
+
+      <div class="botoes-sheet">
+        <div class="sheet-actions">
+          <button class="btn secondary" type="button" onclick="clearFilters()">Limpar</button>
+          <button class="btn primary" type="button" onclick="router.pop()">Aplicar</button>
         </div>
       </div>
 
-      <!-- Rede -->
-      <div>
-        <div class="map-filter-section-label">Rede</div>
-        <div class="chipGroup">
-          <label class="chip"><input type="checkbox" value="althus" checked />Althus</label>
-          <label class="chip"><input type="checkbox" value="tupi" />TUPI</label>
-          <label class="chip"><input type="checkbox" value="dcc" />DCC</label>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- Ações -->
-    <div class="map-filter-footer">
-      <button class="btn secondary" type="button" onclick="clearFilters()">Limpar</button>
-      <button class="btn primary" type="button" onclick="router.pop()">Aplicar</button>
-    </div>
-
-  </div>
+    </div><!-- /modal -->
+  </div><!-- /map-modal-overlay -->
 
   <script>
     var router = (window.parent && window.parent.router)
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
 
-    /* ── Range slider ── */
     var rangeMin   = document.getElementById('range-min');
     var rangeMax   = document.getElementById('range-max');
     var rangeFill  = document.getElementById('range-fill');
@@ -199,9 +183,8 @@
     rangeMax.addEventListener('input', updateSlider);
     updateSlider();
 
-    /* ── Limpar filtros ── */
     function clearFilters() {
-      document.querySelectorAll('.map-filter-body input[type="checkbox"]').forEach(function(cb) {
+      document.querySelectorAll('.modalBody input[type="checkbox"]').forEach(function(cb) {
         cb.checked = false;
       });
       rangeMin.value = 0;
@@ -209,30 +192,6 @@
       updateSlider();
     }
   </script>
-  <!-- ── Bottom navigation ─────────────────────────── -->
-  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
-    <button class="navItem navActive" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa" aria-current="page">
-      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
-      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
-      <span class="navIcon">
-        <span class="wrap">
-          <i data-lucide="bell" width="22" height="22"></i>
-          <span class="badge">3</span>
-        </span>
-      </span>
-    </button>
-    <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
-      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil">
-      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
-    </button>
-  </nav>
-
   <script>lucide.createIcons();</script>
 
 </body>

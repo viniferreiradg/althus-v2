@@ -32,25 +32,35 @@ const router = (() => {
     'jornada-1-4-lista-postos': 'pontos',
     'jornada-1-4-3-filtros-mapa': 'mapa',
     'jornada-1-4-3-map-device': 'mapa', 'jornada-1-4-4-map-filters': 'mapa',
-    'jornada-1-4-5-recarga-metodo': 'mapa', 'jornada-1-4-6-recarga-pagamento': 'mapa',
-    'jornada-1-4-7-recarga-andamento': 'mapa', 'jornada-1-4-8-recarga-avaliacao': 'mapa',
+    'jornada-1-4-6-recarga-pagamento': 'mapa', 'jornada-1-4-6c-forma-pagamento': 'mapa',
+    'jornada-1-4-7-recarga-andamento': 'mapa', 'jornada-1-4-7-recarga-detalhes': 'mapa',
+    'jornada-1-4-8-recarga-avaliacao': 'mapa',
     'jornada-1-4-9-reserva-agendar': 'mapa', 'jornada-1-4-10-reserva-pagamento': 'mapa',
     'jornada-1-4-11-reserva-confirmada': 'mapa',
     'jornada-1-5-pontos-recarga': 'pontos',
     'jornada-1-5-pontos-recargas': 'pontos',
     'jornada-1-5-pontos-avaliacoes': 'pontos',
     'jornada-1-5-reserva-detalhe': 'pontos',
-    'notificacoes': 'notificacoes',
     'jornada-1-6-1-carteira': 'carteira', 'jornada-1-6-2-carteira-pix': 'carteira',
     'jornada-1-6-3-carteira-pix-qr': 'carteira', 'jornada-1-6-4-extrato': 'carteira',
     'jornada-1-6-5-cupons': 'carteira', 'jornada-1-6-5-1-cupom-codigo': 'carteira',
     'jornada-1-6-6-1-cartao-detalhe': 'carteira', 'jornada-1-6-6-2-cartao-adicionar': 'carteira',
+    'jornada-1-5-1-historico-lista': 'perfil', 'jornada-1-5-2-historico-carteira': 'perfil',
+    'jornada-1-5-3-historico-detalhe': 'perfil',
     'jornada-1-7-1-perfil': 'perfil', 'jornada-1-7-2-configuracoes': 'perfil',
-    'jornada-1-7-3-notificacoes': 'perfil', 'jornada-1-7-4-tema': 'perfil',
+    'jornada-1-7-3-notificacoes': 'perfil', 'jornada-1-7-6-notificacoes': 'perfil',
+    'jornada-1-7-4-tema': 'perfil',
     'jornada-1-7-5-termos': 'perfil', 'jornada-1-7-7-sobre': 'perfil',
     'jornada-1-7-8-editar-perfil': 'perfil', 'jornada-1-7-9-meus-veiculos': 'perfil',
     'jornada-1-7-9-1-veiculo-detalhe': 'perfil', 'jornada-1-7-9-2-veiculo-criar': 'perfil',
     'jornada-1-7-9-2-veiculo-editar': 'perfil', 'jornada-1-7-10-excluir-conta': 'perfil',
+    'jornada-1-7-reservas': 'perfil', 'jornada-1-9-cancelar-reserva': 'perfil',
+    'jornada-1-7-veiculo-manual': 'perfil',
+    'jornada-1-14-veiculo-ok': 'perfil', 'jornada-1-15-remover-veiculo': 'perfil',
+    'jornada-1-15-veiculo-removido': 'perfil', 'jornada-1-16-veiculo-editado': 'perfil',
+    'jornada-1-13-alterar-senha-1': 'perfil', 'jornada-1-13-alterar-senha-2': 'perfil',
+    'jornada-1-13-alterar-senha-ok': 'perfil',
+    'jornada-1-7-seguranca': 'perfil', 'jornada-1-7-2fa': 'perfil',
   };
 
   const DURATION = 300;
@@ -92,16 +102,14 @@ const router = (() => {
   function updateBottomNav(screenId) {
     const nav = $bottomNav();
     if (!nav) return;
-    if (ONBOARDING.has(screenId)) {
-      nav.hidden = true;
-    } else {
+    const tab = TAB_MAP[screenId];
+    if (tab) {
       nav.hidden = false;
-      const tab = TAB_MAP[screenId];
-      if (tab) {
-        nav.querySelectorAll('[data-tab]').forEach(btn => {
-          btn.classList.toggle('navActive', btn.dataset.tab === tab);
-        });
-      }
+      nav.querySelectorAll('[data-tab]').forEach(btn => {
+        btn.classList.toggle('navActive', btn.dataset.tab === tab);
+      });
+    } else {
+      nav.hidden = true;
     }
   }
 

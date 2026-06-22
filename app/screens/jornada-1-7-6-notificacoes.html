@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Notificações — Althus</title>
+  <link rel="stylesheet" href="../../storybook-app/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook-app/src/components/AppBar/AppBar.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen has-bottom-nav">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Notificações</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <div class="notif-header">
+    <button class="notif-mark-read" type="button" onclick="markAllRead()">
+      Marcar todas como lidas
+    </button>
+  </div>
+
+  <main class="scroll-area">
+    <div class="notif-list">
+
+      <div class="notif-item notif-item--unread">
+        <span class="notif-item__dot" aria-hidden="true"></span>
+        <div class="notif-item__body">
+          <div class="notif-item__row">
+            <span class="notif-item__title">Recarga concluída</span>
+            <span class="notif-item__time">agora</span>
+          </div>
+          <span class="notif-item__desc">Sua recarga no Shopping Iguatemi foi finalizada com sucesso.</span>
+        </div>
+      </div>
+
+      <div class="notif-item notif-item--unread">
+        <span class="notif-item__dot" aria-hidden="true"></span>
+        <div class="notif-item__body">
+          <div class="notif-item__row">
+            <span class="notif-item__title">Promoção especial</span>
+            <span class="notif-item__time">10 min</span>
+          </div>
+          <span class="notif-item__desc">20% off na próxima recarga em estações parceiras.</span>
+        </div>
+      </div>
+
+      <div class="notif-item notif-item--unread">
+        <span class="notif-item__dot" aria-hidden="true"></span>
+        <div class="notif-item__body">
+          <div class="notif-item__row">
+            <span class="notif-item__title">Nova estação disponível</span>
+            <span class="notif-item__time">1 h</span>
+          </div>
+          <span class="notif-item__desc">Estação Higienópolis acaba de ser inaugurada perto de você.</span>
+        </div>
+      </div>
+
+      <div class="notif-item">
+        <span class="notif-item__dot" aria-hidden="true"></span>
+        <div class="notif-item__body">
+          <div class="notif-item__row">
+            <span class="notif-item__title">Pagamento aprovado</span>
+            <span class="notif-item__time">ontem</span>
+          </div>
+          <span class="notif-item__desc">Recarga de R$ 42,30 paga via Pix.</span>
+        </div>
+      </div>
+
+      <div class="notif-item">
+        <span class="notif-item__dot" aria-hidden="true"></span>
+        <div class="notif-item__body">
+          <div class="notif-item__row">
+            <span class="notif-item__title">Atualização do app</span>
+            <span class="notif-item__time">2 dias</span>
+          </div>
+          <span class="notif-item__desc">Confira as novidades da última versão do Althus.</span>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+
+    function markAllRead() {
+      document.querySelectorAll('.notif-item--unread').forEach(function(el) {
+        el.classList.remove('notif-item--unread');
+      });
+    }
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

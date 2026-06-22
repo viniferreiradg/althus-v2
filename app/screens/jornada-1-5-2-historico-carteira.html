@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Histórico — Althus</title>
+  <link rel="stylesheet" href="../../storybook-app/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../../shared/page-mobile.css" />
+  <link rel="stylesheet" href="../../storybook-app/src/components/AppBar/AppBar.module.css" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+</head>
+<body class="layout-screen has-bottom-nav">
+
+  <header class="appBar">
+    <div class="appBarSide appBarSideLeft">
+      <button class="appBarIconBtn" onclick="router.pop()" aria-label="Voltar">
+        <i data-lucide="chevron-left" width="24" height="24"></i>
+      </button>
+    </div>
+    <span class="appBarTitle">Histórico</span>
+    <div class="appBarSide appBarSideRight"></div>
+  </header>
+
+  <!-- Abas -->
+  <div class="hist-tabs" role="tablist">
+    <button class="hist-tab" role="tab" aria-selected="false"
+            onclick="router.replace('jornada-1-5-1-historico-lista')">Recargas</button>
+    <button class="hist-tab hist-tab--active" role="tab" aria-selected="true">Carteira</button>
+  </div>
+
+  <main class="scroll-area">
+    <div class="hist-list">
+
+      <div class="hist-item">
+        <span class="hist-item__icon hist-item__icon--in">
+          <i data-lucide="arrow-down-left" width="16" height="16"></i>
+        </span>
+        <div class="hist-item__body">
+          <span class="hist-item__name">Depósito via Pix</span>
+          <span class="hist-item__meta">28/05/2026</span>
+        </div>
+        <span class="hist-item__price hist-item__price--in">+R$ 100,00</span>
+      </div>
+
+      <div class="hist-item">
+        <span class="hist-item__icon hist-item__icon--out">
+          <i data-lucide="arrow-up-right" width="16" height="16"></i>
+        </span>
+        <div class="hist-item__body">
+          <span class="hist-item__name">Recarga — Shopping Iguatemi</span>
+          <span class="hist-item__meta">25/05/2026</span>
+        </div>
+        <span class="hist-item__price hist-item__price--out">−R$ 42,30</span>
+      </div>
+
+      <div class="hist-item">
+        <span class="hist-item__icon hist-item__icon--out">
+          <i data-lucide="arrow-up-right" width="16" height="16"></i>
+        </span>
+        <div class="hist-item__body">
+          <span class="hist-item__name">Recarga — Posto Althus Higienópolis</span>
+          <span class="hist-item__meta">22/05/2026</span>
+        </div>
+        <span class="hist-item__price hist-item__price--out">−R$ 36,80</span>
+      </div>
+
+      <div class="hist-item">
+        <span class="hist-item__icon hist-item__icon--in">
+          <i data-lucide="arrow-down-left" width="16" height="16"></i>
+        </span>
+        <div class="hist-item__body">
+          <span class="hist-item__name">Bônus de indicação</span>
+          <span class="hist-item__meta">20/05/2026</span>
+        </div>
+        <span class="hist-item__price hist-item__price--in">+R$ 20,00</span>
+      </div>
+
+      <div class="hist-item">
+        <span class="hist-item__icon hist-item__icon--out">
+          <i data-lucide="arrow-up-right" width="16" height="16"></i>
+        </span>
+        <div class="hist-item__body">
+          <span class="hist-item__name">Recarga — Shopping JK Iguatemi</span>
+          <span class="hist-item__meta">18/05/2026</span>
+        </div>
+        <span class="hist-item__price hist-item__price--out">−R$ 51,20</span>
+      </div>
+
+      <div class="hist-item">
+        <span class="hist-item__icon hist-item__icon--in">
+          <i data-lucide="arrow-down-left" width="16" height="16"></i>
+        </span>
+        <div class="hist-item__body">
+          <span class="hist-item__name">Depósito via Pix</span>
+          <span class="hist-item__meta">15/05/2026</span>
+        </div>
+        <span class="hist-item__price hist-item__price--in">+R$ 200,00</span>
+      </div>
+
+      <div class="hist-item">
+        <span class="hist-item__icon hist-item__icon--out">
+          <i data-lucide="arrow-up-right" width="16" height="16"></i>
+        </span>
+        <div class="hist-item__body">
+          <span class="hist-item__name">Recarga — Eletroposto Paulista</span>
+          <span class="hist-item__meta">10/05/2026</span>
+        </div>
+        <span class="hist-item__price hist-item__price--out">−R$ 28,90</span>
+      </div>
+
+    </div>
+  </main>
+
+  <script>
+    var router = (window.parent && window.parent.router)
+      ? window.parent.router
+      : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+  </script>
+  <script>lucide.createIcons();</script>
+
+</body>
+</html>

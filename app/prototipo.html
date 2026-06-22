@@ -7,6 +7,8 @@
 
   <!-- ── Design tokens ───────────────────────────────── -->
   <link rel="stylesheet" href="../storybook-app/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../storybook-app/src/components/BottomNav/BottomNav.module.css" />
+  <link rel="stylesheet" href="../storybook-app/src/components/NotificationBadge/NotificationBadge.module.css" />
 
   <!-- ── Router transitions ──────────────────────────── -->
   <link rel="stylesheet" href="../shared/transitions.css" />
@@ -409,6 +411,14 @@
       overflow: hidden;
     }
 
+    #bottom-nav {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+    }
+
     .appBar {
       position: relative;
       display: flex;
@@ -632,6 +642,20 @@
 
         <div id="app">
           <div id="screen-container"></div>
+          <nav id="bottom-nav" class="bottomNav" aria-label="Navegação principal" hidden>
+            <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
+              <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
+            </button>
+            <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Postos">
+              <span class="navIcon"><i data-lucide="zap" width="22" height="22"></i></span>
+            </button>
+            <button class="navItem" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira">
+              <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
+            </button>
+            <button class="navItem" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil">
+              <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
+            </button>
+          </nav>
         </div>
 
       </div>
@@ -661,18 +685,12 @@
         screens: [
           { label: 'Splash Screen', id: 'jornada-1-2-0-splash',        built: true },
           { label: 'Login',         id: 'jornada-1-2-1-login',         built: true },
-          { label: 'Cadastro',      id: 'jornada-1-2-2-cadastro-novo', built: true },
         ],
       },
       {
         label: 'RF002 — Cadastro de Usuário',
         screens: [
-          { label: 'Dados pessoais',      id: 'jornada-1-2-2-cadastro-step1',  built: true },
-          { label: 'Verificar e-mail',    id: 'jornada-1-2-3-cadastro-step2',  built: true },
-          { label: 'Verificação 2FA',     id: 'jornada-1-2-3b-cadastro-step2', built: true },
-          { label: 'Forma de pgto.',    id: 'jornada-1-2-4-cadastro-step3', built: true },
-          { label: 'Criar senha',       id: 'jornada-1-2-5-cadastro-step4', built: true },
-          { label: 'Aceitar termos',    id: 'jornada-1-2-6-cadastro-step5', built: true },
+          { label: 'Cadastro', id: 'jornada-1-2-2-cadastro-novo', built: true },
         ],
       },
       {
@@ -686,14 +704,12 @@
       {
         label: 'RF004 — Mapa de Postos',
         screens: [
-          { label: 'Map Loading',           id: 'jornada-1-4-0-map-loading',          built: true },
-          { label: 'Map Reveal',            id: 'jornada-1-4-1b-home-map-reveal',     built: true },
           { label: 'Home — Mapa',           id: 'jornada-1-4-1-home-map',             built: true },
           { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',    built: true },
           { label: 'Filtros do mapa',       id: 'jornada-1-4-3-filtros-mapa', built: true },
           { label: 'Iniciar Recarga — QR',  id: 'jornada-1-4-5-recarga-metodo',      built: true },
           { label: 'Confirmar recarga',         id: 'jornada-1-4-6-recarga-pagamento', built: true },
-          { label: 'Confirmar recarga (sem saldo)', id: 'jornada-1-4-6b-sem-saldo',  built: true },
+          { label: 'Forma de pagamento',        id: 'jornada-1-4-6c-forma-pagamento',  built: true },
           { label: 'Recarga em andamento', id: 'jornada-1-4-7-recarga-andamento',  built: true },
           { label: 'Detalhes da recarga', id: 'jornada-1-4-7-recarga-detalhes',   built: true },
           { label: 'Recarga concluída',  id: 'jornada-1-4-8-recarga-avaliacao', built: true },
@@ -714,12 +730,6 @@
         ],
       },
       {
-        label: 'RF006 — Notificações',
-        screens: [
-          { label: 'Caixa de entrada', id: 'notificacoes', built: true },
-        ],
-      },
-      {
         label: 'RF007 — Carteira',
         screens: [
           { label: 'Carteira',        id: 'jornada-1-6-1-carteira',        built: true },
@@ -731,16 +741,13 @@
         ],
       },
       {
-        label: 'RF008 — Cartões',
-        screens: [
-          { label: 'Cartão — Detalhe',   id: 'jornada-1-6-6-1-cartao-detalhe',   built: true },
-          { label: 'Cartão — Adicionar', id: 'jornada-1-6-6-2-cartao-adicionar', built: true },
-        ],
-      },
-      {
         label: 'RF010 — Perfil',
         screens: [
-          { label: 'Perfil',           id: 'jornada-1-7-1-perfil',         built: true },
+          { label: 'Menu',             id: 'jornada-1-7-1-perfil',         built: true },
+          { label: 'Notificações',     id: 'jornada-1-7-6-notificacoes',   built: true },
+          { label: 'Histórico de recargas', id: 'jornada-1-5-1-historico-lista',    built: true },
+          { label: 'Histórico de carteira', id: 'jornada-1-5-2-historico-carteira', built: true },
+          { label: 'Detalhe da recarga',    id: 'jornada-1-5-3-historico-detalhe',  built: true },
           { label: 'Editar perfil',    id: 'jornada-1-7-8-editar-perfil',  built: true },
           { label: 'Minhas reservas',   id: 'jornada-1-7-reservas',           built: true },
           { label: 'Detalhe da reserva',  id: 'jornada-1-5-reserva-detalhe',    built: true },
@@ -791,8 +798,6 @@
         screens: [
           { label: 'Splash Screen', id: 'jornada-1-2-0-splash',               built: true },
           { label: 'Login',         id: 'jornada-1-2-1-login',                built: true },
-          { label: 'Map Loading',   id: 'jornada-1-4-0-map-loading',          built: true },
-          { label: 'Map Reveal',    id: 'jornada-1-4-1b-home-map-reveal',     built: true },
         ],
       },
       {
@@ -841,7 +846,7 @@
           { label: 'Detalhe da localidade', id: 'jornada-1-4-2-map-sheet',         built: true },
           { label: 'Iniciar Recarga — QR',  id: 'jornada-1-4-5-recarga-metodo',    built: true },
           { label: 'Confirmar recarga',         id: 'jornada-1-4-6-recarga-pagamento', built: true },
-          { label: 'Confirmar (sem saldo)',     id: 'jornada-1-4-6b-sem-saldo',        built: true },
+          { label: 'Forma de pagamento',        id: 'jornada-1-4-6c-forma-pagamento',  built: true },
           { label: 'Recarga em andamento',      id: 'jornada-1-4-7-recarga-andamento', built: true },
           { label: 'Recarga concluída',     id: 'jornada-1-4-8-recarga-avaliacao', built: true },
         ],

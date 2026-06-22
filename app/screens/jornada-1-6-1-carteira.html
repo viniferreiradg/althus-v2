@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-BR" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
@@ -6,66 +6,109 @@
   <title>Carteira — Althus</title>
   <link rel="stylesheet" href="../../storybook-app/src/tokens/tokens.css" />
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/AppBar/AppBar.module.css" />
+  <link rel="stylesheet" href="../../storybook-app/src/components/CreditCard/CreditCard.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/Button/Button.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/WalletCard/WalletCard.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/BottomNav/BottomNav.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/DropdownMenu/DropdownMenu.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/NotificationBadge/NotificationBadge.module.css" />
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 </head>
 <body class="layout-screen">
 
-  <header class="appBar">
-    <div class="appBarSide appBarSideLeft"></div>
-    <span class="appBarTitle">Carteira</span>
-    <div class="appBarSide appBarSideRight">
-      <div class="dropdownMenu">
-        <button class="appBarIconBtn" aria-label="Mais opções" aria-expanded="false"
-                id="wallet-menu-trigger"
-                onclick="toggleWalletMenu()">
-          <i data-lucide="ellipsis" width="20" height="20"></i>
-        </button>
-        <div class="dropdownMenu__panel end" id="wallet-menu-panel">
-          <button class="dropdownMenu__item" onclick="closeWalletMenu(); router.push('jornada-1-6-4-extrato')">
-            <span class="dropdownMenu__item__icon"><i data-lucide="receipt-text" width="16" height="16"></i></span>
-            Ver extrato
-          </button>
-          <button class="dropdownMenu__item" onclick="closeWalletMenu(); router.push('jornada-1-6-5-cupons')">
-            <span class="dropdownMenu__item__icon"><i data-lucide="ticket-percent" width="16" height="16"></i></span>
-            Meus cupons
-          </button>
-        </div>
-      </div>
-    </div>
-  </header>
-
   <div class="wallet-screen">
 
-    <!-- WalletCard: saldo + CTA -->
-    <div class="walletCard">
-      <div class="walletCard__header">
-        <span class="walletCard__label">Saldo disponível</span>
+    <!-- ── Hero: saldo + toggle + adicionar ──────────── -->
+    <div class="carteira-hero">
+      <span class="carteira-hero__label">Saldo disponível</span>
+      <div class="carteira-hero__row">
+        <div class="carteira-hero__balance-group">
+          <span class="carteira-hero__currency">R$</span>
+          <span class="carteira-hero__amount" id="balance-display">●●●●</span>
+          <button class="carteira-hero__eye" id="eye-btn" onclick="toggleBalance()" aria-label="Mostrar saldo">
+            <i data-lucide="eye-off" width="20" height="20"></i>
+          </button>
+        </div>
+        <button class="carteira-hero__add" onclick="router.push('jornada-1-6-2-carteira-pix')" aria-label="Adicionar saldo">
+          <i data-lucide="plus" width="22" height="22"></i>
+        </button>
       </div>
-      <div class="walletCard__balance">
-        <span class="walletCard__currency">R$</span>
-        <span class="walletCard__amount">247<span class="walletCard__cents">,50</span></span>
-      </div>
-      <button class="walletCard__cta" type="button"
-              onclick="router.push('jornada-1-6-2-carteira-pix')">
-        <i data-lucide="plus" width="16" height="16"></i>
-        Adicionar saldo
-      </button>
     </div>
 
-    <!-- Últimas transações -->
+    <div class="carteira-hero__divider"></div>
+
+    <!-- ── Impacto ambiental ──────────────────────────── -->
+    <div class="carteira-impact">
+      <div class="carteira-impact__header">
+        <i data-lucide="leaf" width="14" height="14"></i>
+        <span>Seu impacto este mês</span>
+      </div>
+      <span class="carteira-impact__metric">7,3 kg de 20 kg · ganhe 15% na próxima recarga</span>
+      <div class="carteira-impact__bar"></div>
+      <p class="carteira-impact__desc">A cada recarga, somamos o CO₂ que você evitou. Chegou a 20 kg em 30 dias? Você ganha 15% de desconto na próxima recarga. O cálculo usa o fator de emissão da matriz elétrica brasileira.</p>
+    </div>
+
+    <!-- ── Carousel de cartões ────────────────────────── -->
+    <div class="carteira-cards">
+      <div class="carteira-cards__header">
+        <span class="carteira-cards__title">Seus cartões</span>
+        <button class="carteira-cards__manage" onclick="router.push('jornada-1-6-6-1-cartao-detalhe')">Gerenciar</button>
+      </div>
+
+      <div class="carteira-cards__carousel" id="cards-carousel">
+
+        <!-- Cartão 1 — Nubank Visa (fora do fold) -->
+        <div class="creditCard" id="card-0">
+          <div class="creditCard__wave"></div>
+          <div class="creditCard__top">
+            <span class="creditCard__number">●●● ●●● ●●● 4242</span>
+            <button class="creditCard__delete" aria-label="Remover cartão">
+              <i data-lucide="trash-2" width="16" height="16"></i>
+            </button>
+          </div>
+          <div class="creditCard__footer">
+            <div class="creditCard__holder">
+              <span class="creditCard__holder-label">Titular</span>
+              <span class="creditCard__holder-name">Lucas Andrade</span>
+            </div>
+            <span class="creditCard__brand">Visa</span>
+          </div>
+        </div>
+
+        <!-- Cartão 2 — Elo (visível, ativo) -->
+        <div class="creditCard" id="card-1">
+          <div class="creditCard__wave"></div>
+          <div class="creditCard__top">
+            <span class="creditCard__number">●●● ●●● ●●● 7032</span>
+            <button class="creditCard__delete" aria-label="Remover cartão">
+              <i data-lucide="trash-2" width="16" height="16"></i>
+            </button>
+          </div>
+          <div class="creditCard__footer">
+            <div class="creditCard__holder">
+              <span class="creditCard__holder-label">Titular</span>
+              <span class="creditCard__holder-name">Lucas Andrade</span>
+            </div>
+            <span class="creditCard__brand">Elo</span>
+          </div>
+        </div>
+
+        <!-- Adicionar cartão -->
+        <button class="carteira-add-card" onclick="router.push('jornada-1-6-6-2-cartao-adicionar')" aria-label="Adicionar cartão">
+          <i data-lucide="plus" width="24" height="24"></i>
+          <span>Adicionar cartão</span>
+        </button>
+
+      </div>
+
+      <div class="carteira-cards__dots" id="cards-dots">
+        <span class="carteira-cards__dot" data-index="0"></span>
+        <span class="carteira-cards__dot carteira-cards__dot--active" data-index="1"></span>
+        <span class="carteira-cards__dot" data-index="2"></span>
+      </div>
+    </div>
+
+    <!-- ── Últimas transações ─────────────────────────── --> <!--
     <div class="wallet-section">
       <div class="wallet-section__header">
         <span class="wallet-section__title">Últimas transações</span>
-        <button class="wallet-section__link" type="button"
-                onclick="router.push('jornada-1-6-4-extrato')">
-          Ver extrato
-        </button>
+        <button class="wallet-section__link" onclick="router.push('jornada-1-6-4-extrato')">Ver extrato</button>
       </div>
       <div class="transaction-list">
 
@@ -103,42 +146,7 @@
         </div>
 
       </div>
-    </div>
-
-    <!-- Meus cartões -->
-    <div class="wallet-section">
-      <div class="wallet-section__header">
-        <span class="wallet-section__title">Meus cartões</span>
-        <button class="wallet-section__link" type="button"
-                onclick="router.push('jornada-1-6-6-cartoes')">
-          Gerenciar
-        </button>
-      </div>
-      <div class="transaction-list">
-
-        <div class="payment-card-item">
-          <span class="payment-card-item__logo">VISA</span>
-          <div class="payment-card-item__info">
-            <span class="payment-card-item__name">Nubank</span>
-            <span class="payment-card-item__number">•••• •••• •••• 4242</span>
-          </div>
-          <i data-lucide="chevron-right" width="16" height="16"
-             style="color: var(--color-text-disabled);"></i>
-        </div>
-
-        <div class="payment-card-item" onclick="router.push('jornada-1-6-6-cartoes')">
-          <span class="payment-card-item__logo">
-            <i data-lucide="plus" width="14" height="14"></i>
-          </span>
-          <div class="payment-card-item__info">
-            <span class="payment-card-item__name">Adicionar cartão</span>
-          </div>
-          <i data-lucide="chevron-right" width="16" height="16"
-             style="color: var(--color-text-disabled);"></i>
-        </div>
-
-      </div>
-    </div>
+    </div> -->
 
   </div>
 
@@ -148,48 +156,47 @@
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
   </script>
 
-  <!-- ── Bottom navigation ─────────────────────────── -->
-  <nav id="screen-bottom-nav" class="screen-nav bottomNav" aria-label="Navegação principal">
-    <button class="navItem" data-tab="mapa" onclick="router.tab('jornada-1-4-1-home-map')" aria-label="Mapa">
-      <span class="navIcon"><i data-lucide="map" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="pontos" onclick="router.tab('jornada-1-4-lista-postos')" aria-label="Pontos de recarga">
-      <span class="navIcon"><i data-lucide="fuel" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="notificacoes" onclick="router.tab('notificacoes')" aria-label="Notificações">
-      <span class="navIcon">
-        <span class="wrap">
-          <i data-lucide="bell" width="22" height="22"></i>
-          <span class="badge">3</span>
-        </span>
-      </span>
-    </button>
-    <button class="navItem navActive" data-tab="carteira" onclick="router.tab('jornada-1-6-1-carteira')" aria-label="Carteira" aria-current="page">
-      <span class="navIcon"><i data-lucide="wallet" width="22" height="22"></i></span>
-    </button>
-    <button class="navItem" data-tab="perfil" onclick="router.tab('jornada-1-7-1-perfil')" aria-label="Perfil">
-      <span class="navIcon"><i data-lucide="user" width="22" height="22"></i></span>
-    </button>
-  </nav>
-
   <script>
-    function toggleWalletMenu() {
-      var panel = document.getElementById('wallet-menu-panel');
-      var trigger = document.getElementById('wallet-menu-trigger');
-      var isOpen = panel.classList.toggle('open');
-      trigger.setAttribute('aria-expanded', isOpen);
+    var balanceVisible = false;
+    var BALANCE_REAL = '247,50';
+
+    function toggleBalance() {
+      balanceVisible = !balanceVisible;
+      var display = document.getElementById('balance-display');
+      var btn = document.getElementById('eye-btn');
+      display.textContent = balanceVisible ? BALANCE_REAL : '●●●●';
+      btn.setAttribute('aria-label', balanceVisible ? 'Ocultar saldo' : 'Mostrar saldo');
+      btn.innerHTML = '<i data-lucide="' + (balanceVisible ? 'eye' : 'eye-off') + '" width="20" height="20"></i>';
+      lucide.createIcons();
     }
-    function closeWalletMenu() {
-      document.getElementById('wallet-menu-panel').classList.remove('open');
-      document.getElementById('wallet-menu-trigger').setAttribute('aria-expanded', 'false');
-    }
-    document.addEventListener('click', function(e) {
-      var trigger = document.getElementById('wallet-menu-trigger');
-      var panel = document.getElementById('wallet-menu-panel');
-      if (trigger && panel && !trigger.contains(e.target) && !panel.contains(e.target)) {
-        closeWalletMenu();
+
+    /* Pagination dots — atualiza conforme scroll */
+    (function() {
+      var carousel = document.getElementById('cards-carousel');
+      var dots = document.querySelectorAll('#cards-dots .carteira-cards__dot');
+
+      function updateDots() {
+        var scrollLeft = carousel.scrollLeft;
+        var cardWidth = carousel.firstElementChild ? carousel.firstElementChild.offsetWidth : 1;
+        var gap = 16;
+        var index = Math.round(scrollLeft / (cardWidth + gap));
+        index = Math.max(0, Math.min(index, dots.length - 1));
+        dots.forEach(function(d, i) {
+          d.classList.toggle('carteira-cards__dot--active', i === index);
+        });
       }
-    });
+
+      carousel.addEventListener('scroll', updateDots, { passive: true });
+
+      /* Scroll inicial para card-1 (índice 1) */
+      carousel.addEventListener('load', function() {}, false);
+      setTimeout(function() {
+        var card0 = document.getElementById('card-0');
+        if (card0) {
+          carousel.scrollLeft = card0.offsetWidth + 16;
+        }
+      }, 0);
+    }());
   </script>
   <script>lucide.createIcons();</script>
 
