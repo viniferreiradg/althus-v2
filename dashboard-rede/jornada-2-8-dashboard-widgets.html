@@ -149,15 +149,15 @@
   <!-- Barra de widgets -->
   <div class="widgetBar">
     <button class="btn ghost" type="button">Personalizar widgets</button>
-    <button class="btn primary hasLeft" type="button" onclick="widgetsDialogOpen()">
+    <button class="btn primary hasLeft" type="button">
       <span class="icon"><i data-lucide="plus" width="15" height="15"></i></span>
       Adicionar widgets
     </button>
   </div>
 </main>
 
-<!-- Dialog: Widgets -->
-<div class="dialogOverlay" id="widgets-dialog" style="display:none;" onclick="widgetsDialogClose()">
+<!-- Dialog: Widgets (pré-aberto) -->
+<div class="dialogOverlay" id="widgets-dialog" style="display:flex;" onclick="widgetsDialogClose()">
   <div class="dialog lg" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="widgets-dialog-title">
     <div class="dialogHeader">
       <div>
@@ -322,7 +322,6 @@
     document.getElementById('notif-sheet').classList.remove('sheetOpen');
     document.body.style.overflow = '';
   }
-  function widgetsDialogOpen()  { document.getElementById('widgets-dialog').style.display = 'flex'; lucide.createIcons(); }
   function widgetsDialogClose() { document.getElementById('widgets-dialog').style.display = 'none'; }
 
   function notifMarkAllRead() {

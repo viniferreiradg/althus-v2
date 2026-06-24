@@ -2606,6 +2606,37 @@ body {
   text-align: center;
 }
 
+/* ── Dashboard: dialog de seleção de widgets ─────────────────────────────── */
+.widgetPickerGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-sm);
+}
+.widgetPickerItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+  padding: var(--spacing-md);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-surface);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+}
+.widgetPickerItem:hover { border-color: var(--color-border-focus); background: var(--color-bg-subtle); }
+.widgetPickerItem.selected { border-color: var(--color-border-focus); background: var(--color-bg-brand); }
+.widgetPickerTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.widgetPickerDesc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-brand);
+}
+
 /* ── Tema Minimalista: overrides visuais ─────────────────────────────────── */
 /* Fundo do conteúdo principal */
 .minimal-theme .bgWrapper                    { background: var(--color-gray-900); }
