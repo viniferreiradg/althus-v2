@@ -333,6 +333,10 @@
   font-weight: var(--font-weight-medium);
 }
 
+.navGroup:has(.navSubItemActive) > .navItem {
+  color: var(--color-text-primary);
+}
+
 /* Quando sidebar está recolhida: esconde submenus e chevron */
 .sidebar.closed .navSubList    { max-height: 0 !important; }
 .sidebar.closed .navGroupChevron { display: none; }

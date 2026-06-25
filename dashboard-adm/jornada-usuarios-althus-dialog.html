@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestão de Usuários — Adicionar — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
+  <style>
+    .pageSizeSelect {
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      background: var(--color-bg-default);
+      border: var(--border-width-thin) solid var(--color-border-subtle);
+      border-radius: var(--radius-xs);
+      padding: 2px var(--spacing-sm);
+      cursor: pointer;
+      outline: none;
+    }
+    .pageSizeSelect:focus { border-color: var(--color-border-focus); }
+    .paginLeft {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+  </style>
+</head>
+<body data-page="usuarios-althus">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main bgWrapper">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <div class="pageContent">
+
+    <!-- ── Header ── -->
+    <header class="pageHeader">
+      <h1 class="pageTitle">Gestão de usuários</h1>
+      <p class="pageSubtitle">Gerencie os perfis com acesso ao painel e as informações que cada um pode acessar</p>
+    </header>
+
+    <!-- ── Toolbar ── -->
+    <div class="extratoFilterBar">
+      <div class="wrapper hasLeft extratoSearch">
+        <div class="inputWrap">
+          <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+          <input class="input" type="text" placeholder="Buscar (por nome ou e-mail)" />
+        </div>
+      </div>
+      <div class="wrapper" id="status-dd">
+        <div class="trigger">
+          <span id="status-val">Status</span>
+          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+        </div>
+        <div class="menu">
+          <div class="option selected" data-value="">Todos</div>
+          <div class="option" data-value="ativo">Ativo</div>
+          <div class="option" data-value="inativo">Inativo</div>
+        </div>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="addOpen()">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Adicionar
+      </button>
+    </div>
+
+    <!-- ── Tabela ── -->
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <colgroup>
+            <col style="width:20%" />
+            <col style="width:26%" />
+            <col style="width:14%" />
+            <col style="width:16%" />
+            <col style="width:10%" />
+            <col style="width:9%" />
+          </colgroup>
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst sortable">
+                <span class="thInner">Nome completo <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
+              </th>
+              <th class="th">E-mail</th>
+              <th class="th">Permissões</th>
+              <th class="th">Último acesso</th>
+              <th class="th">Status</th>
+              <th class="th">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="tr">
+              <td class="td tdFirst">Ana Carolina Souza</td>
+              <td class="td tdSm">ana.souza@empresa.com</td>
+              <td class="td tdSm permOp">Operacional</td>
+              <td class="td tdSm">10/06/2026 14:32</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Bruno Henrique Lima</td>
+              <td class="td tdSm">bruno.lima@empresa.com</td>
+              <td class="td tdSm permFis">Fiscal</td>
+              <td class="td tdSm">09/06/2026 09:15</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Camila Ferreira Alves</td>
+              <td class="td tdSm">camila.alves@empresa.com</td>
+              <td class="td tdSm">Financeiro</td>
+              <td class="td tdSm">08/06/2026 17:48</td>
+              <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Inativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Daniel Oliveira Costa</td>
+              <td class="td tdSm">daniel.costa@empresa.com</td>
+              <td class="td tdSm permFis">Fiscal</td>
+              <td class="td tdSm">10/06/2026 11:05</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Eduarda Martins Rocha</td>
+              <td class="td tdSm">eduarda.rocha@empresa.com</td>
+              <td class="td tdSm">Acesso total</td>
+              <td class="td tdSm">07/06/2026 16:20</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Felipe Augusto Ramos</td>
+              <td class="td tdSm">felipe.ramos@empresa.com</td>
+              <td class="td tdSm">Financeiro</td>
+              <td class="td tdSm">05/06/2026 08:42</td>
+              <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Inativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Gabriela Nunes Pereira</td>
+              <td class="td tdSm">gabriela.pereira@empresa.com</td>
+              <td class="td tdSm permFis">Fiscal</td>
+              <td class="td tdSm">10/06/2026 10:11</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Henrique Tavares Dias</td>
+              <td class="td tdSm">henrique.dias@empresa.com</td>
+              <td class="td tdSm">Acesso total</td>
+              <td class="td tdSm">06/06/2026 13:57</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Paginação ── -->
+      <div class="extratoTableFooter">
+        <div class="extratoFooterLeft">
+          <span class="extratoCount">Mostrando 1–8 de 8 resultados</span>
+          <div class="extratoPerPage">
+            <span class="extratoPerPageLabel">Itens por página:</span>
+            <select class="pageSizeSelect" aria-label="Itens por página">
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="paginBtn" type="button" disabled aria-label="Página anterior">
+            <i data-lucide="chevron-left" width="14" height="14"></i>
+          </button>
+          <button class="paginBtn paginBtnActive" type="button" aria-current="page" aria-label="Página 1">1</button>
+          <button class="paginBtn" type="button" disabled aria-label="Próxima página">
+            <i data-lucide="chevron-right" width="14" height="14"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── Dialog: Adicionar usuário ──────────────────────────────────────────────── -->
+<div class="dialogOverlay" id="add-dialog" style="display:none;" onclick="addClose()">
+  <div class="dialog md" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="add-dialog-title">
+    <div class="dialogHeader">
+      <div>
+        <span class="dialogTitle" id="add-dialog-title">Adicionar usuário</span>
+        <p class="dialogSubtitle">Preencha os dados para criar um novo acesso</p>
+      </div>
+      <button class="dialogCloseBtn" onclick="addClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="dialogBody">
+      <div class="formSection">
+
+        <div class="wrapper">
+          <label class="label" for="add-email">E-mail</label>
+          <div class="inputWrap">
+            <input class="input" type="email" id="add-email" placeholder="nome@empresa.com" />
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <label class="label" for="add-nome">Nome completo</label>
+          <div class="inputWrap">
+            <input class="input" type="text" id="add-nome" placeholder="Nome e sobrenome" />
+          </div>
+        </div>
+
+        <div class="wrapper">
+          <label class="label" for="add-permissao">Permissão</label>
+          <div class="selectWrap">
+            <select class="selectField" id="add-permissao">
+              <option value="" selected disabled>Selecione uma permissão</option>
+              <option value="operacional">Operacional</option>
+              <option value="fiscal">Fiscal</option>
+              <option value="financeiro">Financeiro</option>
+              <option value="total">Acesso total</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="dialogFooter">
+      <button class="btn ghost" type="button" onclick="addClose()">Cancelar</button>
+      <button class="btn primary" type="button">Adicionar</button>
+    </div>
+  </div>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  const statusDd  = document.getElementById('status-dd');
+  const statusVal = document.getElementById('status-val');
+  statusDd.querySelector('.trigger').addEventListener('click', e => {
+    e.stopPropagation();
+    statusDd.classList.toggle('open');
+  });
+  statusDd.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      statusDd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      statusVal.textContent = opt.dataset.value ? opt.textContent : 'Status';
+      statusDd.classList.remove('open');
+    });
+  });
+  document.addEventListener('click', () => statusDd.classList.remove('open'));
+
+  function addOpen() {
+    document.getElementById('add-dialog').style.display = 'flex';
+    lucide.createIcons();
+  }
+  function addClose() {
+    document.getElementById('add-dialog').style.display = 'none';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') addClose(); });
+
+  lucide.createIcons();
+  addOpen();
+</script>
+
+</body>
+</html>

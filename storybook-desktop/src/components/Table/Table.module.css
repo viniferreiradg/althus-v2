@@ -151,10 +151,13 @@
   color: var(--color-status-info-fg);
 }
 
-.badge[data-status="success"] { background: var(--color-status-success-bg); color: var(--color-status-success-fg); }
-.badge[data-status="error"]   { background: var(--color-status-error-bg);   color: var(--color-status-error-fg);   }
-.badge[data-status="warning"] { background: var(--color-status-warning-bg); color: var(--color-status-warning-fg); }
-.badge[data-status="info"]    { background: var(--color-status-info-bg);    color: var(--color-status-info-fg);    }
+.badge[data-status="success"]  { background: var(--color-status-success-bg);  color: var(--color-status-success-fg);  }
+.badge[data-status="error"]    { background: var(--color-status-error-bg);    color: var(--color-status-error-fg);    }
+.badge[data-status="warning"]  { background: var(--color-status-warning-bg);  color: var(--color-status-warning-fg);  }
+.badge[data-status="info"]     { background: var(--color-status-info-bg);     color: var(--color-status-info-fg);     }
+.badge[data-status="disabled"] { background: var(--color-status-disabled-bg); color: var(--color-status-disabled-fg); }
+.badge[data-status="cyan"]     { background: var(--color-status-cyan-bg);     color: var(--color-status-cyan-fg);     }
+.badge[data-status="purple"]   { background: var(--color-status-purple-bg);   color: var(--color-status-purple-fg);   }
 
 .badgeDot {
   width: 8px;

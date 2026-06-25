@@ -224,17 +224,6 @@
     }
     .expand-all-btn:hover { color: #aaa; border-color: #333; background: #161616; }
 
-    /* ── Telas / Jornadas tabs ───────────────────────── */
-    .sidebar-view-tabs { display: flex; gap: 4px; margin-bottom: 6px; }
-    .sidebar-tab {
-      flex: 1; font-size: 10px; font-weight: 600; letter-spacing: 0.04em;
-      color: #555; background: none; border: 1px solid #1e1e1e; border-radius: 4px;
-      padding: 5px 8px; cursor: pointer; font-family: inherit; text-align: center;
-      transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
-    }
-    .sidebar-tab:hover  { color: #aaa; border-color: #333; background: #161616; }
-    .sidebar-tab.active { color: #e5e5e5; border-color: #3a3a3a; background: #1e1e1e; }
-    #toolbar-expand.hidden { display: none; }
     .screen-btn.unbuilt { opacity: 0.4; pointer-events: none; }
 
     .sidebar-footer {
@@ -322,17 +311,10 @@
     </div>
 
     <div class="sidebar-toolbar">
-      <div class="sidebar-view-tabs">
-        <button class="sidebar-tab active" id="tab-telas">Telas</button>
-        <button class="sidebar-tab" id="tab-jornadas">Jornadas</button>
-      </div>
-      <div id="toolbar-expand">
-        <button class="expand-all-btn" id="expand-all-btn">Expandir todos</button>
-      </div>
+      <button class="expand-all-btn" id="expand-all-btn">Expandir todos</button>
     </div>
 
     <nav class="sidebar-list" id="screen-list"></nav>
-    <nav class="sidebar-list" id="journey-list" hidden></nav>
 
     <div class="sidebar-footer">Navegação de protótipo</div>
   </aside>
@@ -404,164 +386,66 @@
       {
         label: 'Gestão de Usuários',
         screens: [
-          { label: 'CPOs', file: 'jornada-gestao-cpos.html' },
+          { label: 'CPOs',           file: 'jornada-gestao-cpos.html' },
+          { label: 'Usuários do APP',             file: 'jornada-usuarios-app.html' },
+          { label: 'Usuários do APP — Histórico', file: 'jornada-usuarios-app-historico.html' },
+          { label: 'eMSPs',                       file: 'jornada-usuarios-emsps.html' },
+          { label: 'eMSPs — Linha expandida',    file: 'jornada-usuarios-emsps-expand.html' },
+          { label: 'eMSPs — Adicionar',          file: 'jornada-usuarios-emsps-dialog.html' },
+          { label: 'Althus',                      file: 'jornada-usuarios-althus.html' },
+          { label: 'Althus — Adicionar',          file: 'jornada-usuarios-althus-dialog.html' },
+          { label: 'Althus — Histórico',          file: 'jornada-usuarios-althus-historico.html' },
         ],
       },
       {
-        label: 'RF108 — Usuários',
+        label: 'Fiscal',
         screens: [
-          { label: 'Lista de usuários',                          file: 'jornada-2-6-1-lista-usuarios.html' },
-          { label: 'Novo usuário',                               file: 'jornada-2-6-2-novo-usuario.html' },
-          { label: 'Alterar usuário',                            file: 'jornada-2-6-3-alterar-usuario.html' },
-          { label: 'Gestão de perfis',                           file: 'jornada-2-6-4-gestao-de-perfis.html' },
-          { label: 'Novo perfil',                                file: 'jornada-2-6-5-novo-perfil.html' },
-          { label: 'Editar perfil',                              file: 'jornada-2-6-6-perfil.html' },
-          { label: 'Permissões',                                 file: 'jornada-2-6-7-permissoes.html' },
+          { label: 'Recargas',             file: 'jornada-fiscal-recargas.html' },
+          { label: 'Recargas — NFS-e',    file: 'jornada-fiscal-recargas-nfse.html' },
+          { label: 'Mensalidades',         file: 'jornada-fiscal-mensalidades.html' },
         ],
       },
       {
-        label: 'RF105 — Veículos',
+        label: 'Configurações',
         screens: [
-          { label: 'Listar veículos',                            file: 'jornada-3-3-veiculos.html' },
-          { label: 'Listar marcas',                              file: 'jornada-3-3-marcas.html' },
-          { label: 'Listar conectores',                          file: 'jornada-3-3-conectores.html' },
-          { label: 'Detalhe veículo',                            file: 'jornada-3-3-1b-detalhe-veiculo.html' },
-          { label: 'Cadastrar veículo',                          file: 'jornada-3-3-2-cadastrar-veiculo.html' },
-          { label: 'Editar veículo',                             file: 'jornada-3-3-2b-editar-veiculo.html' },
+          { label: 'Configurações', file: 'configuracoes.html' },
         ],
       },
       {
-        label: 'RF103 — Credenciados',
+        label: 'RF109 — Configurações (legado)',
         screens: [
-          { label: 'Listar credenciados',                        file: 'jornada-3-6-1-credenciados.html' },
-          { label: 'Detalhe credenciado',                        file: 'jornada-3-6-1b-detalhe-credenciado.html' },
-          { label: 'Cadastrar credenciado',                      file: 'jornada-3-6-2-cadastrar-credenciado.html' },
-          { label: 'Editar credenciado',                         file: 'jornada-3-6-2-editar-credenciado.html' },
-        ],
-      },
-      {
-        label: 'RF104 — Distribuidoras',
-        screens: [
-          { label: 'Listar distribuidoras',                      file: 'jornada-3-6-1b-distribuidores.html' },
-          { label: 'Cadastrar distribuidora',                    file: 'jornada-3-6-2b-cadastrar-distribuidor.html' },
-          { label: 'Editar distribuidora',                       file: 'jornada-3-6-2b-editar-distribuidor.html' },
-        ],
-      },
-      {
-        label: 'RF106 — Logs de Erros',
-        screens: [
-          { label: 'Logs de Erros',                              file: 'jornada-3-5-logs.html' },
-        ],
-      },
-      {
-        label: 'RF107 — Extrato Financeiro',
-        screens: [
-          { label: 'Extrato Financeiro',                         file: 'jornada-3-2-extrato.html' },
-        ],
-      },
-      {
-        label: 'RF109 — Configurações',
-        screens: [
-          { label: 'Meu Perfil',                                 file: 'configuracoes-meu-perfil.html' },
-          { label: 'Notificações',                               file: 'configuracoes-notificacoes.html' },
-          { label: 'Temas',                                      file: 'configuracoes-temas.html' },
-          { label: 'Sobre o Sistema',                            file: 'configuracoes-sobre.html' },
+          { label: 'Meu Perfil',       file: 'configuracoes-meu-perfil.html' },
+          { label: 'Notificações',     file: 'configuracoes-notificacoes.html' },
+          { label: 'Temas',            file: 'configuracoes-temas.html' },
+          { label: 'Sobre o Sistema',  file: 'configuracoes-sobre.html' },
         ],
       },
     ];
 
-    const JOURNEYS = [
-      { label: '3.1 — Login', screens: [
-        { label: 'Login',               file: 'jornada-3-1-login.html' },
-        { label: 'Dashboard Loading',   file: 'jornada-3-4-dashboard-loading.html' },
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-      ]},
-      { label: '3.2 — Gestão financeira', screens: [
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-        { label: 'Extrato',             file: 'jornada-3-2-extrato.html' },
-      ]},
-      { label: '3.3 — Banco de veículos', screens: [
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-        { label: 'Banco de veículos',   file: 'jornada-3-3-veiculos.html' },
-      ]},
-      { label: '3.4 — Dashboard', screens: [
-        { label: 'Dashboard Loading',   file: 'jornada-3-4-dashboard-loading.html' },
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-      ]},
-      { label: '3.5.1 — Perfis de uso', screens: [
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-        { label: 'Gestão de perfis',    file: 'jornada-2-6-4-gestao-de-perfis.html' },
-        { label: 'Perfil',              file: 'jornada-2-6-6-perfil.html' },
-      ]},
-      { label: '3.5.2 — Usuários da empresa', screens: [
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-        { label: 'Lista usuários',      file: 'jornada-2-6-1-lista-usuarios.html' },
-      ]},
-      { label: '3.6.1 — Listar credenciados', screens: [
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-        { label: 'Credenciados',        file: 'jornada-3-6-1-credenciados.html' },
-      ]},
-      { label: '3.6.2 — Editar dados do cliente', screens: [
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-        { label: 'Credenciados',        file: 'jornada-3-6-1-credenciados.html' },
-        { label: 'Detalhe credenciado', file: 'jornada-3-6-1b-detalhe-credenciado.html' },
-        { label: 'Editar credenciado',  file: 'jornada-3-6-2-editar-credenciado.html' },
-      ]},
-      { label: '2.5 — Logs de erros', screens: [
-        { label: 'Dashboard',           file: 'jornada-3-4-dashboard.html' },
-        { label: 'Logs de erros',       file: 'jornada-3-5-logs.html' },
-      ]},
-    ];
-
-    const sidebar       = document.getElementById('sidebar');
-    const collapseBtn   = document.getElementById('collapse-btn');
-    const floatBtn      = document.getElementById('float-btn');
-    const previewArea   = document.getElementById('preview-area');
-    const frame         = document.getElementById('preview-frame');
-    const urlBar        = document.getElementById('preview-url');
-    const list          = document.getElementById('screen-list');
-    const journeyList   = document.getElementById('journey-list');
-    const expandAllBtn  = document.getElementById('expand-all-btn');
-    const toolbarExpand = document.getElementById('toolbar-expand');
-    const tabTelas      = document.getElementById('tab-telas');
-    const tabJornadas   = document.getElementById('tab-jornadas');
+    const sidebar      = document.getElementById('sidebar');
+    const collapseBtn  = document.getElementById('collapse-btn');
+    const floatBtn     = document.getElementById('float-btn');
+    const previewArea  = document.getElementById('preview-area');
+    const frame        = document.getElementById('preview-frame');
+    const urlBar       = document.getElementById('preview-url');
+    const list         = document.getElementById('screen-list');
+    const expandAllBtn = document.getElementById('expand-all-btn');
 
     let activeBtn  = null;
-    let activeList = list;
     let hideTimer  = null;
 
     function syncExpandAllBtn() {
-      const anyCollapsed = [...activeList.querySelectorAll('.flow-screens')].some(w => w.classList.contains('collapsed'));
+      const anyCollapsed = [...list.querySelectorAll('.flow-screens')].some(w => w.classList.contains('collapsed'));
       expandAllBtn.textContent = anyCollapsed ? 'Expandir todos' : 'Recolher todos';
     }
 
     expandAllBtn.addEventListener('click', () => {
-      const wraps  = activeList.querySelectorAll('.flow-screens');
-      const labels = activeList.querySelectorAll('.flow-label');
+      const wraps  = list.querySelectorAll('.flow-screens');
+      const labels = list.querySelectorAll('.flow-label');
       const anyCollapsed = [...wraps].some(w => w.classList.contains('collapsed'));
       wraps.forEach(w  => w.classList.toggle('collapsed', !anyCollapsed));
       labels.forEach(l => l.classList.toggle('collapsed', !anyCollapsed));
       syncExpandAllBtn();
-    });
-
-    /* ── Tab switching ── */
-    tabTelas.addEventListener('click', () => {
-      tabTelas.classList.add('active');
-      tabJornadas.classList.remove('active');
-      list.hidden = false;
-      journeyList.hidden = true;
-      activeList = list;
-      toolbarExpand.classList.remove('hidden');
-      syncExpandAllBtn();
-    });
-
-    tabJornadas.addEventListener('click', () => {
-      tabJornadas.classList.add('active');
-      tabTelas.classList.remove('active');
-      list.hidden = true;
-      journeyList.hidden = false;
-      activeList = journeyList;
-      toolbarExpand.classList.add('hidden');
     });
 
     /* ── Build list (shared between FLOWS and JOURNEYS) ── */
@@ -618,7 +502,6 @@
     }
 
     buildList(FLOWS, list);
-    buildList(JOURNEYS, journeyList);
 
     /* Carrega a primeira tela automaticamente */
     list.querySelector('.screen-btn').click();

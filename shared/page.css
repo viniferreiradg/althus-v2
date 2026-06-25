@@ -309,6 +309,10 @@ body {
 .tdSm         { font-size: var(--font-size-xs); }
 .tdSecondary  { color: var(--color-text-secondary) !important; }
 
+/* ── Tabela: texto de permissão colorido por nível ───────────────────────────── */
+.permOp  { color: var(--color-text-warning); font-weight: var(--font-weight-medium); }
+.permFis { color: var(--color-text-brand);   font-weight: var(--font-weight-medium); }
+
 /* ── Extrato de transações ─────────────────────────────────────────────────── */
 .badge[data-status="purple"] {
   background: var(--color-status-purple-bg);
@@ -664,6 +668,8 @@ body {
 /* ── Tabela: coluna de expansão de linha ─────────────────────────────────────── */
 .tdExpand {
   width: var(--spacing-2xl);
+  min-width: var(--spacing-2xl);
+  max-width: var(--spacing-2xl);
   padding: var(--spacing-xs) var(--spacing-xs) var(--spacing-xs) var(--spacing-sm) !important;
   color: var(--color-text-tertiary);
 }

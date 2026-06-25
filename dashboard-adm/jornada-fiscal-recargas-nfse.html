@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fiscal — Althus</title>
+  <title>Fiscal — Recargas — NFS-e — Althus ADM</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="../storybook-desktop/src/components/Sheet/Sheet.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
 </head>
-<body data-page="fiscal-fiscal">
+<body data-page="fiscal-recargas">
 
 <aside id="sidebar-root"></aside>
 
@@ -54,7 +54,7 @@
     </div>
     <div class="filterWrapXs">
       <div class="wrapper" id="ano-dropdown">
-        <div class="trigger" id="ano-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+        <div class="trigger" role="button" tabindex="0" aria-haspopup="listbox">
           <span id="ano-value">2026</span>
           <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
         </div>
@@ -67,7 +67,7 @@
     </div>
     <div class="filterWrap">
       <div class="wrapper" id="mes-dropdown">
-        <div class="trigger" id="mes-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+        <div class="trigger" role="button" tabindex="0" aria-haspopup="listbox">
           <span id="mes-value">Junho</span>
           <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
         </div>
@@ -144,16 +144,14 @@
           </thead>
           <tbody class="tbody">
             <tr class="tr">
-              <td class="td">
-                <input type="checkbox" aria-label="Selecionar NFS-e 000123456" />
-              </td>
+              <td class="td"><input type="checkbox" aria-label="Selecionar NFS-e 000123456" /></td>
               <td class="td tdMono">000123456</td>
               <td class="td">10/06/2026 14:30</td>
               <td class="td">CHG-001 — Matriz</td>
               <td class="td">Claudio Oliveira</td>
               <td class="td">R$ 248,90</td>
               <td class="td cellActions">
-                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000123456','10/06/2026 14:30','A7F2-9B3C-D4E5','06/2026','CHG-001 — Matriz','Claudio Oliveira','123.456.789-00','cliente@exemplo.com.br','R$ 248,90','R$ 12,45','R$ 248,90')">
+                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e">
                   <i data-lucide="eye" width="15" height="15"></i>
                 </button>
                 <button class="btn ghost iconOnly sm" type="button" aria-label="Baixar NFS-e">
@@ -162,16 +160,14 @@
               </td>
             </tr>
             <tr class="tr">
-              <td class="td">
-                <input type="checkbox" aria-label="Selecionar NFS-e 000123455" />
-              </td>
+              <td class="td"><input type="checkbox" aria-label="Selecionar NFS-e 000123455" /></td>
               <td class="td tdMono">000123455</td>
               <td class="td">08/06/2026 09:15</td>
               <td class="td">CHG-002 — Filial Sul</td>
               <td class="td">Maria Fernanda Souza</td>
               <td class="td">R$ 132,40</td>
               <td class="td cellActions">
-                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000123455','08/06/2026 09:15','B1C3-4D5E-F6A7','06/2026','CHG-002 — Filial Sul','Maria Fernanda Souza','987.654.321-00','maria@exemplo.com.br','R$ 132,40','R$ 6,62','R$ 132,40')">
+                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e">
                   <i data-lucide="eye" width="15" height="15"></i>
                 </button>
                 <button class="btn ghost iconOnly sm" type="button" aria-label="Baixar NFS-e">
@@ -180,16 +176,14 @@
               </td>
             </tr>
             <tr class="tr">
-              <td class="td">
-                <input type="checkbox" aria-label="Selecionar NFS-e 000123454" />
-              </td>
+              <td class="td"><input type="checkbox" aria-label="Selecionar NFS-e 000123454" /></td>
               <td class="td tdMono">000123454</td>
               <td class="td">03/06/2026 16:45</td>
               <td class="td">CHG-001 — Matriz</td>
               <td class="td">Roberto Carlos Lima</td>
               <td class="td">R$ 89,10</td>
               <td class="td cellActions">
-                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000123454','03/06/2026 16:45','C9D2-7E1F-3B8A','06/2026','CHG-001 — Matriz','Roberto Carlos Lima','456.789.123-00','roberto@exemplo.com.br','R$ 89,10','R$ 4,46','R$ 89,10')">
+                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e">
                   <i data-lucide="eye" width="15" height="15"></i>
                 </button>
                 <button class="btn ghost iconOnly sm" type="button" aria-label="Baixar NFS-e">
@@ -224,12 +218,12 @@
   </div>
 </main>
 
-<!-- NFS-e Dialog -->
-<div class="dialogOverlay" id="nfse-dialog" style="display:none;" onclick="nfseDialogClose()">
+<!-- NFS-e Dialog — aberto por padrão para fins de registro -->
+<div class="dialogOverlay" id="nfse-dialog" style="display:flex;" onclick="nfseDialogClose()">
   <div class="dialog lg" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="nfse-dialog-title">
     <div class="dialogHeader">
       <div>
-        <span class="dialogTitle" id="nfse-dialog-title">NFS-e Nº <span id="nd-numero"></span></span>
+        <span class="dialogTitle" id="nfse-dialog-title">NFS-e Nº 000123456</span>
         <p class="dialogSubtitle">Visualização da nota fiscal de serviço eletrônica.</p>
       </div>
       <button class="dialogCloseBtn" type="button" onclick="nfseDialogClose()" aria-label="Fechar">
@@ -247,7 +241,7 @@
           </div>
           <div class="nfseDocBannerRight">
             <p class="nfseDocBannerLabel">Número</p>
-            <p class="nfseDocBannerTitle" id="nd-numero-banner"></p>
+            <p class="nfseDocBannerTitle">000123456</p>
           </div>
         </div>
 
@@ -255,15 +249,15 @@
         <div class="nfseDocRow">
           <div class="nfseDocCell">
             <p class="nfseDocCellLabel">Data e hora de emissão</p>
-            <p class="nfseDocCellValue" id="nd-emissao"></p>
+            <p class="nfseDocCellValue">10/06/2026 14:30</p>
           </div>
           <div class="nfseDocCell">
             <p class="nfseDocCellLabel">Código de verificação</p>
-            <p class="nfseDocCellValue" id="nd-codigo"></p>
+            <p class="nfseDocCellValue">A7F2-9B3C-D4E5</p>
           </div>
           <div class="nfseDocCell">
             <p class="nfseDocCellLabel">Competência</p>
-            <p class="nfseDocCellValue" id="nd-competencia"></p>
+            <p class="nfseDocCellValue">06/2026</p>
           </div>
         </div>
 
@@ -278,17 +272,17 @@
         <!-- Tomador -->
         <div class="nfseDocSection">
           <p class="nfseDocSectionLabel">Tomador de serviços</p>
-          <p class="nfseDocSectionName" id="nd-tomador"></p>
-          <p class="nfseDocSectionText">CPF: <span id="nd-cpf"></span></p>
-          <p class="nfseDocSectionText">Email: <span id="nd-email"></span></p>
+          <p class="nfseDocSectionName">Claudio Oliveira</p>
+          <p class="nfseDocSectionText">CPF: 123.456.789-00</p>
+          <p class="nfseDocSectionText">Email: cliente@exemplo.com.br</p>
         </div>
 
         <!-- Discriminação -->
         <div class="nfseDocSection">
           <p class="nfseDocSectionLabel">Discriminação dos serviços</p>
           <p class="nfseDocSectionText">
-            Recarga de veículo elétrico realizada <span class="nfseDocHighlight">no carregador <span id="nd-carregador"></span></span>. Sessão de recarga concluída em
-            <span class="nfseDocHighlight"><span id="nd-emissao-disc"></span></span>. Energia fornecida: 32,5 kWh.
+            Recarga de veículo elétrico realizada <span class="nfseDocHighlight">no carregador CHG-001 — Matriz</span>. Sessão de recarga concluída em
+            <span class="nfseDocHighlight">10/06/2026 às 14:30</span>. Energia fornecida: 32,5 kWh.
           </p>
         </div>
 
@@ -304,18 +298,18 @@
           </div>
           <div class="nfseDocCell">
             <p class="nfseDocCellLabel">Valor ISS</p>
-            <p class="nfseDocCellValue" id="nd-iss"></p>
+            <p class="nfseDocCellValue">R$ 12,45</p>
           </div>
           <div class="nfseDocCell">
             <p class="nfseDocCellLabel">Base de cálculo</p>
-            <p class="nfseDocCellValue" id="nd-base"></p>
+            <p class="nfseDocCellValue">R$ 248,90</p>
           </div>
         </div>
 
         <!-- Total -->
         <div class="nfseDocFooter">
           <p class="nfseDocFooterLabel">Valor total da nota</p>
-          <p class="nfseDocFooterValue" id="nd-total"></p>
+          <p class="nfseDocFooterValue">R$ 248,90</p>
         </div>
 
       </div>
@@ -340,34 +334,14 @@
 
 <script src="shared/sidebar.js"></script>
 <script>
-  /* ── NFS-e Dialog ── */
-  function nfseDialogOpen(numero, emissao, codigo, competencia, carregador, tomador, cpf, email, total, iss, base) {
-    document.getElementById('nd-numero').textContent        = numero;
-    document.getElementById('nd-numero-banner').textContent = numero;
-    document.getElementById('nd-emissao').textContent       = emissao;
-    document.getElementById('nd-emissao-disc').textContent  = emissao;
-    document.getElementById('nd-codigo').textContent        = codigo;
-    document.getElementById('nd-competencia').textContent   = competencia;
-    document.getElementById('nd-carregador').textContent    = carregador;
-    document.getElementById('nd-tomador').textContent       = tomador;
-    document.getElementById('nd-cpf').textContent           = cpf;
-    document.getElementById('nd-email').textContent         = email;
-    document.getElementById('nd-total').textContent         = total;
-    document.getElementById('nd-iss').textContent           = iss;
-    document.getElementById('nd-base').textContent          = base;
-    document.getElementById('nfse-dialog').style.display   = 'flex';
-    lucide.createIcons();
-  }
   function nfseDialogClose() { document.getElementById('nfse-dialog').style.display = 'none'; }
 
-  /* ── Notificações sheet ── */
   function notifSheetOpen()  { document.getElementById('notif-sheet').classList.add('sheetOpen'); }
   function notifSheetClose() { document.getElementById('notif-sheet').classList.remove('sheetOpen'); }
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') { nfseDialogClose(); notifSheetClose(); }
   });
 
-  /* ── Dropdowns (ano + mês) ── */
   document.querySelectorAll('[id$="-dropdown"]').forEach(dd => {
     const trigger = dd.querySelector('.trigger');
     const menu    = dd.querySelector('.menu');
@@ -391,7 +365,6 @@
     document.querySelectorAll('.menu.open').forEach(m => m.classList.remove('open'));
   });
 
-  /* ── Select all checkbox ── */
   document.getElementById('select-all').addEventListener('change', function () {
     document.querySelectorAll('tbody input[type="checkbox"]').forEach(cb => {
       cb.checked = this.checked;

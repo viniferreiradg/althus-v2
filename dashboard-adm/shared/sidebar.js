@@ -71,9 +71,9 @@
       icon: 'users',
       children: [
         { id: 'usuarios-cpos',   label: 'CPOs',   href: 'jornada-2-6-1-lista-usuarios.html' },
-        { id: 'usuarios-app',    label: 'APP',    href: '#' },
-        { id: 'usuarios-emsps',  label: 'eMSPs',  href: '#' },
-        { id: 'usuarios-althus', label: 'Althus', href: '#' },
+        { id: 'usuarios-app',    label: 'APP',    href: 'jornada-usuarios-app.html' },
+        { id: 'usuarios-emsps',  label: 'eMSPs',  href: 'jornada-usuarios-emsps.html' },
+        { id: 'usuarios-althus', label: 'Althus', href: 'jornada-usuarios-althus.html' },
       ],
     },
     {
@@ -81,8 +81,8 @@
       label: 'Fiscal',
       icon: 'file-text',
       children: [
-        { id: 'fiscal-recargas',     label: 'Recargas',     href: '#' },
-        { id: 'fiscal-mensalidades', label: 'Mensalidades', href: '#' },
+        { id: 'fiscal-recargas',     label: 'Recargas',     href: 'jornada-fiscal-recargas.html' },
+        { id: 'fiscal-mensalidades', label: 'Mensalidades', href: 'jornada-fiscal-mensalidades.html' },
       ],
     },
     {
@@ -170,7 +170,7 @@
           <button class="iconBtn" id="theme-btn" type="button" aria-label="${themeLabelText}" title="${themeLabelText}">
             <span id="theme-icon"><i data-lucide="${themeIconName}" width="16" height="16"></i></span>
           </button>
-          <button class="iconBtn" type="button" aria-label="Configurações" title="Configurações" onclick="location.href='configuracoes-meu-perfil.html'">
+          <button class="iconBtn" type="button" aria-label="Configurações" title="Configurações" onclick="location.href='configuracoes.html'">
             <i data-lucide="settings" width="16" height="16"></i>
           </button>
           <button class="iconBtn" type="button" id="notif-btn" aria-label="2 notificações" title="Notificações">

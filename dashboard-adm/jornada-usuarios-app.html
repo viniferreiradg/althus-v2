@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usuários do APP — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
+  <style>
+    .pageSizeSelect {
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      background: var(--color-bg-default);
+      border: var(--border-width-thin) solid var(--color-border-subtle);
+      border-radius: var(--radius-xs);
+      padding: 2px var(--spacing-sm);
+      cursor: pointer;
+      outline: none;
+    }
+    .pageSizeSelect:focus { border-color: var(--color-border-focus); }
+    .paginLeft {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+    .historySubtitle {
+      font-size: var(--font-size-sm);
+      color: var(--color-text-brand);
+      margin: calc(var(--spacing-xs) * -1) 0 var(--spacing-md);
+    }
+    .historyTable {
+      width: 100%;
+      border-collapse: collapse;
+      border: var(--border-width-thin) solid var(--color-border-subtle);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      font-size: var(--font-size-sm);
+    }
+    .historyTable th {
+      padding: var(--spacing-sm) var(--spacing-md);
+      background: var(--color-bg-subtle);
+      font-weight: var(--font-weight-medium);
+      color: var(--color-text-secondary);
+      text-align: left;
+      border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+    }
+    .historyTable td {
+      padding: var(--spacing-sm) var(--spacing-md);
+      border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
+      color: var(--color-text-primary);
+      font-weight: var(--font-weight-regular);
+    }
+    .historyTable tr:last-child td { border-bottom: none; }
+    .historyTable td:first-child {
+      color: var(--color-text-brand);
+      white-space: nowrap;
+      width: 160px;
+    }
+  </style>
+</head>
+<body data-page="usuarios-app">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+  <div class="pageContent">
+
+    <!-- ── Header ── -->
+    <div class="pageHeader" style="display:block;">
+      <h1 class="pageTitle">Usuários do app</h1>
+      <p class="pageSubtitle">Gerencie os usuários do aplicativo</p>
+    </div>
+
+    <!-- ── Toolbar ── -->
+    <div class="toolbar">
+      <div class="searchWrapFlex">
+        <div class="inputWrap hasLeft">
+          <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+          <input class="input" type="text" placeholder="Buscar (por nome, e-mail ou CPF tokenizado)" />
+        </div>
+      </div>
+      <div class="filterWrap">
+        <div class="wrapper" id="status-dd">
+          <div class="trigger" id="status-trigger" role="button" tabindex="0" aria-haspopup="listbox">
+            <span id="status-value">Status</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="" role="option">Todos</div>
+            <div class="option" data-value="ativo" role="option">Ativo</div>
+            <div class="option" data-value="inativo-30" role="option">Inativo por 30 dias</div>
+            <div class="option" data-value="inativo-60" role="option">Inativo por 60 dias</div>
+            <div class="option" data-value="inativo-90" role="option">Inativo por 90 dias</div>
+            <div class="option" data-value="inativo-90+" role="option">Inativo há mais de 90 dias</div>
+            <div class="option" data-value="incompleto" role="option">Cadastro incompleto</div>
+            <div class="option" data-value="nunca" role="option">Nunca carregou</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Tabela ── -->
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst">
+                <span class="thInner">
+                  Nome completo
+                  <span class="sortIcon"><i data-lucide="arrow-up-down" width="13" height="13"></i></span>
+                </span>
+              </th>
+              <th class="th">CPF</th>
+              <th class="th">Nascimento</th>
+              <th class="th">E-mail</th>
+              <th class="th">
+                <span class="thInner">
+                  Última recarga
+                  <span class="sortIcon"><i data-lucide="arrow-up-down" width="13" height="13"></i></span>
+                </span>
+              </th>
+              <th class="th">Status</th>
+              <th class="th">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tr">
+              <td class="td tdFirst">Ana Carolina Souza</td>
+              <td class="td">***.***.***.***-2918</td>
+              <td class="td">12/04/92</td>
+              <td class="td">ana.souza@gmail.com</td>
+              <td class="td">10/06/2026 14:32</td>
+              <td class="td">
+                <span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span>
+              </td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                    <i data-lucide="history" width="16" height="16"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Bruno Henrique Lima</td>
+              <td class="td">***.***.***.***-4471</td>
+              <td class="td">03/11/88</td>
+              <td class="td">bruno.lima@gmail.com</td>
+              <td class="td">09/05/2026 09:15</td>
+              <td class="td">
+                <span class="badge" data-status="warning"><span class="badgeDot"></span>Inativo por 30 dias</span>
+              </td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                    <i data-lucide="history" width="16" height="16"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Camila Ferreira Alves</td>
+              <td class="td">***.***.***.***-6835</td>
+              <td class="td">27/07/95</td>
+              <td class="td">camila.alves@gmail.com</td>
+              <td class="td">—</td>
+              <td class="td">
+                <span class="badge" data-status="warning"><span class="badgeDot"></span>Cadastro incompleto</span>
+              </td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                    <i data-lucide="history" width="16" height="16"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Daniel Oliveira Costa</td>
+              <td class="td">***.***.***.***-1182</td>
+              <td class="td">15/02/90</td>
+              <td class="td">daniel.costa@gmail.com</td>
+              <td class="td">—</td>
+              <td class="td">
+                <span class="badge" data-status="info"><span class="badgeDot"></span>Nunca carregou</span>
+              </td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                    <i data-lucide="history" width="16" height="16"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Eduarda Martins Rocha</td>
+              <td class="td">***.***.***.***-7723</td>
+              <td class="td">08/09/93</td>
+              <td class="td">eduarda.rocha@gmail.com</td>
+              <td class="td">07/04/2026 16:20</td>
+              <td class="td">
+                <span class="badge" data-status="warning"><span class="badgeDot"></span>Inativo por 60 dias</span>
+              </td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                    <i data-lucide="history" width="16" height="16"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Felipe Augusto Ramos</td>
+              <td class="td">***.***.***.***-3348</td>
+              <td class="td">21/12/85</td>
+              <td class="td">felipe.ramos@gmail.com</td>
+              <td class="td">05/03/2026 08:42</td>
+              <td class="td">
+                <span class="badge" data-status="error"><span class="badgeDot"></span>Inativo por 90 dias</span>
+              </td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                    <i data-lucide="history" width="16" height="16"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Gabriela Nunes Pereira</td>
+              <td class="td">***.***.***.***-9586</td>
+              <td class="td">30/06/97</td>
+              <td class="td">gabriela.pereira@gmail.com</td>
+              <td class="td">10/06/2026 10:11</td>
+              <td class="td">
+                <span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span>
+              </td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                    <i data-lucide="history" width="16" height="16"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Henrique Tavares Dias</td>
+              <td class="td">***.***.***.***-2284</td>
+              <td class="td">05/10/82</td>
+              <td class="td">henrique.dias@gmail.com</td>
+              <td class="td">06/12/2025 13:57</td>
+              <td class="td">
+                <span class="badge" data-status="disabled"><span class="badgeDot"></span>Inativo há mais de 90 dias</span>
+              </td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                    <i data-lucide="history" width="16" height="16"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Paginação ── -->
+      <div class="pagination">
+        <div class="paginLeft info">
+          <span>Mostrando 1–8 de 8 resultados</span>
+          <span aria-hidden="true">·</span>
+          <span>Itens por página:</span>
+          <select class="pageSizeSelect" aria-label="Itens por página">
+            <option value="10" selected>10</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+          </select>
+        </div>
+        <div class="controls">
+          <button class="paginBtn" type="button" disabled aria-label="Página anterior">
+            <i data-lucide="chevron-left" width="14" height="14"></i>
+          </button>
+          <button class="paginBtn paginBtnActive" type="button" aria-current="page" aria-label="Página 1">1</button>
+          <button class="paginBtn" type="button" disabled aria-label="Próxima página">
+            <i data-lucide="chevron-right" width="14" height="14"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pageContent -->
+</main>
+
+<!-- ── Dialog de Histórico ── -->
+<div class="dialogOverlay" id="hist-dialog" style="display:none;" onclick="histClose()">
+  <div class="dialog sm" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="hist-title">
+    <div class="dialogHeader">
+      <span class="dialogTitle" id="hist-title">Histórico</span>
+      <button class="dialogCloseBtn" onclick="histClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="dialogBody">
+      <p class="historySubtitle" id="hist-subtitle"></p>
+      <table class="historyTable">
+        <thead>
+          <tr>
+            <th>Data e horário</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="hist-tbody"></tbody>
+      </table>
+    </div>
+    <div class="dialogFooter">
+      <button class="btn primary" type="button" onclick="histClose()">Fechar</button>
+    </div>
+  </div>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  /* ── Dados de histórico por usuário ── */
+  const HISTORY = {
+    'Ana Carolina Souza': {
+      email: 'ana.souza@gmail.com',
+      entries: [
+        { date: '10/06/2026 14:32', action: 'Recarga de R$ 100,00' },
+        { date: '02/06/2026 18:10', action: 'Recarga de R$ 50,00' },
+        { date: '20/05/2026 09:05', action: 'Sessão de carregamento — 32 kWh' },
+      ],
+    },
+    'Bruno Henrique Lima': {
+      email: 'bruno.lima@gmail.com',
+      entries: [
+        { date: '09/05/2026 09:15', action: 'Recarga de R$ 80,00' },
+        { date: '08/04/2026 17:30', action: 'Sessão de carregamento — 20 kWh' },
+      ],
+    },
+    'Camila Ferreira Alves': {
+      email: 'camila.alves@gmail.com',
+      entries: [],
+    },
+    'Daniel Oliveira Costa': {
+      email: 'daniel.costa@gmail.com',
+      entries: [],
+    },
+    'Eduarda Martins Rocha': {
+      email: 'eduarda.rocha@gmail.com',
+      entries: [
+        { date: '07/04/2026 16:20', action: 'Recarga de R$ 120,00' },
+        { date: '06/03/2026 11:00', action: 'Sessão de carregamento — 45 kWh' },
+        { date: '12/02/2026 08:45', action: 'Recarga de R$ 60,00' },
+      ],
+    },
+    'Felipe Augusto Ramos': {
+      email: 'felipe.ramos@gmail.com',
+      entries: [
+        { date: '05/03/2026 08:42', action: 'Recarga de R$ 200,00' },
+        { date: '14/01/2026 19:55', action: 'Sessão de carregamento — 55 kWh' },
+      ],
+    },
+    'Gabriela Nunes Pereira': {
+      email: 'gabriela.pereira@gmail.com',
+      entries: [
+        { date: '10/06/2026 10:11', action: 'Recarga de R$ 75,00' },
+        { date: '01/06/2026 14:22', action: 'Sessão de carregamento — 28 kWh' },
+        { date: '18/05/2026 09:30', action: 'Recarga de R$ 50,00' },
+      ],
+    },
+    'Henrique Tavares Dias': {
+      email: 'henrique.dias@gmail.com',
+      entries: [
+        { date: '06/12/2025 13:57', action: 'Recarga de R$ 150,00' },
+        { date: '10/11/2025 10:20', action: 'Sessão de carregamento — 40 kWh' },
+      ],
+    },
+  };
+
+  function histOpen(name) {
+    const user = HISTORY[name];
+    document.getElementById('hist-subtitle').textContent = name + ' — ' + (user ? user.email : '');
+    const tbody = document.getElementById('hist-tbody');
+    if (!user || user.entries.length === 0) {
+      tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:var(--color-text-tertiary);">Nenhum registro encontrado.</td></tr>';
+    } else {
+      tbody.innerHTML = user.entries.map(e =>
+        `<tr><td>${e.date}</td><td>${e.action}</td></tr>`
+      ).join('');
+    }
+    document.getElementById('hist-dialog').style.display = 'flex';
+    lucide.createIcons();
+  }
+
+  function histClose() {
+    document.getElementById('hist-dialog').style.display = 'none';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') histClose(); });
+
+  /* ── Dropdown de status ── */
+  document.querySelectorAll('[id$="-dd"]').forEach(dd => {
+    const trigger  = dd.querySelector('.trigger');
+    const menu     = dd.querySelector('.menu');
+    const valueEl  = dd.querySelector('[id$="-value"]');
+
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      const isOpen = menu.classList.toggle('open');
+      trigger.classList.toggle('open', isOpen);
+    });
+
+    menu.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        menu.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        valueEl.textContent = opt.textContent || 'Status';
+        menu.classList.remove('open');
+        trigger.classList.remove('open');
+      });
+    });
+  });
+
+  document.addEventListener('click', () => {
+    document.querySelectorAll('.menu.open').forEach(m => m.classList.remove('open'));
+    document.querySelectorAll('.trigger.open').forEach(t => t.classList.remove('open'));
+  });
+
+  lucide.createIcons();
+</script>
+</body>
+</html>

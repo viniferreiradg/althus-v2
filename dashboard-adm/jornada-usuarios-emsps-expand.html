@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>eMSPs — Linha expandida — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Background/Background.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
+  <style>
+    .pageSizeSelect {
+      font-family: var(--font-body);
+      font-size: var(--font-size-sm);
+      color: var(--color-text-secondary);
+      background: var(--color-bg-default);
+      border: var(--border-width-thin) solid var(--color-border-subtle);
+      border-radius: var(--radius-xs);
+      padding: 2px var(--spacing-sm);
+      cursor: pointer;
+      outline: none;
+    }
+    .pageSizeSelect:focus { border-color: var(--color-border-focus); }
+    .paginLeft {
+      display: flex;
+      align-items: center;
+      gap: var(--spacing-sm);
+    }
+  </style>
+</head>
+<body data-page="usuarios-emsps">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main bgWrapper">
+  <div class="blob1"></div>
+  <div class="blob2"></div>
+
+  <div class="pageContent">
+
+    <!-- ── Header ── -->
+    <header class="pageHeader">
+      <h1 class="pageTitle">Gestão de eMSPs</h1>
+      <p class="pageSubtitle">Gerencie os e-Mobility Service Providers integrados à rede Althus</p>
+    </header>
+
+    <!-- ── Toolbar ── -->
+    <div class="extratoFilterBar">
+      <div class="wrapper hasLeft extratoSearch">
+        <div class="inputWrap">
+          <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+          <input class="input" type="text" placeholder="Buscar (por nome fantasia, razão social, CNPJ ou responsável)" />
+        </div>
+      </div>
+      <div class="wrapper" id="status-dd">
+        <div class="trigger">
+          <span id="status-val">Status</span>
+          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+        </div>
+        <div class="menu">
+          <div class="option selected" data-value="">Todos</div>
+          <div class="option" data-value="ativo">Ativo</div>
+          <div class="option" data-value="inativo">Inativo</div>
+        </div>
+      </div>
+      <button class="btn primary hasLeft" type="button" onclick="addOpen()">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Adicionar
+      </button>
+    </div>
+
+    <!-- ── Tabela ── -->
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <colgroup>
+            <col style="width:44px" />
+            <col style="width:22%" />
+            <col style="width:14%" />
+            <col style="width:16%" />
+            <col style="width:13%" />
+            <col style="width:9%" />
+            <col style="width:9%" />
+            <col style="width:9%" />
+          </colgroup>
+          <thead>
+            <tr class="headerRow">
+              <th class="th tdExpand"></th>
+              <th class="th thFirst sortable">
+                <span class="thInner">Nome Fantasia <span class="sortIcon"><i data-lucide="chevrons-up-down" width="12" height="12"></i></span></span>
+              </th>
+              <th class="th">CNPJ</th>
+              <th class="th">Responsável</th>
+              <th class="th">Telefone</th>
+              <th class="th">Status</th>
+              <th class="th">Carregadores</th>
+              <th class="th">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- Row 0 — DCC Energy -->
+            <tr class="tr" id="main-row-0" onclick="toggleExpand(event,0)">
+              <td class="td tdExpand"><i data-lucide="chevron-right" width="14" height="14"></i></td>
+              <td class="td tdFirst">DCC Energy</td>
+              <td class="td tdMono tdSm">12.345.678/0001-90</td>
+              <td class="td tdSm">Ricardo Alves</td>
+              <td class="td tdSm">(11) 91234-5678</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdSm">212</td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-0"><td colspan="8" class="expandCell"></td></tr>
+
+            <!-- Row 1 — GreenV -->
+            <tr class="tr" id="main-row-1" onclick="toggleExpand(event,1)">
+              <td class="td tdExpand"><i data-lucide="chevron-right" width="14" height="14"></i></td>
+              <td class="td tdFirst">GreenV</td>
+              <td class="td tdMono tdSm">23.456.789/0001-01</td>
+              <td class="td tdSm">Fernanda Lima</td>
+              <td class="td tdSm">(21) 92345-6789</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Inativo</span></td>
+              <td class="td tdSm">0</td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-1"><td colspan="8" class="expandCell"></td></tr>
+
+            <!-- Row 2 — movE -->
+            <tr class="tr" id="main-row-2" onclick="toggleExpand(event,2)">
+              <td class="td tdExpand"><i data-lucide="chevron-right" width="14" height="14"></i></td>
+              <td class="td tdFirst">movE</td>
+              <td class="td tdMono tdSm">34.567.890/0001-12</td>
+              <td class="td tdSm">Carlos Souza</td>
+              <td class="td tdSm">(31) 93456-7890</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdSm">46</td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-2"><td colspan="8" class="expandCell"></td></tr>
+
+            <!-- Row 3 — Tupi Mobilidade -->
+            <tr class="tr" id="main-row-3" onclick="toggleExpand(event,3)">
+              <td class="td tdExpand"><i data-lucide="chevron-right" width="14" height="14"></i></td>
+              <td class="td tdFirst">Tupi Mobilidade</td>
+              <td class="td tdMono tdSm">45.678.901/0001-23</td>
+              <td class="td tdSm">Ana Beatriz</td>
+              <td class="td tdSm">(41) 94567-8901</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdSm">128</td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-3"><td colspan="8" class="expandCell"></td></tr>
+
+            <!-- Row 4 — Yellotmob -->
+            <tr class="tr" id="main-row-4" onclick="toggleExpand(event,4)">
+              <td class="td tdExpand"><i data-lucide="chevron-right" width="14" height="14"></i></td>
+              <td class="td tdFirst">Yellotmob</td>
+              <td class="td tdMono tdSm">56.789.012/0001-34</td>
+              <td class="td tdSm">Pedro Gomes</td>
+              <td class="td tdSm">(51) 95678-9012</td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Ativo</span></td>
+              <td class="td tdSm">84</td>
+              <td class="td tdActions">
+                <div class="cellActions">
+                  <button class="actionBtn" type="button" aria-label="Editar"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="actionBtn" type="button" aria-label="Ver histórico"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-4"><td colspan="8" class="expandCell"></td></tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Paginação ── -->
+      <div class="extratoTableFooter">
+        <div class="extratoFooterLeft">
+          <span class="extratoCount">Mostrando 1–5 de 5 resultados</span>
+          <div class="extratoPerPage">
+            <span class="extratoPerPageLabel">Itens por página:</span>
+            <select class="pageSizeSelect" aria-label="Itens por página">
+              <option value="10" selected>10</option>
+              <option value="25">25</option>
+              <option value="50">50</option>
+            </select>
+          </div>
+        </div>
+        <div class="controls">
+          <button class="paginBtn" type="button" disabled aria-label="Página anterior">
+            <i data-lucide="chevron-left" width="14" height="14"></i>
+          </button>
+          <button class="paginBtn paginBtnActive" type="button" aria-current="page" aria-label="Página 1">1</button>
+          <button class="paginBtn" type="button" disabled aria-label="Próxima página">
+            <i data-lucide="chevron-right" width="14" height="14"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── Dialog: Adicionar eMSP ─────────────────────────────────────────────── -->
+<div class="dialogOverlay" id="add-dialog" style="display:none;" onclick="addClose()">
+  <div class="dialog md" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="add-dialog-title">
+    <div class="dialogHeader">
+      <div>
+        <span class="dialogTitle" id="add-dialog-title">Adicionar eMSPs</span>
+        <p class="dialogSubtitle">Preencha os dados do e-Mobility Service Provider</p>
+      </div>
+      <button class="dialogCloseBtn" onclick="addClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="dialogBody">
+      <div class="formSection">
+        <div class="wrapper">
+          <label class="label" for="add-nome-fantasia">Nome Fantasia</label>
+          <div class="inputWrap">
+            <input class="input" type="text" id="add-nome-fantasia" placeholder="Nome fantasia" />
+          </div>
+        </div>
+        <div class="wrapper">
+          <label class="label" for="add-razao-social">Razão Social</label>
+          <div class="inputWrap">
+            <input class="input" type="text" id="add-razao-social" placeholder="Empresa Ltda" />
+          </div>
+        </div>
+        <div class="wrapper">
+          <label class="label" for="add-cnpj">CNPJ</label>
+          <div class="inputWrap">
+            <input class="input" type="text" id="add-cnpj" placeholder="00.000.000/0000-00" />
+          </div>
+        </div>
+        <div class="wrapper">
+          <label class="label" for="add-responsavel">Responsável</label>
+          <div class="inputWrap">
+            <input class="input" type="text" id="add-responsavel" placeholder="Nome completo" />
+          </div>
+        </div>
+        <div class="wrapper">
+          <label class="label" for="add-telefone">Telefone</label>
+          <div class="inputWrap">
+            <input class="input" type="text" id="add-telefone" placeholder="(00) 00000-0000" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="dialogFooter">
+      <button class="btn ghost" type="button" onclick="addClose()">Cancelar</button>
+      <button class="btn primary" type="button">Salvar</button>
+    </div>
+  </div>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  const CHARGERS_DATA = [
+    [
+      { nome: 'DCC-SP-01', localidade: 'Av. Paulista, 1000 — São Paulo/SP', potencia: '150 kW', conector: 'CCS2',    status: 'Ativo',          st: 'success' },
+      { nome: 'DCC-SP-02', localidade: 'Av. Paulista, 1000 — São Paulo/SP', potencia: '50 kW',  conector: 'CHAdeMO', status: 'Ativo',          st: 'success' },
+      { nome: 'DCC-RJ-01', localidade: 'Av. Atlântica, 500 — Rio de Janeiro/RJ', potencia: '100 kW', conector: 'CCS2', status: 'Em manutenção', st: 'warning' },
+      { nome: 'DCC-BH-01', localidade: 'Av. do Contorno, 200 — Belo Horizonte/MG', potencia: '50 kW', conector: 'Tipo 2', status: 'Ativo',     st: 'success' },
+    ],
+    [
+      { nome: 'GV-SP-01', localidade: 'Rua Augusta, 800 — São Paulo/SP', potencia: '22 kW', conector: 'Tipo 2', status: 'Inativo', st: 'error' },
+      { nome: 'GV-SP-02', localidade: 'Rua Augusta, 800 — São Paulo/SP', potencia: '22 kW', conector: 'Tipo 2', status: 'Inativo', st: 'error' },
+    ],
+    [
+      { nome: 'MVE-BH-01', localidade: 'Av. Amazonas, 300 — Belo Horizonte/MG', potencia: '50 kW', conector: 'CCS2',    status: 'Ativo', st: 'success' },
+      { nome: 'MVE-BH-02', localidade: 'Av. Amazonas, 300 — Belo Horizonte/MG', potencia: '50 kW', conector: 'CHAdeMO', status: 'Ativo', st: 'success' },
+      { nome: 'MVE-GV-01', localidade: 'Av. Goiás, 150 — Goiânia/GO',           potencia: '22 kW', conector: 'Tipo 2',  status: 'Ativo', st: 'success' },
+    ],
+    [
+      { nome: 'TUP-CWB-01', localidade: 'Rua XV de Novembro, 88 — Curitiba/PR',       potencia: '150 kW', conector: 'CCS2',    status: 'Ativo',         st: 'success' },
+      { nome: 'TUP-CWB-02', localidade: 'Rua XV de Novembro, 88 — Curitiba/PR',       potencia: '50 kW',  conector: 'CHAdeMO', status: 'Ativo',         st: 'success' },
+      { nome: 'TUP-FLN-01', localidade: 'Av. Beira Mar Norte, 100 — Florianópolis/SC', potencia: '50 kW', conector: 'CCS2',    status: 'Em instalação', st: 'info'    },
+      { nome: 'TUP-POA-01', localidade: 'Av. Ipiranga, 500 — Porto Alegre/RS',         potencia: '22 kW', conector: 'Tipo 2',  status: 'Ativo',         st: 'success' },
+    ],
+    [
+      { nome: 'YLT-FOR-01', localidade: 'Av. Beira Mar, 200 — Fortaleza/CE',          potencia: '100 kW', conector: 'CCS2',    status: 'Ativo', st: 'success' },
+      { nome: 'YLT-REC-01', localidade: 'Av. Boa Viagem, 400 — Recife/PE',            potencia: '50 kW',  conector: 'CHAdeMO', status: 'Ativo', st: 'success' },
+      { nome: 'YLT-SSA-01', localidade: 'Av. Sete de Setembro, 600 — Salvador/BA',    potencia: '50 kW',  conector: 'CCS2',    status: 'Ativo', st: 'success' },
+    ],
+  ];
+
+  function buildExpandContent(idx) {
+    const rows = CHARGERS_DATA[idx].map(c => `
+      <tr class="tr">
+        <td class="td tdFirst tdMono tdSm">${c.nome}</td>
+        <td class="td tdSm">${c.localidade}</td>
+        <td class="td tdSm">${c.potencia}</td>
+        <td class="td tdSm">${c.conector}</td>
+        <td class="td"><span class="badge" data-status="${c.st}">${c.status}</span></td>
+        <td class="td tdActions">
+          <div class="cellActions">
+            <button class="actionBtn" type="button" aria-label="Ver carregador"><i data-lucide="eye" width="15" height="15"></i></button>
+          </div>
+        </td>
+      </tr>`).join('');
+    return `
+      <div class="expandInner">
+        <table class="table expandTable">
+          <colgroup>
+            <col style="width:14%" /><col style="width:38%" /><col style="width:10%" />
+            <col style="width:12%" /><col style="width:16%" /><col />
+          </colgroup>
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst">Carregador</th>
+              <th class="th">Localidade</th>
+              <th class="th">Potência</th>
+              <th class="th">Conector</th>
+              <th class="th">Status</th>
+              <th class="th">Ações</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+        <div class="expandFooter">
+          <button class="btn ghost" type="button" onclick="closeExpand(${idx})">Fechar</button>
+        </div>
+      </div>`;
+  }
+
+  function toggleExpand(e, idx) {
+    if (e.target.closest('button')) return;
+    const mainRow   = document.getElementById('main-row-' + idx);
+    const expandRow = document.getElementById('expand-' + idx);
+    const isOpen    = mainRow.classList.contains('expanded');
+    if (isOpen) {
+      mainRow.classList.remove('expanded');
+      expandRow.classList.remove('open');
+    } else {
+      if (!expandRow.dataset.built) {
+        expandRow.querySelector('.expandCell').innerHTML = buildExpandContent(idx);
+        expandRow.dataset.built = '1';
+        lucide.createIcons({ nodes: [expandRow] });
+      }
+      mainRow.classList.add('expanded');
+      expandRow.classList.add('open');
+    }
+  }
+
+  function closeExpand(idx) {
+    document.getElementById('main-row-' + idx).classList.remove('expanded');
+    document.getElementById('expand-'    + idx).classList.remove('open');
+  }
+
+  const statusDd  = document.getElementById('status-dd');
+  const statusVal = document.getElementById('status-val');
+  statusDd.querySelector('.trigger').addEventListener('click', e => {
+    e.stopPropagation();
+    statusDd.classList.toggle('open');
+  });
+  statusDd.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      statusDd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      statusVal.textContent = opt.dataset.value ? opt.textContent : 'Status';
+      statusDd.classList.remove('open');
+    });
+  });
+  document.addEventListener('click', () => statusDd.classList.remove('open'));
+
+  function addOpen() {
+    document.getElementById('add-dialog').style.display = 'flex';
+    lucide.createIcons();
+  }
+  function addClose() {
+    document.getElementById('add-dialog').style.display = 'none';
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') addClose(); });
+
+  lucide.createIcons();
+
+  /* ── Abre a primeira linha automaticamente ── */
+  toggleExpand({ target: document.getElementById('main-row-0') }, 0);
+</script>
+
+</body>
+</html>

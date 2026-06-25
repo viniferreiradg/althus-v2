@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Fiscal — Althus</title>
+  <title>Fiscal — Mensalidades — Althus ADM</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="../storybook-desktop/src/components/Sheet/Sheet.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
 </head>
-<body data-page="fiscal-fiscal">
+<body data-page="fiscal-mensalidades">
 
 <aside id="sidebar-root"></aside>
 
@@ -36,8 +36,8 @@
   <div class="pageHeader">
     <div class="pageHeaderRow">
       <div>
-        <h1 class="pageTitle">Fiscal — Recargas</h1>
-        <p class="pageSubtitle">Consulte todas as notas fiscais emitidas pela Althus referentes às recargas em sua rede</p>
+        <h1 class="pageTitle">Fiscal — Mensalidades</h1>
+        <p class="pageSubtitle">Notas fiscais referentes às mensalidades de licença da plataforma Althus</p>
       </div>
     </div>
   </div>
@@ -113,14 +113,14 @@
       <div class="card">
         <div class="summaryCardPad">
           <p class="summaryCardLabel">Total faturado — Mês atual</p>
-          <p class="summaryCardValue">R$ 470,40</p>
+          <p class="summaryCardValue">R$ 17.680,00</p>
         </div>
       </div>
       <div class="card">
         <div class="summaryCardPad">
           <p class="summaryCardLabel">Última NFS-e emitida</p>
-          <p class="summaryCardValue">10/06/2026 às 14:30</p>
-          <p class="summaryCardNote">Nº 000123456</p>
+          <p class="summaryCardValue">10/06/2026 às 09:00</p>
+          <p class="summaryCardNote">Nº 000223456</p>
         </div>
       </div>
     </div>
@@ -128,7 +128,7 @@
     <!-- Tabela de NFS-e -->
     <div class="card">
       <div class="tableWrap">
-        <table class="table" aria-label="Notas fiscais de recargas">
+        <table class="table" aria-label="Notas fiscais de mensalidades">
           <thead class="thead">
             <tr class="tr">
               <th class="th" style="width:40px">
@@ -136,8 +136,8 @@
               </th>
               <th class="th">Número</th>
               <th class="th">Emissão</th>
-              <th class="th">Carregador</th>
-              <th class="th">Cliente</th>
+              <th class="th">Plano</th>
+              <th class="th">CPO</th>
               <th class="th">Valor</th>
               <th class="th" style="width:80px">Ações</th>
             </tr>
@@ -145,15 +145,15 @@
           <tbody class="tbody">
             <tr class="tr">
               <td class="td">
-                <input type="checkbox" aria-label="Selecionar NFS-e 000123456" />
+                <input type="checkbox" aria-label="Selecionar NFS-e 000223456" />
               </td>
-              <td class="td tdMono">000123456</td>
-              <td class="td">10/06/2026 14:30</td>
-              <td class="td">CHG-001 — Matriz</td>
-              <td class="td">Claudio Oliveira</td>
-              <td class="td">R$ 248,90</td>
+              <td class="td tdMono">000223456</td>
+              <td class="td">10/06/2026 09:00</td>
+              <td class="td">Mensal Cartão</td>
+              <td class="td">EletroCharge</td>
+              <td class="td">R$ 1.490,00</td>
               <td class="td cellActions">
-                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000123456','10/06/2026 14:30','A7F2-9B3C-D4E5','06/2026','CHG-001 — Matriz','Claudio Oliveira','123.456.789-00','cliente@exemplo.com.br','R$ 248,90','R$ 12,45','R$ 248,90')">
+                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000223456','10/06/2026 09:00','D1E2-F3A4-B5C6','06/2026','Mensal Cartão','EletroCharge','12.345.678/0001-90','R$ 1.490,00','R$ 74,50','R$ 1.490,00')">
                   <i data-lucide="eye" width="15" height="15"></i>
                 </button>
                 <button class="btn ghost iconOnly sm" type="button" aria-label="Baixar NFS-e">
@@ -163,15 +163,15 @@
             </tr>
             <tr class="tr">
               <td class="td">
-                <input type="checkbox" aria-label="Selecionar NFS-e 000123455" />
+                <input type="checkbox" aria-label="Selecionar NFS-e 000223455" />
               </td>
-              <td class="td tdMono">000123455</td>
-              <td class="td">08/06/2026 09:15</td>
-              <td class="td">CHG-002 — Filial Sul</td>
-              <td class="td">Maria Fernanda Souza</td>
-              <td class="td">R$ 132,40</td>
+              <td class="td tdMono">000223455</td>
+              <td class="td">08/06/2026 09:00</td>
+              <td class="td">Mensal PIX</td>
+              <td class="td">Mobi Verde</td>
+              <td class="td">R$ 1.290,00</td>
               <td class="td cellActions">
-                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000123455','08/06/2026 09:15','B1C3-4D5E-F6A7','06/2026','CHG-002 — Filial Sul','Maria Fernanda Souza','987.654.321-00','maria@exemplo.com.br','R$ 132,40','R$ 6,62','R$ 132,40')">
+                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000223455','08/06/2026 09:00','E2F3-A4B5-C6D7','06/2026','Mensal PIX','Mobi Verde','98.765.432/0001-11','R$ 1.290,00','R$ 64,50','R$ 1.290,00')">
                   <i data-lucide="eye" width="15" height="15"></i>
                 </button>
                 <button class="btn ghost iconOnly sm" type="button" aria-label="Baixar NFS-e">
@@ -181,15 +181,15 @@
             </tr>
             <tr class="tr">
               <td class="td">
-                <input type="checkbox" aria-label="Selecionar NFS-e 000123454" />
+                <input type="checkbox" aria-label="Selecionar NFS-e 000223454" />
               </td>
-              <td class="td tdMono">000123454</td>
-              <td class="td">03/06/2026 16:45</td>
-              <td class="td">CHG-001 — Matriz</td>
-              <td class="td">Roberto Carlos Lima</td>
-              <td class="td">R$ 89,10</td>
+              <td class="td tdMono">000223454</td>
+              <td class="td">03/06/2026 09:00</td>
+              <td class="td">Anual</td>
+              <td class="td">PowerStation</td>
+              <td class="td">R$ 14.900,00</td>
               <td class="td cellActions">
-                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000123454','03/06/2026 16:45','C9D2-7E1F-3B8A','06/2026','CHG-001 — Matriz','Roberto Carlos Lima','456.789.123-00','roberto@exemplo.com.br','R$ 89,10','R$ 4,46','R$ 89,10')">
+                <button class="btn ghost iconOnly sm" type="button" aria-label="Visualizar NFS-e" onclick="nfseDialogOpen('000223454','03/06/2026 09:00','F3A4-B5C6-D7E8','06/2026','Anual','PowerStation','45.678.901/0001-22','R$ 14.900,00','R$ 745,00','R$ 14.900,00')">
                   <i data-lucide="eye" width="15" height="15"></i>
                 </button>
                 <button class="btn ghost iconOnly sm" type="button" aria-label="Baixar NFS-e">
@@ -279,16 +279,16 @@
         <div class="nfseDocSection">
           <p class="nfseDocSectionLabel">Tomador de serviços</p>
           <p class="nfseDocSectionName" id="nd-tomador"></p>
-          <p class="nfseDocSectionText">CPF: <span id="nd-cpf"></span></p>
-          <p class="nfseDocSectionText">Email: <span id="nd-email"></span></p>
+          <p class="nfseDocSectionText">CNPJ: <span id="nd-cnpj"></span></p>
         </div>
 
         <!-- Discriminação -->
         <div class="nfseDocSection">
           <p class="nfseDocSectionLabel">Discriminação dos serviços</p>
           <p class="nfseDocSectionText">
-            Recarga de veículo elétrico realizada <span class="nfseDocHighlight">no carregador <span id="nd-carregador"></span></span>. Sessão de recarga concluída em
-            <span class="nfseDocHighlight"><span id="nd-emissao-disc"></span></span>. Energia fornecida: 32,5 kWh.
+            Licença de uso da plataforma Althus — <span class="nfseDocHighlight">plano <span id="nd-plano"></span></span> —
+            para o operador de recarga <span class="nfseDocHighlight"><span id="nd-cpo"></span></span>.
+            Competência: <span id="nd-competencia-disc"></span>.
           </p>
         </div>
 
@@ -296,7 +296,7 @@
         <div class="nfseDocRow">
           <div class="nfseDocCell">
             <p class="nfseDocCellLabel">Código do serviço</p>
-            <p class="nfseDocCellValue">17.01</p>
+            <p class="nfseDocCellValue">01.07</p>
           </div>
           <div class="nfseDocCell">
             <p class="nfseDocCellLabel">Alíquota ISS</p>
@@ -341,21 +341,21 @@
 <script src="shared/sidebar.js"></script>
 <script>
   /* ── NFS-e Dialog ── */
-  function nfseDialogOpen(numero, emissao, codigo, competencia, carregador, tomador, cpf, email, total, iss, base) {
-    document.getElementById('nd-numero').textContent        = numero;
-    document.getElementById('nd-numero-banner').textContent = numero;
-    document.getElementById('nd-emissao').textContent       = emissao;
-    document.getElementById('nd-emissao-disc').textContent  = emissao;
-    document.getElementById('nd-codigo').textContent        = codigo;
-    document.getElementById('nd-competencia').textContent   = competencia;
-    document.getElementById('nd-carregador').textContent    = carregador;
-    document.getElementById('nd-tomador').textContent       = tomador;
-    document.getElementById('nd-cpf').textContent           = cpf;
-    document.getElementById('nd-email').textContent         = email;
-    document.getElementById('nd-total').textContent         = total;
-    document.getElementById('nd-iss').textContent           = iss;
-    document.getElementById('nd-base').textContent          = base;
-    document.getElementById('nfse-dialog').style.display   = 'flex';
+  function nfseDialogOpen(numero, emissao, codigo, competencia, plano, cpo, cnpj, total, iss, base) {
+    document.getElementById('nd-numero').textContent           = numero;
+    document.getElementById('nd-numero-banner').textContent    = numero;
+    document.getElementById('nd-emissao').textContent          = emissao;
+    document.getElementById('nd-codigo').textContent           = codigo;
+    document.getElementById('nd-competencia').textContent      = competencia;
+    document.getElementById('nd-competencia-disc').textContent = competencia;
+    document.getElementById('nd-plano').textContent            = plano;
+    document.getElementById('nd-cpo').textContent              = cpo;
+    document.getElementById('nd-tomador').textContent          = cpo;
+    document.getElementById('nd-cnpj').textContent             = cnpj;
+    document.getElementById('nd-total').textContent            = total;
+    document.getElementById('nd-iss').textContent              = iss;
+    document.getElementById('nd-base').textContent             = base;
+    document.getElementById('nfse-dialog').style.display      = 'flex';
     lucide.createIcons();
   }
   function nfseDialogClose() { document.getElementById('nfse-dialog').style.display = 'none'; }
