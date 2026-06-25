@@ -105,8 +105,12 @@ body {
   align-items: flex-end;
   gap: var(--spacing-sm);
   padding: var(--spacing-md) var(--spacing-xl) 0;
+  margin-bottom: var(--spacing-md);
   flex-shrink: 0;
 }
+/* Toolbar e grids usados dentro de .pageContent (sem padding lateral extra) */
+.pageContent .toolbar     { padding-left: 0; padding-right: 0; }
+.pageContent .metricsGrid5 { padding: 0; margin-bottom: var(--spacing-md); }
 .searchWrap    { width: 280px; }
 .searchWrapFlex { flex: 1; min-width: 200px; }
 .filterWrap    { width: 180px; }
@@ -141,6 +145,20 @@ body {
   gap: var(--spacing-sm);
   padding: var(--spacing-lg) var(--spacing-md);
   border-top: var(--border-width-thin) solid var(--color-table-border);
+}
+.tableFooterSpaced {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md) var(--spacing-md);
+  border-top: var(--border-width-thin) solid var(--color-table-border);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+.tableFooterSpaced strong {
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
 }
 
 /* ── Célula com avatar + nome ────────────────────────────────────────────────── */
@@ -1237,6 +1255,11 @@ body {
   justify-content: center;
   flex-shrink: 0;
 }
+.quickActionIconGhost {
+  background: none;
+  color: var(--color-text-tertiary);
+  border: var(--border-width-thin) dashed var(--color-border-default);
+}
 .quickActionBody { display: flex; flex-direction: column; gap: var(--spacing-2xs); }
 .quickActionLabel { font-size: var(--font-size-sm); font-weight: var(--font-weight-medium); color: var(--color-text-primary); }
 .quickActionDesc  { font-size: var(--font-size-xs); color: var(--color-text-tertiary); }
@@ -1270,6 +1293,12 @@ body {
 }
 
 /* ── Grid de 4 métricas ──────────────────────────────────────────────────── */
+.metricsGrid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
 .metricsGrid4 {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -1310,6 +1339,9 @@ body {
   font-weight: var(--font-weight-medium);
   color: var(--color-text-success);
 }
+.metricCardDanger {
+  color: var(--color-text-danger);
+}
 .metricCardBtgRow {
   display: flex;
   align-items: center;
@@ -1348,7 +1380,57 @@ body {
 }
 .inlineBadge.success { background: var(--color-status-success-bg); color: var(--color-status-success-fg); }
 .inlineBadge.warning { background: var(--color-status-warning-bg); color: var(--color-status-warning-fg); }
+.inlineBadge.danger  { background: var(--color-status-error-bg);   color: var(--color-status-error-fg); }
 .inlineBadge.muted   { background: var(--color-bg-subtle); color: var(--color-text-secondary); border: var(--border-width-thin) solid var(--color-border-subtle); }
+.inlineBadge.pending { background: var(--color-status-info-bg); color: var(--color-status-info-fg); }
+
+/* ── Cashback por TPV — layout da linha de filtros ──────────────────────── */
+.cashbackTabsRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-md);
+}
+
+/* ── Cashback — barra de progresso de TPV na célula ─────────────────────── */
+.cellProgress { width: 120px; height: 6px; border-radius: var(--radius-full); background: var(--color-border-subtle); overflow: hidden; }
+.cellProgressBar { height: 100%; border-radius: var(--radius-full); background: var(--color-text-primary); }
+
+/* ── Cashback % colorido por faixa ───────────────────────────────────────── */
+.cashbackPct { font-weight: var(--font-weight-medium); }
+.cashbackPct.highlight { color: var(--color-status-warning-fg); }
+
+/* ── Linha de total no rodapé da tabela ─────────────────────────────────── */
+.tableTotalRow .td { font-weight: var(--font-weight-semibold); color: var(--color-text-primary); border-top: var(--border-width-medium) solid var(--color-table-border); }
+
+/* ── Sparkline de tendência ─────────────────────────────────────────────── */
+.sparkline { display: block; width: 80px; height: 24px; }
+
+/* ── Table header tooltip icon ───────────────────────────────────────────── */
+.thInfo {
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-tertiary);
+  cursor: default;
+  margin-left: var(--spacing-2xs);
+  vertical-align: middle;
+}
+
+/* ── Table action buttons ────────────────────────────────────────────────── */
+.tableActionBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--color-text-tertiary);
+  border-radius: var(--radius-xs);
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.tableActionBtn:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); }
 
 /* ── Cashback por faixa de TPV ───────────────────────────────────────────── */
 .cashbackSection {
@@ -1816,6 +1898,21 @@ body {
   gap: var(--spacing-sm);
   margin-bottom: var(--spacing-md);
 }
+.analiseMetricGrid7 {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+.analiseConversionRow {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  padding-top: var(--spacing-sm);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
 .metricCardGrowthDown {
   font-size: var(--font-size-xs);
   font-weight: var(--font-weight-medium);
@@ -2089,31 +2186,6 @@ body {
   padding-right: var(--spacing-lg);
 }
 
-/* Time filter chips */
-.analyseTimeFilters {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
-  flex-shrink: 0;
-}
-.analyseTimeChip {
-  padding: var(--spacing-2xs) var(--spacing-sm);
-  border-radius: var(--radius-full);
-  border: var(--border-width-thin) solid var(--color-border-default);
-  background: transparent;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
-  font-family: var(--font-body);
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--spacing-2xs);
-}
-.analyseTimeChip.active {
-  background: var(--color-text-primary);
-  color: var(--color-bg-default);
-  border-color: var(--color-text-primary);
-}
 
 /* Coluna vertical com gap entre cards da página Análise */
 .analyseStack {
@@ -2652,3 +2724,234 @@ body {
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
+
+/* ── Dialog de detalhe — grid 2 colunas ─────────────────────────────────── */
+.dialogDetailGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-md);
+}
+.dialogDetailField {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+.dialogDetailFieldFull {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2xs);
+}
+.dialogDetailLabel {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-brand);
+  font-weight: var(--font-weight-medium);
+}
+.dialogDetailValue {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
+}
+.dialogDetailValueSub {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
+  margin-top: var(--spacing-2xs);
+}
+
+/* ── Relatório IA: dialog de análise operacional ─────────────────────────── */
+.reportAiBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-xs) var(--spacing-md);
+  background: var(--color-bg-brand-strong);
+  color: var(--color-gray-white);
+  border: none;
+  border-radius: var(--radius-full);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: var(--spacing-md);
+  flex-shrink: 0;
+}
+.reportSection {
+  padding-top: var(--spacing-lg);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+.reportSectionTitle {
+  margin: 0;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+.reportText {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+.reportText strong { color: var(--color-text-primary); font-weight: var(--font-weight-semibold); }
+.reportBlockquote {
+  border-left: var(--border-width-thick) solid var(--color-border-default);
+  padding: var(--spacing-sm) var(--spacing-md);
+  margin: 0;
+  background: var(--color-bg-subtle);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+.reportBlockquote strong { color: var(--color-text-primary); font-weight: var(--font-weight-semibold); }
+.reportAlert {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-xs);
+  border-left: var(--border-width-thick) solid var(--color-border-default);
+  background: var(--color-bg-subtle);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+.reportAlert[data-variant="error"]   { border-left-color: var(--color-action-error); }
+.reportAlert[data-variant="warning"] { border-left-color: var(--color-action-warning); }
+.reportAlertTitle { font-weight: var(--font-weight-semibold); color: var(--color-text-primary); }
+.reportRecoList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+.reportRecoItem {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+.reportRecoNum {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-lg);
+  height: var(--spacing-lg);
+  border-radius: var(--radius-full);
+  background: var(--color-text-primary);
+  color: var(--color-bg-default);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.reportChipsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+/* ── Dialog: linha de toggle com label ──────────────────────────────────── */
+.dialogToggleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacing-sm) var(--spacing-md);
+  background: var(--color-bg-subtle);
+  border-radius: var(--radius-sm);
+}
+.dialogToggleLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-regular);
+}
+
+/* ── Dialog: seções de formulário (ícone + título + separador) ──────────── */
+.dialogSection {
+  padding-top: var(--spacing-lg);
+  border-top: var(--border-width-thin) solid var(--color-border-subtle);
+}
+.dialogSectionHead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--spacing-xs);
+}
+.dialogSectionTitle {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+/* ── Paginação de tabelas ────────────────────────────────────────────────── */
+.tableFooterLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-lg);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+.tableFooterPerPage {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+.pagControls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2xs);
+}
+.pagBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
+  padding: 0 var(--spacing-xs);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-xs);
+  background: var(--color-bg-surface);
+  color: var(--color-text-secondary);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.pagBtn:hover:not(:disabled) { background: var(--color-bg-subtle); color: var(--color-text-primary); }
+.pagBtn:disabled { opacity: 0.4; cursor: not-allowed; }
+.pagBtnActive {
+  background: var(--color-bg-brand-strong);
+  color: var(--color-gray-white);
+  border-color: var(--color-bg-brand-strong);
+  font-weight: var(--font-weight-semibold);
+}
+.pagBtnActive:hover { background: var(--color-bg-brand-strong); color: var(--color-gray-white); }
+
+/* ── Botões de ação inline na tabela ────────────────────────────────────── */
+.tdActionBtns {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+}
+.tdActionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--spacing-2xl);
+  height: var(--spacing-2xl);
+  border: none;
+  border-radius: var(--radius-xs);
+  background: transparent;
+  color: var(--color-text-tertiary);
+  cursor: pointer;
+  transition: background var(--transition-fast), color var(--transition-fast);
+}
+.tdActionBtn:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); }
+

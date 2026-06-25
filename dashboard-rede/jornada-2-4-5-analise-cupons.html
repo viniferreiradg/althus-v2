@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/MetricCard/MetricCard.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/FilterChips/FilterChips.module.css" />
 </head>
 <body data-page="cupons-analise">
 
@@ -113,10 +114,10 @@
           <div class="analyseCardTitle">Cupons ativos</div>
           <div class="analyseCardSubtitle">Detalhes e desempenho dos cupons em circulação · Últimos 7 dias</div>
         </div>
-        <div class="analyseTimeFilters" id="timeFilters">
-          <button class="analyseTimeChip active" type="button" data-period="7">7 dias</button>
-          <button class="analyseTimeChip" type="button" data-period="15">15 dias</button>
-          <button class="analyseTimeChip" type="button" data-period="30">30 dias</button>
+        <div class="filterChips" id="timeFilters">
+          <button class="filterChip active" type="button" data-period="7">7 dias</button>
+          <button class="filterChip" type="button" data-period="15">15 dias</button>
+          <button class="filterChip" type="button" data-period="30">30 dias</button>
         </div>
       </div>
       <div class="tableWrap">
@@ -492,9 +493,9 @@
   });
 
   /* ── Time filter chips ── */
-  document.getElementById('timeFilters').querySelectorAll('.analyseTimeChip').forEach(chip => {
+  document.getElementById('timeFilters').querySelectorAll('.filterChip').forEach(chip => {
     chip.addEventListener('click', () => {
-      document.querySelectorAll('.analyseTimeChip').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('#timeFilters .filterChip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
     });
   });

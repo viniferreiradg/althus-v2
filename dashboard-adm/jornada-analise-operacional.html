@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise operacional — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
+</head>
+<body data-page="analises-operacional">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+  <div class="pageContent">
+
+    <!-- ── Header ── -->
+    <div class="analiseHeaderRow">
+      <div>
+        <h1 class="pageTitle">Análise operacional</h1>
+        <p class="pageSubtitle">Acompanhe o desempenho e uso dos carregadores da sua rede</p>
+      </div>
+      <div class="analiseControls">
+        <div class="wrapper" id="scope-dd">
+          <div class="trigger">
+            <span id="scope-val">Rede</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu">
+            <div class="option selected" data-value="rede">Rede</div>
+            <div class="option" data-value="filial-norte">Filial Norte</div>
+            <div class="option" data-value="filial-sul">Filial Sul</div>
+            <div class="option" data-value="matriz">Matriz</div>
+          </div>
+        </div>
+        <button class="btn primary hasLeft" type="button" onclick="relatorioOpen()">
+          <span class="icon"><i data-lucide="file-text" width="16" height="16"></i></span>
+          Gerar relatório com IA
+        </button>
+      </div>
+    </div>
+
+    <!-- ── 7 Metric cards ── -->
+    <div class="analiseMetricGrid7">
+      <div class="metricCard">
+        <p class="metricCardLabel">Quantidade de CPOs ativos</p>
+        <p class="metricCardValue">24</p>
+        <p class="metricCardGrowth">+6% vs. mês anterior</p>
+      </div>
+      <div class="metricCard">
+        <p class="metricCardLabel">Taxa de abandono durante o cadastro no APP</p>
+        <p class="metricCardValue">28%</p>
+        <p class="metricCardNote">Taxa de abandono durante o cadastro no APP</p>
+      </div>
+      <div class="metricCard">
+        <p class="metricCardLabel">Quantidade de recargas</p>
+        <p class="metricCardValue">1.284</p>
+        <p class="metricCardGrowth">+12% vs. mês anterior</p>
+      </div>
+      <div class="metricCard">
+        <p class="metricCardLabel">kWh carregados</p>
+        <p class="metricCardValue">32.540</p>
+        <p class="metricCardGrowth">+8% vs. mês anterior</p>
+      </div>
+      <div class="metricCard">
+        <p class="metricCardLabel">Tempo médio por recarga</p>
+        <p class="metricCardValue">42 min</p>
+        <p class="metricCardGrowthDown">-3% vs. mês anterior</p>
+      </div>
+      <div class="metricCard">
+        <p class="metricCardLabel">Uptime médio da rede</p>
+        <p class="metricCardValue">99,2%</p>
+        <p class="metricCardGrowth">Estável</p>
+      </div>
+      <div class="metricCard">
+        <p class="metricCardLabel">Tipo de veículo predominante</p>
+        <p class="metricCardValue">57% elétricos</p>
+        <p class="metricCardNote">Dado baseado nos usuários que cadastraram o veículo no perfil</p>
+      </div>
+    </div>
+
+    <!-- ── Recargas por dia | kWh carregados por dia ── -->
+    <div class="analiseChartGrid">
+      <div class="widgetCard">
+        <div class="analiseChartCardHeader">
+          <div>
+            <h3 class="widgetCardTitle">Recargas por dia</h3>
+            <p class="widgetCardSub">Últimos 7 dias</p>
+          </div>
+          <div class="barChartPeriodTabs">
+            <button class="periodTabBtn active" type="button">7 dias</button>
+            <button class="periodTabBtn" type="button">15 dias</button>
+            <button class="periodTabBtn" type="button">30 dias</button>
+            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
+              <i data-lucide="calendar" width="13" height="13"></i> Período
+            </button>
+          </div>
+        </div>
+        <div id="chart-recargas"></div>
+        <p class="analiseChartNote">Número total de sessões de recarga iniciadas por dia. Aumentos e quedas podem representar variáveis como elasticidade na demanda e sazonalidade.</p>
+      </div>
+
+      <div class="widgetCard">
+        <div class="analiseChartCardHeader">
+          <div>
+            <h3 class="widgetCardTitle">kWh carregados por dia</h3>
+            <p class="widgetCardSub">Últimos 7 dias</p>
+          </div>
+          <div class="barChartPeriodTabs">
+            <button class="periodTabBtn active" type="button">7 dias</button>
+            <button class="periodTabBtn" type="button">15 dias</button>
+            <button class="periodTabBtn" type="button">30 dias</button>
+            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
+              <i data-lucide="calendar" width="13" height="13"></i> Período
+            </button>
+          </div>
+        </div>
+        <div id="chart-kwh"></div>
+        <p class="analiseChartNote">Energia total entregue pela rede por dia. Um kWh alto com poucas recargas indica sessões longas — um kWh baixo com muitas recargas indica sessões curtas.</p>
+      </div>
+    </div>
+
+    <!-- ── Evolução dos carregadores | Churn ── -->
+    <div class="analiseChartGrid">
+      <div class="widgetCard">
+        <div class="analiseChartCardHeader">
+          <div>
+            <h3 class="widgetCardTitle">Evolução dos carregadores da rede</h3>
+            <p class="widgetCardSub">Ativos e inativos ao longo do tempo</p>
+          </div>
+          <div class="barChartPeriodTabs">
+            <button class="periodTabBtn active" type="button">Todos</button>
+            <button class="periodTabBtn" type="button">AC</button>
+            <button class="periodTabBtn" type="button">DC</button>
+          </div>
+        </div>
+        <div id="chart-evolucao"></div>
+        <p class="analiseChartNote">Acompanhe a base de carregadores vendo crescendo e qual tipo de corrente está puxando o crescimento ou a inatividade.</p>
+      </div>
+
+      <div class="widgetCard">
+        <div class="analiseChartCardHeader">
+          <div>
+            <h3 class="widgetCardTitle">Churn</h3>
+            <p class="widgetCardSub">Porcentagem de CPOs que deixam a Althus</p>
+          </div>
+          <div class="barChartPeriodTabs">
+            <button class="periodTabBtn active" type="button">30 dias</button>
+            <button class="periodTabBtn" type="button">60 dias</button>
+            <button class="periodTabBtn" type="button">90 dias</button>
+            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
+              <i data-lucide="calendar" width="13" height="13"></i> Período
+            </button>
+          </div>
+        </div>
+        <div id="chart-churn"></div>
+        <p class="analiseChartNote">Percentual de usuários ativos que encerraram o contrato com a Althus. Quanto menor, melhor a saúde da base.</p>
+      </div>
+    </div>
+
+    <!-- ── Usuários da rede | Perfil geral de usuários ── -->
+    <div class="analiseChartGrid">
+      <div class="widgetCard">
+        <div class="analiseChartCardHeader">
+          <div>
+            <h3 class="widgetCardTitle">Usuários da rede</h3>
+            <p class="widgetCardSub">Cadastrados vs. ativos no app ao longo do tempo</p>
+          </div>
+        </div>
+        <div id="chart-usuarios"></div>
+        <div class="analiseConversionRow">
+          <span>Conversão: <strong>45,9%</strong></span>
+          <span>Potencial de reativação: <strong>54,1% (3.390)</strong></span>
+        </div>
+        <p class="analiseChartNote" style="margin-top:var(--spacing-xs)">Cadastrados são todos os usuários com conta criada. Ativos são os que realizaram ao menos uma recarga no período. A diferença entre os lados indica o potencial de reativação da base.</p>
+      </div>
+
+      <div class="widgetCard">
+        <div class="analiseChartCardHeader">
+          <div>
+            <h3 class="widgetCardTitle">Perfil geral de usuários da rede</h3>
+            <p class="widgetCardSub">Proporção de novos e recorrentes em toda a rede</p>
+          </div>
+          <div class="barChartPeriodTabs">
+            <button class="periodTabBtn active" type="button">7 dias</button>
+            <button class="periodTabBtn" type="button">15 dias</button>
+            <button class="periodTabBtn" type="button">30 dias</button>
+            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
+              <i data-lucide="calendar" width="13" height="13"></i> Período
+            </button>
+          </div>
+        </div>
+        <div class="analiseUserGrid">
+          <div class="analiseRingWrap">
+            <svg viewBox="0 0 120 120" width="140" height="140" aria-label="68% recorrentes">
+              <circle cx="60" cy="60" r="46" fill="none" stroke="#e5e7eb" stroke-width="11"/>
+              <circle cx="60" cy="60" r="46" fill="none" stroke="#9ca3af" stroke-width="11"
+                stroke-dasharray="196.5 289.0" stroke-linecap="butt"
+                transform="rotate(-90 60 60)"/>
+              <text x="60" y="55" text-anchor="middle" fill="#374151" font-size="20" font-weight="600" font-family="Inter,sans-serif">68%</text>
+            </svg>
+            <span class="analiseRingLabel">Recorrentes</span>
+          </div>
+          <div class="analiseRingWrap">
+            <svg viewBox="0 0 120 120" width="140" height="140" aria-label="32% novos">
+              <circle cx="60" cy="60" r="46" fill="none" stroke="#e5e7eb" stroke-width="11"/>
+              <circle cx="60" cy="60" r="46" fill="none" stroke="#1e293b" stroke-width="11"
+                stroke-dasharray="92.5 289.0" stroke-linecap="butt"
+                transform="rotate(-90 60 60)"/>
+              <text x="60" y="55" text-anchor="middle" fill="#374151" font-size="20" font-weight="600" font-family="Inter,sans-serif">32%</text>
+            </svg>
+            <span class="analiseRingLabel">Novos</span>
+          </div>
+        </div>
+        <p class="analiseChartNote">Mostra a proporção entre clientes que já usaram ao menos um carregador da rede antes e os que carregaram pela primeira vez no período selecionado.</p>
+      </div>
+    </div>
+
+    <!-- ── Retenção após cadastro | Retenção após primeira recarga ── -->
+    <div class="analiseChartGrid">
+      <div class="widgetCard">
+        <div class="analiseChartCardHeader">
+          <div>
+            <h3 class="widgetCardTitle">Retenção após cadastro</h3>
+            <p class="widgetCardSub">Últimos 7 dias</p>
+          </div>
+          <div class="barChartPeriodTabs">
+            <button class="periodTabBtn active" type="button">7 dias</button>
+            <button class="periodTabBtn" type="button">15 dias</button>
+            <button class="periodTabBtn" type="button">30 dias</button>
+            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
+              <i data-lucide="calendar" width="13" height="13"></i> Período
+            </button>
+          </div>
+        </div>
+        <div id="chart-retencao-cadastro"></div>
+        <p class="analiseChartNote">Percentual de usuários que realizaram a primeira recarga após criar a conta. Indica a eficiência da atração.</p>
+      </div>
+
+      <div class="widgetCard">
+        <div class="analiseChartCardHeader">
+          <div>
+            <h3 class="widgetCardTitle">Retenção após primeira recarga</h3>
+            <p class="widgetCardSub">Últimos 7 dias</p>
+          </div>
+          <div class="barChartPeriodTabs">
+            <button class="periodTabBtn active" type="button">7 dias</button>
+            <button class="periodTabBtn" type="button">15 dias</button>
+            <button class="periodTabBtn" type="button">30 dias</button>
+            <button class="periodTabBtn hasLeft" type="button" style="display:flex;align-items:center;gap:4px;">
+              <i data-lucide="calendar" width="13" height="13"></i> Período
+            </button>
+          </div>
+        </div>
+        <div id="chart-retencao-recarga"></div>
+        <p class="analiseChartNote">Percentual de usuários que voltaram a recarregar após a primeira sessão. Quanto maior, mais sua base está fidelizada.</p>
+      </div>
+    </div>
+
+    <!-- ── Horários de pico ── -->
+    <div class="widgetCard" style="margin-bottom:var(--spacing-md)">
+      <div class="widgetCardHeader">
+        <div>
+          <h3 class="widgetCardTitle">Horários de pico</h3>
+          <p class="widgetCardSub">Intensidade de uso por hora e dia da semana</p>
+        </div>
+      </div>
+      <div class="analiseHeatHeader">
+        <div></div>
+        <div class="analiseHeatHour">0h</div><div class="analiseHeatHour">1h</div><div class="analiseHeatHour">2h</div><div class="analiseHeatHour">3h</div><div class="analiseHeatHour">4h</div><div class="analiseHeatHour">5h</div><div class="analiseHeatHour">6h</div><div class="analiseHeatHour">7h</div><div class="analiseHeatHour">8h</div><div class="analiseHeatHour">9h</div><div class="analiseHeatHour">10h</div><div class="analiseHeatHour">11h</div><div class="analiseHeatHour">12h</div><div class="analiseHeatHour">13h</div><div class="analiseHeatHour">14h</div><div class="analiseHeatHour">15h</div><div class="analiseHeatHour">16h</div><div class="analiseHeatHour">17h</div><div class="analiseHeatHour">18h</div><div class="analiseHeatHour">19h</div><div class="analiseHeatHour">20h</div><div class="analiseHeatHour">21h</div><div class="analiseHeatHour">22h</div><div class="analiseHeatHour">23h</div>
+      </div>
+      <div class="analiseHeatGrid">
+        <div class="analiseHeatRow">
+          <span class="analiseHeatDayLabel">Seg</span>
+          <div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat8"></div><div class="analiseHeatCell heat8"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div>
+        </div>
+        <div class="analiseHeatRow">
+          <span class="analiseHeatDayLabel">Ter</span>
+          <div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div>
+        </div>
+        <div class="analiseHeatRow">
+          <span class="analiseHeatDayLabel">Qua</span>
+          <div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat8"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div>
+        </div>
+        <div class="analiseHeatRow">
+          <span class="analiseHeatDayLabel">Qui</span>
+          <div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat7"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div>
+        </div>
+        <div class="analiseHeatRow">
+          <span class="analiseHeatDayLabel">Sex</span>
+          <div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat6"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div>
+        </div>
+        <div class="analiseHeatRow">
+          <span class="analiseHeatDayLabel">Sáb</span>
+          <div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat5"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat0"></div>
+        </div>
+        <div class="analiseHeatRow">
+          <span class="analiseHeatDayLabel">Dom</span>
+          <div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat3"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat4"></div><div class="analiseHeatCell heat3"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat2"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat1"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div><div class="analiseHeatCell heat0"></div>
+        </div>
+      </div>
+      <div class="analiseHeatLegend">
+        <span>Baixo</span>
+        <div class="analiseHeatLegendBar"></div>
+        <span>Alto</span>
+      </div>
+      <p class="analiseChartNote" style="margin-top:var(--spacing-xs)">Células mais escuras indicam maior concentração de recargas naquele horário e dia da semana.</p>
+    </div>
+
+  </div><!-- /pageContent -->
+</main>
+
+<!-- ── Dialog: Relatório gerado por IA ─────────────────────────────────── -->
+<div class="dialogOverlay" id="relatorio-dialog" style="display:none;" onclick="relatorioClose()">
+  <div class="dialog lg" onclick="event.stopPropagation()" role="dialog" aria-modal="true">
+
+    <div class="dialogHeader">
+      <div>
+        <p class="dialogTitle">Relatório operacional — Vista Energia</p>
+        <p class="dialogSubtitle">Período: 12 mai 2026 · 11 jun 2026 · Gerado em 11/06/2026 às 14:32</p>
+      </div>
+      <button class="dialogCloseBtn" onclick="relatorioClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+
+    <div class="dialogBody">
+
+      <span class="reportAiBadge">
+        <i data-lucide="sparkles" width="14" height="14"></i>
+        Relatório gerado por IA
+      </span>
+
+      <!-- Resumo executivo -->
+      <div class="reportSection">
+        <p class="reportSectionTitle">Resumo executivo</p>
+        <p class="reportText">A rede de carregadores registrou <strong>1.284 sessões</strong> nos últimos 30 dias, com crescimento de <strong>+12%</strong> em relação ao período anterior. O volume de energia entregue atingiu <strong>32.540 kWh</strong>, alta de 8%. O uptime médio foi de <strong>99,2%</strong>, levemente abaixo do período anterior (−0,8%), o que merece atenção. Tempo médio por recarga: <strong>42 min</strong>.</p>
+        <div class="reportChipsRow">
+          <span class="inlineBadge success">↑ Sessões +12%</span>
+          <span class="inlineBadge success">↑ kWh +8%</span>
+          <span class="inlineBadge danger">↓ Uptime −0,8%</span>
+          <span class="inlineBadge muted">= Tempo médio estável</span>
+        </div>
+      </div>
+
+      <!-- Padrão de uso -->
+      <div class="reportSection">
+        <p class="reportSectionTitle">Padrão de uso</p>
+        <p class="reportText">O heatmap de horários revela um padrão consistente ao longo da semana:</p>
+        <blockquote class="reportBlockquote">Pico principal: <strong>segunda a sexta, das 18h às 21h</strong> — coincide com o fim do expediente comercial. Sábados apresentam demanda moderada entre 10h e 16h. Domingos e madrugadas (0h–6h) têm ocupação mínima em todos os carregadores.</blockquote>
+        <p class="reportText">A taxa de ocupação média é de <strong>50,4%</strong> considerando todos os carregadores. O CHG-001 lidera com <strong>78%</strong>, enquanto o CHG-011 opera em apenas <strong>31%</strong> — diferença que pode indicar posicionamento geográfico desfavorável ou problema de visibilidade no app.</p>
+      </div>
+
+      <!-- Pontos de atenção -->
+      <div class="reportSection">
+        <p class="reportSectionTitle">Pontos de atenção</p>
+        <div class="reportAlert" data-variant="error">
+          <span class="reportAlertTitle">Uptime:</span> A queda de 0,8% no uptime médio equivale a aproximadamente 5h40min de indisponibilidade por carregador no mês. Se concentrada em horário de pico (18h–21h), pode representar receita perdida relevante. Verifique os logs de falhas para identificar o carregador responsável.
+        </div>
+        <div class="reportAlert" data-variant="warning">
+          <span class="reportAlertTitle">CHG-011 com baixa ocupação (31%):</span> Abaixo da média da rede em 19 pontos percentuais. Recomenda-se investigar se há problema de descoberta no app ou se a localização tem tráfego reduzido de VEs.
+        </div>
+      </div>
+
+      <!-- Recomendações -->
+      <div class="reportSection">
+        <p class="reportSectionTitle">Recomendações</p>
+        <ol class="reportRecoList">
+          <li class="reportRecoItem">
+            <span class="reportRecoNum">1</span>
+            Revisar os logs de falhas do período para identificar a causa da queda de uptime antes que se agrave no próximo mês.
+          </li>
+          <li class="reportRecoItem">
+            <span class="reportRecoNum">2</span>
+            Considerar tarifa dinâmica nos horários de pico (18h–21h, seg–sex) para maximizar receita nos momentos de maior demanda.
+          </li>
+          <li class="reportRecoItem">
+            <span class="reportRecoNum">3</span>
+            Avaliar campanha de cupom para o CHG-011 nos finais de semana para estimular uso e equilibrar a taxa de ocupação da rede.
+          </li>
+          <li class="reportRecoItem">
+            <span class="reportRecoNum">4</span>
+            O crescimento de sessões (+12%) sugere momento favorável para negociar expansão da rede com novos locais de alto tráfego.
+          </li>
+        </ol>
+      </div>
+
+    </div><!-- /dialogBody -->
+
+    <div class="dialogFooter">
+      <button class="btn ghost" type="button" onclick="relatorioClose()">Fechar</button>
+      <button class="btn primary hasLeft" type="button">
+        <span class="icon"><i data-lucide="download" width="15" height="15"></i></span>
+        Baixar relatório
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  function relatorioOpen()  { document.getElementById('relatorio-dialog').style.display = 'flex'; lucide.createIcons(); }
+  function relatorioClose() { document.getElementById('relatorio-dialog').style.display = 'none'; }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') relatorioClose(); });
+
+  lucide.createIcons();
+
+  /* ── Dropdown de escopo ── */
+  (function () {
+    const dd  = document.getElementById('scope-dd');
+    const val = document.getElementById('scope-val');
+    dd.querySelector('.trigger').addEventListener('click', e => { e.stopPropagation(); dd.classList.toggle('open'); });
+    dd.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        dd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        val.textContent = opt.textContent;
+        dd.classList.remove('open');
+      });
+    });
+    document.addEventListener('click', () => dd.classList.remove('open'));
+  })();
+
+  /* ── Period tab toggle ── */
+  document.querySelectorAll('.barChartPeriodTabs').forEach(group => {
+    group.querySelectorAll('.periodTabBtn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        group.querySelectorAll('.periodTabBtn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      });
+    });
+  });
+
+  /* ── Chart base config ── */
+  const xAxisStyle = { colors: '#6b7280', fontSize: '12px', fontFamily: 'Inter, sans-serif' };
+  const gridCfg    = { borderColor: '#f3f4f6', strokeDashArray: 4, xaxis: { lines: { show: false } }, padding: { top: 20, right: 10, bottom: 0, left: 10 } };
+
+  const singleLineCfg = {
+    chart: { type: 'line', toolbar: { show: false }, background: 'transparent', fontFamily: 'Inter, sans-serif', height: 210 },
+    stroke: { curve: 'smooth', width: 2 },
+    colors: ['#1e293b'],
+    markers: { size: 5, colors: ['#1e293b'], strokeWidth: 0, hover: { size: 6 } },
+    dataLabels: { enabled: true, style: { fontSize: '11px', colors: ['#374151'], fontWeight: '400' }, background: { enabled: false }, offsetY: -8 },
+    xaxis: { categories: ['5 jun','6 jun','7 jun','8 jun','9 jun','10 jun','11 jun'], axisBorder: { show: false }, axisTicks: { show: false }, labels: { style: xAxisStyle } },
+    grid: gridCfg,
+    tooltip: { theme: 'light', style: { fontFamily: 'Inter, sans-serif', fontSize: '12px' } },
+    legend: { show: false },
+  };
+
+  const dualLineCfg = {
+    chart: { type: 'line', toolbar: { show: false }, background: 'transparent', fontFamily: 'Inter, sans-serif', height: 210 },
+    stroke: { curve: 'smooth', width: 2 },
+    colors: ['#1e293b', '#9ca3af'],
+    markers: { size: 4, strokeWidth: 0, hover: { size: 5 } },
+    dataLabels: { enabled: false },
+    grid: gridCfg,
+    tooltip: { theme: 'light', style: { fontFamily: 'Inter, sans-serif', fontSize: '12px' } },
+    legend: { show: true, position: 'top', horizontalAlign: 'left', fontSize: '12px', fontFamily: 'Inter, sans-serif', labels: { colors: '#374151' }, markers: { width: 8, height: 8, radius: 2 } },
+  };
+
+  const pctLineCfg = {
+    ...singleLineCfg,
+    dataLabels: {
+      enabled: true,
+      style: { fontSize: '11px', colors: ['#374151'], fontWeight: '400' },
+      background: { enabled: false },
+      offsetY: -8,
+      formatter: val => val + '%',
+    },
+    yaxis: { min: 0, max: 100, tickAmount: 5, labels: { style: xAxisStyle, formatter: val => val + '%' } },
+  };
+
+  /* ── Recargas por dia ── */
+  new ApexCharts(document.getElementById('chart-recargas'), {
+    ...singleLineCfg,
+    series: [{ name: 'Recargas', data: [21, 26, 14, 10, 13, 23, 12] }],
+    yaxis: { min: 0, max: 50, tickAmount: 5, labels: { style: xAxisStyle } },
+  }).render();
+
+  /* ── kWh por dia ── */
+  new ApexCharts(document.getElementById('chart-kwh'), {
+    ...singleLineCfg,
+    series: [{ name: 'kWh', data: [882, 841, 925, 812, 687, 783, 708] }],
+    yaxis: { min: 0, max: 1000, tickAmount: 5, labels: { style: xAxisStyle } },
+  }).render();
+
+  /* ── Evolução dos carregadores ── */
+  new ApexCharts(document.getElementById('chart-evolucao'), {
+    ...dualLineCfg,
+    series: [
+      { name: 'Ativos',   data: [72, 75, 78, 82, 86, 90, 95, 100] },
+      { name: 'Inativos', data: [22, 25, 28, 30, 32, 35, 38, 40]  },
+    ],
+    xaxis: { categories: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago'], axisBorder: { show: false }, axisTicks: { show: false }, labels: { style: xAxisStyle } },
+    yaxis: { min: 0, max: 120, tickAmount: 6, labels: { style: xAxisStyle } },
+  }).render();
+
+  /* ── Churn ── */
+  new ApexCharts(document.getElementById('chart-churn'), {
+    ...singleLineCfg,
+    series: [{ name: 'Churn (%)', data: [12, 18, 8, 15, 10, 18, 8, 15] }],
+    xaxis: { categories: ['13 mai','16 mai','19 mai','23 mai','28 mai','2 jun','7 jun','11 jun'], axisBorder: { show: false }, axisTicks: { show: false }, labels: { style: xAxisStyle } },
+    yaxis: { min: 0, max: 25, tickAmount: 5, labels: { style: xAxisStyle } },
+    dataLabels: { enabled: false },
+  }).render();
+
+  /* ── Usuários da rede ── */
+  new ApexCharts(document.getElementById('chart-usuarios'), {
+    ...dualLineCfg,
+    series: [
+      { name: 'Cadastrados', data: [5200, 5500, 5800, 6100, 6400, 6700, 7000, 7300] },
+      { name: 'Ativos',      data: [2200, 2400, 2600, 2800, 3000, 3100, 3200, 3300] },
+    ],
+    xaxis: { categories: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago'], axisBorder: { show: false }, axisTicks: { show: false }, labels: { style: xAxisStyle } },
+    yaxis: { min: 0, tickAmount: 5, labels: { style: xAxisStyle, formatter: val => (val / 1000).toFixed(0) + 'k' } },
+  }).render();
+
+  /* ── Retenção após cadastro ── */
+  new ApexCharts(document.getElementById('chart-retencao-cadastro'), {
+    ...pctLineCfg,
+    series: [{ name: 'Retenção', data: [54, 45, 68, 47, 77, 57, 57] }],
+  }).render();
+
+  /* ── Retenção após primeira recarga ── */
+  new ApexCharts(document.getElementById('chart-retencao-recarga'), {
+    ...pctLineCfg,
+    series: [{ name: 'Retenção', data: [68, 68, 38, 50, 69, 40, 49] }],
+  }).render();
+</script>
+
+</body>
+</html>

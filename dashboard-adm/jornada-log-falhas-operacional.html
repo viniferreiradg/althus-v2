@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log de falhas — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/MetricCard/MetricCard.module.css" />
+</head>
+<body data-page="operacional-log-falhas">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+
+  <div class="pageHeader">
+    <h1 class="pageTitle">Logs de falhas</h1>
+    <p class="pageSubtitle">Monitore falhas dos carregadores da sua rede</p>
+  </div>
+
+  <div class="pageContent">
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="searchWrapFlex">
+        <div class="wrapper hasLeft">
+          <div class="inputWrap">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" placeholder="Buscar (por nome do carregador)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="filterWrap">
+        <div class="wrapper" id="severidade-dropdown">
+          <div class="trigger" id="severidade-trigger">
+            <span id="severidade-value" class="placeholder">Severidade</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="">Todas</div>
+            <div class="option" data-value="critico">Crítico</div>
+            <div class="option" data-value="falha">Falha</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="filterWrap">
+        <div class="wrapper" id="status-dropdown">
+          <div class="trigger" id="status-trigger">
+            <span id="status-value" class="placeholder">Status</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="">Todos</div>
+            <div class="option" data-value="aberto">Em aberto</div>
+            <div class="option" data-value="resolvido">Resolvido</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="filterWrap">
+        <div class="wrapper" id="codigo-dropdown">
+          <div class="trigger" id="codigo-trigger">
+            <span id="codigo-value" class="placeholder">Código</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="">Todos</div>
+            <div class="option" data-value="err-1042">ERR-1042</div>
+            <div class="option" data-value="err-2018">ERR-2018</div>
+            <div class="option" data-value="err-3301">ERR-3301</div>
+            <div class="option" data-value="err-1108">ERR-1108</div>
+            <div class="option" data-value="err-4502">ERR-4502</div>
+            <div class="option" data-value="err-2210">ERR-2210</div>
+            <div class="option" data-value="err-5001">ERR-5001</div>
+            <div class="option" data-value="err-3120">ERR-3120</div>
+            <div class="option" data-value="err-1077">ERR-1077</div>
+            <div class="option" data-value="err-4810">ERR-4810</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="filterWrapSm">
+        <button class="btn ghost hasLeft" type="button">
+          <span class="icon"><i data-lucide="calendar" width="14" height="14"></i></span>
+          Período
+        </button>
+      </div>
+
+      <button class="btn primary hasLeft" type="button">
+        <span class="icon"><i data-lucide="download" width="15" height="15"></i></span>
+        Baixar CSV
+      </button>
+    </div>
+
+    <!-- Metric cards -->
+    <div class="metricsGrid4">
+      <div class="root">
+        <div class="label">Total de ocorrências</div>
+        <div class="value">11</div>
+      </div>
+      <div class="root">
+        <div class="label">Críticos</div>
+        <div class="value">4</div>
+      </div>
+      <div class="root">
+        <div class="label">Em aberto</div>
+        <div class="value">4</div>
+      </div>
+      <div class="root">
+        <div class="label">Ultima falha detectada</div>
+        <div class="value" style="font-size: var(--font-size-lg);">10/06/2026 às 14:32</div>
+        <p class="metricCardNote">ERR-1042 — CHG-001 — Matriz</p>
+      </div>
+    </div>
+
+    <!-- Tabela -->
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst">
+                CPO
+                <span class="thInfo"><i data-lucide="arrow-up-down" width="12" height="12"></i></span>
+              </th>
+              <th class="th">Nome do carregador</th>
+              <th class="th">Código da ocorrência</th>
+              <th class="th">Descrição</th>
+              <th class="th">Data</th>
+              <th class="th">Severidade</th>
+              <th class="th">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="tr">
+              <td class="td tdFirst">EletroPosto BR</td>
+              <td class="td">CHG-001 — Matriz</td>
+              <td class="td tdMono">ERR-1042</td>
+              <td class="td">Falha de comunicação com o módulo CCS</td>
+              <td class="td tdMono">10/06/2026 14:32</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Crítico</span></td>
+              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Em aberto</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">VoltCharge</td>
+              <td class="td">CHG-002 — Filial Sul</td>
+              <td class="td tdMono">ERR-2018</td>
+              <td class="td">Temperatura acima do limite operacional</td>
+              <td class="td tdMono">10/06/2026 11:05</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Crítico</span></td>
+              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Em aberto</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Ipiranga Recarga</td>
+              <td class="td">CHG-003 — Filial Norte</td>
+              <td class="td tdMono">ERR-3301</td>
+              <td class="td">Tensão de entrada fora do padrão</td>
+              <td class="td tdMono">09/06/2026 22:47</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">EletroPosto BR</td>
+              <td class="td">CHG-001 — Matriz</td>
+              <td class="td tdMono">ERR-1108</td>
+              <td class="td">Conector travado durante desacoplamento</td>
+              <td class="td tdMono">09/06/2026 18:21</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Em aberto</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Shell Recharge</td>
+              <td class="td">CHG-004 — Shopping</td>
+              <td class="td tdMono">ERR-4502</td>
+              <td class="td">Perda de conexão com servidor de telemetria</td>
+              <td class="td tdMono">08/06/2026 09:14</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">VoltCharge</td>
+              <td class="td">CHG-002 — Filial Sul</td>
+              <td class="td tdMono">ERR-2210</td>
+              <td class="td">Falha na autenticação RFID</td>
+              <td class="td tdMono">07/06/2026 16:58</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Tupinambá Energia</td>
+              <td class="td">CHG-005 — Posto Centro</td>
+              <td class="td tdMono">ERR-5001</td>
+              <td class="td">Curto-circuito detectado no cabo de saída</td>
+              <td class="td tdMono">06/06/2026 13:42</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Crítico</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Ipiranga Recarga</td>
+              <td class="td">CHG-003 — Filial Norte</td>
+              <td class="td tdMono">ERR-3120</td>
+              <td class="td">Sessão de carga interrompida pelo usuário</td>
+              <td class="td tdMono">05/06/2026 20:30</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">EletroPosto BR</td>
+              <td class="td">CHG-001 — Matriz</td>
+              <td class="td tdMono">ERR-1077</td>
+              <td class="td">Falha no display frontal</td>
+              <td class="td tdMono">04/06/2026 10:11</td>
+              <td class="td"><span class="badge" data-status="warning"><span class="badgeDot"></span>Falha</span></td>
+              <td class="td"><span class="badge" data-status="info"><span class="badgeDot"></span>Em aberto</span></td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Shell Recharge</td>
+              <td class="td">CHG-004 — Shopping</td>
+              <td class="td tdMono">ERR-4810</td>
+              <td class="td">Sobrecorrente na fase B</td>
+              <td class="td tdMono">03/06/2026 08:55</td>
+              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Crítico</span></td>
+              <td class="td"><span class="badge" data-status="success"><span class="badgeDot"></span>Resolvido</span></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tableFooterSpaced">
+        <span>Mostrando 1–10 de 11 resultados &nbsp; Itens por página: <strong>10</strong></span>
+        <nav class="pagination" aria-label="Paginação">
+          <button class="paginBtn" type="button" aria-label="Página anterior" disabled>
+            <i data-lucide="chevron-left" width="14" height="14"></i>
+          </button>
+          <button class="paginBtn paginBtnActive" type="button" aria-current="page">1</button>
+          <button class="paginBtn" type="button">2</button>
+          <button class="paginBtn" type="button" aria-label="Próxima página">
+            <i data-lucide="chevron-right" width="14" height="14"></i>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+  </div><!-- /pageContent -->
+
+</main>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  const ALL_DDS = ['severidade-dropdown', 'status-dropdown', 'codigo-dropdown'];
+
+  function initDropdown(wrapperId, triggerId, valueId, placeholder) {
+    const wrapper = document.getElementById(wrapperId);
+    const trigger = document.getElementById(triggerId);
+    const valueEl = document.getElementById(valueId);
+
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      ALL_DDS.forEach(id => { if (id !== wrapperId) document.getElementById(id).classList.remove('open'); });
+      wrapper.classList.toggle('open');
+    });
+    wrapper.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        wrapper.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        const val = opt.dataset.value;
+        valueEl.textContent = val ? opt.textContent : placeholder;
+        valueEl.classList.toggle('placeholder', !val);
+        wrapper.classList.remove('open');
+      });
+    });
+  }
+
+  initDropdown('severidade-dropdown', 'severidade-trigger', 'severidade-value', 'Severidade');
+  initDropdown('status-dropdown',     'status-trigger',     'status-value',     'Status');
+  initDropdown('codigo-dropdown',     'codigo-trigger',     'codigo-value',     'Código');
+
+  document.addEventListener('click', () => {
+    ALL_DDS.forEach(id => document.getElementById(id).classList.remove('open'));
+  });
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cupons — Novo cupom — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Toggle/Toggle.module.css" />
+</head>
+<body data-page="operacional-cupons">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+
+  <div class="pageHeader">
+    <h1 class="pageTitle">Cupons</h1>
+    <p class="pageSubtitle">Crie e gerencie cupons de desconto para sua rede</p>
+  </div>
+
+  <div class="pageContent">
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="searchWrapFlex">
+        <div class="wrapper hasLeft">
+          <div class="inputWrap">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" placeholder="Buscar (por CPO ou código)" />
+          </div>
+        </div>
+      </div>
+
+      <div class="filterWrap">
+        <div class="wrapper" id="status-dropdown">
+          <div class="trigger" id="status-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <span id="status-value">Todos</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="todos">Todos</div>
+            <div class="option" data-value="ativo">Ativo</div>
+            <div class="option" data-value="esgotado">Esgotado</div>
+            <div class="option" data-value="expirado">Expirado</div>
+            <div class="option" data-value="inativo">Inativo</div>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn primary hasLeft" type="button" onclick="novoCupomOpen()">
+        <span class="icon"><i data-lucide="plus" width="15" height="15"></i></span>
+        Criar cupom
+      </button>
+    </div>
+
+    <!-- Table -->
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst">
+                CPO
+                <span class="thInfo"><i data-lucide="arrow-up-down" width="12" height="12"></i></span>
+              </th>
+              <th class="th">Código</th>
+              <th class="th">Tipo</th>
+              <th class="th">Desconto</th>
+              <th class="th">Validade</th>
+              <th class="th" style="text-align:right;">Usos</th>
+              <th class="th" style="text-align:right;">Qtd. máx. de usos</th>
+              <th class="th">Status</th>
+              <th class="th" style="text-align:center;">Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="tr">
+              <td class="td tdFirst">Ampere</td>
+              <td class="td">ALT-0007</td>
+              <td class="td">Percentual</td>
+              <td class="td">15%</td>
+              <td class="td">20/11/2026</td>
+              <td class="td" style="text-align:right;">18</td>
+              <td class="td" style="text-align:right;">150</td>
+              <td class="td"><span class="badge" data-status="success">Ativo</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">EletroCharge</td>
+              <td class="td">ALT-0001</td>
+              <td class="td">Percentual</td>
+              <td class="td">10%</td>
+              <td class="td">31/12/2026</td>
+              <td class="td" style="text-align:right;">24</td>
+              <td class="td" style="text-align:right;">100</td>
+              <td class="td"><span class="badge" data-status="success">Ativo</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">EletroCharge</td>
+              <td class="td">ALT-0009</td>
+              <td class="td">Percentual</td>
+              <td class="td">25%</td>
+              <td class="td">31/12/2026</td>
+              <td class="td" style="text-align:right;">60</td>
+              <td class="td" style="text-align:right;">60</td>
+              <td class="td"><span class="badge" data-status="warning">Esgotado</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">EV Solutions</td>
+              <td class="td">ALT-0004</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 25,00</td>
+              <td class="td">01/07/2026</td>
+              <td class="td" style="text-align:right;">12</td>
+              <td class="td" style="text-align:right;">200</td>
+              <td class="td"><span class="badge" data-status="success">Ativo</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">GreenPlug</td>
+              <td class="td">ALT-0008</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 10,00</td>
+              <td class="td">05/04/2026</td>
+              <td class="td" style="text-align:right;">5</td>
+              <td class="td" style="text-align:right;">100</td>
+              <td class="td"><span class="badge" data-status="error">Expirado</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Mobi Verde</td>
+              <td class="td">ALT-0002</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 15,00</td>
+              <td class="td">30/09/2026</td>
+              <td class="td" style="text-align:right;">8</td>
+              <td class="td" style="text-align:right;">50</td>
+              <td class="td"><span class="badge" data-status="success">Ativo</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Mobi Verde</td>
+              <td class="td">ALT-0010</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 30,00</td>
+              <td class="td">15/09/2026</td>
+              <td class="td" style="text-align:right;">9</td>
+              <td class="td" style="text-align:right;">75</td>
+              <td class="td"><span class="badge" data-status="success">Ativo</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">PowerStation</td>
+              <td class="td">ALT-0003</td>
+              <td class="td">Percentual</td>
+              <td class="td">5%</td>
+              <td class="td">15/08/2026</td>
+              <td class="td" style="text-align:right;">50</td>
+              <td class="td" style="text-align:right;">50</td>
+              <td class="td"><span class="badge" data-status="warning">Esgotado</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Recarga Já</td>
+              <td class="td">ALT-0005</td>
+              <td class="td">Percentual</td>
+              <td class="td">20%</td>
+              <td class="td">10/05/2026</td>
+              <td class="td" style="text-align:right;">47</td>
+              <td class="td" style="text-align:right;">80</td>
+              <td class="td"><span class="badge" data-status="error">Expirado</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td tdFirst">Voltz</td>
+              <td class="td">ALT-0006</td>
+              <td class="td">Valor</td>
+              <td class="td">R$ 50,00</td>
+              <td class="td">31/10/2026</td>
+              <td class="td" style="text-align:right;">3</td>
+              <td class="td" style="text-align:right;">30</td>
+              <td class="td"><span class="badge" data-status="info">Inativo</span></td>
+              <td class="td" style="text-align:center;">
+                <button class="tableActionBtn" type="button" aria-label="Visualizar cupom"><i data-lucide="eye" width="14" height="14"></i></button>
+                <button class="tableActionBtn" type="button" aria-label="Editar cupom"><i data-lucide="pencil" width="14" height="14"></i></button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="tableFooterSpaced">
+        <span>Mostrando 1–10 de 10 resultados &nbsp; Itens por página: <strong>10</strong></span>
+        <nav class="pagination" aria-label="Paginação">
+          <button class="paginBtn" type="button" aria-label="Página anterior" disabled>
+            <i data-lucide="chevron-left" width="14" height="14"></i>
+          </button>
+          <button class="paginBtn paginBtnActive" type="button" aria-current="page">1</button>
+          <button class="paginBtn" type="button" aria-label="Próxima página" disabled>
+            <i data-lucide="chevron-right" width="14" height="14"></i>
+          </button>
+        </nav>
+      </div>
+    </div>
+
+  </div><!-- /pageContent -->
+
+</main>
+
+<!-- ── Dialog: Novo cupom ── -->
+<div class="dialogOverlay" id="novo-cupom-dialog" style="display:none;" onclick="novoCupomClose()">
+  <div class="dialog md" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="novo-cupom-title">
+    <div class="dialogHeader">
+      <span class="dialogTitle" id="novo-cupom-title">Novo cupom</span>
+      <button class="dialogCloseBtn" onclick="novoCupomClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="dialogBody">
+      <p class="dialogSubtitle">Defina as regras para o novo cupom de desconto</p>
+
+      <div class="dialogFormStack formLabelBrand">
+
+        <!-- Código -->
+        <div class="wrapper">
+          <label class="label" for="nc-codigo">Código</label>
+          <div class="inputWrap">
+            <input class="input" id="nc-codigo" type="text" placeholder="Ex.: ALT-0001" />
+          </div>
+        </div>
+
+        <!-- Tipo de benefício -->
+        <div class="wrapper" id="nc-tipo-dd">
+          <label class="label">Tipo de benefício</label>
+          <div class="trigger" id="nc-tipo-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <span id="nc-tipo-value">Percentual (%)</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="percentual">Percentual (%)</div>
+            <div class="option" data-value="valor">Valor (R$)</div>
+          </div>
+        </div>
+
+        <!-- Percentual de desconto -->
+        <div class="wrapper">
+          <label class="label" for="nc-percentual">Percentual de desconto</label>
+          <div class="inputWrap">
+            <input class="input" id="nc-percentual" type="text" placeholder="Ex.: 10" />
+          </div>
+        </div>
+
+        <!-- Limite máximo de desconto -->
+        <div class="wrapper">
+          <label class="label" for="nc-limite">Limite máximo de desconto (em R$)</label>
+          <div class="inputWrap">
+            <input class="input" id="nc-limite" type="text" placeholder="Ex.: 50,00" />
+          </div>
+        </div>
+
+        <!-- Vigência — duas colunas -->
+        <div class="dialogFormRow">
+          <div class="wrapper">
+            <label class="label" for="nc-inicio">Vigência — data de início</label>
+            <div class="inputWrap">
+              <input class="input" id="nc-inicio" type="text" placeholder="xx/xx/xxxx" />
+            </div>
+          </div>
+          <div class="wrapper">
+            <label class="label" for="nc-termino">Vigência — data de término</label>
+            <div class="inputWrap">
+              <input class="input" id="nc-termino" type="text" placeholder="xx/xx/xxxx" />
+            </div>
+          </div>
+        </div>
+
+        <!-- Quantidade máxima de usos -->
+        <div class="wrapper">
+          <label class="label" for="nc-qtd">Quantidade máxima de usos</label>
+          <div class="inputWrap">
+            <input class="input" id="nc-qtd" type="text" placeholder="Ex.: 100" />
+          </div>
+        </div>
+
+        <!-- Limite de usos por CPF -->
+        <div class="wrapper">
+          <label class="label" for="nc-cpf">Limite de usos por CPF</label>
+          <div class="inputWrap">
+            <input class="input" id="nc-cpf" type="text" placeholder="Ex.: 1" />
+          </div>
+        </div>
+
+        <!-- Forma de aplicação -->
+        <div class="wrapper" id="nc-forma-dd">
+          <label class="label">Forma de aplicação</label>
+          <div class="trigger" id="nc-forma-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <span id="nc-forma-value">Automático</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="automatico">Automático</div>
+            <div class="option" data-value="manual">Manual</div>
+          </div>
+        </div>
+
+        <!-- Restringir por aplicação e público -->
+        <div class="dialogToggleRow">
+          <span class="dialogToggleLabel">Restringir por aplicação e público</span>
+          <label class="toggleWrapper" for="nc-restringir">
+            <input type="checkbox" class="toggleInput" id="nc-restringir" />
+            <span class="toggleTrack"><span class="toggleThumb"></span></span>
+          </label>
+        </div>
+
+      </div><!-- /dialogFormStack -->
+    </div>
+    <div class="dialogFooter">
+      <button class="btn primary" type="button" onclick="novoCupomClose()">Próximo</button>
+    </div>
+  </div>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  /* ── Dropdown: filtro de status ── */
+  const statusDropdown = document.getElementById('status-dropdown');
+  const statusTrigger  = document.getElementById('status-trigger');
+  const statusValue    = document.getElementById('status-value');
+
+  statusTrigger.addEventListener('click', e => {
+    e.stopPropagation();
+    statusDropdown.classList.toggle('open');
+    statusTrigger.setAttribute('aria-expanded', statusDropdown.classList.contains('open'));
+  });
+  statusDropdown.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      statusDropdown.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      statusValue.textContent = opt.textContent;
+      statusDropdown.classList.remove('open');
+      statusTrigger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* ── Dialog: Novo cupom ── */
+  function novoCupomOpen()  { document.getElementById('novo-cupom-dialog').style.display = 'flex'; }
+  function novoCupomClose() { document.getElementById('novo-cupom-dialog').style.display = 'none'; }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') novoCupomClose(); });
+
+  /* ── Dropdown: Tipo de benefício (dentro do dialog) ── */
+  (function () {
+    const dd      = document.getElementById('nc-tipo-dd');
+    const trigger = document.getElementById('nc-tipo-trigger');
+    const label   = document.getElementById('nc-tipo-value');
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      dd.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', dd.classList.contains('open'));
+    });
+    dd.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        dd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        label.textContent = opt.textContent;
+        dd.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  /* ── Dropdown: Forma de aplicação (dentro do dialog) ── */
+  (function () {
+    const dd      = document.getElementById('nc-forma-dd');
+    const trigger = document.getElementById('nc-forma-trigger');
+    const label   = document.getElementById('nc-forma-value');
+    trigger.addEventListener('click', e => {
+      e.stopPropagation();
+      dd.classList.toggle('open');
+      trigger.setAttribute('aria-expanded', dd.classList.contains('open'));
+    });
+    dd.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        dd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        label.textContent = opt.textContent;
+        dd.classList.remove('open');
+        trigger.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  document.addEventListener('click', () => {
+    [statusDropdown, document.getElementById('nc-tipo-dd'), document.getElementById('nc-forma-dd')]
+      .forEach(dd => { if (dd) dd.classList.remove('open'); });
+    statusTrigger.setAttribute('aria-expanded', 'false');
+  });
+
+  lucide.createIcons();
+
+  /* Abre o dialog automaticamente para fins de registro no protótipo */
+  novoCupomOpen();
+</script>
+
+</body>
+</html>

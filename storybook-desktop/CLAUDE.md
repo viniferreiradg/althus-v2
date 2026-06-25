@@ -1053,6 +1053,55 @@ Linha do tempo vertical com estados visuais. Usado em telas de detalhe para most
 
 ---
 
+### FilterChips
+**Import:** `import { FilterChips } from '../components/FilterChips/FilterChips'`
+**CSS:** `../storybook-desktop/src/components/FilterChips/FilterChips.module.css`
+
+Grupo de filtros em pílula com seleção exclusiva (um ativo por vez). Padrão visual: pílula com borda, fundo invertido no ativo.
+
+| Prop | Tipo | Descrição |
+|------|------|-----------|
+| `options` | `FilterChipOption[]` | Lista `{ label, value, icon? }` |
+| `activeValue` | `string` | Valor do chip ativo |
+| `onChange` | `(value: string) => void` | Callback ao clicar |
+| `className` | `string` | Classe extra no container |
+
+```tsx
+const [period, setPeriod] = useState('30');
+<FilterChips
+  options={[
+    { label: '30 dias', value: '30' },
+    { label: '60 dias', value: '60' },
+    { label: '90 dias', value: '90' },
+  ]}
+  activeValue={period}
+  onChange={setPeriod}
+/>
+```
+
+**HTML standalone — classes:**
+
+| Classe | Descrição |
+|--------|-----------|
+| `.filterChips` | Container flex dos chips |
+| `.filterChip` | Botão pílula individual |
+| `.filterChip.active` | Estado ativo (fundo invertido) |
+
+```html
+<div class="filterChips" id="myFilters">
+  <button class="filterChip active" type="button">30 dias</button>
+  <button class="filterChip" type="button">60 dias</button>
+  <button class="filterChip" type="button">
+    <i data-lucide="calendar" width="12" height="12"></i>
+    Período
+  </button>
+</div>
+```
+
+**Conflitos:** `.filterChip` não conflita com `.chip` (Chip.module.css).
+
+---
+
 ### Chip / ChipGroup
 **Import:** `import { Chip, ChipGroup } from '../components/Chip/Chip'`
 **CSS:** `../storybook/src/components/Chip/Chip.module.css`

@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mensalidades — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sheet/Sheet.module.css" />
+</head>
+<body data-page="mensalidades">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+
+  <div class="pageHeader">
+    <h1 class="pageTitle">Mensalidades</h1>
+    <p class="pageSubtitle">Receita recorrente, inadimplência e cobranças do período</p>
+  </div>
+
+  <div class="pageContent">
+
+    <!-- KPI cards -->
+    <div class="metricsGrid2">
+      <div class="metricCard">
+        <span class="metricCardLabel">MRR de mensalidades</span>
+        <span class="metricCardValue">R$ 17.880,00</span>
+        <span class="metricCardMeta">Receita recorrente mensal de mensalidades</span>
+        <span class="metricCardGrowth">
+          <i data-lucide="trending-up" width="13" height="13"></i>
+          6,4% vs mês anterior
+        </span>
+      </div>
+      <div class="metricCard">
+        <span class="metricCardLabel">CPOs inadimplentes</span>
+        <span class="metricCardValue metricCardDanger">2</span>
+        <span class="metricCardMeta">PIX não pago ou cartão recusado</span>
+        <span class="metricCardMeta">1 via PIX · 1 via cartão</span>
+      </div>
+    </div>
+
+    <!-- Próximas cobranças -->
+    <h2 class="sectionTitle">Próximas cobranças (30 dias)</h2>
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst">CPOs</th>
+              <th class="th">Plano</th>
+              <th class="th" style="text-align:right;">Carregadores</th>
+              <th class="th" style="text-align:right;">Valor</th>
+              <th class="th">Data de cobrança</th>
+              <th class="th">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tr">
+              <td class="td tdFirst">EletroCharge</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">12</td>
+              <td class="td" style="text-align:right;">R$ 1.890,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">18/06/2026</td>
+              <td class="td"><span class="inlineBadge warning">A vencer</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Mobi Verde</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">6</td>
+              <td class="td" style="text-align:right;">R$ 990,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">20/06/2026</td>
+              <td class="td"><span class="inlineBadge danger">Inadimplente — PIX</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">PowerStation</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">4</td>
+              <td class="td" style="text-align:right;">R$ 690,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">22/06/2026</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">EV Solutions</td>
+              <td class="td">Plano anual</td>
+              <td class="td" style="text-align:right;">18</td>
+              <td class="td" style="text-align:right;">R$ 2.490,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">25/06/2026</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Recarga Já</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">8</td>
+              <td class="td" style="text-align:right;">R$ 1.290,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">27/06/2026</td>
+              <td class="td"><span class="inlineBadge danger">Inadimplente — Cartão recusado</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Voltz</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">3</td>
+              <td class="td" style="text-align:right;">R$ 490,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">29/06/2026</td>
+              <td class="td"><span class="inlineBadge warning">A vencer</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Ampere</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">10</td>
+              <td class="td" style="text-align:right;">R$ 1.590,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">02/07/2026</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">GreenPlug</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">5</td>
+              <td class="td" style="text-align:right;">R$ 790,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">05/07/2026</td>
+              <td class="td"><span class="inlineBadge warning">A vencer</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">ChargePoint BR</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">14</td>
+              <td class="td" style="text-align:right;">R$ 2.190,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">08/07/2026</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Volt Hub</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">7</td>
+              <td class="td" style="text-align:right;">R$ 1.090,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">10/07/2026</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">EcoCarga</td>
+              <td class="td">Plano anual</td>
+              <td class="td" style="text-align:right;">22</td>
+              <td class="td" style="text-align:right;">R$ 2.990,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">12/07/2026</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Plug Brasil</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">9</td>
+              <td class="td" style="text-align:right;">R$ 1.390,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">14/07/2026</td>
+              <td class="td"><span class="inlineBadge warning">A vencer</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tableFooterSpaced">
+        <span>Total a receber nos próximos 30 dias</span>
+        <strong>R$ 17.880,00</strong>
+      </div>
+    </div>
+
+    <!-- Toolbar da tabela completa -->
+    <div class="toolbar" style="padding-top:32px; padding-bottom:32px;">
+      <div class="searchWrapFlex">
+        <div class="wrapper hasLeft">
+          <div class="inputWrap">
+            <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+            <input class="input" type="text" placeholder="Buscar (por CPOs)" />
+          </div>
+        </div>
+      </div>
+      <div class="filterWrap">
+        <div class="wrapper" id="cpo-dropdown">
+          <div class="trigger" id="cpo-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <span id="cpo-value">Todos os CPOs</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="">Todos os CPOs</div>
+            <div class="option" data-value="eletrocharge">EletroCharge</div>
+            <div class="option" data-value="mobi-verde">Mobi Verde</div>
+            <div class="option" data-value="powerstation">PowerStation</div>
+            <div class="option" data-value="ev-solutions">EV Solutions</div>
+            <div class="option" data-value="recarga-ja">Recarga Já</div>
+          </div>
+        </div>
+      </div>
+      <div class="filterWrap">
+        <div class="wrapper" id="status-dropdown">
+          <div class="trigger" id="status-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <span id="status-value">Todos os status</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" data-value="">Todos os status</div>
+            <div class="option" data-value="em-dia">Em dia</div>
+            <div class="option" data-value="a-vencer">A vencer</div>
+            <div class="option" data-value="inadimplente">Inadimplente</div>
+          </div>
+        </div>
+      </div>
+      <div class="dpWrap">
+        <button class="dpTrigger" type="button" aria-label="Selecionar período">
+          <span class="dpTriggerIcon"><i data-lucide="calendar" width="14" height="14"></i></span>
+          <span class="dpTriggerPlaceholder">Período</span>
+        </button>
+      </div>
+      <button class="btn primary hasLeft" id="btn-csv" type="button">
+        <span class="icon"><i data-lucide="download" width="15" height="15"></i></span>
+        Baixar CSV
+      </button>
+    </div>
+
+    <!-- Tabela completa de CPOs -->
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th thFirst">CPOs</th>
+              <th class="th">Plano</th>
+              <th class="th" style="text-align:right;">Carregadores</th>
+              <th class="th" style="text-align:right;">Valor mensal</th>
+              <th class="th">Data de adesão</th>
+              <th class="th">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="tr">
+              <td class="td tdFirst">EletroCharge</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">12</td>
+              <td class="td" style="text-align:right;">R$ 1.890,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">12/03/2024</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Mobi Verde</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">6</td>
+              <td class="td" style="text-align:right;">R$ 990,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">05/08/2024</td>
+              <td class="td"><span class="inlineBadge danger">Inadimplente — PIX</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">PowerStation</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">4</td>
+              <td class="td" style="text-align:right;">R$ 690,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">21/01/2025</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">EV Solutions</td>
+              <td class="td">Plano anual</td>
+              <td class="td" style="text-align:right;">18</td>
+              <td class="td" style="text-align:right;">R$ 2.490,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">03/11/2023</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Recarga Já</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">8</td>
+              <td class="td" style="text-align:right;">R$ 1.290,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">17/06/2024</td>
+              <td class="td"><span class="inlineBadge danger">Inadimplente — Cartão recusado</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Voltz</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">3</td>
+              <td class="td" style="text-align:right;">R$ 490,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">09/02/2025</td>
+              <td class="td"><span class="inlineBadge warning">A vencer</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Ampere</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">10</td>
+              <td class="td" style="text-align:right;">R$ 1.590,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">28/09/2024</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">GreenPlug</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">5</td>
+              <td class="td" style="text-align:right;">R$ 790,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">14/12/2024</td>
+              <td class="td"><span class="inlineBadge warning">A vencer</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">ChargePoint BR</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">14</td>
+              <td class="td" style="text-align:right;">R$ 2.190,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">02/05/2024</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Volt Hub</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">7</td>
+              <td class="td" style="text-align:right;">R$ 1.090,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">19/07/2024</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">EcoCarga</td>
+              <td class="td">Plano anual</td>
+              <td class="td" style="text-align:right;">22</td>
+              <td class="td" style="text-align:right;">R$ 2.990,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">08/10/2023</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Plug Brasil</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">9</td>
+              <td class="td" style="text-align:right;">R$ 1.390,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">26/04/2025</td>
+              <td class="td"><span class="inlineBadge warning">A vencer</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Carrega+</td>
+              <td class="td">PIX mensal</td>
+              <td class="td" style="text-align:right;">4</td>
+              <td class="td" style="text-align:right;">R$ 590,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">11/03/2025</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Energia Livre</td>
+              <td class="td">Plano anual</td>
+              <td class="td" style="text-align:right;">16</td>
+              <td class="td" style="text-align:right;">R$ 2.190,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">22/11/2024</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+            <tr class="tr">
+              <td class="td tdFirst">Rota Elétrica</td>
+              <td class="td">Cartão recorrente</td>
+              <td class="td" style="text-align:right;">11</td>
+              <td class="td" style="text-align:right;">R$ 1.690,00</td>
+              <td class="td" style="color:var(--color-text-tertiary);font-size:var(--font-size-sm);">07/01/2025</td>
+              <td class="td"><span class="inlineBadge success">Em dia</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="tableFooter" style="justify-content:flex-start;">
+        <span style="font-size:var(--font-size-sm);color:var(--color-text-tertiary);">
+          Total de CPOs: <strong style="color:var(--color-text-primary);">15</strong>
+          &nbsp;·&nbsp; PIX mensal: <strong style="color:var(--color-text-primary);">6</strong>
+          &nbsp;·&nbsp; Cartão recorrente: <strong style="color:var(--color-text-primary);">6</strong>
+          &nbsp;·&nbsp; Plano anual: <strong style="color:var(--color-text-primary);">3</strong>
+        </span>
+      </div>
+    </div>
+
+  </div><!-- /pageContent -->
+
+</main>
+
+<!-- Sheet de notificações -->
+<div class="sheetOverlay" id="notif-sheet" onclick="notifSheetClose()">
+  <aside class="sheetPanel sheetNotif" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Notificações">
+    <div class="sheetHeader">
+      <span class="sheetTitle">Notificações</span>
+      <button class="sheetClose" onclick="notifSheetClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="sheetBody">
+      <div class="notifList">
+        <div class="notifListItem unread">
+          <div class="notifListIcon warning"><i data-lucide="clock" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle"><span class="notifListDot"></span>Credenciado aguardando aprovação</div>
+            <div class="notifListDesc">Spark Charging LTDA enviou cadastro e aguarda revisão.</div>
+          </div>
+          <span class="notifListTime">Agora</span>
+        </div>
+        <div class="notifListItem unread">
+          <div class="notifListIcon error"><i data-lucide="wifi-off" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle"><span class="notifListDot"></span>Falha crítica na rede</div>
+            <div class="notifListDesc">ALT-112 offline — Rede Flex Eletropostos, há 18 min.</div>
+          </div>
+          <span class="notifListTime">18 min</span>
+        </div>
+        <div class="notifListItem">
+          <div class="notifListIcon info"><i data-lucide="file-text" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle">Relatório mensal disponível</div>
+            <div class="notifListDesc">Relatório consolidado de Abril/2026 pronto para download.</div>
+          </div>
+          <span class="notifListTime">Ontem</span>
+        </div>
+      </div>
+    </div>
+    <div class="sheetFooter">
+      <button class="btn ghost hasLeft" type="button" onclick="notifMarkAllRead()">
+        <span class="icon"><i data-lucide="check-check" width="15" height="15"></i></span>
+        Marcar todas como lidas
+      </button>
+    </div>
+  </aside>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  lucide.createIcons();
+
+  function notifSheetOpen()  { document.getElementById('notif-sheet').classList.add('sheetOpen'); document.body.style.overflow = 'hidden'; }
+  function notifSheetClose() { document.getElementById('notif-sheet').classList.remove('sheetOpen'); document.body.style.overflow = ''; }
+  function notifMarkAllRead() {
+    document.querySelectorAll('.notifListItem.unread').forEach(el => el.classList.remove('unread'));
+    const badge = document.getElementById('notif-badge');
+    if (badge) { badge.textContent = '0'; badge.style.display = 'none'; }
+    const btn = document.getElementById('notif-btn');
+    if (btn) btn.setAttribute('aria-label', 'Notificações');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') notifSheetClose(); });
+
+  function makeDropdown(dropId, triggerId, valueId) {
+    const drop = document.getElementById(dropId);
+    const trig = document.getElementById(triggerId);
+    const val  = document.getElementById(valueId);
+    trig.addEventListener('click', e => { e.stopPropagation(); drop.classList.toggle('open'); trig.setAttribute('aria-expanded', drop.classList.contains('open')); });
+    drop.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        drop.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        val.textContent = opt.textContent.trim();
+        drop.classList.remove('open');
+        trig.setAttribute('aria-expanded', 'false');
+      });
+    });
+    return drop;
+  }
+
+  const drops = [
+    makeDropdown('cpo-dropdown',    'cpo-trigger',    'cpo-value'),
+    makeDropdown('status-dropdown', 'status-trigger', 'status-value'),
+  ];
+  document.addEventListener('click', () => drops.forEach(d => d.classList.remove('open')));
+
+  document.getElementById('btn-csv').addEventListener('click', () => {
+    const btn = document.getElementById('btn-csv');
+    const orig = btn.innerHTML;
+    btn.innerHTML = '<span class="icon"><i data-lucide="check" width="15" height="15"></i></span> Exportado!';
+    btn.disabled = true;
+    lucide.createIcons();
+    setTimeout(() => { btn.innerHTML = orig; btn.disabled = false; lucide.createIcons(); }, 2000);
+  });
+</script>
+
+</body>
+</html>

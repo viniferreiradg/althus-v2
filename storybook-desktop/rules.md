@@ -451,6 +451,43 @@ JS padrão (vanilla): usar `makeMultiSelect(containerId, options[])` — funçã
 
 ---
 
+### FilterChips — filtros em pílula (seleção única)
+
+**CSS:** `../storybook-desktop/src/components/FilterChips/FilterChips.module.css`
+**Classes:** `.filterChips` (container) · `.filterChip` (cada botão) · `.filterChip.active` (ativo)
+
+Usado sempre que precisar de um grupo de filtros em pílula com seleção exclusiva (um ativo por vez). Padrão visual: pílula com borda, fundo invertido no ativo.
+
+```html
+<link rel="stylesheet" href="../storybook-desktop/src/components/FilterChips/FilterChips.module.css" />
+
+<div class="filterChips">
+  <button class="filterChip active" type="button">30 dias</button>
+  <button class="filterChip" type="button">60 dias</button>
+  <button class="filterChip" type="button">90 dias</button>
+  <button class="filterChip" type="button">
+    <i data-lucide="calendar" width="12" height="12"></i>
+    Período
+  </button>
+</div>
+```
+
+JS para alternar ativo:
+```js
+document.querySelectorAll('.filterChips').forEach(group => {
+  group.querySelectorAll('.filterChip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      group.querySelectorAll('.filterChip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+});
+```
+
+**Conflitos:** `.filterChip` não conflita com `.chip` (Chip.module.css). Não linkar Chip.module.css e FilterChips.module.css na mesma página — classes distintas, mas evitar por clareza.
+
+---
+
 ### Chips multi-select (workaround para Checkbox)
 
 Quando a página já usa Dropdown, implementar multi-select com CSS page-level:

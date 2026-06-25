@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cashback por TPV — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sheet/Sheet.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/FilterChips/FilterChips.module.css" />
+</head>
+<body data-page="cashback-tpv">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+
+  <div class="pageHeader">
+    <h1 class="pageTitle">Cashback por TPV</h1>
+    <p class="pageSubtitle">Total a pagar aos CPOs com base no volume processado no mês</p>
+  </div>
+
+  <div class="pageContent">
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="searchWrapFlex">
+      <div class="wrapper hasLeft">
+        <div class="inputWrap">
+          <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+          <input class="input" type="text" placeholder="Buscar (por CPO)" />
+        </div>
+      </div>
+    </div>
+
+    <div class="filterWrapSm">
+      <div class="wrapper" id="year-dropdown">
+        <div class="trigger" id="year-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+          <span id="year-value">2026</span>
+          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+        </div>
+        <div class="menu" role="listbox">
+          <div class="option" data-value="2024">2024</div>
+          <div class="option" data-value="2025">2025</div>
+          <div class="option selected" data-value="2026">2026</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="filterWrap">
+      <div class="wrapper" id="month-dropdown">
+        <div class="trigger" id="month-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+          <span id="month-value">Junho</span>
+          <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+        </div>
+        <div class="menu" role="listbox">
+          <div class="option" data-value="jan">Janeiro</div>
+          <div class="option" data-value="fev">Fevereiro</div>
+          <div class="option" data-value="mar">Março</div>
+          <div class="option" data-value="abr">Abril</div>
+          <div class="option" data-value="mai">Maio</div>
+          <div class="option selected" data-value="jun">Junho</div>
+          <div class="option" data-value="jul">Julho</div>
+          <div class="option" data-value="ago">Agosto</div>
+          <div class="option" data-value="set">Setembro</div>
+          <div class="option" data-value="out">Outubro</div>
+          <div class="option" data-value="nov">Novembro</div>
+          <div class="option" data-value="dez">Dezembro</div>
+        </div>
+      </div>
+    </div>
+
+    <button class="btn ghost hasLeft" type="button">
+      <span class="icon"><i data-lucide="download" width="15" height="15"></i></span>
+      Exportar ano
+    </button>
+
+    <button class="btn primary hasLeft" type="button">
+      <span class="icon"><i data-lucide="download" width="15" height="15"></i></span>
+      Exportar mês
+    </button>
+  </div>
+
+  <!-- 5 KPI cards -->
+  <div class="metricsGrid5">
+    <div class="metricCard">
+      <span class="metricCardLabel">TPV total da rede — Mês atual</span>
+      <span class="metricCardValue">R$ 598.200,00</span>
+    </div>
+    <div class="metricCard">
+      <span class="metricCardLabel">Cashback a pagar — Mês atual</span>
+      <span class="metricCardValue">R$ 9.034,50</span>
+    </div>
+    <div class="metricCard">
+      <span class="metricCardLabel">CPOs elegíveis a cashback</span>
+      <span class="metricCardValue">8</span>
+      <span class="metricCardMeta">de 8 CPOs na rede</span>
+    </div>
+    <div class="metricCard">
+      <span class="metricCardLabel">Valor total acumulado</span>
+      <span class="metricCardValue">R$ 16.163,73</span>
+      <span class="metricCardMeta">Saldo acumulado não sacado na rede</span>
+    </div>
+    <div class="metricCard">
+      <span class="metricCardLabel">Saques pendentes</span>
+      <span class="metricCardValue metricCardDanger">8</span>
+      <span class="metricCardMeta">Solicitações aguardando processamento</span>
+    </div>
+  </div>
+
+    <!-- Tabs row -->
+    <div class="cashbackTabsRow">
+      <div class="filterChips" id="statusFilters">
+        <button class="filterChip active" type="button">Todos</button>
+        <button class="filterChip" type="button">Com saldo</button>
+        <button class="filterChip" type="button">Saque solicitado</button>
+        <button class="filterChip" type="button">Abaixo do mínimo</button>
+      </div>
+      <div class="filterChips" id="periodFilters">
+        <button class="filterChip active" type="button">30 dias</button>
+        <button class="filterChip" type="button">60 dias</button>
+        <button class="filterChip" type="button">90 dias</button>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table" style="min-width:960px;">
+          <thead>
+            <tr class="headerRow">
+              <th class="th" style="width:36px;"></th>
+              <th class="th thFirst">CPO</th>
+              <th class="th" style="text-align:right;">TPV do mês</th>
+              <th class="th">Progresso</th>
+              <th class="th">Faixa atual</th>
+              <th class="th" style="text-align:right;">Cashback %</th>
+              <th class="th" style="text-align:right;">A pagar</th>
+              <th class="th" style="text-align:right;">Saldo acumulado</th>
+              <th class="th">Tendência</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="tr">
+              <td class="td"><button class="tableActionBtn" type="button" aria-label="Expandir"><i data-lucide="chevron-right" width="14" height="14"></i></button></td>
+              <td class="td tdFirst">EletroCharge</td>
+              <td class="td" style="text-align:right;">R$ 142.500,00</td>
+              <td class="td"><div class="cellProgress"><div class="cellProgressBar" style="width:92%;"></div></div></td>
+              <td class="td"><span class="inlineBadge muted">50k–150k</span></td>
+              <td class="td" style="text-align:right;"><span class="cashbackPct highlight">1,5%</span></td>
+              <td class="td" style="text-align:right;">R$ 2.137,50</td>
+              <td class="td" style="text-align:right;">R$ 3.881,70</td>
+              <td class="td">
+                <svg class="sparkline" viewBox="0 0 80 24" fill="none" stroke="var(--color-text-primary)" stroke-width="1.5" stroke-linecap="round">
+                  <polyline points="0,18 20,14 40,11 60,7 80,5"/>
+                </svg>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td"><button class="tableActionBtn" type="button" aria-label="Expandir"><i data-lucide="chevron-right" width="14" height="14"></i></button></td>
+              <td class="td tdFirst">Mobi Verde</td>
+              <td class="td" style="text-align:right;">R$ 78.200,00</td>
+              <td class="td"><div class="cellProgress"><div class="cellProgressBar" style="width:28%;"></div></div></td>
+              <td class="td"><span class="inlineBadge muted">50k–150k</span></td>
+              <td class="td" style="text-align:right;"><span class="cashbackPct highlight">1,5%</span></td>
+              <td class="td" style="text-align:right;">R$ 1.173,00</td>
+              <td class="td" style="text-align:right;">R$ 2.130,17</td>
+              <td class="td">
+                <svg class="sparkline" viewBox="0 0 80 24" fill="none" stroke="var(--color-text-primary)" stroke-width="1.5" stroke-linecap="round">
+                  <polyline points="0,20 20,15 40,12 60,8 80,4"/>
+                </svg>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td"><button class="tableActionBtn" type="button" aria-label="Expandir"><i data-lucide="chevron-right" width="14" height="14"></i></button></td>
+              <td class="td tdFirst">PowerStation</td>
+              <td class="td" style="text-align:right;">R$ 22.400,00</td>
+              <td class="td"><div class="cellProgress"><div class="cellProgressBar" style="width:62%;"></div></div></td>
+              <td class="td"><span class="inlineBadge muted">10k–30k</span></td>
+              <td class="td" style="text-align:right;"><span class="cashbackPct">0,5%</span></td>
+              <td class="td" style="text-align:right;">R$ 112,00</td>
+              <td class="td" style="text-align:right;">R$ 209,89</td>
+              <td class="td">
+                <svg class="sparkline" viewBox="0 0 80 24" fill="none" stroke="var(--color-text-primary)" stroke-width="1.5" stroke-linecap="round">
+                  <polyline points="0,4 20,8 40,12 60,16 80,19"/>
+                </svg>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td"><button class="tableActionBtn" type="button" aria-label="Expandir"><i data-lucide="chevron-right" width="14" height="14"></i></button></td>
+              <td class="td tdFirst">EV Solutions</td>
+              <td class="td" style="text-align:right;">R$ 165.800,00</td>
+              <td class="td"><div class="cellProgress"><div class="cellProgressBar" style="width:100%;"></div></div></td>
+              <td class="td"><span class="inlineBadge muted">150k+</span></td>
+              <td class="td" style="text-align:right;"><span class="cashbackPct highlight">2%</span></td>
+              <td class="td" style="text-align:right;">R$ 3.316,00</td>
+              <td class="td" style="text-align:right;">R$ 5.489,64</td>
+              <td class="td">
+                <svg class="sparkline" viewBox="0 0 80 24" fill="none" stroke="var(--color-text-primary)" stroke-width="1.5" stroke-linecap="round">
+                  <polyline points="0,19 20,14 40,10 60,6 80,3"/>
+                </svg>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td"><button class="tableActionBtn" type="button" aria-label="Expandir"><i data-lucide="chevron-right" width="14" height="14"></i></button></td>
+              <td class="td tdFirst">Recarga Já</td>
+              <td class="td" style="text-align:right;">R$ 48.900,00</td>
+              <td class="td"><div class="cellProgress"><div class="cellProgressBar" style="width:94%;"></div></div></td>
+              <td class="td"><span class="inlineBadge muted">30k–50k</span></td>
+              <td class="td" style="text-align:right;"><span class="cashbackPct highlight">1%</span></td>
+              <td class="td" style="text-align:right;">R$ 489,00</td>
+              <td class="td" style="text-align:right;">R$ 1.220,05</td>
+              <td class="td">
+                <svg class="sparkline" viewBox="0 0 80 24" fill="none" stroke="var(--color-text-primary)" stroke-width="1.5" stroke-linecap="round">
+                  <polyline points="0,16 20,13 40,10 60,7 80,5"/>
+                </svg>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td"><button class="tableActionBtn" type="button" aria-label="Expandir"><i data-lucide="chevron-right" width="14" height="14"></i></button></td>
+              <td class="td tdFirst">Voltz</td>
+              <td class="td" style="text-align:right;">R$ 11.700,00</td>
+              <td class="td"><div class="cellProgress"><div class="cellProgressBar" style="width:8%;"></div></div></td>
+              <td class="td"><span class="inlineBadge muted">10k–30k</span></td>
+              <td class="td" style="text-align:right;"><span class="cashbackPct">0,5%</span></td>
+              <td class="td" style="text-align:right;">R$ 58,50</td>
+              <td class="td" style="text-align:right;">R$ 109,63</td>
+              <td class="td">
+                <svg class="sparkline" viewBox="0 0 80 24" fill="none" stroke="var(--color-text-primary)" stroke-width="1.5" stroke-linecap="round">
+                  <polyline points="0,5 20,9 40,13 60,17 80,20"/>
+                </svg>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td"><button class="tableActionBtn" type="button" aria-label="Expandir"><i data-lucide="chevron-right" width="14" height="14"></i></button></td>
+              <td class="td tdFirst">Ampere</td>
+              <td class="td" style="text-align:right;">R$ 92.300,00</td>
+              <td class="td"><div class="cellProgress"><div class="cellProgressBar" style="width:42%;"></div></div></td>
+              <td class="td"><span class="inlineBadge muted">50k–150k</span></td>
+              <td class="td" style="text-align:right;"><span class="cashbackPct highlight">1,5%</span></td>
+              <td class="td" style="text-align:right;">R$ 1.384,50</td>
+              <td class="td" style="text-align:right;">R$ 2.461,63</td>
+              <td class="td">
+                <svg class="sparkline" viewBox="0 0 80 24" fill="none" stroke="var(--color-text-primary)" stroke-width="1.5" stroke-linecap="round">
+                  <polyline points="0,4 20,8 40,14 60,17 80,20"/>
+                </svg>
+              </td>
+            </tr>
+
+            <tr class="tr">
+              <td class="td"><button class="tableActionBtn" type="button" aria-label="Expandir"><i data-lucide="chevron-right" width="14" height="14"></i></button></td>
+              <td class="td tdFirst">GreenPlug</td>
+              <td class="td" style="text-align:right;">R$ 36.400,00</td>
+              <td class="td"><div class="cellProgress"><div class="cellProgressBar" style="width:32%;"></div></div></td>
+              <td class="td"><span class="inlineBadge muted">30k–50k</span></td>
+              <td class="td" style="text-align:right;"><span class="cashbackPct highlight">1%</span></td>
+              <td class="td" style="text-align:right;">R$ 364,00</td>
+              <td class="td" style="text-align:right;">R$ 661,02</td>
+              <td class="td">
+                <svg class="sparkline" viewBox="0 0 80 24" fill="none" stroke="var(--color-text-primary)" stroke-width="1.5" stroke-linecap="round">
+                  <polyline points="0,6 20,10 40,14 60,17 80,20"/>
+                </svg>
+              </td>
+            </tr>
+
+            <tr class="tr tableTotalRow">
+              <td class="td"></td>
+              <td class="td tdFirst">Total</td>
+              <td class="td"></td>
+              <td class="td"></td>
+              <td class="td"></td>
+              <td class="td"></td>
+              <td class="td" style="text-align:right;">R$ 9.034,50</td>
+              <td class="td" style="text-align:right;">R$ 16.163,73</td>
+              <td class="td"></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="pagination">
+        <span class="info">Mostrando 1–8 de 8 resultados</span>
+        <div class="controls">
+          <button class="paginBtn" disabled aria-label="Página anterior">
+            <i data-lucide="minus" width="14" height="14"></i>
+          </button>
+          <button class="paginBtn paginBtnActive" aria-current="page">1</button>
+          <button class="paginBtn" disabled aria-label="Próxima página">
+            <i data-lucide="minus" width="14" height="14"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pageContent -->
+
+</main>
+
+<!-- Sheet de notificações -->
+<div class="sheetOverlay" id="notif-sheet" onclick="notifSheetClose()">
+  <aside class="sheetPanel sheetNotif" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Notificações">
+    <div class="sheetHeader">
+      <span class="sheetTitle">Notificações</span>
+      <button class="sheetClose" onclick="notifSheetClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="sheetBody">
+      <div class="notifList">
+        <div class="notifListItem unread">
+          <div class="notifListIcon warning"><i data-lucide="clock" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle"><span class="notifListDot"></span>Credenciado aguardando aprovação</div>
+            <div class="notifListDesc">Spark Charging LTDA enviou cadastro e aguarda revisão.</div>
+          </div>
+          <span class="notifListTime">Agora</span>
+        </div>
+        <div class="notifListItem unread">
+          <div class="notifListIcon error"><i data-lucide="wifi-off" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle"><span class="notifListDot"></span>Falha crítica na rede</div>
+            <div class="notifListDesc">ALT-112 offline — Rede Flex Eletropostos, há 18 min.</div>
+          </div>
+          <span class="notifListTime">18 min</span>
+        </div>
+        <div class="notifListItem">
+          <div class="notifListIcon info"><i data-lucide="file-text" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle">Relatório mensal disponível</div>
+            <div class="notifListDesc">Relatório consolidado de Abril/2026 pronto para download.</div>
+          </div>
+          <span class="notifListTime">Ontem</span>
+        </div>
+      </div>
+    </div>
+    <div class="sheetFooter">
+      <button class="btn ghost hasLeft" type="button" onclick="notifMarkAllRead()">
+        <span class="icon"><i data-lucide="check-check" width="15" height="15"></i></span>
+        Marcar todas como lidas
+      </button>
+    </div>
+  </aside>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  lucide.createIcons();
+
+  function notifSheetOpen()  { document.getElementById('notif-sheet').classList.add('sheetOpen'); document.body.style.overflow = 'hidden'; }
+  function notifSheetClose() { document.getElementById('notif-sheet').classList.remove('sheetOpen'); document.body.style.overflow = ''; }
+  function notifMarkAllRead() {
+    document.querySelectorAll('.notifListItem.unread').forEach(el => el.classList.remove('unread'));
+    const badge = document.getElementById('notif-badge');
+    if (badge) { badge.textContent = '0'; badge.style.display = 'none'; }
+    const btn = document.getElementById('notif-btn');
+    if (btn) btn.setAttribute('aria-label', 'Notificações');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') notifSheetClose(); });
+
+  function makeDropdown(dropId, triggerId, valueId) {
+    const drop = document.getElementById(dropId);
+    const trig = document.getElementById(triggerId);
+    const val  = document.getElementById(valueId);
+    trig.addEventListener('click', e => { e.stopPropagation(); drop.classList.toggle('open'); trig.setAttribute('aria-expanded', drop.classList.contains('open')); });
+    drop.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        drop.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        val.textContent = opt.textContent.trim();
+        drop.classList.remove('open');
+        trig.setAttribute('aria-expanded', 'false');
+      });
+    });
+    return drop;
+  }
+
+  const drops = [
+    makeDropdown('year-dropdown',  'year-trigger',  'year-value'),
+    makeDropdown('month-dropdown', 'month-trigger', 'month-value'),
+  ];
+  document.addEventListener('click', () => drops.forEach(d => d.classList.remove('open')));
+
+  ['statusFilters', 'periodFilters'].forEach(id => {
+    const group = document.getElementById(id);
+    group.querySelectorAll('.filterChip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        group.querySelectorAll('.filterChip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

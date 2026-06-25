@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Análise de cupons — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/MetricCard/MetricCard.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/FilterChips/FilterChips.module.css" />
+</head>
+<body data-page="analises-cupons">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+  <div class="pageContent">
+
+    <!-- ── Header ── -->
+    <div class="analiseHeaderRow">
+      <div>
+        <h1 class="pageTitle">Análise de cupons</h1>
+        <p class="pageSubtitle">Acompanhe o desempenho e uso dos cupons da sua rede</p>
+      </div>
+      <div class="analiseControls">
+        <div class="wrapper" id="cupom-dd">
+          <div class="trigger" id="cupom-trigger">
+            <span id="cupom-value">Todos</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu">
+            <div class="option selected" data-value="">Todos</div>
+            <div class="option" data-value="cupom1">Cupom 1</div>
+            <div class="option" data-value="cupom2">Cupom 2</div>
+            <div class="option" data-value="cupom3">Cupom 3</div>
+            <div class="option" data-value="cupom4">Cupom 4</div>
+          </div>
+        </div>
+        <button class="btn primary hasLeft" type="button">
+          <span class="icon"><i data-lucide="file-text" width="16" height="16"></i></span>
+          Gerar relatório com IA
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Metric Cards ── -->
+    <div class="metricsCarousel" id="metricsCarousel">
+      <div class="root">
+        <div class="label">Número de cupons ativos</div>
+        <div class="value">15</div>
+        <p class="metricCardNote">de 68 criados</p>
+      </div>
+      <div class="root">
+        <div class="label">Total de usos no período</div>
+        <div class="value">3.470</div>
+      </div>
+      <div class="root">
+        <div class="label">Taxa de conversão</div>
+        <div class="value">32%</div>
+        <p class="metricCardNoteBlue">Quantidade de usuários que usaram o cupom após receber</p>
+      </div>
+      <div class="root">
+        <div class="label">Faturamento com cupom</div>
+        <div class="value">R$ 7.982,30</div>
+        <p class="metricCardNote">Soma dos valores de recargas que utilizaram um cupom</p>
+      </div>
+      <div class="root">
+        <div class="label">Desconto total concedido</div>
+        <div class="value">R$ 2.360,00</div>
+        <p class="metricCardNote">Soma de todos os descontos aplicados</p>
+      </div>
+      <div class="root">
+        <div class="label">ROI — Return on investment</div>
+        <div class="value">4,8x</div>
+        <p class="metricCardNote">Para cada R$ 1,00 concedido em desconto, R$ 4,80 foram gerados em recargas</p>
+      </div>
+      <div class="root">
+        <div class="label">Ticket médio por recarga com cupom</div>
+        <div class="value">R$ 48,30</div>
+        <p class="metricCardNote">Valor médio das recargas onde um cupom foi usado</p>
+      </div>
+    </div>
+    <div class="metricsCarouselDots">
+      <button class="metricsCarouselDot active" id="dot1" type="button" aria-label="Grupo 1" onclick="carouselGo(0)"></button>
+      <button class="metricsCarouselDot" id="dot2" type="button" aria-label="Grupo 2" onclick="carouselGo(1)"></button>
+      <button class="metricsCarouselDot" id="dot3" type="button" aria-label="Grupo 3" onclick="carouselGo(2)"></button>
+    </div>
+
+    <!-- ── Cards: coluna com gap ── -->
+    <div class="analyseStack">
+
+      <!-- ── Cupons ativos ── -->
+      <div class="card">
+        <div class="analyseCardHeader">
+          <div>
+            <div class="analyseCardTitle">Cupons ativos</div>
+            <div class="analyseCardSubtitle">Detalhes e desempenho dos cupons em circulação · Últimos 7 dias</div>
+          </div>
+          <div class="filterChips" id="timeFilters">
+            <button class="filterChip active" type="button" data-period="7">7 dias</button>
+            <button class="filterChip" type="button" data-period="15">15 dias</button>
+            <button class="filterChip" type="button" data-period="30">30 dias</button>
+          </div>
+        </div>
+        <div class="tableWrap">
+          <table class="table">
+            <thead>
+              <tr class="headerRow">
+                <th class="th thFirst" style="width:18%;">Cupom</th>
+                <th class="th" style="width:14%;">Total de usos</th>
+                <th class="th" style="width:18%;">% do limite usado</th>
+                <th class="th" style="width:16%;">Limite de usos</th>
+                <th class="th" style="width:14%;">Validade</th>
+                <th class="th" style="width:20%;">Tendência</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="tr">
+                <td class="td tdFirst">Cupom 1</td>
+                <td class="td">128</td>
+                <td class="td tdAlert">100%</td>
+                <td class="td">128/100</td>
+                <td class="td tdMono">20/07/26</td>
+                <td class="td">
+                  <svg viewBox="0 0 80 30" width="100%" height="30" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline class="sparklineLine" points="0,25 20,10 40,5 55,15 80,22"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">Cupom 2</td>
+                <td class="td">147</td>
+                <td class="td">98%</td>
+                <td class="td">147/150</td>
+                <td class="td tdMono tdAlert">18/06/26</td>
+                <td class="td">
+                  <svg viewBox="0 0 80 30" width="100%" height="30" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline class="sparklineLine" points="0,15 20,5 40,20 55,10 80,25"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">Cupom 3</td>
+                <td class="td">100</td>
+                <td class="td">50%</td>
+                <td class="td">100/200</td>
+                <td class="td tdMono">05/08/26</td>
+                <td class="td">
+                  <svg viewBox="0 0 80 30" width="100%" height="30" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline class="sparklineLine" points="0,22 20,25 40,18 55,20 80,16"/>
+                  </svg>
+                </td>
+              </tr>
+              <tr class="tr">
+                <td class="td tdFirst">Cupom 4</td>
+                <td class="td">120</td>
+                <td class="td tdAlert">100%</td>
+                <td class="td">120/120</td>
+                <td class="td tdMono tdAlert">22/06/26</td>
+                <td class="td">
+                  <svg viewBox="0 0 80 30" width="100%" height="30" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline class="sparklineLine" points="0,18 20,22 40,18 55,20 80,22"/>
+                  </svg>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="analyseNoteText analyseNotes">Cada linha do gráfico representa um cupom ativo. Percentuais em vermelho indicam que o cupom já atingiu o limite de usos. Datas em vermelho sinalizam cupons que vencerão em menos de 7 dias. A linha de tendência mostra o comportamento de usos por dia no período selecionado.</p>
+      </div>
+
+      <!-- ── Grid 2: Onde usados + Mais rápidos ── -->
+      <div class="analyseGrid2">
+
+        <div class="card">
+          <div class="analyseCardTitle">Onde os cupons são mais usados</div>
+          <div class="analyseCardSubtitle">Locais com maior número de resgates e ticket médio por sessão</div>
+          <div class="tableWrap">
+            <table class="table">
+              <thead>
+                <tr class="headerRow">
+                  <th class="th thFirst analyseThBrand" style="width:40%;">Local</th>
+                  <th class="th analyseThBrand" style="width:20%;">Resgates</th>
+                  <th class="th analyseThBrand" style="width:20%;">% do total</th>
+                  <th class="th analyseThBrand" style="width:20%;">Ticket médio</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr">
+                  <td class="td tdFirst">Shopping Iguatemi</td>
+                  <td class="td">54</td>
+                  <td class="td">44%</td>
+                  <td class="td">R$ 52</td>
+                </tr>
+                <tr class="tr">
+                  <td class="td tdFirst">Edifício Faria Lima</td>
+                  <td class="td">38</td>
+                  <td class="td">31%</td>
+                  <td class="td">R$ 48</td>
+                </tr>
+                <tr class="tr">
+                  <td class="td tdFirst">Hotel Unique</td>
+                  <td class="td">31</td>
+                  <td class="td">25%</td>
+                  <td class="td">R$ 55</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="analyseCardNote">Locais com mais resgates indicam onde seus cupons têm mais alcance. O ticket médio mostra o valor gerado por cada uso nesses pontos.</p>
+        </div>
+
+        <div class="card">
+          <div class="analyseCardTitle">Cupons mais rápidos</div>
+          <div class="analyseCardSubtitle">Cupons que esgotaram antes do prazo de validade, do mais rápido para o mais lento.</div>
+          <div class="tableWrap">
+            <table class="table">
+              <thead>
+                <tr class="headerRow">
+                  <th class="th thFirst analyseThBrand" style="width:25%;">Cupom</th>
+                  <th class="th analyseThBrand" style="width:22%;">Criação</th>
+                  <th class="th analyseThBrand" style="width:25%;">Esgotado em</th>
+                  <th class="th analyseThBrand" style="width:18%;">Duração</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tr">
+                  <td class="td tdFirst tdMono">ALT-0003</td>
+                  <td class="td tdMono">20/05/26</td>
+                  <td class="td tdMono">22/05/26</td>
+                  <td class="td">2 dias</td>
+                </tr>
+                <tr class="tr">
+                  <td class="td tdFirst tdMono">ALT-0007</td>
+                  <td class="td tdMono">15/05/26</td>
+                  <td class="td tdMono">19/05/26</td>
+                  <td class="td">4 dias</td>
+                </tr>
+                <tr class="tr">
+                  <td class="td tdFirst tdMono">ALT-0012</td>
+                  <td class="td tdMono">10/05/26</td>
+                  <td class="td tdMono">18/05/26</td>
+                  <td class="td">8 dias</td>
+                </tr>
+                <tr class="tr">
+                  <td class="td tdFirst tdMono">ALT-0019</td>
+                  <td class="td tdMono">05/05/26</td>
+                  <td class="td tdMono">14/05/26</td>
+                  <td class="td">9 dias</td>
+                </tr>
+                <tr class="tr">
+                  <td class="td tdFirst tdMono">ALT-0025</td>
+                  <td class="td tdMono">28/04/26</td>
+                  <td class="td tdMono">10/05/26</td>
+                  <td class="td">12 dias</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="analyseCardNote">Cupons que esgotaram mais rápido indicam alta demanda. Considere replicá-los ou aumentar o limite na próxima criação.</p>
+        </div>
+
+      </div>
+
+      <!-- ── Grid 2: Retenção + Perfil ── -->
+      <div class="analyseGrid2">
+
+        <div class="card">
+          <div class="analyseCardTitle">Retenção após uso de cupom</div>
+          <div class="analyseCardSubtitle">% de usuários que voltaram a carregar sem cupom nos 30 dias após o primeiro uso</div>
+          <div class="retentionLegend">
+            <div class="retentionLegendItem">
+              <span class="retentionLegendDot"></span>
+              Retidos
+            </div>
+            <div class="retentionLegendItem">
+              <span class="retentionLegendDot hollow"></span>
+              Não retidos
+            </div>
+          </div>
+          <div class="retentionRows">
+            <div class="retentionRow">
+              <span class="retentionRowLabel">Cupom 1</span>
+              <div class="retentionBarWrap"><div class="retentionBarFill" style="--retPct: 62%"></div></div>
+              <span class="retentionPct">62%</span>
+            </div>
+            <div class="retentionRow">
+              <span class="retentionRowLabel">Cupom 2</span>
+              <div class="retentionBarWrap"><div class="retentionBarFill" style="--retPct: 48%"></div></div>
+              <span class="retentionPct">48%</span>
+            </div>
+            <div class="retentionRow">
+              <span class="retentionRowLabel">Cupom 3</span>
+              <div class="retentionBarWrap"><div class="retentionBarFill" style="--retPct: 35%"></div></div>
+              <span class="retentionPct">35%</span>
+            </div>
+            <div class="retentionRow">
+              <span class="retentionRowLabel">Cupom 4</span>
+              <div class="retentionBarWrap"><div class="retentionBarFill" style="--retPct: 54%"></div></div>
+              <span class="retentionPct">54%</span>
+            </div>
+          </div>
+          <p class="analyseCardNote">Quanto maior a barra escura, mais usuários voltaram a carregar sem precisar de cupom — indicando que o cupom gerou fidelização real.</p>
+        </div>
+
+        <div class="card">
+          <div class="analyseCardTitle">Perfil dos usuários que usaram cupom</div>
+          <div class="analyseCardSubtitle">Novos vs. recorrentes que usaram cupom · Últimos 30 dias</div>
+          <div class="profileNumbers">
+            <div>
+              <div class="profileStatValue">62</div>
+              <div class="profileStatLabel">Novos (37%)</div>
+            </div>
+            <div>
+              <div class="profileStatValue">105</div>
+              <div class="profileStatLabel">Recorrentes (63%)</div>
+            </div>
+          </div>
+          <p class="analyseCardNote">Usuários recorrentes já haviam utilizado o carregador antes do cupom. Usuários novos foram atraídos pelo desconto.</p>
+        </div>
+
+      </div>
+
+      <!-- ── Grid 2: Elasticidade + LTV ── -->
+      <div class="analyseGrid2">
+
+        <!-- Elasticidade de desconto -->
+        <div class="card">
+          <div class="analyseCardTitle">Elasticidade de desconto</div>
+          <div class="analyseCardSubtitle">Relação entre o percentual de desconto e o número de usos gerados</div>
+          <div class="chartWrap">
+            <svg viewBox="0 0 380 210" width="100%" aria-label="Gráfico de elasticidade de desconto">
+              <line class="chartGridLine" x1="50" y1="15"  x2="360" y2="15"/>
+              <line class="chartGridLine" x1="50" y1="46"  x2="360" y2="46"/>
+              <line class="chartGridLine" x1="50" y1="77"  x2="360" y2="77"/>
+              <line class="chartGridLine" x1="50" y1="108" x2="360" y2="108"/>
+              <line class="chartGridLine" x1="50" y1="139" x2="360" y2="139"/>
+              <line class="chartGridLine" x1="50" y1="170" x2="360" y2="170"/>
+              <line class="chartGridLine" x1="50" y1="15" x2="50" y2="170"/>
+              <text class="chartLabelY" x="44" y="174" text-anchor="end">0</text>
+              <text class="chartLabelY" x="44" y="143" text-anchor="end">10</text>
+              <text class="chartLabelY" x="44" y="112" text-anchor="end">20</text>
+              <text class="chartLabelY" x="44" y="81"  text-anchor="end">30</text>
+              <text class="chartLabelY" x="44" y="50"  text-anchor="end">40</text>
+              <text class="chartLabelY" x="44" y="19"  text-anchor="end">50</text>
+              <text class="chartLabelX" x="50"  y="185" text-anchor="middle">5%</text>
+              <text class="chartLabelX" x="153" y="185" text-anchor="middle">10%</text>
+              <text class="chartLabelX" x="257" y="185" text-anchor="middle">15%</text>
+              <text class="chartLabelX" x="360" y="185" text-anchor="middle">20%</text>
+              <text class="chartAxisTitle" x="205" y="205" text-anchor="middle">Percentual de desconto</text>
+              <polyline class="chartLinePrimary" points="50,15 153,120 257,114 360,24"/>
+              <circle class="chartDotPrimary" cx="50"  cy="15"  r="3"/>
+              <circle class="chartDotPrimary" cx="153" cy="120" r="3"/>
+              <circle class="chartDotPrimary" cx="257" cy="114" r="3"/>
+              <circle class="chartDotPrimary" cx="360" cy="24"  r="3"/>
+            </svg>
+          </div>
+          <p class="chartNote">Visão geral da rede — estes dados não mudam ao filtrar por um cupom específico</p>
+          <p class="chartFooter">Percentuais de desconto mais altos nem sempre geram mais usos. Use este gráfico para encontrar o desconto ideal para sua rede.</p>
+        </div>
+
+        <!-- LTV cupom vs. orgânico -->
+        <div class="card">
+          <div class="analyseCardTitle">LTV — cupom vs. orgânico</div>
+          <div class="analyseCardSubtitle">Valor gerado por usuário ao longo do tempo por canal de aquisição</div>
+          <div class="retentionLegend">
+            <div class="retentionLegendItem">
+              <span class="retentionLegendDot"></span>
+              Veio via cupom
+            </div>
+            <div class="retentionLegendItem">
+              <span class="retentionLegendDot info"></span>
+              Orgânico
+            </div>
+          </div>
+          <div class="chartWrap">
+            <svg viewBox="0 0 380 230" width="100%" aria-label="Gráfico LTV cupom vs orgânico">
+              <line class="chartGridLine" x1="60" y1="15"  x2="360" y2="15"/>
+              <line class="chartGridLine" x1="60" y1="45"  x2="360" y2="45"/>
+              <line class="chartGridLine" x1="60" y1="75"  x2="360" y2="75"/>
+              <line class="chartGridLine" x1="60" y1="105" x2="360" y2="105"/>
+              <line class="chartGridLine" x1="60" y1="135" x2="360" y2="135"/>
+              <line class="chartGridLine" x1="60" y1="165" x2="360" y2="165"/>
+              <line class="chartGridLine" x1="60" y1="195" x2="360" y2="195"/>
+              <line class="chartGridLine" x1="60" y1="15" x2="60" y2="195"/>
+              <text class="chartLabelY" x="54" y="199" text-anchor="end">R$0</text>
+              <text class="chartLabelY" x="54" y="169" text-anchor="end">R$50</text>
+              <text class="chartLabelY" x="54" y="139" text-anchor="end">R$100</text>
+              <text class="chartLabelY" x="54" y="109" text-anchor="end">R$150</text>
+              <text class="chartLabelY" x="54" y="79"  text-anchor="end">R$200</text>
+              <text class="chartLabelY" x="54" y="49"  text-anchor="end">R$250</text>
+              <text class="chartLabelY" x="54" y="19"  text-anchor="end">R$300</text>
+              <text class="chartLabelX" x="60"  y="210" text-anchor="middle">1 mês</text>
+              <text class="chartLabelX" x="135" y="210" text-anchor="middle">2 meses</text>
+              <text class="chartLabelX" x="210" y="210" text-anchor="middle">3 meses</text>
+              <text class="chartLabelX" x="285" y="210" text-anchor="middle">6 meses</text>
+              <text class="chartLabelX" x="360" y="210" text-anchor="middle">12 meses</text>
+              <polygon class="chartAreaInfo" points="60,183 135,168 210,150 285,105 360,39 360,195 60,195"/>
+              <polyline class="chartLineInfo" points="60,183 135,168 210,150 285,105 360,39"/>
+              <polyline class="chartLinePrimary" points="60,183 135,171 210,162 285,135 360,93"/>
+              <circle class="chartDotInfo" cx="60"  cy="183" r="3"/>
+              <circle class="chartDotInfo" cx="135" cy="168" r="3"/>
+              <circle class="chartDotInfo" cx="210" cy="150" r="3"/>
+              <circle class="chartDotInfo" cx="285" cy="105" r="3"/>
+              <circle class="chartDotInfo" cx="360" cy="39"  r="3"/>
+              <circle class="chartDotPrimary" cx="60"  cy="183" r="3"/>
+              <circle class="chartDotPrimary" cx="135" cy="171" r="3"/>
+              <circle class="chartDotPrimary" cx="210" cy="162" r="3"/>
+              <circle class="chartDotPrimary" cx="285" cy="135" r="3"/>
+              <circle class="chartDotPrimary" cx="360" cy="93"  r="3"/>
+            </svg>
+          </div>
+          <p class="chartNote">Visão geral da rede — estes dados não mudam ao filtrar por um cupom específico</p>
+          <p class="chartFooter">Mostra quanto cada grupo de clientes gerou de receita para a sua rede ao longo do tempo. Quanto maior o valor, mais retorno financeiro aquele grupo trouxe para o negócio.</p>
+        </div>
+
+      </div>
+
+    </div><!-- /analyseStack -->
+
+  </div><!-- /pageContent -->
+</main>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  /* ── Dropdown filtro de cupom ── */
+  const cupomDd      = document.getElementById('cupom-dd');
+  const cupomTrigger = document.getElementById('cupom-trigger');
+  const cupomValue   = document.getElementById('cupom-value');
+
+  cupomTrigger.addEventListener('click', e => {
+    e.stopPropagation();
+    cupomDd.classList.toggle('open');
+  });
+  cupomDd.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      cupomDd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      cupomValue.textContent = opt.dataset.value ? opt.textContent : 'Todos';
+      cupomDd.classList.remove('open');
+    });
+  });
+  document.addEventListener('click', () => cupomDd.classList.remove('open'));
+
+  /* ── Carrossel de metric cards ── */
+  const carousel = document.getElementById('metricsCarousel');
+  const dots     = [document.getElementById('dot1'), document.getElementById('dot2'), document.getElementById('dot3')];
+
+  function carouselGo(idx) {
+    const max = carousel.scrollWidth - carousel.clientWidth;
+    carousel.scrollTo({ left: (max / 2) * idx, behavior: 'smooth' });
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  }
+
+  carousel.addEventListener('scroll', () => {
+    const pct = carousel.scrollLeft / (carousel.scrollWidth - carousel.clientWidth);
+    const idx = pct < 0.33 ? 0 : pct < 0.67 ? 1 : 2;
+    dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+  });
+
+  /* ── Time filter chips ── */
+  document.getElementById('timeFilters').querySelectorAll('.filterChip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('#timeFilters .filterChip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+    });
+  });
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>

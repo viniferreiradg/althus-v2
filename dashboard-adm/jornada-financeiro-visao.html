@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Financeiro — Visão geral — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sheet/Sheet.module.css" />
+</head>
+<body data-page="financeiro-visao">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+  <div class="pageContent">
+
+    <!-- Cabeçalho com filtros -->
+    <header class="finPageHeader">
+      <div>
+        <h1 class="pageTitle">Visão geral</h1>
+        <p class="pageSubtitle">Monitore os dados financeiros da sua operação</p>
+      </div>
+      <div class="finFilterBar">
+        <!-- Dropdown: Carregador -->
+        <div class="wrapper" id="charger-dropdown">
+          <div class="trigger" id="charger-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
+            <span id="charger-value">Carregador</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu" role="listbox">
+            <div class="option selected" role="option">Todos</div>
+            <div class="option" role="option">EletroCharge</div>
+            <div class="option" role="option">EV Solutions</div>
+            <div class="option" role="option">EcoCarga</div>
+            <div class="option" role="option">ChargePoint BR</div>
+            <div class="option" role="option">Ampere</div>
+          </div>
+        </div>
+        <!-- Período -->
+        <div class="dpWrap">
+          <button class="dpTrigger" type="button" aria-label="Selecionar período">
+            <span class="dpTriggerIcon"><i data-lucide="calendar" width="14" height="14"></i></span>
+            <span class="dpTriggerPlaceholder">Período</span>
+          </button>
+        </div>
+        <!-- Ação principal -->
+        <button class="btn primary hasLeft" type="button">
+          <span class="icon"><i data-lucide="file-text" width="15" height="15"></i></span>
+          Gerar relatório com IA
+        </button>
+      </div>
+    </header>
+
+    <!-- KPI Cards — linha 1 -->
+    <div class="metricsGrid4">
+      <div class="metricCard">
+        <span class="metricCardLabel">Faturamento líquido — Take-rate</span>
+        <p class="metricCardValue">R$ 104.890,00</p>
+        <p class="metricCardMeta"><span class="metricCardGrowth">+12%</span> vs. mês anterior</p>
+      </div>
+      <div class="metricCard">
+        <span class="metricCardLabel">MRR — <em>Monthly Recurring Revenue</em></span>
+        <p class="metricCardValue">R$ 22.350,00</p>
+        <p class="metricCardMeta">Faturamento líquido de mensalidades por mês</p>
+      </div>
+      <div class="metricCard">
+        <span class="metricCardLabel">Valores em aberto</span>
+        <p class="metricCardValue metricCardDanger">R$ 2.280,00</p>
+        <p class="metricCardMeta">Valores devidos por CPOs inadimplentes</p>
+      </div>
+      <div class="metricCard">
+        <span class="metricCardLabel">TPV — <em>Total Payment Volume</em></span>
+        <p class="metricCardValue">R$ 128.430,00</p>
+        <p class="metricCardMeta">Soma de todos os CPOs</p>
+      </div>
+    </div>
+
+    <!-- KPI Cards — linha 2 -->
+    <div class="metricsGrid4">
+      <div class="metricCard">
+        <span class="metricCardLabel">Total em custódia — Wallet</span>
+        <p class="metricCardValue">R$ 42.180,00</p>
+        <p class="metricCardMeta">Soma dos saldos em carteira</p>
+      </div>
+      <div class="metricCard">
+        <span class="metricCardLabel">Estornos Stripe</span>
+        <p class="metricCardValue">7</p>
+        <p class="metricCardMeta">Quantidade de estornos realizados em pagamentos via cartão de crédito</p>
+      </div>
+      <div class="metricCard">
+        <span class="metricCardLabel">Ticket médio por recarga</span>
+        <p class="metricCardValue">R$ 59,00</p>
+        <p class="metricCardMeta"><span class="metricCardGrowth">+12%</span> vs. mês anterior</p>
+      </div>
+      <!-- BTG Pactual — variante azul -->
+      <div class="metricCard metricCardBtg">
+        <div class="metricCardBtgRow">
+          <span class="metricCardLabel">Saldo BTG Pactual</span>
+          <button class="btgRevealBtn" id="btg-reveal-btn" type="button" aria-label="Revelar saldo">
+            <i data-lucide="eye" width="16" height="16"></i>
+          </button>
+        </div>
+        <p class="metricCardValue" id="btg-value">●●●●●</p>
+        <p class="metricCardMeta">Atualizado agora — conta 88546</p>
+      </div>
+    </div>
+
+    <!-- Próximos recebimentos + Forma de pagamento (2 colunas) -->
+    <div class="widgetsGrid">
+
+      <!-- Próximos recebimentos -->
+      <section class="widgetCard">
+        <div class="widgetCardHeader">
+          <div>
+            <h2 class="widgetCardTitle">Próximos recebimentos</h2>
+            <p class="widgetCardSub">Valores a receber com base nos meios de pagamento</p>
+          </div>
+        </div>
+
+        <!-- Cartão de crédito -->
+        <div class="receivableSubCard">
+          <div class="receivableSubHeader">
+            <p class="receivableSubTitle">Pagamentos feitos com cartão de crédito</p>
+            <span class="inlineBadge muted">D+30 por transação</span>
+          </div>
+          <div class="receivableSubColumns">
+            <div class="receivableCol">
+              <span class="receivableColLabel">A receber nos próximos 7 dias</span>
+              <span class="receivableColAmount">R$ 8.420,00</span>
+            </div>
+            <div class="receivableCol">
+              <span class="receivableColLabelWarn">Pendente (fora da janela)</span>
+              <span class="receivableColAmount">R$ 20.668,00</span>
+            </div>
+          </div>
+          <p class="receivableTotal">Total a receber: <strong>R$ 29.088,00</strong></p>
+        </div>
+
+        <!-- Saldo em carteira / PIX -->
+        <div class="receivableSubCard">
+          <div class="receivableSubHeader">
+            <p class="receivableSubTitle">Pagamentos feitos com saldo em carteira (via Pix)</p>
+            <span class="inlineBadge warning">1º dia útil do mês</span>
+          </div>
+          <div>
+            <p class="receivableSubAmount">R$ 14.400,00</p>
+            <span class="receivableSubMeta">acumulado em jun/26</span>
+          </div>
+          <p class="receivableSubMeta">Próximo repasse: 01/07/2026</p>
+        </div>
+      </section>
+
+      <!-- Forma de pagamento -->
+      <section class="widgetCard">
+        <div class="widgetCardHeader">
+          <div>
+            <h2 class="widgetCardTitle">Forma de pagamento</h2>
+            <p class="widgetCardSub">% das recargas por meio de pagamento</p>
+          </div>
+        </div>
+
+        <!-- Donut chart CSS -->
+        <div class="donutWrap">
+          <div class="donutChartWrap">
+            <div class="donutChartCircle"></div>
+            <div class="donutChartInner">
+              <span class="donutChartInnerLabel">total</span>
+              <span class="donutChartInnerValue">1.284</span>
+              <span class="donutChartInnerLabel">sessões</span>
+            </div>
+          </div>
+          <ul class="donutLegend">
+            <li class="donutLegendItem">
+              <span class="donutDot blue"></span>
+              <span class="donutLegendLabel">Cartão de crédito</span>
+              <span class="donutLegendValue">770 (60%)</span>
+            </li>
+            <li class="donutLegendItem">
+              <span class="donutDot gold"></span>
+              <span class="donutLegendLabel">Saldo em carteira (via Pix)</span>
+              <span class="donutLegendValue">514 (40%)</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Prazo de repasse -->
+        <div class="donutRepasse">
+          <p class="donutRepasseTitle">Prazo de repasse</p>
+          <div class="donutRepasseRow">
+            <span class="donutRepasseRowLabel">
+              <span class="donutDot blue"></span>
+              Cartão de crédito
+            </span>
+            <span class="donutRepasseRowValue">D+30</span>
+          </div>
+          <div class="donutRepasseRow">
+            <span class="donutRepasseRowLabel">
+              <span class="donutDot gold"></span>
+              Saldo em carteira (via Pix)
+            </span>
+            <span class="donutRepasseRowValue">1º dia útil do mês</span>
+          </div>
+          <p class="donutStripeNote">
+            A Stripe, empresa parceira referência em meios de pagamento, não está permitindo
+            antecipações no momento — <span class="donutStripeLink">recurso em análise pela plataforma</span>.
+            Ativaremos assim que for liberado.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Receita por CPOs (full width) -->
+    <section class="widgetCard">
+      <div class="barChartHeader">
+        <div>
+          <h2 class="widgetCardTitle">Receita por CPOs</h2>
+          <p class="widgetCardSub">Faturamento líquido gerado por cada CPOs no período (take-rate) · Últimos 7 dias</p>
+        </div>
+        <div class="barChartPeriodTabs">
+          <button class="periodTabBtn active" type="button">7 dias</button>
+          <button class="periodTabBtn" type="button">15 dias</button>
+          <button class="periodTabBtn" type="button">30 dias</button>
+          <button class="periodTabBtn" type="button" aria-label="Selecionar período">
+            <i data-lucide="calendar" width="13" height="13"></i>
+            Período
+          </button>
+        </div>
+      </div>
+
+      <div class="barChartList" id="bar-chart-list">
+        <div class="barChartRow">
+          <span class="barChartId">EletroCharge</span>
+          <div class="barChartTrack"><div class="barChartFill b800" data-pct="100"></div></div>
+          <span class="barChartAmt">R$ 7.578,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">EV Solutions</span>
+          <div class="barChartTrack"><div class="barChartFill b700" data-pct="81"></div></div>
+          <span class="barChartAmt">R$ 6.156,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">EcoCarga</span>
+          <div class="barChartTrack"><div class="barChartFill b600" data-pct="70"></div></div>
+          <span class="barChartAmt">R$ 5.328,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">ChargePoint BR</span>
+          <div class="barChartTrack"><div class="barChartFill b500" data-pct="52"></div></div>
+          <span class="barChartAmt">R$ 3.942,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">Ampere</span>
+          <div class="barChartTrack"><div class="barChartFill b400" data-pct="45"></div></div>
+          <span class="barChartAmt">R$ 3.384,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">Volt Hub</span>
+          <div class="barChartTrack"><div class="barChartFill b300" data-pct="38"></div></div>
+          <span class="barChartAmt">R$ 2.889,00</span>
+        </div>
+        <div class="barChartRow">
+          <span class="barChartId">Mobi Verde</span>
+          <div class="barChartTrack"><div class="barChartFill b200" data-pct="26"></div></div>
+          <span class="barChartAmt">R$ 1.971,00</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- Sheet de notificações -->
+<div class="sheetOverlay" id="notif-sheet" onclick="notifSheetClose()">
+  <aside class="sheetPanel sheetNotif" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Notificações">
+    <div class="sheetHeader">
+      <span class="sheetTitle">Notificações</span>
+      <button class="sheetClose" onclick="notifSheetClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+    <div class="sheetBody">
+      <div class="notifList">
+        <div class="notifListItem unread">
+          <div class="notifListIcon warning"><i data-lucide="clock" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle"><span class="notifListDot"></span>Credenciado aguardando aprovação</div>
+            <div class="notifListDesc">Spark Charging LTDA enviou cadastro e aguarda revisão.</div>
+          </div>
+          <span class="notifListTime">Agora</span>
+        </div>
+        <div class="notifListItem unread">
+          <div class="notifListIcon error"><i data-lucide="wifi-off" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle"><span class="notifListDot"></span>Falha crítica na rede</div>
+            <div class="notifListDesc">ALT-112 offline — Rede Flex Eletropostos, há 18 min.</div>
+          </div>
+          <span class="notifListTime">18 min</span>
+        </div>
+        <div class="notifListItem">
+          <div class="notifListIcon info"><i data-lucide="file-text" width="16" height="16"></i></div>
+          <div class="notifListBody">
+            <div class="notifListTitle">Relatório mensal disponível</div>
+            <div class="notifListDesc">Relatório consolidado de Abril/2026 pronto para download.</div>
+          </div>
+          <span class="notifListTime">Ontem</span>
+        </div>
+      </div>
+    </div>
+    <div class="sheetFooter">
+      <button class="btn ghost hasLeft" type="button" onclick="notifMarkAllRead()">
+        <span class="icon"><i data-lucide="check-check" width="15" height="15"></i></span>
+        Marcar todas como lidas
+      </button>
+    </div>
+  </aside>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  lucide.createIcons();
+
+  /* Bar chart: preencher larguras via data-pct */
+  document.querySelectorAll('.barChartFill').forEach(el => {
+    el.style.width = (el.dataset.pct || 0) + '%';
+  });
+
+  /* Notificações */
+  function notifSheetOpen()  { document.getElementById('notif-sheet').classList.add('sheetOpen'); document.body.style.overflow = 'hidden'; }
+  function notifSheetClose() { document.getElementById('notif-sheet').classList.remove('sheetOpen'); document.body.style.overflow = ''; }
+  function notifMarkAllRead() {
+    document.querySelectorAll('.notifListItem.unread').forEach(el => el.classList.remove('unread'));
+    const badge = document.getElementById('notif-badge');
+    if (badge) { badge.textContent = '0'; badge.style.display = 'none'; }
+    const btn = document.getElementById('notif-btn');
+    if (btn) btn.setAttribute('aria-label', 'Notificações');
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') notifSheetClose(); });
+
+  /* Dropdown Carregador */
+  const dd        = document.getElementById('charger-dropdown');
+  const ddTrigger = document.getElementById('charger-trigger');
+  ddTrigger.addEventListener('click', () => {
+    const open = dd.classList.toggle('open');
+    ddTrigger.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', e => {
+    if (!dd.contains(e.target)) { dd.classList.remove('open'); ddTrigger.setAttribute('aria-expanded', 'false'); }
+  });
+  dd.querySelectorAll('.option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      dd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      document.getElementById('charger-value').textContent = opt.textContent.trim();
+      dd.classList.remove('open');
+      ddTrigger.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  /* BTG: revelar/ocultar saldo */
+  let btgRevealed = false;
+  document.getElementById('btg-reveal-btn').addEventListener('click', () => {
+    btgRevealed = !btgRevealed;
+    document.getElementById('btg-value').textContent = btgRevealed ? 'R$ 12.470,80' : '●●●●●';
+    document.getElementById('btg-reveal-btn').innerHTML = btgRevealed
+      ? '<i data-lucide="eye-off" width="16" height="16"></i>'
+      : '<i data-lucide="eye" width="16" height="16"></i>';
+    lucide.createIcons();
+  });
+
+  /* Period tabs */
+  document.querySelectorAll('.periodTabBtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.periodTabBtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

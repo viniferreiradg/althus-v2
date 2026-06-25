@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gestão de CPOs — Althus ADM</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <link rel="stylesheet" href="../storybook-desktop/src/tokens/tokens.css" />
+  <link rel="stylesheet" href="../shared/page.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Sidebar/Sidebar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Avatar/Avatar.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dropdown/Dropdown.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
+  <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
+</head>
+<body data-page="gestao-cpos">
+
+<aside id="sidebar-root"></aside>
+
+<main class="main">
+  <div class="pageContent">
+
+    <!-- ── Header ── -->
+    <div class="pageHeader" style="display:block;">
+      <h1 class="pageTitle">Gestão de CPOs</h1>
+      <p class="pageSubtitle">Gerencie os Charge Point Operators integrados a rede Althus</p>
+    </div>
+
+    <!-- ── Toolbar ── -->
+    <div class="toolbar">
+      <div class="searchWrapFlex">
+        <div class="inputWrap hasLeft">
+          <span class="iconLeft"><i data-lucide="search" width="16" height="16"></i></span>
+          <input class="input" type="text" placeholder="Buscar (por nome fantasia, razão social, CNPJ ou responsável)" />
+        </div>
+      </div>
+      <div class="filterWrap">
+        <div class="wrapper" id="status-dd">
+          <div class="trigger" id="status-trigger">
+            <span id="status-value">Status</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu">
+            <div class="option selected" data-value="">Status</div>
+            <div class="option" data-value="ativo">Ativo</div>
+            <div class="option" data-value="inativo">Inativo</div>
+          </div>
+        </div>
+      </div>
+      <div class="toolbarBtns">
+        <button class="btn primary hasLeft" type="button" onclick="adicionarOpen()">
+          <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+          Adicionar
+        </button>
+      </div>
+    </div>
+
+    <!-- ── Tabela ── -->
+    <div class="card">
+      <div class="tableWrap">
+        <table class="table">
+          <thead>
+            <tr class="headerRow">
+              <th class="th" style="width:40px;"></th>
+              <th class="th thFirst">
+                Nome fantasia
+                <i data-lucide="arrow-up-down" width="13" height="13" style="vertical-align:middle;margin-left:4px;opacity:0.5;"></i>
+              </th>
+              <th class="th">Razão social</th>
+              <th class="th">CNPJ</th>
+              <th class="th">Responsável</th>
+              <th class="th">Telefone</th>
+              <th class="th">Status</th>
+              <th class="th">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- ── Ampere ── -->
+            <tr class="tr" id="row-ampere">
+              <td class="td tdExpand" onclick="toggleRow('ampere')">
+                <i data-lucide="chevron-right" width="16" height="16"></i>
+              </td>
+              <td class="td tdFirst">Ampere</td>
+              <td class="td">Ampere Mobilidade Elétrica</td>
+              <td class="td tdMono">78.901.234/0001-56</td>
+              <td class="td">Carlos Eduardo Pinto</td>
+              <td class="td tdMono">(71) 99210-9876</td>
+              <td class="td"><span class="inlineBadge success">Ativo</span></td>
+              <td class="td">
+                <div class="tdActionBtns">
+                  <button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="tdActionBtn" aria-label="Histórico" type="button"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-ampere">
+              <td class="expandCell" colspan="8">
+                <div class="expandInner">
+                  <table class="table expandTable">
+                    <thead>
+                      <tr class="headerRow">
+                        <th class="th thFirst analyseThBrand">Nome do carregador</th>
+                        <th class="th analyseThBrand">ID</th>
+                        <th class="th">Potência</th>
+                        <th class="th">Endereço</th>
+                        <th class="th">Status</th>
+                        <th class="th">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tr"><td class="td tdFirst">AMPERE-001</td><td class="td tdMono tdBrand">CHG-78001</td><td class="td">22 kW</td><td class="td">Av. Paulista, 1000 — São Paulo/SP</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">AMPERE-002</td><td class="td tdMono tdBrand">CHG-78002</td><td class="td">50 kW</td><td class="td">Rua das Flores, 250 — Curitiba/PR</td><td class="td"><span class="inlineBadge warning">Em manutenção</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">AMPERE-003</td><td class="td tdMono tdBrand">CHG-78003</td><td class="td">150 kW</td><td class="td">Av. Beira Mar, 350 — Fortaleza/CE</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">AMPERE-004</td><td class="td tdMono tdBrand">CHG-78004</td><td class="td">22 kW</td><td class="td">Rua XV de Novembro, 88 — Porto Alegre/RS</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">AMPERE-005</td><td class="td tdMono tdBrand">CHG-78005</td><td class="td">50 kW</td><td class="td">Av. Atlântica, 500 — Salvador/BA</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">AMPERE-006</td><td class="td tdMono tdBrand">CHG-78006</td><td class="td">150 kW</td><td class="td">Rua Sete de Setembro, 120 — Belo Horizonte/MG</td><td class="td"><span class="inlineBadge warning">Em manutenção</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- ── EletroCharge ── -->
+            <tr class="tr" id="row-eletrocharge">
+              <td class="td tdExpand" onclick="toggleRow('eletrocharge')">
+                <i data-lucide="chevron-right" width="16" height="16"></i>
+              </td>
+              <td class="td tdFirst">EletroCharge</td>
+              <td class="td">EletroCharge Brasil Ltda</td>
+              <td class="td tdMono">12.345.678/0001-90</td>
+              <td class="td">Marcos Antônio Silva</td>
+              <td class="td tdMono">(11) 99876-5432</td>
+              <td class="td"><span class="inlineBadge success">Ativo</span></td>
+              <td class="td">
+                <div class="tdActionBtns">
+                  <button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="tdActionBtn" aria-label="Histórico" type="button"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-eletrocharge">
+              <td class="expandCell" colspan="8">
+                <div class="expandInner">
+                  <table class="table expandTable">
+                    <thead>
+                      <tr class="headerRow">
+                        <th class="th thFirst analyseThBrand">Nome do carregador</th>
+                        <th class="th analyseThBrand">ID</th>
+                        <th class="th">Potência</th>
+                        <th class="th">Endereço</th>
+                        <th class="th">Status</th>
+                        <th class="th">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tr"><td class="td tdFirst">ELET-001</td><td class="td tdMono tdBrand">CHG-12001</td><td class="td">50 kW</td><td class="td">Av. Brasil, 500 — São Paulo/SP</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">ELET-002</td><td class="td tdMono tdBrand">CHG-12002</td><td class="td">22 kW</td><td class="td">Rua Augusta, 200 — São Paulo/SP</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">ELET-003</td><td class="td tdMono tdBrand">CHG-12003</td><td class="td">150 kW</td><td class="td">Av. Ipiranga, 800 — São Paulo/SP</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">ELET-004</td><td class="td tdMono tdBrand">CHG-12004</td><td class="td">50 kW</td><td class="td">Rua Oscar Freire, 300 — São Paulo/SP</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- ── EV Solutions ── -->
+            <tr class="tr" id="row-evsolutions">
+              <td class="td tdExpand" onclick="toggleRow('evsolutions')">
+                <i data-lucide="chevron-right" width="16" height="16"></i>
+              </td>
+              <td class="td tdFirst">EV Solutions</td>
+              <td class="td">EV Solutions do Brasil</td>
+              <td class="td tdMono">45.678.901/0001-23</td>
+              <td class="td">Juliana Mendes Rocha</td>
+              <td class="td tdMono">(41) 98543-2109</td>
+              <td class="td"><span class="inlineBadge success">Ativo</span></td>
+              <td class="td">
+                <div class="tdActionBtns">
+                  <button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="tdActionBtn" aria-label="Histórico" type="button"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-evsolutions">
+              <td class="expandCell" colspan="8">
+                <div class="expandInner">
+                  <table class="table expandTable">
+                    <thead>
+                      <tr class="headerRow">
+                        <th class="th thFirst analyseThBrand">Nome do carregador</th>
+                        <th class="th analyseThBrand">ID</th>
+                        <th class="th">Potência</th>
+                        <th class="th">Endereço</th>
+                        <th class="th">Status</th>
+                        <th class="th">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tr"><td class="td tdFirst">EVSO-001</td><td class="td tdMono tdBrand">CHG-45001</td><td class="td">22 kW</td><td class="td">Av. Batel, 100 — Curitiba/PR</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">EVSO-002</td><td class="td tdMono tdBrand">CHG-45002</td><td class="td">150 kW</td><td class="td">Rua XV de Novembro, 500 — Curitiba/PR</td><td class="td"><span class="inlineBadge warning">Em manutenção</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">EVSO-003</td><td class="td tdMono tdBrand">CHG-45003</td><td class="td">50 kW</td><td class="td">Av. Sete de Setembro, 200 — Curitiba/PR</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- ── GreenPlug ── -->
+            <tr class="tr" id="row-greenplug">
+              <td class="td tdExpand" onclick="toggleRow('greenplug')">
+                <i data-lucide="chevron-right" width="16" height="16"></i>
+              </td>
+              <td class="td tdFirst">GreenPlug</td>
+              <td class="td">GreenPlug Energia Ltda</td>
+              <td class="td tdMono">89.012.345/0001-67</td>
+              <td class="td">Mariana Teixeira Alves</td>
+              <td class="td tdMono">(81) 98109-8765</td>
+              <td class="td"><span class="inlineBadge success">Ativo</span></td>
+              <td class="td">
+                <div class="tdActionBtns">
+                  <button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="tdActionBtn" aria-label="Histórico" type="button"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-greenplug">
+              <td class="expandCell" colspan="8">
+                <div class="expandInner">
+                  <table class="table expandTable">
+                    <thead>
+                      <tr class="headerRow">
+                        <th class="th thFirst analyseThBrand">Nome do carregador</th>
+                        <th class="th analyseThBrand">ID</th>
+                        <th class="th">Potência</th>
+                        <th class="th">Endereço</th>
+                        <th class="th">Status</th>
+                        <th class="th">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tr"><td class="td tdFirst">GPLG-001</td><td class="td tdMono tdBrand">CHG-89001</td><td class="td">50 kW</td><td class="td">Av. Boa Viagem, 400 — Recife/PE</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">GPLG-002</td><td class="td tdMono tdBrand">CHG-89002</td><td class="td">22 kW</td><td class="td">Rua da Aurora, 100 — Recife/PE</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">GPLG-003</td><td class="td tdMono tdBrand">CHG-89003</td><td class="td">150 kW</td><td class="td">Av. Agamenon Magalhães, 300 — Recife/PE</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">GPLG-004</td><td class="td tdMono tdBrand">CHG-89004</td><td class="td">50 kW</td><td class="td">Rua do Riachuelo, 50 — Recife/PE</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- ── Mobi Verde ── -->
+            <tr class="tr" id="row-mobiverde">
+              <td class="td tdExpand" onclick="toggleRow('mobiverde')">
+                <i data-lucide="chevron-right" width="16" height="16"></i>
+              </td>
+              <td class="td tdFirst">Mobi Verde</td>
+              <td class="td">Mobilidade Verde S/A</td>
+              <td class="td tdMono">23.456.789/0001-01</td>
+              <td class="td">Patrícia Helena Souza</td>
+              <td class="td tdMono">(21) 98765-4321</td>
+              <td class="td"><span class="inlineBadge success">Ativo</span></td>
+              <td class="td">
+                <div class="tdActionBtns">
+                  <button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="tdActionBtn" aria-label="Histórico" type="button"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-mobiverde">
+              <td class="expandCell" colspan="8">
+                <div class="expandInner">
+                  <table class="table expandTable">
+                    <thead>
+                      <tr class="headerRow">
+                        <th class="th thFirst analyseThBrand">Nome do carregador</th>
+                        <th class="th analyseThBrand">ID</th>
+                        <th class="th">Potência</th>
+                        <th class="th">Endereço</th>
+                        <th class="th">Status</th>
+                        <th class="th">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tr"><td class="td tdFirst">MBVD-001</td><td class="td tdMono tdBrand">CHG-23001</td><td class="td">22 kW</td><td class="td">Av. Atlântica, 1000 — Rio de Janeiro/RJ</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">MBVD-002</td><td class="td tdMono tdBrand">CHG-23002</td><td class="td">50 kW</td><td class="td">Rua Visconde de Pirajá, 300 — Rio de Janeiro/RJ</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">MBVD-003</td><td class="td tdMono tdBrand">CHG-23003</td><td class="td">150 kW</td><td class="td">Av. N. S. de Copacabana, 500 — Rio de Janeiro/RJ</td><td class="td"><span class="inlineBadge warning">Em manutenção</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- ── PowerStation ── -->
+            <tr class="tr" id="row-powerstation">
+              <td class="td tdExpand" onclick="toggleRow('powerstation')">
+                <i data-lucide="chevron-right" width="16" height="16"></i>
+              </td>
+              <td class="td tdFirst">PowerStation</td>
+              <td class="td">PowerStation Energia Ltda</td>
+              <td class="td tdMono">34.567.890/0001-12</td>
+              <td class="td">Ricardo Lopes Carvalho</td>
+              <td class="td tdMono">(31) 99654-3210</td>
+              <td class="td"><span class="inlineBadge muted">Inativo</span></td>
+              <td class="td">
+                <div class="tdActionBtns">
+                  <button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="tdActionBtn" aria-label="Histórico" type="button"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-powerstation">
+              <td class="expandCell" colspan="8">
+                <div class="expandInner">
+                  <table class="table expandTable">
+                    <thead>
+                      <tr class="headerRow">
+                        <th class="th thFirst analyseThBrand">Nome do carregador</th>
+                        <th class="th analyseThBrand">ID</th>
+                        <th class="th">Potência</th>
+                        <th class="th">Endereço</th>
+                        <th class="th">Status</th>
+                        <th class="th">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tr"><td class="td tdFirst">PWST-001</td><td class="td tdMono tdBrand">CHG-34001</td><td class="td">50 kW</td><td class="td">Av. do Contorno, 200 — Belo Horizonte/MG</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">PWST-002</td><td class="td tdMono tdBrand">CHG-34002</td><td class="td">22 kW</td><td class="td">Rua da Bahia, 100 — Belo Horizonte/MG</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">PWST-003</td><td class="td tdMono tdBrand">CHG-34003</td><td class="td">150 kW</td><td class="td">Av. Afonso Pena, 400 — Belo Horizonte/MG</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- ── Recarga Já ── -->
+            <tr class="tr" id="row-recargaja">
+              <td class="td tdExpand" onclick="toggleRow('recargaja')">
+                <i data-lucide="chevron-right" width="16" height="16"></i>
+              </td>
+              <td class="td tdFirst">Recarga Já</td>
+              <td class="td">Recarga Já Tecnologia</td>
+              <td class="td tdMono">56.789.012/0001-34</td>
+              <td class="td">Fernando Augusto Lima</td>
+              <td class="td tdMono">(51) 99432-1098</td>
+              <td class="td"><span class="inlineBadge success">Ativo</span></td>
+              <td class="td">
+                <div class="tdActionBtns">
+                  <button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="tdActionBtn" aria-label="Histórico" type="button"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-recargaja">
+              <td class="expandCell" colspan="8">
+                <div class="expandInner">
+                  <table class="table expandTable">
+                    <thead>
+                      <tr class="headerRow">
+                        <th class="th thFirst analyseThBrand">Nome do carregador</th>
+                        <th class="th analyseThBrand">ID</th>
+                        <th class="th">Potência</th>
+                        <th class="th">Endereço</th>
+                        <th class="th">Status</th>
+                        <th class="th">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tr"><td class="td tdFirst">RCJA-001</td><td class="td tdMono tdBrand">CHG-56001</td><td class="td">22 kW</td><td class="td">Av. Mauá, 500 — Porto Alegre/RS</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">RCJA-002</td><td class="td tdMono tdBrand">CHG-56002</td><td class="td">50 kW</td><td class="td">Rua dos Andradas, 200 — Porto Alegre/RS</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">RCJA-003</td><td class="td tdMono tdBrand">CHG-56003</td><td class="td">150 kW</td><td class="td">Av. Ipiranga, 100 — Porto Alegre/RS</td><td class="td"><span class="inlineBadge warning">Em manutenção</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">RCJA-004</td><td class="td tdMono tdBrand">CHG-56004</td><td class="td">22 kW</td><td class="td">Rua Voluntários da Pátria, 300 — Porto Alegre/RS</td><td class="td"><span class="inlineBadge success">Ativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+            <!-- ── Voltz ── -->
+            <tr class="tr" id="row-voltz">
+              <td class="td tdExpand" onclick="toggleRow('voltz')">
+                <i data-lucide="chevron-right" width="16" height="16"></i>
+              </td>
+              <td class="td tdFirst">Voltz</td>
+              <td class="td">Voltz Pontos de Recarga</td>
+              <td class="td tdMono">67.890.123/0001-45</td>
+              <td class="td">Beatriz Cardoso Nunes</td>
+              <td class="td tdMono">(61) 98321-0987</td>
+              <td class="td"><span class="inlineBadge muted">Inativo</span></td>
+              <td class="td">
+                <div class="tdActionBtns">
+                  <button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button>
+                  <button class="tdActionBtn" aria-label="Histórico" type="button"><i data-lucide="history" width="15" height="15"></i></button>
+                </div>
+              </td>
+            </tr>
+            <tr class="expandRow" id="expand-voltz">
+              <td class="expandCell" colspan="8">
+                <div class="expandInner">
+                  <table class="table expandTable">
+                    <thead>
+                      <tr class="headerRow">
+                        <th class="th thFirst analyseThBrand">Nome do carregador</th>
+                        <th class="th analyseThBrand">ID</th>
+                        <th class="th">Potência</th>
+                        <th class="th">Endereço</th>
+                        <th class="th">Status</th>
+                        <th class="th">Ação</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr class="tr"><td class="td tdFirst">VLTZ-001</td><td class="td tdMono tdBrand">CHG-67001</td><td class="td">50 kW</td><td class="td">Av. W3 Norte, 100 — Brasília/DF</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">VLTZ-002</td><td class="td tdMono tdBrand">CHG-67002</td><td class="td">150 kW</td><td class="td">SHS, Quadra 6 — Brasília/DF</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                      <tr class="tr"><td class="td tdFirst">VLTZ-003</td><td class="td tdMono tdBrand">CHG-67003</td><td class="td">22 kW</td><td class="td">Av. das Nações, 200 — Brasília/DF</td><td class="td"><span class="inlineBadge muted">Inativo</span></td><td class="td"><button class="tdActionBtn" aria-label="Editar" type="button"><i data-lucide="pencil" width="15" height="15"></i></button></td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <!-- ── Rodapé paginação ── -->
+      <div class="tableFooterSpaced">
+        <div class="tableFooterLeft">
+          <span>Mostrando 1-8 de 8 resultados</span>
+          <div class="tableFooterPerPage">
+            Itens por página:
+            <div class="wrapper" id="perpage-dd" style="width:72px;">
+              <div class="trigger" id="perpage-trigger">
+                <span id="perpage-value">10</span>
+                <span class="chevron"><i data-lucide="chevron-down" width="12" height="12"></i></span>
+              </div>
+              <div class="menu">
+                <div class="option selected" data-value="10">10</div>
+                <div class="option" data-value="25">25</div>
+                <div class="option" data-value="50">50</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="pagControls">
+          <button class="pagBtn" type="button" disabled aria-label="Página anterior">
+            <i data-lucide="chevron-left" width="14" height="14"></i>
+          </button>
+          <button class="pagBtn pagBtnActive" type="button" aria-label="Página 1">1</button>
+          <button class="pagBtn" type="button" disabled aria-label="Próxima página">
+            <i data-lucide="chevron-right" width="14" height="14"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /pageContent -->
+</main>
+
+<!-- ── Dialog: Adicionar CPO ─────────────────────────────────────────────── -->
+<div class="dialogOverlay" id="adicionar-dialog" style="display:none;" onclick="adicionarClose()">
+  <div class="dialog lg" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="adicionar-title">
+
+    <div class="dialogHeader">
+      <div>
+        <p class="dialogTitle" id="adicionar-title">Adicionar CPOs</p>
+        <p class="dialogSubtitle">Preencha os dados da empresa e a <span class="aiHighlight">forma de pagamento</span></p>
+      </div>
+      <button class="dialogCloseBtn" onclick="adicionarClose()" aria-label="Fechar" type="button">
+        <i data-lucide="x" width="16" height="16"></i>
+      </button>
+    </div>
+
+    <div class="dialogBody">
+      <div class="dialogFormStack">
+
+        <!-- ── Empresa ── -->
+        <div class="dialogSectionHead">
+          <i data-lucide="building-2" width="15" height="15"></i>
+          <span class="dialogSectionTitle">Empresa</span>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-nome-fantasia">Nome fantasia</label>
+          <div class="inputWrap"><input class="input" id="add-nome-fantasia" type="text" placeholder="Nome fantasia" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-razao-social">Razão social</label>
+          <div class="inputWrap"><input class="input" id="add-razao-social" type="text" placeholder="Empresa Ltda" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-cnpj">CNPJ</label>
+          <div class="inputWrap"><input class="input" id="add-cnpj" type="text" placeholder="00.000.000/0000-00" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-inscricao">Inscrição municipal</label>
+          <div class="inputWrap"><input class="input" id="add-inscricao" type="text" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label">Regime tributário</label>
+          <div class="wrapper" id="regime-dd">
+            <div class="trigger" id="regime-trigger">
+              <span id="regime-value">Selecione...</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu">
+              <div class="option" data-value="simples">Simples Nacional</div>
+              <div class="option" data-value="presumido">Lucro Presumido</div>
+              <div class="option" data-value="real">Lucro Real</div>
+              <div class="option" data-value="mei">MEI</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="dialogFormRow">
+          <div class="formLabelBrand">
+            <label class="label" for="add-cep">CEP</label>
+            <div class="inputWrap"><input class="input" id="add-cep" type="text" placeholder="00000-000" /></div>
+          </div>
+          <div class="formLabelBrand">
+            <label class="label" for="add-estado">Estado</label>
+            <div class="inputWrap"><input class="input" id="add-estado" type="text" /></div>
+          </div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-cidade">Cidade</label>
+          <div class="inputWrap"><input class="input" id="add-cidade" type="text" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-endereco">Endereço</label>
+          <div class="inputWrap"><input class="input" id="add-endereco" type="text" /></div>
+        </div>
+
+        <div class="dialogFormRow">
+          <div class="formLabelBrand">
+            <label class="label" for="add-numero">Número</label>
+            <div class="inputWrap"><input class="input" id="add-numero" type="text" /></div>
+          </div>
+          <div class="formLabelBrand">
+            <label class="label" for="add-complemento">Complemento</label>
+            <div class="inputWrap"><input class="input" id="add-complemento" type="text" /></div>
+          </div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-telefone">Telefone</label>
+          <div class="inputWrap"><input class="input" id="add-telefone" type="text" placeholder="(00) 0000-0000" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-email">E-mail de contato</label>
+          <div class="inputWrap"><input class="input" id="add-email" type="email" placeholder="contato@empresa.com.br" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-resp-nome">Nome completo — Responsável legal</label>
+          <div class="inputWrap"><input class="input" id="add-resp-nome" type="text" placeholder="Nome completo" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-resp-cpf">CPF — Responsável legal</label>
+          <div class="inputWrap"><input class="input" id="add-resp-cpf" type="text" placeholder="000.000.000-00" /></div>
+        </div>
+
+        <!-- ── Forma de pagamento ── -->
+        <div class="dialogSection">
+          <div class="dialogSectionHead">
+            <i data-lucide="credit-card" width="15" height="15"></i>
+            <span class="dialogSectionTitle">Forma de pagamento</span>
+          </div>
+        </div>
+
+        <div class="dialogFormRow">
+          <div class="formLabelBrand">
+            <label class="label">Cartão cadastrado</label>
+            <div class="inputWrap"><input class="input" type="text" value="•••• •••• •••• 0000" readonly /></div>
+          </div>
+          <div class="formLabelBrand">
+            <label class="label">Bandeira</label>
+            <div class="inputWrap"><input class="input" type="text" value="VISA" readonly /></div>
+          </div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label">Ciclo de cobrança</label>
+          <div class="wrapper" id="ciclo-dd">
+            <div class="trigger" id="ciclo-trigger">
+              <span id="ciclo-value">Mensal</span>
+              <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+            </div>
+            <div class="menu">
+              <div class="option selected" data-value="mensal">Mensal</div>
+              <div class="option" data-value="trimestral">Trimestral</div>
+              <div class="option" data-value="anual">Anual</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-debito">Próximo débito</label>
+          <div class="inputWrap"><input class="input" id="add-debito" type="text" placeholder="DD/MM/AAAA" /></div>
+        </div>
+
+        <div class="dialogFormRow">
+          <div class="formLabelBrand">
+            <label class="label" for="add-banco">Banco</label>
+            <div class="inputWrap"><input class="input" id="add-banco" type="text" /></div>
+          </div>
+          <div class="formLabelBrand">
+            <label class="label" for="add-agencia">Agência</label>
+            <div class="inputWrap"><input class="input" id="add-agencia" type="text" /></div>
+          </div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-conta">Conta CNPJ</label>
+          <div class="inputWrap"><input class="input" id="add-conta" type="text" /></div>
+        </div>
+
+        <div class="formLabelBrand">
+          <label class="label" for="add-pix">Chave Pix</label>
+          <div class="inputWrap"><input class="input" id="add-pix" type="text" /></div>
+        </div>
+
+        <!-- ── Status ── -->
+        <div class="dialogSection">
+          <span class="dialogSectionTitle">Status</span>
+        </div>
+
+        <div class="wrapper" id="add-status-dd">
+          <div class="trigger" id="add-status-trigger">
+            <span id="add-status-value">Ativo</span>
+            <span class="chevron"><i data-lucide="chevron-down" width="14" height="14"></i></span>
+          </div>
+          <div class="menu">
+            <div class="option selected" data-value="ativo">Ativo</div>
+            <div class="option" data-value="inativo">Inativo</div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /dialogBody -->
+
+    <div class="dialogFooter">
+      <button class="btn ghost" type="button" onclick="adicionarClose()">Cancelar</button>
+      <button class="btn primary" type="button">Salvar</button>
+    </div>
+
+  </div>
+</div>
+
+<script src="shared/sidebar.js"></script>
+<script>
+  function adicionarOpen()  { document.getElementById('adicionar-dialog').style.display = 'flex'; lucide.createIcons(); }
+  function adicionarClose() { document.getElementById('adicionar-dialog').style.display = 'none'; }
+
+  function toggleRow(id) {
+    const row    = document.getElementById('row-' + id);
+    const expand = document.getElementById('expand-' + id);
+    const isOpen = expand.classList.contains('open');
+    row.classList.toggle('expanded', !isOpen);
+    expand.classList.toggle('open', !isOpen);
+  }
+
+  /* ── Dropdown Status ── */
+  (function () {
+    const dd  = document.getElementById('status-dd');
+    const val = document.getElementById('status-value');
+    document.getElementById('status-trigger').addEventListener('click', e => { e.stopPropagation(); dd.classList.toggle('open'); });
+    dd.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        dd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        val.textContent = opt.dataset.value ? opt.textContent : 'Status';
+        dd.classList.remove('open');
+      });
+    });
+  })();
+
+  /* ── Dropdown Itens por página ── */
+  (function () {
+    const dd  = document.getElementById('perpage-dd');
+    const val = document.getElementById('perpage-value');
+    document.getElementById('perpage-trigger').addEventListener('click', e => { e.stopPropagation(); dd.classList.toggle('open'); });
+    dd.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        dd.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        val.textContent = opt.textContent;
+        dd.classList.remove('open');
+      });
+    });
+  })();
+
+  /* ── Dropdowns do dialog ── */
+  [
+    { dd: 'regime-dd',     trigger: 'regime-trigger',     val: 'regime-value',     empty: 'Selecione...' },
+    { dd: 'ciclo-dd',      trigger: 'ciclo-trigger',      val: 'ciclo-value',      empty: null },
+    { dd: 'add-status-dd', trigger: 'add-status-trigger', val: 'add-status-value', empty: null },
+  ].forEach(({ dd, trigger, val, empty }) => {
+    const el  = document.getElementById(dd);
+    const valEl = document.getElementById(val);
+    document.getElementById(trigger).addEventListener('click', e => { e.stopPropagation(); el.classList.toggle('open'); });
+    el.querySelectorAll('.option').forEach(opt => {
+      opt.addEventListener('click', () => {
+        el.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+        opt.classList.add('selected');
+        valEl.textContent = opt.textContent;
+        el.classList.remove('open');
+      });
+    });
+  });
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') adicionarClose(); });
+
+  document.addEventListener('click', () => {
+    document.getElementById('status-dd').classList.remove('open');
+    document.getElementById('perpage-dd').classList.remove('open');
+    ['regime-dd','ciclo-dd','add-status-dd'].forEach(id => document.getElementById(id).classList.remove('open'));
+  });
+
+  lucide.createIcons();
+</script>
+
+</body>
+</html>
