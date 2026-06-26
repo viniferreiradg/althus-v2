@@ -18,6 +18,7 @@ rm -rf public
 mkdir -p public/storybook-desktop/src
 mkdir -p public/storybook-app/src
 mkdir -p public/storybook-ui
+mkdir -p public/storybook-app-ui
 mkdir -p public/dashboard-rede
 mkdir -p public/dashboard-adm
 mkdir -p public/app
@@ -26,6 +27,7 @@ mkdir -p public/shared
 
 echo "→ Copying Storybook UI..."
 cp -r storybook-desktop/storybook-static/. public/storybook-ui/
+cp -r storybook-app/storybook-static/. public/storybook-app-ui/
 
 echo "→ Copying CSS source files..."
 cp -r storybook-desktop/src/. public/storybook-desktop/src/
