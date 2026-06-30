@@ -9,8 +9,8 @@
  *
  * IDs de página válidos:
  *   dashboard |
- *   financeiro-visao | btg-pactual | extrato-stripe | extrato-pagarme |
- *   mensalidades | repasses-cpos | cashback-tpv |
+ *   financeiro-visao | extrato-stripe | extrato-pagarme |
+ *   mensalidades | repasses-cpos |
  *   operacional-historico | operacional-cupons | logs |
  *   analise-operacional | analise-cupons |
  *   usuarios-cpos | usuarios-app | usuarios-emsps | usuarios-althus |
@@ -38,12 +38,10 @@
       icon: 'dollar-sign',
       children: [
         { id: 'financeiro-visao',   label: 'Visão geral',     href: '#' },
-        { id: 'btg-pactual',        label: 'BTG Pactual',     href: '#' },
         { id: 'extrato-stripe',     label: 'Extrato Stripe',  href: '#' },
         { id: 'extrato-pagarme',    label: 'Extrato Pagar.me', href: '#' },
         { id: 'mensalidades',       label: 'Mensalidades',    href: '#' },
         { id: 'repasses-cpos',      label: 'Repasses CPOs',   href: '#' },
-        { id: 'cashback-tpv',       label: 'Cashback por TPV', href: '#' },
       ],
     },
     {
@@ -181,7 +179,7 @@
         <div class="separator"></div>
         <div class="userRow">
           <div style="padding:2px;background:linear-gradient(135deg,var(--color-brand-300),var(--color-brand-500));border-radius:var(--radius-full);display:inline-flex;flex-shrink:0;">
-            <div class="avatar md"><img class="avatarImg" src="../src/perfil-admin.png" alt="Admin Althus" /></div>
+            <div class="avatar md"><span class="avatarInitials">AA</span></div>
           </div>
           <div class="userInfo">
             <div class="userName">Admin Althus</div>

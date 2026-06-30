@@ -4,7 +4,8 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 const palettes = [
   { name: 'Brand',  prefix: '--color-brand',  steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
-  { name: 'Gray',   prefix: '--color-gray',   steps: ['white','50','100','200','300','400','500','600','700','800','900','950'] },
+  { name: 'Gray',      prefix: '--color-gray',      steps: ['white','50','100','200','300','400','500','600','700','800','900','950'] },
+  { name: 'Gray Dark', prefix: '--color-gray-dark', steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Red',    prefix: '--color-red',    steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Green',  prefix: '--color-green',  steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
   { name: 'Blue',   prefix: '--color-blue',   steps: ['50','100','200','300','400','500','600','700','800','900','950'] },
@@ -13,9 +14,9 @@ const palettes = [
 
 function Swatch({ varName }: { varName: string }) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4 }}>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, width: 56, flexShrink: 0 }}>
       <div style={{ width: 48, height: 48, borderRadius: 8, background: `var(${varName})`, border: '1px solid rgba(0,0,0,.08)', boxShadow: '0 1px 3px rgba(0,0,0,.1)' }} />
-      <span style={{ fontSize: 10, color: '#666', fontFamily: 'monospace' }}>{varName.replace('--color-', '')}</span>
+      <span style={{ fontSize: 10, color: '#666', fontFamily: 'monospace', width: '100%', textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{varName.replace('--color-', '')}</span>
     </div>
   );
 }

@@ -136,7 +136,7 @@
               <td class="td tdMono tdSm">23.456.789/0001-01</td>
               <td class="td tdSm">Fernanda Lima</td>
               <td class="td tdSm">(21) 92345-6789</td>
-              <td class="td"><span class="badge" data-status="error"><span class="badgeDot"></span>Inativo</span></td>
+              <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Inativo</span></td>
               <td class="td tdSm">0</td>
               <td class="td tdActions">
                 <div class="cellActions">
@@ -303,8 +303,8 @@
       { nome: 'DCC-BH-01', localidade: 'Av. do Contorno, 200 — Belo Horizonte/MG', potencia: '50 kW', conector: 'Tipo 2', status: 'Ativo', st: 'success' },
     ],
     [ // GreenV (0 ativos — todos inativos)
-      { nome: 'GV-SP-01', localidade: 'Rua Augusta, 800 — São Paulo/SP', potencia: '22 kW', conector: 'Tipo 2', status: 'Inativo', st: 'error' },
-      { nome: 'GV-SP-02', localidade: 'Rua Augusta, 800 — São Paulo/SP', potencia: '22 kW', conector: 'Tipo 2', status: 'Inativo', st: 'error' },
+      { nome: 'GV-SP-01', localidade: 'Rua Augusta, 800 — São Paulo/SP', potencia: '22 kW', conector: 'Tipo 2', status: 'Inativo', st: 'disabled' },
+      { nome: 'GV-SP-02', localidade: 'Rua Augusta, 800 — São Paulo/SP', potencia: '22 kW', conector: 'Tipo 2', status: 'Inativo', st: 'disabled' },
     ],
     [ // movE (46)
       { nome: 'MVE-BH-01', localidade: 'Av. Amazonas, 300 — Belo Horizonte/MG', potencia: '50 kW', conector: 'CCS2',   status: 'Ativo', st: 'success' },
@@ -332,7 +332,7 @@
         <td class="td tdSm">${c.localidade}</td>
         <td class="td tdSm">${c.potencia}</td>
         <td class="td tdSm">${c.conector}</td>
-        <td class="td"><span class="badge" data-status="${c.st}">${c.status}</span></td>
+        <td class="td"><span class="badge" data-status="${c.st}"><span class="badgeDot"></span>${c.status}</span></td>
         <td class="td tdActions">
           <div class="cellActions">
             <button class="actionBtn" type="button" aria-label="Ver carregador"><i data-lucide="eye" width="15" height="15"></i></button>

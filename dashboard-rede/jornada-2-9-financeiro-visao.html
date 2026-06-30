@@ -24,13 +24,16 @@
 <main class="main">
   <div class="pageContent">
 
-    <!-- Cabeçalho com filtros -->
-    <header class="finPageHeader">
+    <!-- Page header -->
+    <header class="pageHeader">
       <div>
         <h1 class="pageTitle">Visão geral</h1>
         <p class="pageSubtitle">Monitore os dados financeiros da sua operação</p>
       </div>
-      <div class="finFilterBar">
+    </header>
+
+    <!-- Filter bar -->
+    <div class="finFilterBar">
         <!-- Dropdown: Carregador -->
         <div class="wrapper" id="charger-dropdown">
           <div class="trigger" id="charger-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
@@ -102,7 +105,6 @@
           Gerar relatório com IA
         </button>
       </div>
-    </header>
 
     <!-- 4 cards de métrica -->
     <div class="metricsGrid4">
@@ -121,95 +123,6 @@
         <p class="metricCardValue">R$ 59,00</p>
         <p class="metricCardMeta"><span class="metricCardGrowth">+12%</span> vs. mês anterior</p>
       </div>
-      <!-- BTG Pactual — variante azul -->
-      <div class="metricCard metricCardBtg">
-        <div class="metricCardBtgRow">
-          <span class="metricCardLabel">Saldo BTG Pactual</span>
-          <button class="btgRevealBtn" id="btg-reveal-btn" type="button" aria-label="Revelar saldo">
-            <i data-lucide="eye" width="16" height="16"></i>
-          </button>
-        </div>
-        <p class="metricCardValue" id="btg-value">●●●●●</p>
-        <p class="metricCardMeta">Atualizado agora — conta 88546</p>
-      </div>
-    </div>
-
-    <!-- Cashback por faixa de TPV -->
-    <section class="cashbackSection">
-      <div class="cashbackSectionHeader">
-        <div>
-          <h2 class="cashbackSectionTitle">Cashback por faixa de TPV</h2>
-          <p class="cashbackSectionSub">Quanto você recebe de volta com base no volume processado no mês</p>
-        </div>
-        <p class="cashbackTpvTotal">TPV do mês atual: <strong>R$ 128.430,00</strong></p>
-      </div>
-
-      <div class="cashbackLayout">
-        <!-- Esquerda: narrativa + barra de progresso -->
-        <div class="cashbackNarrative">
-          <p class="cashbackNarrativeText">
-            Você acumulou <strong>R$ 1.926,45</strong> de cashback este mês.
-            Faltam <strong>R$ 11.680,00</strong> em TPV para subir para <strong>2,0%</strong>
-            e ganhar mais <strong>R$ 240,00/mês</strong>.
-          </p>
-          <div class="tpvProgressWrap">
-            <div class="tpvProgressBar">
-              <div class="tpvProgressFill" id="tpv-fill"></div>
-            </div>
-            <div class="tpvProgressLabels">
-              <span>R$ 10 mil</span>
-              <span>R$ 30 mil</span>
-              <span class="tpvProgressLabelActive">R$ 50 mil ✓</span>
-              <span>R$ 150 mil</span>
-              <span>R$ 300 mil</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Direita: tabela de faixas -->
-        <ul class="tpvRangeList">
-          <li class="tpvRangeItem">
-            <span class="tpvRangePct">0,5%</span>
-            <span class="tpvRangeDesc">TPV de R$ 10.001,00 a R$ 30.000,00</span>
-          </li>
-          <li class="tpvRangeItem">
-            <span class="tpvRangePct">1%</span>
-            <span class="tpvRangeDesc">TPV de R$ 30.001,00 a R$ 50.000,00</span>
-          </li>
-          <li class="tpvRangeItem tpvRangeItemActive">
-            <span class="tpvRangePct">1,5%</span>
-            <span class="tpvRangeDesc">TPV de R$ 50.001,00 a R$ 150.000,00</span>
-            <span class="inlineBadge warning">Faixa atual</span>
-          </li>
-          <li class="tpvRangeItem">
-            <span class="tpvRangePct">2%</span>
-            <span class="tpvRangeDesc">TPV acima de R$ 150.001,00</span>
-            <span class="inlineBadge muted">Próxima</span>
-          </li>
-        </ul>
-      </div>
-
-      <!-- Saldo acumulado + Cashback do mês -->
-      <div class="cashbackSummaryGrid">
-        <div class="cashbackSummaryCard">
-          <p class="cashbackSummaryCardLabel">Saldo acumulado disponível</p>
-          <p class="cashbackSummaryCardValue">R$ 3.847,20</p>
-          <p class="cashbackSummaryCardMeta">Referente aos meses anteriores ainda não sacados</p>
-          <span class="inlineBadge success">Disponível para saque</span>
-        </div>
-        <div class="cashbackSummaryCard">
-          <p class="cashbackSummaryCardLabel">Cashback do mês atual</p>
-          <p class="cashbackSummaryCardValue">R$ 1.926,45</p>
-          <p class="cashbackSummaryCardMeta">Será creditado no saldo em 01/07/2026</p>
-          <span class="inlineBadge warning">Aguardando fechamento do mês</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- Ação: Solicitar saque -->
-    <div class="finActionBar">
-      <span class="finActionNote">Mínimo de R$ 200,00 · Processado em até 2 dias úteis</span>
-      <button class="btn primary" type="button">Solicitar saque via PIX</button>
     </div>
 
     <!-- Próximos recebimentos + Forma de pagamento (2 colunas) -->
@@ -432,9 +345,6 @@
     el.style.width = (el.dataset.pct || 0) + '%';
   });
 
-  /* TPV progress fill */
-  document.getElementById('tpv-fill').style.width = '41%';
-
   /* Notificações */
   function notifSheetOpen()  { document.getElementById('notif-sheet').classList.add('sheetOpen'); document.body.style.overflow = 'hidden'; }
   function notifSheetClose() { document.getElementById('notif-sheet').classList.remove('sheetOpen'); document.body.style.overflow = ''; }
@@ -463,18 +373,6 @@
       dd.classList.remove('open');
       ddTrigger.setAttribute('aria-expanded', 'false');
     });
-  });
-
-  /* BTG: revelar/ocultar saldo */
-  let btgRevealed = false;
-  document.getElementById('btg-reveal-btn').addEventListener('click', () => {
-    btgRevealed = !btgRevealed;
-    document.getElementById('btg-value').textContent = btgRevealed ? 'R$ 12.470,80' : '●●●●●';
-    document.getElementById('btg-reveal-btn').innerHTML =
-      btgRevealed
-        ? '<i data-lucide="eye-off" width="16" height="16"></i>'
-        : '<i data-lucide="eye" width="16" height="16"></i>';
-    lucide.createIcons();
   });
 
   /* Period tabs */

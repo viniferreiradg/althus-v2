@@ -25,13 +25,16 @@
 <main class="main">
   <div class="pageContent">
 
-    <!-- Cabeçalho com filtros -->
-    <header class="finPageHeader">
+    <!-- Page header -->
+    <header class="pageHeader">
       <div>
         <h1 class="pageTitle">Visão geral</h1>
         <p class="pageSubtitle">Monitore os dados financeiros da sua operação</p>
       </div>
-      <div class="finFilterBar">
+    </header>
+
+    <!-- Filter bar -->
+    <div class="finFilterBar">
         <!-- Dropdown: Carregador -->
         <div class="wrapper" id="charger-dropdown">
           <div class="trigger" id="charger-trigger" role="button" tabindex="0" aria-haspopup="listbox" aria-expanded="false">
@@ -96,7 +99,6 @@
           Gerar relatório com IA
         </button>
       </div>
-    </header>
 
     <!-- KPI Cards — linha 1 -->
     <div class="metricsGrid4">
@@ -123,7 +125,7 @@
     </div>
 
     <!-- KPI Cards — linha 2 -->
-    <div class="metricsGrid4">
+    <div class="metricsGrid3">
       <div class="metricCard">
         <span class="metricCardLabel">Total em custódia — Wallet</span>
         <p class="metricCardValue">R$ 42.180,00</p>
@@ -138,17 +140,6 @@
         <span class="metricCardLabel">Ticket médio por recarga</span>
         <p class="metricCardValue">R$ 59,00</p>
         <p class="metricCardMeta"><span class="metricCardGrowth">+12%</span> vs. mês anterior</p>
-      </div>
-      <!-- BTG Pactual — variante azul -->
-      <div class="metricCard metricCardBtg">
-        <div class="metricCardBtgRow">
-          <span class="metricCardLabel">Saldo BTG Pactual</span>
-          <button class="btgRevealBtn" id="btg-reveal-btn" type="button" aria-label="Revelar saldo">
-            <i data-lucide="eye" width="16" height="16"></i>
-          </button>
-        </div>
-        <p class="metricCardValue" id="btg-value">●●●●●</p>
-        <p class="metricCardMeta">Atualizado agora — conta 88546</p>
       </div>
     </div>
 
@@ -398,17 +389,6 @@
       dd.classList.remove('open');
       ddTrigger.setAttribute('aria-expanded', 'false');
     });
-  });
-
-  /* BTG: revelar/ocultar saldo */
-  let btgRevealed = false;
-  document.getElementById('btg-reveal-btn').addEventListener('click', () => {
-    btgRevealed = !btgRevealed;
-    document.getElementById('btg-value').textContent = btgRevealed ? 'R$ 12.470,80' : '●●●●●';
-    document.getElementById('btg-reveal-btn').innerHTML = btgRevealed
-      ? '<i data-lucide="eye-off" width="16" height="16"></i>'
-      : '<i data-lucide="eye" width="16" height="16"></i>';
-    lucide.createIcons();
   });
 
   /* FilterChips */

@@ -18,59 +18,6 @@
   <link rel="stylesheet" href="../storybook-desktop/src/components/Table/Table.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Pagination/Pagination.module.css" />
   <link rel="stylesheet" href="../storybook-desktop/src/components/Button/Button.module.css" />
-  <link rel="stylesheet" href="../storybook-desktop/src/components/Dialog/Dialog.module.css" />
-  <style>
-    .pageSizeSelect {
-      font-family: var(--font-body);
-      font-size: var(--font-size-sm);
-      color: var(--color-text-secondary);
-      background: var(--color-bg-default);
-      border: var(--border-width-thin) solid var(--color-border-subtle);
-      border-radius: var(--radius-xs);
-      padding: 2px var(--spacing-sm);
-      cursor: pointer;
-      outline: none;
-    }
-    .pageSizeSelect:focus { border-color: var(--color-border-focus); }
-    .paginLeft {
-      display: flex;
-      align-items: center;
-      gap: var(--spacing-sm);
-    }
-    .historySubtitle {
-      font-size: var(--font-size-sm);
-      color: var(--color-text-brand);
-      margin: calc(var(--spacing-xs) * -1) 0 var(--spacing-md);
-    }
-    .historyTable {
-      width: 100%;
-      border-collapse: collapse;
-      border: var(--border-width-thin) solid var(--color-border-subtle);
-      border-radius: var(--radius-sm);
-      overflow: hidden;
-      font-size: var(--font-size-sm);
-    }
-    .historyTable th {
-      padding: var(--spacing-sm) var(--spacing-md);
-      background: var(--color-bg-subtle);
-      font-weight: var(--font-weight-medium);
-      color: var(--color-text-secondary);
-      text-align: left;
-      border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
-    }
-    .historyTable td {
-      padding: var(--spacing-sm) var(--spacing-md);
-      border-bottom: var(--border-width-thin) solid var(--color-border-subtle);
-      color: var(--color-text-primary);
-      font-weight: var(--font-weight-regular);
-    }
-    .historyTable tr:last-child td { border-bottom: none; }
-    .historyTable td:first-child {
-      color: var(--color-text-brand);
-      white-space: nowrap;
-      width: 160px;
-    }
-  </style>
 </head>
 <body data-page="usuarios-app">
 
@@ -150,9 +97,9 @@
               </td>
               <td class="td tdActions">
                 <div class="cellActions">
-                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                  <a class="actionBtn" href="jornada-usuarios-app-historico.html" aria-label="Ver histórico">
                     <i data-lucide="history" width="16" height="16"></i>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -167,9 +114,9 @@
               </td>
               <td class="td tdActions">
                 <div class="cellActions">
-                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                  <a class="actionBtn" href="jornada-usuarios-app-historico.html" aria-label="Ver histórico">
                     <i data-lucide="history" width="16" height="16"></i>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -184,9 +131,9 @@
               </td>
               <td class="td tdActions">
                 <div class="cellActions">
-                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                  <a class="actionBtn" href="jornada-usuarios-app-historico.html" aria-label="Ver histórico">
                     <i data-lucide="history" width="16" height="16"></i>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -201,9 +148,9 @@
               </td>
               <td class="td tdActions">
                 <div class="cellActions">
-                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                  <a class="actionBtn" href="jornada-usuarios-app-historico.html" aria-label="Ver histórico">
                     <i data-lucide="history" width="16" height="16"></i>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -218,9 +165,9 @@
               </td>
               <td class="td tdActions">
                 <div class="cellActions">
-                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                  <a class="actionBtn" href="jornada-usuarios-app-historico.html" aria-label="Ver histórico">
                     <i data-lucide="history" width="16" height="16"></i>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -235,9 +182,9 @@
               </td>
               <td class="td tdActions">
                 <div class="cellActions">
-                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                  <a class="actionBtn" href="jornada-usuarios-app-historico.html" aria-label="Ver histórico">
                     <i data-lucide="history" width="16" height="16"></i>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -252,9 +199,9 @@
               </td>
               <td class="td tdActions">
                 <div class="cellActions">
-                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                  <a class="actionBtn" href="jornada-usuarios-app-historico.html" aria-label="Ver histórico">
                     <i data-lucide="history" width="16" height="16"></i>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -269,9 +216,9 @@
               </td>
               <td class="td tdActions">
                 <div class="cellActions">
-                  <button class="actionBtn" type="button" aria-label="Ver histórico" onclick="histOpen(this.closest('.tr').querySelector('.tdFirst').textContent.trim())">
+                  <a class="actionBtn" href="jornada-usuarios-app-historico.html" aria-label="Ver histórico">
                     <i data-lucide="history" width="16" height="16"></i>
-                  </button>
+                  </a>
                 </div>
               </td>
             </tr>
@@ -306,113 +253,8 @@
   </div><!-- /pageContent -->
 </main>
 
-<!-- ── Dialog de Histórico ── -->
-<div class="dialogOverlay" id="hist-dialog" style="display:none;" onclick="histClose()">
-  <div class="dialog sm" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-labelledby="hist-title">
-    <div class="dialogHeader">
-      <span class="dialogTitle" id="hist-title">Histórico</span>
-      <button class="dialogCloseBtn" onclick="histClose()" aria-label="Fechar" type="button">
-        <i data-lucide="x" width="16" height="16"></i>
-      </button>
-    </div>
-    <div class="dialogBody">
-      <p class="historySubtitle" id="hist-subtitle"></p>
-      <table class="historyTable">
-        <thead>
-          <tr>
-            <th>Data e horário</th>
-            <th>Ação</th>
-          </tr>
-        </thead>
-        <tbody id="hist-tbody"></tbody>
-      </table>
-    </div>
-    <div class="dialogFooter">
-      <button class="btn primary" type="button" onclick="histClose()">Fechar</button>
-    </div>
-  </div>
-</div>
-
 <script src="shared/sidebar.js"></script>
 <script>
-  /* ── Dados de histórico por usuário ── */
-  const HISTORY = {
-    'Ana Carolina Souza': {
-      email: 'ana.souza@gmail.com',
-      entries: [
-        { date: '10/06/2026 14:32', action: 'Recarga de R$ 100,00' },
-        { date: '02/06/2026 18:10', action: 'Recarga de R$ 50,00' },
-        { date: '20/05/2026 09:05', action: 'Sessão de carregamento — 32 kWh' },
-      ],
-    },
-    'Bruno Henrique Lima': {
-      email: 'bruno.lima@gmail.com',
-      entries: [
-        { date: '09/05/2026 09:15', action: 'Recarga de R$ 80,00' },
-        { date: '08/04/2026 17:30', action: 'Sessão de carregamento — 20 kWh' },
-      ],
-    },
-    'Camila Ferreira Alves': {
-      email: 'camila.alves@gmail.com',
-      entries: [],
-    },
-    'Daniel Oliveira Costa': {
-      email: 'daniel.costa@gmail.com',
-      entries: [],
-    },
-    'Eduarda Martins Rocha': {
-      email: 'eduarda.rocha@gmail.com',
-      entries: [
-        { date: '07/04/2026 16:20', action: 'Recarga de R$ 120,00' },
-        { date: '06/03/2026 11:00', action: 'Sessão de carregamento — 45 kWh' },
-        { date: '12/02/2026 08:45', action: 'Recarga de R$ 60,00' },
-      ],
-    },
-    'Felipe Augusto Ramos': {
-      email: 'felipe.ramos@gmail.com',
-      entries: [
-        { date: '05/03/2026 08:42', action: 'Recarga de R$ 200,00' },
-        { date: '14/01/2026 19:55', action: 'Sessão de carregamento — 55 kWh' },
-      ],
-    },
-    'Gabriela Nunes Pereira': {
-      email: 'gabriela.pereira@gmail.com',
-      entries: [
-        { date: '10/06/2026 10:11', action: 'Recarga de R$ 75,00' },
-        { date: '01/06/2026 14:22', action: 'Sessão de carregamento — 28 kWh' },
-        { date: '18/05/2026 09:30', action: 'Recarga de R$ 50,00' },
-      ],
-    },
-    'Henrique Tavares Dias': {
-      email: 'henrique.dias@gmail.com',
-      entries: [
-        { date: '06/12/2025 13:57', action: 'Recarga de R$ 150,00' },
-        { date: '10/11/2025 10:20', action: 'Sessão de carregamento — 40 kWh' },
-      ],
-    },
-  };
-
-  function histOpen(name) {
-    const user = HISTORY[name];
-    document.getElementById('hist-subtitle').textContent = name + ' — ' + (user ? user.email : '');
-    const tbody = document.getElementById('hist-tbody');
-    if (!user || user.entries.length === 0) {
-      tbody.innerHTML = '<tr><td colspan="2" style="text-align:center;color:var(--color-text-tertiary);">Nenhum registro encontrado.</td></tr>';
-    } else {
-      tbody.innerHTML = user.entries.map(e =>
-        `<tr><td>${e.date}</td><td>${e.action}</td></tr>`
-      ).join('');
-    }
-    document.getElementById('hist-dialog').style.display = 'flex';
-    lucide.createIcons();
-  }
-
-  function histClose() {
-    document.getElementById('hist-dialog').style.display = 'none';
-  }
-
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') histClose(); });
-
   /* ── Dropdown de status ── */
   document.querySelectorAll('[id$="-dd"]').forEach(dd => {
     const trigger  = dd.querySelector('.trigger');

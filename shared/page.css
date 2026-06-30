@@ -515,6 +515,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
 }
 /* MetricCard usa display:flex via CSS do componente, mas quando linkado junto
    com DonutChart/LineChart o .root pode ser sobrescrito — garantimos aqui */
@@ -743,6 +744,14 @@ body {
 .toggleIcon-right { display: none; }
 .closed .navChevron { display: none; }
 .closed .navSubList { display: none !important; }
+
+/* ── Sidebar colapsada — centralizar ícones ─────────────────────────────────── */
+.closed .navItem    { justify-content: center; padding-left: 0; padding-right: 0; gap: 0; }
+.closed .logoRow    { justify-content: center; padding: 0; }
+.closed .logoWrap   { flex: 0 0 auto; }
+.closed .userRow    { justify-content: center; padding: 0; }
+.closed .iconRow    { padding: 0; }
+.closed .iconBtn    { margin-bottom: var(--spacing-xs); }
 
 /* ── Logo — visibilidade por tema e estado ───────────────────────────────────── */
 .logo-img { display: block; filter: brightness(0) invert(1); }
@@ -1307,6 +1316,7 @@ body {
   gap: var(--spacing-sm);
   flex-shrink: 0;
   padding-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-lg);
 }
 
 /* ── Grid de 4 métricas ──────────────────────────────────────────────────── */
@@ -1395,11 +1405,13 @@ body {
   white-space: nowrap;
   flex-shrink: 0;
 }
-.inlineBadge.success { background: var(--color-status-success-bg); color: var(--color-status-success-fg); }
-.inlineBadge.warning { background: var(--color-status-warning-bg); color: var(--color-status-warning-fg); }
-.inlineBadge.danger  { background: var(--color-status-error-bg);   color: var(--color-status-error-fg); }
-.inlineBadge.muted   { background: var(--color-bg-subtle); color: var(--color-text-secondary); border: var(--border-width-thin) solid var(--color-border-subtle); }
-.inlineBadge.pending { background: var(--color-status-info-bg); color: var(--color-status-info-fg); }
+.inlineBadge.success  { background: var(--color-status-success-bg); color: var(--color-status-success-fg); }
+.inlineBadge.warning  { background: var(--color-status-warning-bg); color: var(--color-status-warning-fg); }
+.inlineBadge.error,
+.inlineBadge.danger   { background: var(--color-status-error-bg);   color: var(--color-status-error-fg); }
+.inlineBadge.disabled,
+.inlineBadge.muted    { background: var(--color-status-disabled-bg); color: var(--color-status-disabled-fg); }
+.inlineBadge.info     { background: var(--color-status-info-bg);    color: var(--color-status-info-fg); }
 
 /* ── Cashback por TPV — layout da linha de filtros ──────────────────────── */
 .cashbackTabsRow {
@@ -1908,7 +1920,10 @@ body {
   gap: var(--spacing-sm);
   flex-shrink: 0;
   padding-top: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
 }
+#scope-dd,
+#cupom-dd { width: 208px; }
 .analiseMetricGrid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
@@ -1955,9 +1970,9 @@ body {
 }
 .analiseChartNote {
   font-size: var(--font-size-xs);
-  color: var(--color-text-brand);
+  color: var(--color-text-secondary);
   line-height: var(--line-height-normal);
-  margin: 0;
+  margin: auto 0 0;
 }
 /* Colored bar fills for occupation / idle time charts */
 .barChartFill.green  { background: var(--color-action-success); }
@@ -2413,6 +2428,7 @@ body {
   align-items: center;
   gap: var(--spacing-sm);
   flex-shrink: 0;
+  margin-left: auto;
 }
 
 /* ── Dialog: subtítulo opcional abaixo do título ────────────────────────── */
@@ -2971,4 +2987,23 @@ body {
   transition: background var(--transition-fast), color var(--transition-fast);
 }
 .tdActionBtn:hover { background: var(--color-bg-subtle); color: var(--color-text-primary); }
+
+/* ── Paginação: lado esquerdo com seletor de itens por página ────────────── */
+.paginLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+.pageSizeSelect {
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-default);
+  border: var(--border-width-thin) solid var(--color-border-subtle);
+  border-radius: var(--radius-xs);
+  padding: 2px var(--spacing-sm);
+  cursor: pointer;
+  outline: none;
+}
+.pageSizeSelect:focus { border-color: var(--color-border-focus); }
 

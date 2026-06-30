@@ -33,18 +33,12 @@
   <div class="blob2"></div>
 
   <!-- Page header -->
-  <div class="pageHeader">
-    <div class="pageHeaderRow">
-      <div>
-        <h1 class="pageTitle">Visão geral</h1>
-        <p class="pageSubtitle">Crie e gerencie cupons de desconto para sua rede</p>
-      </div>
-      <button type="button" class="btn primary hasLeft" onclick="novoCupomOpen()">
-        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
-        Criar cupom
-      </button>
+  <header class="pageHeader">
+    <div>
+      <h1 class="pageTitle">Visão geral</h1>
+      <p class="pageSubtitle">Crie e gerencie cupons de desconto para sua rede</p>
     </div>
-  </div>
+  </header>
 
   <!-- Toolbar -->
   <div class="toolbar">
@@ -70,6 +64,12 @@
           <div class="option" data-value="inativo">Inativo</div>
         </div>
       </div>
+    </div>
+    <div class="toolbarBtns">
+      <button type="button" class="btn primary hasLeft" onclick="novoCupomOpen()">
+        <span class="icon"><i data-lucide="plus" width="16" height="16"></i></span>
+        Criar cupom
+      </button>
     </div>
   </div>
 
@@ -179,7 +179,7 @@
               <td class="td tdMono">31/10/2026</td>
               <td class="td">3</td>
               <td class="td">30</td>
-              <td class="td"><span class="badge" data-status="neutral"><span class="badgeDot"></span>Inativo</span></td>
+              <td class="td"><span class="badge" data-status="disabled"><span class="badgeDot"></span>Inativo</span></td>
               <td class="td">
                 <div class="cellActions">
                   <button class="actionBtn" aria-label="Visualizar cupom"><i data-lucide="eye" width="15" height="15"></i></button>

@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../../storybook-app/src/tokens/tokens.css" />
   <link rel="stylesheet" href="../../shared/page-mobile.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/AppBar/AppBar.module.css" />
-  <link rel="stylesheet" href="../../storybook-app/src/components/Input/Input.module.css" />
+  <link rel="stylesheet" href="../../storybook-app/src/components/OTPInput/OTPInput.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/Button/Button.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/BottomNav/BottomNav.module.css" />
   <link rel="stylesheet" href="../../storybook-app/src/components/NotificationBadge/NotificationBadge.module.css" />
@@ -61,11 +61,16 @@
       </div>
     </div>
 
-    <!-- Confirmação por senha -->
+    <!-- Confirmação por PIN -->
     <div class="wrapper">
-      <label class="label" for="confirm-senha">Confirme sua senha para continuar</label>
-      <div class="inputWrapper">
-        <input class="input" id="confirm-senha" type="password" placeholder="••••••••" />
+      <label class="label">Confirme seu PIN para continuar</label>
+      <div class="otpRoot" id="otp-pin" role="group" aria-label="PIN de confirmação">
+        <input class="otpCell otpCellMasked" type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 1 de 6" />
+        <input class="otpCell otpCellMasked" type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 2 de 6" />
+        <input class="otpCell otpCellMasked" type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 3 de 6" />
+        <input class="otpCell otpCellMasked" type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 4 de 6" />
+        <input class="otpCell otpCellMasked" type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 5 de 6" />
+        <input class="otpCell otpCellMasked" type="text" maxlength="1" inputmode="numeric" aria-label="Dígito 6 de 6" />
       </div>
     </div>
 
@@ -86,6 +91,25 @@
     var router = (window.parent && window.parent.router)
       ? window.parent.router
       : { push: function(){}, pop: function(){}, replace: function(){}, modal: function(){}, closeModal: function(){}, tab: function(){} };
+
+    (function () {
+      var cells   = Array.from(document.querySelectorAll('#otp-pin .otpCell'));
+      var btnExcluir = document.querySelector('.btn.destructive');
+      btnExcluir.disabled = true;
+
+      cells.forEach(function (cell, i) {
+        cell.addEventListener('input', function () {
+          cell.value = cell.value.replace(/\D/g, '').slice(-1);
+          cell.classList.toggle('filled', cell.value.length > 0);
+          if (cell.value && i < cells.length - 1) cells[i + 1].focus();
+          btnExcluir.disabled = !cells.every(function (c) { return c.value.length > 0; });
+        });
+        cell.addEventListener('keydown', function (e) {
+          if (e.key === 'Backspace' && cell.value === '' && i > 0) cells[i - 1].focus();
+        });
+        cell.addEventListener('focus', function () { cell.select(); });
+      });
+    }());
   </script>
 
   <script>lucide.createIcons();</script>

@@ -39,12 +39,6 @@
       ],
     },
     {
-      id: 'btg',
-      label: 'BTG Pactual',
-      icon: 'landmark',
-      href: '#',
-    },
-    {
       id: 'operacional',
       label: 'Operacional',
       icon: 'activity',
@@ -175,7 +169,7 @@
         <div class="separator"></div>
         <div class="userRow">
           <div style="padding:2px;background:linear-gradient(135deg,var(--color-gray-300),var(--color-gray-500));border-radius:var(--radius-full);display:inline-flex;flex-shrink:0;">
-            <div class="avatar md"><img class="avatarImg" src="../src/perfl-rede.png" alt="Admin Rede" /></div>
+            <div class="avatar md"><span class="avatarInitials">AR</span></div>
           </div>
           <div class="userInfo">
             <div class="userName">Admin Rede</div>
